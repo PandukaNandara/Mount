@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXTabPane?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="ActivityProfile" styleClass="main-frame" stylesheets="@../../../css/size.css" xmlns="http://javafx.com/javafx/8.0.141" fx:controller="lk.ijse.mountCalvary.controller.activity.profile.ActivityProfileController">
+   <top>
+      <AnchorPane fx:id="bpActivityProfileTop" minHeight="-Infinity" minWidth="-Infinity" prefHeight="78.0" prefWidth="1235.0" style="-fx-background-color: #F2F2F2;" BorderPane.alignment="CENTER">
+         <children>
+            <JFXButton fx:id="btSearch" layoutX="1277.0" layoutY="20.0" onAction="#btSearch_onAction" prefHeight="34.0" prefWidth="116.0" style="-fx-background-color: #2196F3;" text="Search" textFill="WHITE" />
+            <Label layoutX="14.0" layoutY="24.0" prefHeight="34.0" prefWidth="282.0" text="Activity Profile">
+               <font>
+                  <Font size="22.0" />
+               </font>
+            </Label>
+            <JFXComboBox fx:id="cboxActivity" labelFloat="true" layoutX="793.0" layoutY="25.0" onAction="#cboxActivity_onAction" prefHeight="25.0" prefWidth="429.0" promptText="Activity" />
+         </children>
+      </AnchorPane>
+   </top>
+   <center>
+      <JFXTabPane minHeight="549.0" prefHeight="549.0" prefWidth="470.0" rotateGraphic="true" stylesheets="@../../../css/size.css" BorderPane.alignment="CENTER">
+         <Tab closable="false" text="Activity Details">
+         <content>
+            <fx:include fx:id="activityDetail" source="ActivityDetail.fxml" />
+         </content>
+      </Tab>
+         <Tab closable="false" text="Attendant Sheet">
+            <fx:include fx:id="attendantSheet" source="AttendantSheet.fxml" />
+         </Tab>
+         <Tab closable="false" text="Joined student">
+            <content>
+               <fx:include fx:id="joinedStudent" source="JoinedStudent.fxml" />
+            </content>
+         </Tab>
+         <Tab closable="false" text="Event and competition">
+            <content>
+               <fx:include fx:id="eventAndCompetitionOfActivity" source="EventAndCompetitionOfActivity.fxml" />
+            </content>
+         </Tab>
+         <Tab closable="false" text="Payment">
+            <content>
+               <fx:include fx:id="activityPayment" source="ActivityPayment.fxml" />
+            </content>
+         </Tab>
+      </JFXTabPane>
+   </center>
+</BorderPane>

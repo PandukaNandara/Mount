@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="acStudentMenu" prefHeight="785.0" prefWidth="1235.0" style="-fx-background-color: white;" styleClass="main-frame" stylesheets="@../../css/size.css" xmlns="http://javafx.com/javafx/8.0.141" fx:controller="lk.ijse.mountCalvary.controller.basic.StudentMenu_controller">
+   <children>
+      <JFXButton fx:id="btBack" layoutX="36.0" layoutY="24.0" onAction="#btBack_onAction" prefHeight="33.0" prefWidth="69.0" text="Back">
+         <graphic>
+            <FontAwesomeIconView glyphName="ARROW_LEFT" size="25" />
+         </graphic>
+      </JFXButton>
+      <VBox alignment="CENTER" layoutX="1.0" layoutY="310.0" prefHeight="251.0" prefWidth="1440.0" spacing="40.0">
+         <children>
+            <JFXButton fx:id="btStudentProfile" onAction="#btStudentProfile_onAction" prefHeight="65.0" prefWidth="554.0" style="-fx-background-color: #2196F3;" text="Student Profile" textFill="WHITE">
+               <font>
+                  <Font size="27.0" />
+               </font>
+            </JFXButton>
+            <JFXButton fx:id="btNewStudent" onAction="#btNewStudent_onAction" prefHeight="65.0" prefWidth="554.0" style="-fx-background-color: #2196F3;" text="New Student" textFill="WHITE">
+               <font>
+                  <Font size="27.0" />
+               </font>
+            </JFXButton>
+            <JFXButton fx:id="btUpdateStudent" onAction="#btUpdateStudent_onAction" prefHeight="65.0" prefWidth="554.0" style="-fx-background-color: #2196F3;" text="Update Student" textFill="WHITE">
+               <font>
+                  <Font size="27.0" />
+               </font>
+            </JFXButton>
+         </children>
+      </VBox>
+   </children>
+   <padding>
+      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+   </padding>
+</AnchorPane>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ScrollPane?>
+<ScrollPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-image: white;" styleClass="main-frame" stylesheets="@../../css/size.css" xmlns="http://javafx.com/javafx/8.0.141" fx:controller="sample.z_junk.junk.NewCompetition_controller">
+   <content>
+      <fx:include fx:id="NewCompetitionImpl" source="NewCompetitionImpl.fxml"/>
+   </content>
+</ScrollPane>

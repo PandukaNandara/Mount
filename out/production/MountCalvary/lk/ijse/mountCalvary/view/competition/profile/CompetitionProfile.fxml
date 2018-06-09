@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXTabPane?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="bpCompetitionProfile" styleClass="main-frame" stylesheets="@../../../css/size.css" xmlns="http://javafx.com/javafx/8.0.141" fx:controller="lk.ijse.mountCalvary.controller.competition.profile.CompetitionProfileController">
+   <top>
+      <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="78.0" prefWidth="1174.0" style="-fx-background-color: #F2F2F2;" BorderPane.alignment="CENTER">
+         <children>
+            <JFXButton fx:id="btSearch" layoutX="1287.0" layoutY="24.0" onAction="#btSearch_onAction" prefHeight="34.0" prefWidth="116.0" style="-fx-background-color: #2196F3;" text="Search" textFill="WHITE" />
+            <Label layoutX="14.0" layoutY="24.0" prefHeight="34.0" prefWidth="282.0" text="Competition Profile">
+               <font>
+                  <Font size="22.0" />
+               </font>
+            </Label>
+            <JFXComboBox fx:id="cboxCompetitionName" labelFloat="true" layoutX="914.0" layoutY="29.0" onAction="#cboxCompetitionName_onAction" prefHeight="25.0" prefWidth="335.0" promptText="Competition Name" unFocusColor="BLACK" />
+         </children>
+      </AnchorPane>
+   </top>
+   <center>
+      <JFXTabPane BorderPane.alignment="CENTER">
+         <tabs>
+            <Tab text="Competition Detail">
+               <fx:include fx:id="competitionDetail" source="CompetitionDetail.fxml"/>
+            </Tab>
+            <Tab text="Event and Participation">
+               <fx:include fx:id="eventAndActivity" source="EventAndActivity.fxml"/>
+            </Tab>
+         </tabs>
+      </JFXTabPane>
+   </center>
+</BorderPane>

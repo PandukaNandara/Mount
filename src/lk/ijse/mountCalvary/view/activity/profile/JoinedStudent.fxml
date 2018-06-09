@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import de.jensd.fx.glyphs.icons525.Icons525View?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="JoinedStudent" prefHeight="745.0" prefWidth="1022.0" styleClass="profile-frame" stylesheets="@../../../css/size.css" xmlns="http://javafx.com/javafx/8.0.141" fx:controller="lk.ijse.mountCalvary.controller.activity.profile.JoinedStudentController">
+   <children>
+      <Label layoutX="69.0" layoutY="35.0" prefHeight="40.0" prefWidth="209.0" text="Joined Student">
+         <font>
+            <Font name="Arial Bold" size="18.0" />
+         </font>
+      </Label>
+      <TableView fx:id="tblStudentList" layoutX="69.0" layoutY="163.0" prefHeight="550.0" prefWidth="1306.0">
+         <columns>
+            <TableColumn fx:id="colStudent" prefWidth="601.5" text="Student" />
+            <TableColumn fx:id="colClass" prefWidth="601.5" text="Class" />
+            <TableColumn fx:id="colJoinedDate" minWidth="0.0" prefWidth="301.0" text="Joined date" />
+         </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+      </TableView>
+      <JFXButton fx:id="btPrint" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" layoutX="1312.0" layoutY="21.0" onAction="#btPrint_onAction" prefHeight="77.0" prefWidth="79.0" ripplerFill="WHITE" style="-fx-background-color: #2196f3;" text="Print" textAlignment="CENTER" textFill="WHITE">
+         <graphic>
+            <Icons525View fill="WHITE" glyphName="PRINTER" size="50" wrappingWidth="49.0" />
+         </graphic>
+      </JFXButton>
+      <JFXComboBox fx:id="cboxTimeRange" labelFloat="true" layoutX="1181.0" layoutY="126.0" onAction="#cboxTimeRange_onAction" prefHeight="25.0" prefWidth="194.0" promptText="Time range" />
+   </children>
+</AnchorPane>

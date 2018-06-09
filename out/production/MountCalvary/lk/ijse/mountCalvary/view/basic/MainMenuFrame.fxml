@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import de.jensd.fx.glyphs.emojione.EmojiOneView?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import de.jensd.fx.glyphs.materialicons.MaterialIconView?>
+<?import de.jensd.fx.glyphs.octicons.OctIconView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="bpMainMenu" prefHeight="900.0" prefWidth="1600.0" styleClass="parent" stylesheets="@../../css/size.css" xmlns="http://javafx.com/javafx/8.0.141" fx:controller="lk.ijse.mountCalvary.controller.basic.MainMenuFrame_controller">
+   <left>
+      <VBox prefHeight="900.0" prefWidth="160.0" style="-fx-background-color: #3C3F41;" BorderPane.alignment="CENTER">
+         <children>
+            <JFXButton fx:id="btMainMenu" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" onAction="#btMainMenu_onAction" prefHeight="80.0" prefWidth="301.0" ripplerFill="#2196f3" text="Main Menu" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+               <graphic>
+                  <FontAwesomeIconView fill="WHITE" glyphName="TABLE" size="25" wrappingWidth="27.0" />
+               </graphic>
+            </JFXButton>
+            <JFXButton fx:id="btStudentMenu" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" onAction="#btStudentMenu_onAction" prefHeight="80.0" prefWidth="300.0" ripplerFill="#2196f3" text="Student" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+               <graphic>
+                  <FontAwesomeIconView fill="WHITE" glyphName="USER" size="25" text="" wrappingWidth="19.0" />
+               </graphic>
+            </JFXButton>
+            <JFXButton fx:id="btActivityMenu" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" onAction="#btActivityMenu_onAction" prefHeight="80.0" prefWidth="300.0" ripplerFill="#2196f3" text="Activity" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+               <graphic>
+                  <FontAwesomeIconView fill="WHITE" glyphName="SOCCER_BALL_ALT" size="25" wrappingWidth="29.0" />
+               </graphic>
+            </JFXButton>
+            <JFXButton fx:id="btCompetitionMenu" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" ellipsisString="" onAction="#btCompetitionMenu_onAction" prefHeight="80.0" prefWidth="300.0" ripplerFill="#2196f3" text="Competition" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+               <graphic>
+                  <EmojiOneView fill="WHITE" glyphName="BASKETBALL_PLAYER" size="25" />
+               </graphic>
+            </JFXButton>
+            <JFXButton fx:id="btTeacherMenu" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" onAction="#btTeacherMenu_onAction" prefHeight="80.0" prefWidth="300.0" ripplerFill="#2196f3" text="Teacher" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+               <graphic>
+                  <EmojiOneView fill="WHITE" glyphName="MORTAR_BOARD" size="25" />
+               </graphic>
+            </JFXButton>
+            <JFXButton fx:id="btPayment" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" onAction="#btPayment_onAction" prefHeight="80.0" prefWidth="300.0" ripplerFill="#2196f3" text="Make Payment" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+               <graphic>
+                  <FontAwesomeIconView fill="WHITE" glyphName="MONEY" size="25" />
+               </graphic>
+            </JFXButton>
+            <JFXButton fx:id="btUpdateAttendanceMenu" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" onAction="#btUpdateAttendanceMenu_onAction" prefHeight="80.0" prefWidth="300.0" ripplerFill="#2196f3" text="Update attendance" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+               <graphic>
+                  <OctIconView fill="WHITE" glyphName="REPO" size="25" />
+               </graphic>
+            </JFXButton>
+            <JFXButton fx:id="btSpecialReportMenu" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" onAction="#btSpecialReportMenu_onAction" prefHeight="80.0" prefWidth="300.0" ripplerFill="#2196f3" text="Special Report" textFill="WHITE" visible="false">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+               <graphic>
+                  <OctIconView fill="WHITE" glyphName="FILE_TEXT" size="25" />
+               </graphic>
+            </JFXButton>
+            <Region prefHeight="201.0" prefWidth="160.0" VBox.vgrow="NEVER" />
+            <JFXButton fx:id="btSettingsMenu" alignment="CENTER" buttonType="RAISED" onAction="#btSettingsMenu_onAction" prefHeight="47.0" prefWidth="300.0" ripplerFill="#2196f3" text="Settings" textFill="WHITE">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <graphic>
+                  <MaterialIconView fill="WHITE" glyphName="SETTINGS" size="25" />
+               </graphic>
+            </JFXButton>
+         </children>
+      </VBox>
+   </left>
+   <center>
+      <VBox fx:id="acMenu" alignment="CENTER" minWidth="591.0" prefWidth="591.0" styleClass="main-frame" stylesheets="@../../css/size.css" BorderPane.alignment="CENTER" />
+   </center>
+</BorderPane>

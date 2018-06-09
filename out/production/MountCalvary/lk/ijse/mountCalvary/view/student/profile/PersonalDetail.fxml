@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXRadioButton?>
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import de.jensd.fx.glyphs.icons525.Icons525View?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="personalDetail" prefHeight="745.0" prefWidth="1022.0" styleClass="profile-frame" stylesheets="@../../../css/size.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.mountCalvary.controller.student.profile.PersonalDetailController">
+    <children>
+        <JFXTextField fx:id="txtStudentName" editable="false" labelFloat="true" layoutX="238.0" layoutY="79.0" prefHeight="29.0" prefWidth="921.0" promptText="Student name" />
+        <Label layoutX="50.0" layoutY="26.0" prefHeight="36.0" prefWidth="309.0" text="Personal Details">
+            <font>
+                <Font name="System Bold" size="18.0" />
+            </font>
+        </Label>
+        <JFXRadioButton fx:id="rbMale" layoutX="384.0" layoutY="136.0" text="Male">
+         <toggleGroup>
+            <ToggleGroup fx:id="gender" />
+         </toggleGroup></JFXRadioButton>
+        <JFXRadioButton fx:id="rbFemale" layoutX="493.0" layoutY="136.0" text="Female" toggleGroup="$gender" />
+        <TableView fx:id="tblTelNo" fixedCellSize="0.0" layoutX="47.0" layoutY="344.0" prefHeight="102.0" prefWidth="1322.0">
+            <columns>
+                <TableColumn fx:id="colTelNo" prefWidth="820.0" text="Telephone Number" />
+            </columns>
+            <columnResizePolicy>
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+            </columnResizePolicy>
+        </TableView>
+        <JFXTextField fx:id="txtMotherName" editable="false" labelFloat="true" layoutX="47.0" layoutY="284.0" prefHeight="25.0" prefWidth="615.0" promptText="Mother's name" />
+        <JFXTextField fx:id="txtFatherName" editable="false" labelFloat="true" layoutX="707.0" layoutY="284.0" prefHeight="25.0" prefWidth="662.0" promptText="Father's name" />
+        <JFXTextField fx:id="txtStudentID" editable="false" labelFloat="true" layoutX="50.0" layoutY="80.0" prefHeight="25.0" prefWidth="162.0" promptText="Student ID" />
+        <Label layoutX="241.0" layoutY="126.0" prefHeight="36.0" prefWidth="143.0" text="Gender" />
+        <JFXTextArea fx:id="txtaDescStudent" editable="false" labelFloat="true" layoutX="47.0" layoutY="558.0" prefHeight="98.0" prefWidth="1330.0" promptText="About this student" />
+      <JFXTextField fx:id="txtAddress" editable="false" labelFloat="true" layoutX="47.0" layoutY="479.0" prefHeight="25.0" prefWidth="1322.0" promptText="Address" />
+      <JFXTextField fx:id="txtBirthDay" editable="false" labelFloat="true" layoutX="47.0" layoutY="238.0" prefHeight="25.0" prefWidth="355.0" promptText="Birth day" />
+      <JFXTextField fx:id="txtGrade" editable="false" labelFloat="true" layoutX="50.0" layoutY="179.0" prefHeight="25.0" prefWidth="162.0" promptText="Grade" />
+      <JFXTextField fx:id="txtClass" editable="false" labelFloat="true" layoutX="241.0" layoutY="179.0" prefHeight="25.0" prefWidth="162.0" promptText="Class" />
+      <JFXTextField fx:id="txtHouse" editable="false" labelFloat="true" layoutX="51.0" layoutY="124.0" prefHeight="25.0" prefWidth="162.0" promptText="House" />
+      <JFXButton fx:id="btPrint" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" layoutX="1290.0" layoutY="23.0" onAction="#btPrint_onAction" prefHeight="87.0" prefWidth="79.0" ripplerFill="WHITE" style="-fx-background-color: #2196f3;" text="Print" textAlignment="CENTER" textFill="WHITE">
+         <graphic>
+            <Icons525View fill="WHITE" glyphName="PRINTER" size="50" wrappingWidth="49.0" />
+         </graphic>
+      </JFXButton>
+      <JFXButton fx:id="ptPdf" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" layoutX="1290.0" layoutY="136.0" onAction="#ptPdf_onAction" prefHeight="87.0" prefWidth="79.0" ripplerFill="WHITE" style="-fx-background-color: #EE1B07;" text="Get PDF" textAlignment="CENTER" textFill="WHITE" visible="false">
+         <graphic>
+            <Icons525View fill="WHITE" glyphName="ACROBAT" size="50" wrappingWidth="49.0" />
+         </graphic>
+      </JFXButton>
+      <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" layoutX="1211.0" layoutY="124.0" prefHeight="87.0" prefWidth="79.0" ripplerFill="WHITE" style="-fx-background-color: green;" text="Save as" textAlignment="CENTER" textFill="WHITE" visible="false">
+         <graphic>
+            <FontAwesomeIconView fill="WHITE" glyphName="SAVE" size="50" />
+         </graphic>
+      </JFXButton>
+
+    </children>
+</AnchorPane>

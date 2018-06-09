@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="acAttendanceAndActivityOfStudent" prefHeight="745.0" prefWidth="1022.0" xmlns="http://javafx.com/javafx/8.0.141" fx:controller="sample.z_junk.controller.student.profile.AttendanceAndActivityOfStudent_controller">
+   <children>
+      <Label layoutX="38.0" layoutY="14.0" prefHeight="36.0" prefWidth="309.0" text="Attendance and activity of student">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <TableView fx:id="tblActivity" layoutX="37.0" layoutY="98.0" prefHeight="107.0" prefWidth="889.0">
+         <columns>
+            <TableColumn fx:id="colActivity1_tblActivity" prefWidth="524.0" text="Activity " />
+            <TableColumn fx:id="colJoinedDate_tblActivity" prefWidth="295.0" text="Joined date" />
+         </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+      </TableView>
+      <TableView fx:id="tblAttendantSheet" layoutX="38.0" layoutY="317.0" prefHeight="358.0" prefWidth="889.0">
+         <columns>
+            <TableColumn fx:id="colDate_tblAttendantSheet" prefWidth="295.0" text="Date" />
+            <TableColumn fx:id="colActivity_tblAttendantSheet" prefWidth="524.0" text="Activity " />
+            <TableColumn fx:id="colTeacherInCharge_tblAttendantSheet" prefWidth="295.0" text="Teacher in charge" />
+         </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+      </TableView>
+      <JFXComboBox fx:id="cboxTimeRange" labelFloat="true" layoutX="631.0" layoutY="273.0" onAction="#cboxTimeRange_onAction" prefHeight="25.0" prefWidth="295.0" promptText="Time range" />
+      <JFXComboBox fx:id="cboxActivity" labelFloat="true" layoutX="38.0" layoutY="273.0" onAction="#cboxActivity_onAction" prefHeight="25.0" prefWidth="295.0" promptText="Activity" />
+      <Label layoutX="38.0" layoutY="230.0" prefHeight="36.0" prefWidth="309.0" text="Attendance ">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="38.0" layoutY="50.0" prefHeight="36.0" prefWidth="309.0" text="Activity">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

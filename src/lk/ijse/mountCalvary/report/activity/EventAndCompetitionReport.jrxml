@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
+<jasperReport xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://jasperreports.sourceforge.net/jasperreports" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="EventAndCompetition" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9d17c301-6555-4396-be9c-b15caedc5129">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<style name="Table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="Participation" uuid="011f974d-0646-44d6-a510-ce733cab356b">
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+		<queryString>
+			<![CDATA[]]>
+		</queryString>
+		<field name="performance" class="java.lang.String"/>
+		<field name="result" class="java.lang.String"/>
+		<field name="studentName" class="java.lang.String"/>
+		<field name="groupName" class="java.lang.String"/>
+	</subDataset>
+	<parameter name="ActivityName" class="java.lang.String"/>
+	<parameter name="EventName" class="java.lang.String"/>
+	<parameter name="comDate" class="java.lang.String"/>
+	<parameter name="CompetitionName" class="java.lang.String"/>
+	<parameter name="AgeGroup" class="java.lang.String"/>
+	<parameter name="Participation" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource"/>
+	<parameter name="seeAgeGroup" class="java.lang.Boolean"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="139" splitType="Stretch">
+			<image>
+				<reportElement x="10" y="0" width="100" height="90" uuid="3102fc02-6451-46fa-ba93-55aaa9486207"/>
+				<imageExpression><![CDATA["D:/Project Mount Calvery/mchs-logo-good_1_orig.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="120" y="18" width="313" height="23" uuid="0e1b8940-14f6-47e9-b976-31d11d12ec77"/>
+				<textElement textAlignment="Left">
+					<font size="16" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[Mount Calvary High School - Hapugala]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="ElementGroupHeight" x="120" y="61" width="280" height="20" uuid="a3c9fb42-b64f-4bb4-a54e-d64a6c734ec8"/>
+				<textElement textAlignment="Left">
+					<font size="12" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Event and Competition]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="120" y="41" width="280" height="20" uuid="0eb09994-254c-47b5-98d2-5a4cee46e725"/>
+				<textElement textAlignment="Left">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Extra Curriculum Activity Management System]]></text>
+			</staticText>
+			<line>
+				<reportElement x="5" y="100" width="545" height="1" uuid="d0ddf341-5be5-4ee8-b46a-2d73d6f97a20"/>
+				<graphicElement>
+					<pen lineColor="#7D7D7D"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement x="90" y="116" width="180" height="14" uuid="f3292343-c250-4e4f-bd29-1345cce39573"/>
+				<textFieldExpression><![CDATA[$P{ActivityName}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="10" y="116" width="80" height="14" uuid="0213b121-45e0-4346-843b-68154aa1cdc7"/>
+				<textElement textAlignment="Left">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Activity name]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="27" splitType="Stretch">
+			<textField>
+				<reportElement x="90" y="0" width="180" height="20" uuid="33ce450a-dae6-4e4a-ba0e-b5e85a659156"/>
+				<textFieldExpression><![CDATA[$P{EventName}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="10" y="0" width="80" height="20" uuid="709aa53b-539d-4e99-a1f0-1502f7ad9be9"/>
+				<textElement textAlignment="Left">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Event]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="51" splitType="Stretch">
+			<textField>
+				<reportElement x="240" y="20" width="80" height="20" uuid="cd8f0a98-59bf-431c-878a-1c4f2a907bb6"/>
+				<textFieldExpression><![CDATA[$P{comDate}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="10" y="0" width="80" height="20" uuid="6057e824-815a-46ab-a964-360c42833656"/>
+				<textElement textAlignment="Left">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Competition]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="420" y="20" width="120" height="20" uuid="d4f4afc8-7cea-42db-8369-6ebbd3f5f01a"/>
+				<textFieldExpression><![CDATA[$P{AgeGroup}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="420" y="0" width="80" height="20" uuid="bfab9c4b-b812-46f7-a847-2865773a2985"/>
+				<textElement textAlignment="Left">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Age group]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="10" y="20" width="170" height="31" uuid="ece8434b-08ce-43f3-858f-33be32bad90b"/>
+				<textFieldExpression><![CDATA[$P{CompetitionName}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="240" y="0" width="80" height="20" uuid="aba8520f-7260-4a39-a9ba-050d0808328f"/>
+				<textElement textAlignment="Left">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Date]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="240" splitType="Stretch">
+			<componentElement>
+				<reportElement x="12" y="10" width="530" height="200" uuid="aa8e8a99-72d4-4aae-8693-c7253bfb0748">
+					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
+					<property name="com.jaspersoft.studio.table.style.table_header" value="Table_TH"/>
+					<property name="com.jaspersoft.studio.table.style.column_header" value="Table_CH"/>
+					<property name="com.jaspersoft.studio.table.style.detail" value="Table_TD"/>
+				</reportElement>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="Participation" uuid="b7ee550d-897f-4b8f-b1a6-1c458f2f5432">
+						<dataSourceExpression><![CDATA[$P{Participation}]]></dataSourceExpression>
+					</datasetRun>
+					<jr:column width="140" uuid="c6e29bc2-ade9-41b4-92f7-c8064204cbc2">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column1"/>
+						<jr:columnHeader style="Table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="140" height="30" uuid="79114c85-7e6e-4bdc-832e-cbf8509bcf2a"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="12"/>
+								</textElement>
+								<text><![CDATA[Student]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="30">
+							<textField>
+								<reportElement x="0" y="0" width="140" height="30" uuid="c1d470b0-bd7c-4548-a08c-cd50140a8e57"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{studentName}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="130" uuid="6b09a588-d6ab-41c4-9fa3-19925d8accb3">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column2"/>
+						<printWhenExpression><![CDATA[$P{seeAgeGroup}]]></printWhenExpression>
+						<jr:columnHeader style="Table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="130" height="30" uuid="eb716c64-d3ae-44cc-81ec-67ec2b8b49df"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="12"/>
+								</textElement>
+								<text><![CDATA[Age group]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="30">
+							<textField>
+								<reportElement x="0" y="0" width="130" height="30" uuid="3548b1c9-65f9-441e-9fff-f04b2079789f"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{groupName}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="130" uuid="3bb4c897-7274-4c53-825c-5340d9dd5647">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column3"/>
+						<jr:columnHeader style="Table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="130" height="30" uuid="d66e03a4-51b9-4607-a28c-ab2dd112a5f8"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="12"/>
+								</textElement>
+								<text><![CDATA[Result]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="30">
+							<textField>
+								<reportElement x="0" y="0" width="130" height="30" uuid="73a85fe5-12c2-4cf3-a1c3-4a4af269989e"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{result}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="130" uuid="773668aa-f713-4fb2-be43-e8c692cfb520">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column4"/>
+						<jr:columnHeader style="Table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="130" height="30" uuid="769de0f4-ab46-48ce-bc46-3cdc5a4f6d29"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="12"/>
+								</textElement>
+								<text><![CDATA[Performance ]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="30">
+							<textField>
+								<reportElement x="0" y="0" width="130" height="30" uuid="45580e28-774b-4c32-8b00-5f740463af12"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{performance}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="24" splitType="Stretch">
+			<textField>
+				<reportElement x="206" y="2" width="149" height="17" uuid="55e702d6-ce9c-4ef8-8ea9-30e698e972df"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

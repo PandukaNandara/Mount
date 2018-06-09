@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="acMenu1" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" fx:controller="sample.Menu1">
+   <children>
+      <JFXTextField fx:id="txtMenu1" labelFloat="true" layoutX="115.0" layoutY="151.0" onAction="#txtMenu1_onAction" prefHeight="30.0" prefWidth="326.0" promptText="Menu 1" />
+      <JFXButton fx:id="btClick" layoutX="248.0" layoutY="240.0" onAction="#btClick_onAction" prefHeight="39.0" prefWidth="117.0" text="Click" />
+      <JFXDatePicker fx:id="dtDOB" layoutX="205.0" layoutY="41.0" onAction="#dtDOB_onAction" />
+      <JFXButton fx:id="btDate" layoutX="433.0" layoutY="47.0" onAction="#btDate_onAction" prefHeight="39.0" prefWidth="117.0" text="Get Date" />
+   </children>
+</AnchorPane>

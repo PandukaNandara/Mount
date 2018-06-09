@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import de.jensd.fx.glyphs.icons525.Icons525View?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="bpActivityProfile" xmlns="http://javafx.com/javafx/8.0.141" fx:controller="sample.z_junk.controller.activity.profile.ActivityProfile_controller">
+   <center>
+      <HBox prefHeight="701.0" prefWidth="1022.0" BorderPane.alignment="CENTER">
+         <children>
+            <AnchorPane fx:id="acActivityRoot" prefHeight="707.0" prefWidth="1022.0" />
+         </children>
+      </HBox>
+   </center>
+   <left>
+      <VBox fx:id="vbxActivityProfileSideMenu" style="-fx-background-color: #232323;" BorderPane.alignment="CENTER">
+         <children>
+            <JFXButton fx:id="btActivityDetail" buttonType="RAISED" onAction="#btActivityDetail_onAction" prefHeight="71.0" prefWidth="220.0" text="Activity details" textFill="WHITE" />
+            <JFXButton fx:id="btAttendantSheet" buttonType="RAISED" onAction="#btAttendantSheet_onAction" prefHeight="71.0" prefWidth="220.0" text="Attendant sheet" textFill="WHITE" />
+            <JFXButton fx:id="btJoinedSheet" buttonType="RAISED" onAction="#btJoinedSheet_onAction" prefHeight="71.0" prefWidth="220.0" text="Joined Student" textFill="WHITE" />
+            <JFXButton fx:id="btEventAndCompetition" buttonType="RAISED" onAction="#btEventAndCompetition_onAction" prefHeight="71.0" prefWidth="220.0" text="Event and Competition" textFill="WHITE" />
+            <HBox fx:id="hbxReport" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <JFXButton fx:id="btPrint" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" onAction="#btPrint_onAction" prefHeight="100.0" prefWidth="107.0" ripplerFill="#2196f3" text="Print" textAlignment="CENTER" textFill="WHITE">
+                     <graphic>
+                        <Icons525View fill="WHITE" glyphName="PRINTER" size="50" wrappingWidth="54.0" />
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton fx:id="btExcel" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" onAction="#btExcel_onAction" prefHeight="100.0" prefWidth="107.0" ripplerFill="#1f6e43" text="Excel" textAlignment="CENTER" textFill="WHITE">
+                     <graphic>
+                        <Icons525View fill="WHITE" glyphName="EXCEL" size="50" wrappingWidth="54.0" />
+                     </graphic>
+                  </JFXButton>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </left>
+   <top>
+      <AnchorPane fx:id="bpActivityProfileTop" minHeight="-Infinity" minWidth="-Infinity" prefHeight="78.0" prefWidth="1235.0" style="-fx-background-color: #5F5F5F;" BorderPane.alignment="CENTER">
+         <children>
+            <JFXButton fx:id="btSearch" layoutX="1088.0" layoutY="24.0" prefHeight="34.0" prefWidth="116.0" style="-fx-background-color: #2196F3;" text="Search" textFill="WHITE" />
+            <Label layoutX="14.0" layoutY="24.0" prefHeight="34.0" prefWidth="282.0" text="Activity Profile" textFill="WHITE">
+               <font>
+                  <Font size="22.0" />
+               </font>
+            </Label>
+            <JFXComboBox labelFloat="true" layoutX="759.0" layoutY="29.0" prefHeight="25.0" prefWidth="301.0" promptText="Activity Name" />
+         </children>
+      </AnchorPane>
+   </top>
+</BorderPane>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="acActivityForEvent" prefHeight="785.0" prefWidth="1235.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.141" fx:controller="sample.z_junk.controller.student.ActivityForStudent_controller">
+   <children>
+      <JFXButton fx:id="btFinish_activityForStudent" layoutX="1060.0" layoutY="702.0" onAction="#btFinish_activityForStudent_onAction" prefHeight="33.0" prefWidth="124.0" style="-fx-background-color: #2196F3;" text="Finish" textFill="WHITE" />
+      <Label layoutX="85.0" layoutY="24.0" prefHeight="42.0" prefWidth="209.0" text="Activity for student">
+         <font>
+            <Font name="Arial Bold" size="18.0" />
+         </font>
+      </Label>
+      <TableView fx:id="tblActivity" layoutX="85.0" layoutY="227.0" prefHeight="427.0" prefWidth="1100.0">
+         <columns>
+            <TableColumn fx:id="colActivity" prefWidth="75.0" text="Activity" />
+            <TableColumn fx:id="colJoinedDate" prefWidth="75.0" text="Joined date" />
+         </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+      </TableView>
+      <JFXButton fx:id="btRemove_tblActivity" layoutX="1060.0" layoutY="202.0" onAction="#btRemove_tblActivity_onAction" prefHeight="25.0" prefWidth="124.0" text="Remove" textFill="#2196f3">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </JFXButton>
+      <JFXComboBox fx:id="txtActivityName" layoutX="85.0" layoutY="84.0" onAction="#txtActivityName_onAction" prefHeight="25.0" prefWidth="506.0" promptText="Activity name" />
+      <JFXDatePicker fx:id="dtJoinedDate" layoutX="85.0" layoutY="150.0" onAction="#dtJoinedDate_onAction" prefHeight="25.0" prefWidth="506.0" promptText="Joined date" />
+      <JFXButton fx:id="btAddActivity" layoutX="618.0" layoutY="146.0" onAction="#btAddActivity_onAction" prefHeight="33.0" prefWidth="148.0" style="-fx-background-color: #2196F3;" text="Add" textFill="WHITE" />
+      <JFXButton fx:id="btBack_activityForStudent" layoutX="916.0" layoutY="702.0" onAction="#btBack_activityForStudent_onAction" prefHeight="33.0" prefWidth="124.0" style="-fx-background-color: #2196F3;" text="Back" textFill="WHITE" />
+      <JFXButton fx:id="btSkipAndFinish" layoutX="766.0" layoutY="706.0" onAction="#btSkipAndFinish_onAction" prefHeight="25.0" prefWidth="124.0" text="Skip and Finish" textFill="#2196f3">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </JFXButton>
+   </children>
+</AnchorPane>

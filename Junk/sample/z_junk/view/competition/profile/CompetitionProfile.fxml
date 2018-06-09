@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import de.jensd.fx.glyphs.icons525.Icons525View?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="bpCompetitionProfile" xmlns="http://javafx.com/javafx/8.0.141" fx:controller="sample.z_junk.controller.competition.profile.CompetitionProfile_controller">
+   <left>
+      <VBox fx:id="vbxSideBar" prefHeight="745.0" prefWidth="213.0" style="-fx-background-color: #232323;" BorderPane.alignment="CENTER">
+         <children>
+            <JFXButton fx:id="btCompetitionDetails" buttonType="RAISED" onAction="#btCompetitionDetails_onAction" prefHeight="71.0" prefWidth="220.0" text="Competition Details" textFill="WHITE" />
+            <JFXButton fx:id="btEventDetail" buttonType="RAISED" onAction="#btEventDetail_onAction" prefHeight="71.0" prefWidth="220.0" text="Events and participation" textFill="WHITE" />
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <JFXButton fx:id="btPrint" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" onAction="#btExcel_onAction" prefHeight="100.0" prefWidth="107.0" ripplerFill="#2196f3" text="Print" textAlignment="CENTER" textFill="WHITE">
+                     <graphic>
+                        <Icons525View fill="WHITE" glyphName="PRINTER" size="50" wrappingWidth="54.0" />
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton fx:id="btExcel" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" onAction="#btExcel_onAction" prefHeight="100.0" prefWidth="107.0" ripplerFill="#1f6e43" text="Excel" textAlignment="CENTER" textFill="WHITE">
+                     <graphic>
+                        <Icons525View fill="WHITE" glyphName="EXCEL" size="50" wrappingWidth="54.0" />
+                     </graphic>
+                  </JFXButton>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </left>
+   <top>
+      <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="78.0" prefWidth="1174.0" style="-fx-background-color: #333333;" BorderPane.alignment="CENTER">
+         <children>
+            <JFXButton fx:id="btSearch" layoutX="1086.0" layoutY="24.0" onAction="#btSearch_onAction" prefHeight="34.0" prefWidth="116.0" style="-fx-background-color: #2196F3;" text="Search" textFill="WHITE" />
+            <Label layoutX="14.0" layoutY="24.0" prefHeight="34.0" prefWidth="282.0" text="Competition Profile" textFill="WHITE">
+               <font>
+                  <Font size="22.0" />
+               </font>
+            </Label>
+            <JFXComboBox fx:id="cboxCompetitionName" labelFloat="true" layoutX="713.0" layoutY="29.0" onAction="#cboxCompetitionName_onAction" prefHeight="25.0" prefWidth="335.0" promptText="Competition Name" unFocusColor="WHITE" />
+         </children>
+      </AnchorPane>
+   </top>
+   <center>
+      <AnchorPane fx:id="acCompetitionRoot" prefHeight="745.0" prefWidth="1022.0" BorderPane.alignment="CENTER" />
+   </center>
+</BorderPane>

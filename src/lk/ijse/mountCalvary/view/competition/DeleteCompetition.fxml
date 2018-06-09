@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="acDeleteCompetition" prefHeight="785.0" prefWidth="1235.0" style="-fx-background-color: white;" styleClass="main-frame" stylesheets="@../../css/size.css" xmlns="http://javafx.com/javafx/8.0.141" fx:controller="lk.ijse.mountCalvary.controller.competition.DeleteCompetition_controller">
+   <children>
+      <JFXButton fx:id="btDelete" layoutX="1243.0" layoutY="819.0" onAction="#btDelete_onAction" prefHeight="33.0" prefWidth="124.0" style="-fx-background-color: #2196F3;" text="Delete " textFill="WHITE" />
+      <Label layoutX="76.0" layoutY="25.0" prefHeight="42.0" prefWidth="209.0" text="Delete Competition">
+         <font>
+            <Font name="Arial Bold" size="18.0" />
+         </font>
+      </Label>
+      <TableView fx:id="tblEventInCompetition" layoutX="76.0" layoutY="139.0" onMouseClicked="#tblEventInCompetition_onClick" prefHeight="159.0" prefWidth="1293.0">
+         <columns>
+            <TableColumn fx:id="colActivity_tblEventInCompetition" prefWidth="75.0" text="Activity" />
+            <TableColumn fx:id="colEvent_tblEventInCompetition" prefWidth="75.0" text="Event" />
+            <TableColumn fx:id="colGender_tblEventInCompetition" prefWidth="75.0" text="Gender" />
+            <TableColumn fx:id="colAgeGroup_tblEventInCompetition" prefWidth="75.0" text="Age group" />
+         </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+      </TableView>
+      <JFXComboBox fx:id="cboxCompetition" labelFloat="true" layoutX="76.0" layoutY="86.0" onAction="#cboxCompetition_onAction" prefHeight="25.0" prefWidth="519.0" promptText="Competition name" />
+      <TableView fx:id="tblStudentList" layoutX="76.0" layoutY="382.0" onMouseClicked="#tblStudentList_onClick" prefHeight="288.0" prefWidth="1295.0">
+         <columns>
+            <TableColumn fx:id="colStudent_tblStudentLIst" prefWidth="566.0" text="Student" />
+            <TableColumn fx:id="colResult_tblStudentLIst" prefWidth="566.0" text="Result" />
+            <TableColumn fx:id="colPerformance_tblStudentList" prefWidth="566.0" text="Performance" />
+         </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+      </TableView>
+      <Label layoutX="76.0" layoutY="322.0" prefHeight="42.0" prefWidth="209.0" text="Participated student">
+         <font>
+            <Font name="Arial" size="14.0" />
+         </font>
+      </Label>
+      <JFXButton fx:id="btCancel" layoutX="1096.0" layoutY="819.0" onAction="#btCancel_onAction" prefHeight="33.0" prefWidth="124.0" text="Cancel" textFill="#2196f3">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </JFXButton>
+   </children>
+</AnchorPane>

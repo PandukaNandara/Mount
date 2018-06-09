@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="acCompetitionDetail" prefHeight="745.0" prefWidth="1022.0" xmlns="http://javafx.com/javafx/8.0.141" fx:controller="sample.z_junk.controller.competition.profile.CompetitionDetail_controller">
+   <children>
+      <Label layoutX="95.0" layoutY="34.0" prefHeight="42.0" prefWidth="209.0" text="Competition Details">
+         <font>
+            <Font name="Arial Bold" size="18.0" />
+         </font>
+      </Label>
+      <JFXTextField fx:id="txtCompetitionName" labelFloat="true" layoutX="93.0" layoutY="110.0" prefHeight="25.0" prefWidth="665.0" promptText="Competition Name" />
+      <JFXTextField fx:id="txtLoaction" labelFloat="true" layoutX="95.0" layoutY="177.0" prefHeight="25.0" prefWidth="665.0" promptText="Location" />
+      <JFXTextArea fx:id="txtDesc" labelFloat="true" layoutX="95.0" layoutY="306.0" prefHeight="108.0" prefWidth="665.0" promptText="Description" />
+      <Label layoutX="95.0" layoutY="432.0" prefHeight="42.0" prefWidth="209.0" text="Teacher in charge list">
+         <font>
+            <Font name="Arial" size="15.0" />
+         </font>
+      </Label>
+      <TableView fx:id="tblTeacherInCharge" layoutX="95.0" layoutY="491.0" prefHeight="172.0" prefWidth="824.0">
+         <columns>
+            <TableColumn fx:id="colTeacherInCharge" prefWidth="75.0" text="Teacher in charge list" />
+         </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+      </TableView>
+      <JFXDatePicker fx:id="dtDate" layoutX="93.0" layoutY="241.0" prefHeight="25.0" prefWidth="209.0" />
+   </children>
+</AnchorPane>

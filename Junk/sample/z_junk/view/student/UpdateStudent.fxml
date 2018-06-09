@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="acUpdateStudent" prefHeight="785.0" prefWidth="1235.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.141" fx:controller="sample.z_junk.controller.student.UpdateStudent_controller">
+   <children>
+      <JFXButton fx:id="btNext_UpdateStudent" layoutX="1060.0" layoutY="702.0" onAction="#btNext_UpdateStudent" prefHeight="33.0" prefWidth="124.0" style="-fx-background-color: #2196F3;" text="Next" textFill="WHITE" />
+      <Label layoutX="48.0" layoutY="24.0" prefHeight="36.0" prefWidth="309.0" text="Personal Details">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <JFXRadioButton fx:id="rbMale" layoutX="345.0" layoutY="199.0" text="Male" />
+      <JFXRadioButton fx:id="rbFemale" layoutX="232.0" layoutY="199.0" text="Female" />
+      <JFXComboBox fx:id="cboxClass" labelFloat="true" layoutX="307.0" layoutY="248.0" onAction="#cboxClass_onAction" prefHeight="25.0" prefWidth="238.0" promptText="Class" />
+      <JFXComboBox fx:id="cboxGarde" labelFloat="true" layoutX="46.0" layoutY="248.0" onAction="#cboxGrade_onAction" prefHeight="25.0" prefWidth="228.0" promptText="Grade" />
+      <JFXDatePicker fx:id="dtDOB" editable="false" layoutX="46.0" layoutY="312.0" onAction="#dtDOB_onAction" prefHeight="25.0" prefWidth="501.0" promptText="Birth day" showWeekNumbers="true" />
+      <JFXTextField fx:id="txtMotherName" editable="false" labelFloat="true" layoutX="46.0" layoutY="370.0" onAction="#txtMotherName_onAction" prefHeight="25.0" prefWidth="501.0" promptText="Mother's name" />
+      <JFXTextField fx:id="txtFatherName" editable="false" labelFloat="true" layoutX="46.0" layoutY="426.0" onAction="#txtFatherName_onAction" prefHeight="25.0" prefWidth="501.0" promptText="Father's name" />
+      <JFXTextField fx:id="txtStudentID" editable="false" layoutX="46.0" layoutY="70.0" onAction="#txtStudentID_onAction" prefHeight="32.0" prefWidth="161.0" promptText="Student ID" />
+      <Label layoutX="46.0" layoutY="190.0" prefHeight="36.0" prefWidth="184.0" text="Gender" />
+      <JFXComboBox fx:id="cboxStudentName" editable="true" labelFloat="true" layoutX="46.0" layoutY="131.0" onAction="#cboxStudentName_onAction" prefHeight="25.0" prefWidth="354.0" promptText="Student name" />
+      <JFXButton fx:id="btSearchStudent" layoutX="421.0" layoutY="127.0" onAction="#btSearchStudent_onAction" prefHeight="33.0" prefWidth="124.0" style="-fx-background-color: #2196F3;" text="Search" textFill="WHITE" />
+      <JFXTextArea fx:id="txtaDesc" labelFloat="true" layoutX="46.0" layoutY="488.0" onDragDetected="#txtaDesc_onAction" prefHeight="161.0" prefWidth="1141.0" promptText="About this student" />
+   </children>
+</AnchorPane>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.*?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="acStudentForCompetition" prefHeight="785.0" prefWidth="1235.0" style="-fx-background-color: white;" styleClass="main-frame" stylesheets="@../../css/size.css" xmlns="http://javafx.com/javafx/8.0.141" fx:controller="lk.ijse.mountCalvary.controller.competition.StudentForCompetition_controller">
+   <children>
+      <JFXButton fx:id="btFinish" layoutX="1253.0" layoutY="811.0" onAction="#btFinish_onAction" prefHeight="33.0" prefWidth="124.0" style="-fx-background-color: #2196F3;" text="Submit" textFill="WHITE" />
+      <Label layoutX="76.0" layoutY="24.0" prefHeight="42.0" prefWidth="409.0" text="Student for competition">
+         <font>
+            <Font name="Arial Bold" size="18.0" />
+         </font>
+      </Label>
+      <JFXButton fx:id="btAddStudent" layoutX="1253.0" layoutY="417.0" onAction="#btAddStudent_onAction" prefHeight="33.0" prefWidth="124.0" style="-fx-background-color: #2196F3;" text="Add" textFill="WHITE" />
+      <TableView fx:id="tblEventInCompetition" layoutX="76.0" layoutY="113.0" onMouseClicked="#tblEventInCompetition_mouseClicked" prefHeight="172.0" prefWidth="1301.0">
+         <columns>
+            <TableColumn fx:id="colActivity_tblEventInCompetition" prefWidth="75.0" text="Activity" />
+            <TableColumn fx:id="colEvent_tblEventInCompetition" prefWidth="75.0" text="Event" />
+            <TableColumn fx:id="colGender_tblEventInCompetition" prefWidth="75.0" text="Gender" />
+            <TableColumn fx:id="colAgeGroup_tblEventInCompetition" prefWidth="75.0" text="Age group" />
+         </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+      </TableView>
+      <JFXButton fx:id="btRemove_tblStudentList" layoutX="1253.0" layoutY="458.0" onAction="#btRemove_tblStudentList_onAction" prefHeight="25.0" prefWidth="124.0" text="Remove" textFill="#2196f3">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </JFXButton>
+      <JFXTextField fx:id="txtEvent" editable="false" labelFloat="true" layoutX="76.0" layoutY="306.0" onAction="#txtEvent_onAction" prefHeight="25.0" prefWidth="390.0" promptText="Event" />
+      <TableView fx:id="tblStudentList" layoutX="76.0" layoutY="484.0" prefHeight="300.0" prefWidth="1301.0">
+         <columns>
+            <TableColumn fx:id="colEvent_tblStudentLIst" prefWidth="247.5" text="Event" />
+            <TableColumn fx:id="colStudent_tblStudentLIst" prefWidth="292.125" text="Student" />
+            <TableColumn fx:id="colResult_tblStudentLIst" prefWidth="348.34375" text="Result" />
+            <TableColumn fx:id="colPerformance_tblStudentList" prefWidth="252.0" text="Performance" />
+         </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+      </TableView>
+      <Label layoutX="76.0" layoutY="331.0" prefHeight="42.0" prefWidth="409.0" text="Student for competition">
+         <font>
+            <Font name="Arial" size="18.0" />
+         </font>
+      </Label>
+      <JFXTextField fx:id="txtStudentID" editable="false" labelFloat="true" layoutX="76.0" layoutY="377.0" onAction="#txtStudent_onAction" prefHeight="25.0" prefWidth="124.0" promptText="Student ID" />
+      <JFXComboBox fx:id="cboxResult" editable="true" labelFloat="true" layoutX="1050.0" layoutY="377.0" onAction="#cboxResult_onAction" prefHeight="25.0" prefWidth="327.0" promptText="Result" />
+      <JFXTextField fx:id="txtPerfomence" labelFloat="true" layoutX="76.0" layoutY="421.0" onAction="#txtPerformance_onAction" prefHeight="25.0" prefWidth="1150.0" promptText="Perfomence" />
+      <JFXTextField fx:id="txtGender" editable="false" labelFloat="true" layoutX="498.0" layoutY="309.0" onAction="#txtGender_onAction" prefHeight="25.0" prefWidth="492.0" promptText="Gender" />
+      <JFXTextField fx:id="txtAgeGroup" editable="false" labelFloat="true" layoutX="1050.0" layoutY="309.0" onAction="#txtAgeGroup_onAction" prefHeight="25.0" prefWidth="327.0" promptText="Age group" />
+      <JFXButton fx:id="btViewStudentList" layoutX="960.0" layoutY="298.0" onAction="#btViewStudentList_onAction" prefHeight="33.0" prefWidth="216.0" text="View student list for this activity" textFill="#2196f3" visible="false">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </JFXButton>
+      <JFXTextField fx:id="txtStudentName" labelFloat="true" layoutX="430.0" layoutY="377.0" onAction="#txtStudentName_onAction" prefHeight="25.0" prefWidth="587.0" promptText="Student name" />
+      <JFXButton fx:id="btCancel" layoutX="1112.0" layoutY="811.0" onAction="#btCancel" prefHeight="33.0" prefWidth="124.0" text="Cancel" textFill="#2196f3">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </JFXButton>
+      <JFXComboBox fx:id="cboxCompetition" labelFloat="true" layoutX="76.0" layoutY="74.0" onAction="#cboxCompetition_onAction" prefHeight="25.0" prefWidth="519.0" promptText="Competition" />
+      <JFXTextField fx:id="txtAge" editable="false" labelFloat="true" layoutX="227.0" layoutY="377.0" onAction="#txtAge_onAction" prefHeight="25.0" prefWidth="178.0" promptText="Age " />
+   </children>
+</AnchorPane>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="acEventForActivity" prefHeight="785.0" prefWidth="1174.0" xmlns="http://javafx.com/javafx/8.0.141" fx:controller="sample.z_junk.controller.activity.EventForActivity_controller">
+   <children>
+      <Label layoutX="81.0" layoutY="29.0" prefHeight="42.0" prefWidth="209.0" text="Add Event">
+         <font>
+            <Font name="Arial Bold" size="18.0" />
+         </font>
+      </Label>
+      <TableView fx:id="tblEvent" layoutX="81.0" layoutY="238.0" prefHeight="446.0" prefWidth="1036.0">
+         <columns>
+            <TableColumn fx:id="colEventName" prefWidth="582.3333740234375" text="Event Name" />
+            <TableColumn fx:id="colGender" prefWidth="237.0" text="Gender" />
+         </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+      </TableView>
+      <JFXButton fx:id="btAdd" layoutX="81.0" layoutY="188.0" onAction="#btAdd_onAction" prefHeight="33.0" prefWidth="124.0" style="-fx-background-color: #2196F3;" text="Add" textFill="WHITE" />
+      <JFXButton fx:id="btFinish" layoutX="993.0" layoutY="704.0" onAction="#btFinish_onAction" prefHeight="33.0" prefWidth="124.0" style="-fx-background-color: #2196F3;" text="Finish" textFill="WHITE" />
+      <JFXTextField fx:id="txtEventID" editable="false" labelFloat="true" layoutX="81.0" layoutY="86.0" onAction="#txtEventID_onAction" prefHeight="25.0" prefWidth="171.0" promptText="Event ID" />
+      <JFXTextField fx:id="txtEventName" layoutX="316.0" layoutY="86.0" onAction="#txtEventName_onAction" prefHeight="25.0" prefWidth="543.0" promptText="Event Name" />
+      <Label layoutX="81.0" layoutY="142.0" prefHeight="25.0" prefWidth="136.0" text="Event Gender" />
+      <JFXRadioButton fx:id="rbtMale" layoutX="217.0" layoutY="146.0" onAction="#rbtMale_onAction" text="Male" />
+      <JFXRadioButton fx:id="rbtFemale" layoutX="337.0" layoutY="146.0" onAction="#rbtFemale_onAction" text="Female" />
+      <JFXButton fx:id="btBack" layoutX="842.0" layoutY="704.0" onAction="#btBack_onAction" prefHeight="33.0" prefWidth="124.0" style="-fx-background-color: #2196F3;" text="Back" textFill="WHITE" />
+      <JFXButton fx:id="btRemove_tblEvent" layoutX="993.0" layoutY="209.0" onAction="#btRemove_tblEvent_onAction" prefHeight="17.0" prefWidth="124.0" text="Remove" textFill="#2196f3">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </JFXButton>
+   </children>
+</AnchorPane>

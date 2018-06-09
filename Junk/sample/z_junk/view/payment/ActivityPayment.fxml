@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import de.jensd.fx.glyphs.icons525.Icons525View?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="acActivityPayment" prefHeight="785.0" prefWidth="1235.0" xmlns="http://javafx.com/javafx/8.0.141" fx:controller="sample.z_junk.controller.payment.ActivityPayment_controller">
+   <children>
+      <Label layoutX="38.0" layoutY="27.0" prefHeight="36.0" prefWidth="309.0" text="Activity Payment">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <TableView fx:id="tblActivityPayment" layoutX="38.0" layoutY="172.0" prefHeight="503.0" prefWidth="1152.0">
+         <columns>
+            <TableColumn fx:id="colActivity_tblActivityPayment" prefWidth="374.6082763671875" text="Student" />
+            <TableColumn fx:id="colYear_tblActivityPayment" minWidth="0.0" prefWidth="220.2398681640625" text="Year" />
+            <TableColumn fx:id="colMonth_tblActivityPayment" minWidth="0.0" prefWidth="354.72314453125" text="Month" />
+            <TableColumn fx:id="colFee_tblActivityPayment" prefWidth="200.08642578125" text="Fee" />
+         </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+      </TableView>
+      <JFXComboBox fx:id="cboxActivity" labelFloat="true" layoutX="38.0" layoutY="110.0" onAction="#cboxActivity_onAction" prefHeight="25.0" prefWidth="355.0" promptText="Activity" />
+      <JFXComboBox fx:id="cboxMonth" labelFloat="true" layoutX="824.0" layoutY="110.0" onAction="#cboxMonth_onAction" prefHeight="25.0" prefWidth="366.0" promptText="Month" />
+      <JFXComboBox fx:id="cboxYear" labelFloat="true" layoutX="424.0" layoutY="110.0" onAction="#cboxYear_onAction" prefHeight="25.0" prefWidth="366.0" promptText="Year" />
+      <JFXButton fx:id="btPrint" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" layoutX="1007.0" layoutY="23.0" onAction="#btPrint_onAction" prefHeight="77.0" prefWidth="79.0" ripplerFill="WHITE" style="-fx-background-color: #2196f3;" text="Print" textAlignment="CENTER" textFill="WHITE">
+         <graphic>
+            <Icons525View fill="WHITE" glyphName="PRINTER" size="50" wrappingWidth="54.0" />
+         </graphic>
+      </JFXButton>
+      <JFXButton fx:id="btExcel" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" layoutX="1111.0" layoutY="23.0" onAction="#btExcel_onAction" prefHeight="79.0" prefWidth="79.0" ripplerFill="WHITE" style="-fx-background-color: #1f6e43;" text="Excel" textAlignment="CENTER" textFill="WHITE">
+         <graphic>
+            <Icons525View fill="WHITE" glyphName="EXCEL" size="50" wrappingWidth="54.0" />
+         </graphic>
+      </JFXButton>
+   </children>
+</AnchorPane>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.*?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="acActivityMenu" maxHeight="893.0" maxWidth="1235.0" prefHeight="782.0" prefWidth="1235.0" style="-fx-background-color: white;" styleClass="main-frame" stylesheets="@../../css/size.css" xmlns="http://javafx.com/javafx/8.0.141" fx:controller="lk.ijse.mountCalvary.controller.basic.ActivityMenu_controller">
+   <children>
+      <JFXButton fx:id="btBack" layoutX="36.0" layoutY="24.0" onAction="#btBack_onAction" prefHeight="33.0" prefWidth="69.0" text="Back">
+         <graphic>
+            <FontAwesomeIconView glyphName="ARROW_LEFT" size="25" />
+         </graphic>
+      </JFXButton>
+      <VBox alignment="CENTER" layoutX="3.0" layoutY="228.0" prefHeight="285.0" prefWidth="1434.0" spacing="40.0">
+         <children>
+            <JFXButton fx:id="btActivityProfile" onAction="#btActivityProfile_onAction" prefHeight="65.0" prefWidth="554.0" style="-fx-background-color: #2196F3;" text="Activity Profile" textFill="WHITE">
+               <font>
+                  <Font size="27.0" />
+               </font>
+            </JFXButton>
+            <JFXButton fx:id="btNewActivity" onAction="#btNewActivity_onAction" prefHeight="65.0" prefWidth="554.0" style="-fx-background-color: #2196F3;" text="New Activity" textFill="WHITE">
+               <font>
+                  <Font size="27.0" />
+               </font>
+            </JFXButton>
+            <JFXButton fx:id="btNewEvent" onAction="#btNewEvent_onAction" prefHeight="65.0" prefWidth="554.0" style="-fx-background-color: #2196F3;" text="New Event " textFill="WHITE">
+               <font>
+                  <Font size="27.0" />
+               </font>
+            </JFXButton>
+            <JFXButton fx:id="btAddStudent" onAction="#btAddStudent_onAction" prefHeight="65.0" prefWidth="554.0" style="-fx-background-color: #2196F3;" text="Add student" textFill="WHITE">
+               <font>
+                  <Font size="27.0" />
+               </font>
+            </JFXButton>
+            <JFXButton fx:id="btUpdateActivity" onAction="#btUpdateActivity_onAction" prefHeight="65.0" prefWidth="554.0" style="-fx-background-color: #2196F3;" text="Update Activity" textFill="WHITE">
+               <font>
+                  <Font size="27.0" />
+               </font>
+            </JFXButton>
+         </children>
+      </VBox>
+   </children>
+   <padding>
+      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+   </padding>
+</AnchorPane>
