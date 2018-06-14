@@ -24,16 +24,16 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class CompetitionDetailController implements Initializable {
 
+    private static JasperReport competitionDetailReport;
     @FXML
     private AnchorPane acCompetitionDetail;
-
     @FXML
     private JFXTextField txtCompetitionName;
-
-    private static JasperReport competitionDetailReport;
     @FXML
     private JFXTextField txtLocation;
 
@@ -81,6 +81,7 @@ public class CompetitionDetailController implements Initializable {
             tblTeacherInCharge.getItems().setAll(teacherInChargeListBOImpl.getTeacherInChargeListForThisCompetition(CID));
 
         } catch (Exception e) {
+            Logger.getLogger(CompetitionDetailController.class.getName()).log(Level.SEVERE, null, e);
             e.printStackTrace();
         }
     }
@@ -111,6 +112,7 @@ public class CompetitionDetailController implements Initializable {
                 JasperPrint competitionPrint = JasperFillManager.fillReport(competitionDetailReport, competitionMap, new JREmptyDataSource());
                 Reporter.showReport(competitionPrint, "Competition details");
             } catch (Exception e) {
+                Logger.getLogger(CompetitionDetailController.class.getName()).log(Level.SEVERE, null, e);
                 e.printStackTrace();
             }
         } else {

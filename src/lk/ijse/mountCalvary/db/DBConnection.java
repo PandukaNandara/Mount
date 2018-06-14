@@ -11,7 +11,6 @@ public class DBConnection {
     private Connection connection;
     private DBConnection() throws Exception {
         Class.forName("com.mysql.jdbc.Driver");
-
         File file = new File("resources/application.properties");
         FileReader fileReader = new FileReader(file);
         Properties properties = new Properties();

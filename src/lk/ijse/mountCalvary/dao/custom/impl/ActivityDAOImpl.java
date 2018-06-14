@@ -41,7 +41,7 @@ public class ActivityDAOImpl implements ActivityDAO {
 
     @Override
     public Activity search(Integer id) throws Exception {
-        ResultSet rst = CrudUtil.executeQuery("SELECT * From Activity where aName like ?%", id);
+        ResultSet rst = CrudUtil.executeQuery("SELECT * From Activity where AID = ?", id);
         if (rst.next()) {
             return new Activity(
                     rst.getInt("AID"),

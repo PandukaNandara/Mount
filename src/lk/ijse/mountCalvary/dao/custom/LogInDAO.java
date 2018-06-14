@@ -7,4 +7,5 @@ public interface LogInDAO extends CrudDAO<LogIn, Integer> {
 
     boolean saveWithoutPKey(LogIn li) throws Exception;
 
+    LogIn search(String username) throws Exception;
 }

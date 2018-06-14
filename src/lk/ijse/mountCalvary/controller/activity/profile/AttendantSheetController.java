@@ -30,28 +30,24 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class AttendantSheetController implements Initializable {
 
+    private static JasperReport attendanceOfStudentReport;
     @FXML
     private AnchorPane AttendantSheet;
-
     @FXML
     private TableView<AttendantSheetDTO> tblAttendantSheet;
-
     @FXML
     private TableColumn<AttendantSheetDTO, String> colStudentName;
-
     @FXML
     private TableColumn<AttendantSheetDTO, String> colTeacherInCharge;
-
     @FXML
     private TableColumn<AttendantSheetDTO, Date> colDate;
-
     @FXML
     private JFXComboBox<String> cboxTimeRange;
-
-    private static JasperReport attendanceOfStudentReport;
     @FXML
     private JFXTextField txtStudent;
 
@@ -145,6 +141,7 @@ public class AttendantSheetController implements Initializable {
             cboxTimeRange.getSelectionModel().select(DateRange.ALL);
             autoComplete.changeSuggestion(allRegistration);
         } catch (Exception e) {
+            Logger.getLogger(AttendantSheetController.class.getName()).log(Level.SEVERE, null, e);
             e.printStackTrace();
         }
     }
@@ -176,6 +173,7 @@ public class AttendantSheetController implements Initializable {
                 JasperPrint attendancePrint = JasperFillManager.fillReport(attendanceOfStudentReport, attendanceMap, new JREmptyDataSource());
                 Reporter.showReport(attendancePrint, "Attendance sheet");
             } catch (Exception e) {
+                Logger.getLogger(AttendantSheetController.class.getName()).log(Level.SEVERE, null, e);
                 e.printStackTrace();
             }
         } else {

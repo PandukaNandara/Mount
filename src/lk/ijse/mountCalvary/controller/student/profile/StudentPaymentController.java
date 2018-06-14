@@ -28,9 +28,13 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class StudentPaymentController implements Initializable {
 
+    private static JasperReport paymentReport;
+    private static JasperReport jasperReport;
     @FXML
     private AnchorPane acUpdatePayment;
     @FXML
@@ -53,14 +57,12 @@ public class StudentPaymentController implements Initializable {
     private JFXButton btPrint;
     @FXML
     private AnchorPane acStudentPayment;
-
     private studentProfileController studentProfileController;
-
     private ObservableList<PaymentDTO> paymentDetailOfThisStudent;
     private PaymentBO paymentBOImpl;
     private RegistrationBO registrationBOImpl;
     private ObservableList<ActivityDTO> activityListForThisStudent;
-    private static JasperReport paymentReport;
+    private StudentDTO selectedStudent;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -81,8 +83,6 @@ public class StudentPaymentController implements Initializable {
         cboxActivity.getSelectionModel().select(0);
 
     }
-    private static JasperReport jasperReport;
-    private StudentDTO selectedStudent;
 
     public void init(studentProfileController studentProfileController) {
         this.studentProfileController = studentProfileController;
@@ -109,6 +109,7 @@ public class StudentPaymentController implements Initializable {
             tblStudentPayment.getItems().setAll(paymentDetailOfThisStudent);
             cboxActivity.getSelectionModel().select(0);
         } catch (Exception e) {
+            Logger.getLogger(StudentPaymentController.class.getName()).log(Level.SEVERE, null, e);
             e.printStackTrace();
         }
     }
@@ -172,6 +173,7 @@ public class StudentPaymentController implements Initializable {
 //                Reporter.showReport(jasperPrint, "Student payment");
 //
 //            } catch (Exception e) {
+//        Logger.getLogger(StudentPaymentController.class.getName()).log(Level.SEVERE, null, e);
 //                e.printStackTrace();
 //            }
 //        }else {
@@ -181,7 +183,7 @@ public class StudentPaymentController implements Initializable {
             try {
 //                Progress progress = new Progress(acStudentPayment,"Loading report", "Now loading");
 //                progress.show();
-                if(paymentReport == null){
+                if (paymentReport == null) {
                     InputStream resourceAsStream = getClass().getResourceAsStream("/lk/ijse/mountCalvary/report/student/StudentPaymentReport.jrxml");
                     paymentReport = JasperCompileManager.compileReport(resourceAsStream);
                 }
@@ -194,9 +196,9 @@ public class StudentPaymentController implements Initializable {
                 map.put("StudentName", selectedStudent.getsName());
                 map.put("Payment", payment);
 
-                if(selectedActivity.getAID() == -1){
+                if (selectedActivity.getAID() == -1) {
                     map.put("seeActivity", true);
-                }else{
+                } else {
                     map.put("seeActivity", false);
                 }
                 map.put("Activity", selectedActivity.getaName());
@@ -204,9 +206,9 @@ public class StudentPaymentController implements Initializable {
                 map.put("seeYear", false);
                 map.put("Year_", cboxYear.getSelectionModel().getSelectedItem().toString());
 
-                if(selectedMonth.getValue() == -1){
+                if (selectedMonth.getValue() == -1) {
                     map.put("seeMonth", true);
-                }else{
+                } else {
                     map.put("seeMonth", false);
                 }
                 map.put("month", selectedMonth.toString());
@@ -217,6 +219,7 @@ public class StudentPaymentController implements Initializable {
                 Reporter.showReport(jasperPrint, "Student payment");
 //                progress.close();
             } catch (Exception e) {
+                Logger.getLogger(StudentPaymentController.class.getName()).log(Level.SEVERE, null, e);
                 e.printStackTrace();
             }
         } else {

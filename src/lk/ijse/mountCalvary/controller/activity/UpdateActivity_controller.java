@@ -20,6 +20,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class UpdateActivity_controller implements Initializable {
 
@@ -54,7 +56,8 @@ public class UpdateActivity_controller implements Initializable {
         try {
             loadTeacher();
             loadActivity();
-        }catch (Exception e){}
+        } catch (Exception e) {
+        }
     }
 
     private void loadActivity() throws Exception {
@@ -87,10 +90,11 @@ public class UpdateActivity_controller implements Initializable {
             ActivityDTO upAct = cboxActivity.getSelectionModel().getSelectedItem();
             upAct.setTID(cboxTeacherInCharge.getSelectionModel().getSelectedItem().getTID());
             try {
-                if(activityBOImpl.updateTeacherOfActivity(upAct)){
+                if (activityBOImpl.updateTeacherOfActivity(upAct)) {
                     Common.showMessage("Activity has Successfully updated");
                 }
             } catch (Exception e) {
+                Logger.getLogger(UpdateActivity_controller.class.getName()).log(Level.SEVERE, null, e);
                 e.printStackTrace();
             }
             ScreenLoader.loadPanel("/lk/ijse/mountCalvary/view/basic/ActivityMenu.fxml", this.acUpdateActivity, this);
@@ -104,8 +108,8 @@ public class UpdateActivity_controller implements Initializable {
         cboxTeacherInCharge.setDisable(false);
         int TID = cboxActivity.getSelectionModel().getSelectedItem().getTID();
         ObservableList<TeacherDTO> allTeacher = cboxTeacherInCharge.getItems();
-        for( TeacherDTO oneTeacher : allTeacher){
-            if(oneTeacher.getTID() == TID){
+        for (TeacherDTO oneTeacher : allTeacher) {
+            if (oneTeacher.getTID() == TID) {
                 cboxTeacherInCharge.setValue(oneTeacher);
             }
         }

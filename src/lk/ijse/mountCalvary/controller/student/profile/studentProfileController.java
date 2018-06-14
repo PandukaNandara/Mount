@@ -17,6 +17,8 @@ import lk.ijse.mountCalvary.model.StudentDTO;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class studentProfileController implements Initializable {
 
@@ -39,10 +41,14 @@ public class studentProfileController implements Initializable {
     @FXML
     private AnchorPane studentPayment;
 
-    @FXML private CompetitionForStudentController competitionForStudentController;
-    @FXML private AttendanceAndActivityOfStudentController attendanceAndActivityOfStudentController;
-    @FXML private PersonalDetailController personalDetailController;
-    @FXML private StudentPaymentController studentPaymentController;
+    @FXML
+    private CompetitionForStudentController competitionForStudentController;
+    @FXML
+    private AttendanceAndActivityOfStudentController attendanceAndActivityOfStudentController;
+    @FXML
+    private PersonalDetailController personalDetailController;
+    @FXML
+    private StudentPaymentController studentPaymentController;
 
     private AutoComplete<StudentDTO> autoCompleteStudent;
 
@@ -54,11 +60,12 @@ public class studentProfileController implements Initializable {
         studentBOImpl = BOFactory.getInstance().getBO(BOFactory.BOType.STUDENT);
         try {
             loadStudentDetail();
-            autoCompleteStudent = new AutoComplete<>(txtStudentName,FXCollections.observableArrayList(allStudentDetail));
+            autoCompleteStudent = new AutoComplete<>(txtStudentName, FXCollections.observableArrayList(allStudentDetail));
             autoCompleteStudent.setAutoCompletionsAction(event -> {
                 btSearch.fire();
             });
         } catch (Exception e) {
+            Logger.getLogger(studentProfileController.class.getName()).log(Level.SEVERE, null, e);
             e.printStackTrace();
         }
         personalDetailController.init(this);
@@ -66,7 +73,9 @@ public class studentProfileController implements Initializable {
         competitionForStudentController.init(this);
         studentPaymentController.init(this);
 
-    }private void loadStudentDetail() throws Exception {
+    }
+
+    private void loadStudentDetail() throws Exception {
         allStudentDetail = studentBOImpl.getAll();
     }
 
@@ -86,7 +95,7 @@ public class studentProfileController implements Initializable {
         btSearch.fire();
     }
 
-    private void showDataOnTabs(StudentDTO studentDTO){
+    private void showDataOnTabs(StudentDTO studentDTO) {
 
         personalDetailController.insertStudentID(studentDTO);
         attendanceAndActivityOfStudentController.insertStudentID(studentDTO);
@@ -94,21 +103,22 @@ public class studentProfileController implements Initializable {
         studentPaymentController.insertStudentID(studentDTO);
 
     }
+
     @FXML
     private void btStudentID_onAction(ActionEvent actionEvent) {
         String studentID = txtStudentID.getText().trim();
 
-        if(Common.isInteger(studentID)){
+        if (Common.isInteger(studentID)) {
             int SID = Integer.parseInt(studentID);
             StudentDTO studentDTO = Common.searchStudent(SID, allStudentDetail);
-            if(studentDTO != null){
+            if (studentDTO != null) {
                 txtStudentName.setText(studentDTO.getsName());
                 showDataOnTabs(studentDTO);
-            }else{
+            } else {
                 Common.showError("the student ID is not existed.");
             }
 
-        }else{
+        } else {
             Common.showError("The Student ID is invalid.");
         }
 

@@ -27,25 +27,24 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class EventAndCompetitionOfActivityController implements Initializable {
 
+    private static JasperReport eventAndCompetitionReport;
     @FXML
     private AnchorPane EventAndCompetitionOfActivity;
-
     @FXML
     private JFXComboBox<EventDTO> cboxEvent;
-
     @FXML
     private JFXComboBox<AgeGroupDTO> cboxAgeGroup;
-
     @FXML
     private TableView<CompetitionDTO> tblCompetitionList;
     @FXML
     private TableColumn<CompetitionDTO, String> colCompetition_tblCompetitionList;
     @FXML
     private TableColumn<CompetitionDTO, Date> colDate_tblCompetitionList;
-
     @FXML
     private TableView<ParticipationDTO> tblParticipation;
     @FXML
@@ -54,11 +53,8 @@ public class EventAndCompetitionOfActivityController implements Initializable {
     private TableColumn<ParticipationDTO, String> colResult_tblParticipation;
     @FXML
     private TableColumn<ParticipationDTO, String> colPerformance_tblParticipation;
-
     @FXML
     private TableColumn<ParticipationDTO, String> colAgeGroup_tblParticipation;
-    private static JasperReport eventAndCompetitionReport;
-
     private ActivityProfileController activityProfileController;
 
     private AgeGroupBO ageGroupBOImpl;
@@ -104,6 +100,7 @@ public class EventAndCompetitionOfActivityController implements Initializable {
             tblParticipation.getItems().removeAll(tblParticipation.getItems());
             loadAgeGroup();
         } catch (Exception e) {
+            Logger.getLogger(EventAndCompetitionOfActivityController.class.getName()).log(Level.SEVERE, null, e);
             e.printStackTrace();
         }
     }
@@ -119,6 +116,7 @@ public class EventAndCompetitionOfActivityController implements Initializable {
             } catch (NullPointerException e) {
             }
         } catch (Exception e) {
+            Logger.getLogger(EventAndCompetitionOfActivityController.class.getName()).log(Level.SEVERE, null, e);
             e.printStackTrace();
         }
     }
@@ -129,6 +127,7 @@ public class EventAndCompetitionOfActivityController implements Initializable {
             filterStudentList();
         } catch (NullPointerException e) {
         } catch (Exception e) {
+            Logger.getLogger(EventAndCompetitionOfActivityController.class.getName()).log(Level.SEVERE, null, e);
             e.printStackTrace();
         }
     }
@@ -153,8 +152,9 @@ public class EventAndCompetitionOfActivityController implements Initializable {
             participations = participationBOImpl.getParticipationForThisEventAndCompetition(EID, CID);
             filterStudentList();
             //tblParticipation.getItems().setAll(participations);
-        }catch(NullPointerException n){
+        } catch (NullPointerException n) {
         } catch (Exception e) {
+            Logger.getLogger(EventAndCompetitionOfActivityController.class.getName()).log(Level.SEVERE, null, e);
             e.printStackTrace();
         }
     }
@@ -181,13 +181,14 @@ public class EventAndCompetitionOfActivityController implements Initializable {
             if (ask) {
                 generateReport(participationDTOS, competitionDTO, eventDTO);
             }
-        }else{
+        } else {
             generateReport(participationDTOS, competitionDTO, eventDTO);
         }
     }
-    private void generateReport(ObservableList<ParticipationDTO> participationDTOS, CompetitionDTO competitionDTO, EventDTO eventDTO){
+
+    private void generateReport(ObservableList<ParticipationDTO> participationDTOS, CompetitionDTO competitionDTO, EventDTO eventDTO) {
         try {
-            if(eventAndCompetitionReport == null){
+            if (eventAndCompetitionReport == null) {
                 InputStream eventAndCompetitionFile = getClass().getResourceAsStream("/lk/ijse/mountCalvary/report/activity/EventAndCompetitionReport.jrxml");
                 eventAndCompetitionReport = JasperCompileManager.compileReport(eventAndCompetitionFile);
             }
@@ -197,14 +198,14 @@ public class EventAndCompetitionOfActivityController implements Initializable {
             eventMap.put("EventName", eventDTO.getEventName());
             eventMap.put("comDate", competitionDTO.getDate().toString());
             eventMap.put("CompetitionName", competitionDTO.getComName());
-            if(cboxAgeGroup.getSelectionModel().getSelectedItem().getGID() == -1)
+            if (cboxAgeGroup.getSelectionModel().getSelectedItem().getGID() == -1)
                 eventMap.put("seeAgeGroup", true);
             eventMap.put("AgeGroup", cboxAgeGroup.getSelectionModel().getSelectedItem().getGroupName());
             eventMap.put("Participation", participation);
 
             JasperPrint eventAndCompetitionPrint = JasperFillManager.fillReport(eventAndCompetitionReport, eventMap, new JREmptyDataSource());
             Reporter.showReport(eventAndCompetitionPrint, "Event and competition");
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

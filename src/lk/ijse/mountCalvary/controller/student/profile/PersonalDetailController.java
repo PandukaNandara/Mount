@@ -27,9 +27,12 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class PersonalDetailController implements Initializable {
 
+    private static JasperReport studentPersonalDetail;
     @FXML
     private AnchorPane personalDetail;
     @FXML
@@ -60,14 +63,11 @@ public class PersonalDetailController implements Initializable {
     private JFXTextField txtHouse;
     @FXML
     private JFXTextField txtClass;
-
-    private static JasperReport studentPersonalDetail;
-
     private ArrayList<StudentDTO> allStudentDetail;
 
     private studentProfileController studentProfileController;
     private StudentDTO selectedStudent;
-//    @FXML
+    //    @FXML
 //    private JFXButton btSaveAs;
     @FXML
     private ToggleGroup gender;
@@ -119,6 +119,7 @@ public class PersonalDetailController implements Initializable {
             try {
                 tblTelNo.setItems(telNoBOImpl.getTelNosForThisStudent(i.getSID()));
             } catch (Exception e) {
+                Logger.getLogger(PersonalDetailController.class.getName()).log(Level.SEVERE, null, e);
                 e.printStackTrace();
             }
             txtaDescStudent.setText(i.getNote());
@@ -150,6 +151,7 @@ public class PersonalDetailController implements Initializable {
                 Reporter.showReport(jasperPrint, "Personal details");
 
             } catch (Exception e) {
+                Logger.getLogger(PersonalDetailController.class.getName()).log(Level.SEVERE, null, e);
                 e.printStackTrace();
             }
         } else {
@@ -176,6 +178,7 @@ public class PersonalDetailController implements Initializable {
 //                OutputStream out = new FileOutputStream(saveLocationAndType);
 //                JasperExportManager.exportReportToPdfStream(jasperPrint, out);
 //            } catch (Exception e) {
+// Logger.getLogger(PersonalDetailController.class.getName()).log(Level.SEVERE, null, e);
 //                e.printStackTrace();
 //            }
 //        } else {

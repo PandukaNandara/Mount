@@ -26,9 +26,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class JoinedStudentController implements Initializable {
 
+    private static JasperReport joinedStudentReport;
     ArrayList<RegistrationDTO> allJoinedStudent;
     @FXML
     private AnchorPane JoinedStudent;
@@ -42,11 +45,9 @@ public class JoinedStudentController implements Initializable {
     private JFXComboBox<String> cboxTimeRange;
     @FXML
     private TableColumn<RegistrationDTO, String> colClass;
-
     private ActivityProfileController activityProfileController;
     private ObservableList<RegistrationDTO> registrationOfThisActivity;
     private ActivityBO activityBOImpl;
-    private static JasperReport joinedStudentReport;
     @FXML
     private JFXButton btPrint;
     private ActivityDTO selectedActivity;
@@ -74,6 +75,7 @@ public class JoinedStudentController implements Initializable {
             cboxTimeRange.getItems().setAll(DateRange.getDateRange());
             cboxTimeRange.getSelectionModel().select(0);
         } catch (Exception e) {
+            Logger.getLogger(JoinedStudentController.class.getName()).log(Level.SEVERE, null, e);
             e.printStackTrace();
         }
     }
@@ -134,6 +136,7 @@ public class JoinedStudentController implements Initializable {
                 Reporter.showReport(attendancePrint, "Joined student");
 
             } catch (Exception e) {
+                Logger.getLogger(JoinedStudentController.class.getName()).log(Level.SEVERE, null, e);
                 e.printStackTrace();
             }
         } else {

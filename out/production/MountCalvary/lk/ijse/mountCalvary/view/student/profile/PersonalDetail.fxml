@@ -1,19 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXRadioButton?>
-<?import com.jfoenix.controls.JFXTextArea?>
-<?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.*?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import de.jensd.fx.glyphs.icons525.Icons525View?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
-
-<AnchorPane fx:id="personalDetail" prefHeight="745.0" prefWidth="1022.0" styleClass="profile-frame" stylesheets="@../../../css/size.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.mountCalvary.controller.student.profile.PersonalDetailController">
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="personalDetail" prefHeight="745.0" prefWidth="1022.0" styleClass="profile-frame" stylesheets="@../../../css/size.css" xmlns="http://javafx.com/javafx/8.0.141" fx:controller="lk.ijse.mountCalvary.controller.student.profile.PersonalDetailController">
     <children>
         <JFXTextField fx:id="txtStudentName" editable="false" labelFloat="true" layoutX="238.0" layoutY="79.0" prefHeight="29.0" prefWidth="921.0" promptText="Student name" />
         <Label layoutX="50.0" layoutY="26.0" prefHeight="36.0" prefWidth="309.0" text="Personal Details">

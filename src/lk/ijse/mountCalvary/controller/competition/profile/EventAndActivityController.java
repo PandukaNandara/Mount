@@ -26,9 +26,12 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class EventAndActivityController implements Initializable {
 
+    private static JasperReport competitionDetailReport;
     @FXML
     private AnchorPane acEventForActivity;
     @FXML
@@ -49,8 +52,6 @@ public class EventAndActivityController implements Initializable {
     private TableColumn<ParticipationDTO, String> colResult_tblStudentLIst;
     @FXML
     private TableColumn<ParticipationDTO, String> colPerformance_tblStudentList;
-    private static JasperReport competitionDetailReport;
-
     private CompetitionProfileController competitionProfileController;
 
     private ParticipationBO participationBOImpl;
@@ -87,6 +88,7 @@ public class EventAndActivityController implements Initializable {
             ObservableList<EventListDTO> eventListForThisCompetition = eventListBOImpl.getEventListForThisCompetition(cid);
             tblEventInCompetition.getItems().setAll(eventListForThisCompetition);
         } catch (Exception e) {
+            Logger.getLogger(EventAndActivityController.class.getName()).log(Level.SEVERE, null, e);
             e.printStackTrace();
         }
 
@@ -99,6 +101,7 @@ public class EventAndActivityController implements Initializable {
             ObservableList<ParticipationDTO> participationForThisEventList = participationBOImpl.getParticipationForThisEventList(selectedEventList.getELID());
             tblStudentList.getItems().setAll(participationForThisEventList);
         } catch (Exception e) {
+            Logger.getLogger(EventAndActivityController.class.getName()).log(Level.SEVERE, null, e);
             e.printStackTrace();
         }
     }
@@ -139,6 +142,7 @@ public class EventAndActivityController implements Initializable {
                     //Reporter.showReport(competitionPrint, false);
                     Reporter.showReport(competitionPrint, "Event and participation");
                 } catch (Exception e) {
+                    Logger.getLogger(EventAndActivityController.class.getName()).log(Level.SEVERE, null, e);
                     e.printStackTrace();
                 }
             } else {

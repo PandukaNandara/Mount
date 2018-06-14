@@ -10,4 +10,7 @@ public interface PaymentBO extends SuperBO {
     ObservableList<PaymentDTO> getPaymentDetailOfThisStudent(int sid) throws Exception;
 
     ObservableList<PaymentDTO> getPaymentDetailOfThisActivity(int AID) throws Exception;
+
+    ObservableList<PaymentDTO> getPaymentDetailForThisMonthAndYearAndActivity(int aid, int year, int month) throws Exception;
+
 }

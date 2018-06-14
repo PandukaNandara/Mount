@@ -31,6 +31,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ActivityPaymentController implements Initializable {
 
@@ -135,6 +137,7 @@ public class ActivityPaymentController implements Initializable {
             tblActivityPayment.getItems().setAll(paymentDetailOfThisActivity);
 
         } catch (Exception e) {
+            Logger.getLogger(ActivityPaymentController.class.getName()).log(Level.SEVERE, null, e);
             e.printStackTrace();
         }
     }
@@ -168,6 +171,7 @@ public class ActivityPaymentController implements Initializable {
                 JasperPrint paymentPrint = JasperFillManager.fillReport(paymentReport, paymentMap, new JREmptyDataSource());
                 Reporter.showReport(paymentPrint, "Activity payment");
             } catch (Exception e) {
+                Logger.getLogger(ActivityPaymentController.class.getName()).log(Level.SEVERE, null, e);
                 e.printStackTrace();
             }
         } else {

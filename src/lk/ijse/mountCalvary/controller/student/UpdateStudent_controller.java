@@ -24,6 +24,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import static lk.ijse.mountCalvary.controller.Common.isInteger;
 import static lk.ijse.mountCalvary.controller.Common.showError;
@@ -107,6 +109,7 @@ public class UpdateStudent_controller implements Initializable {
                     }
             );
         } catch (Exception e) {
+            Logger.getLogger(UpdateStudent_controller.class.getName()).log(Level.SEVERE, null, e);
             e.printStackTrace();
         }
 
@@ -122,6 +125,7 @@ public class UpdateStudent_controller implements Initializable {
                 StudentDTO studentDTO = studentBO.getStudent(i.getSID());
                 loadStudentData(studentDTO);
             } catch (Exception e) {
+                Logger.getLogger(UpdateStudent_controller.class.getName()).log(Level.SEVERE, null, e);
                 e.printStackTrace();
             }
         }
@@ -139,6 +143,7 @@ public class UpdateStudent_controller implements Initializable {
                     StudentDTO studentDTO = studentBO.getStudent(i.getSID());
                     loadStudentData(studentDTO);
                 } catch (Exception e) {
+                    Logger.getLogger(UpdateStudent_controller.class.getName()).log(Level.SEVERE, null, e);
                     e.printStackTrace();
                 }
             }
@@ -221,6 +226,7 @@ public class UpdateStudent_controller implements Initializable {
                 tblTelNo.getItems().remove(tblTelNo.getSelectionModel().getSelectedIndex());
                 txtNewTelNo.setText("");
             } catch (Exception e) {
+                Logger.getLogger(UpdateStudent_controller.class.getName()).log(Level.SEVERE, null, e);
                 showError("Please select the old telephone number");
             }
 
@@ -264,6 +270,7 @@ public class UpdateStudent_controller implements Initializable {
                                     Alert a = new Alert(Alert.AlertType.INFORMATION, text, ButtonType.OK);
                                     a.showAndWait();
                                 } catch (Exception e) {
+                                    Logger.getLogger(UpdateStudent_controller.class.getName()).log(Level.SEVERE, null, e);
                                     showError(e.getMessage());
                                 }
 
@@ -342,25 +349,32 @@ public class UpdateStudent_controller implements Initializable {
     }
 
     @FXML
-    void cboxClass_onAction(ActionEvent event) {}
+    void cboxClass_onAction(ActionEvent event) {
+    }
 
     @FXML
-    void cboxGrade_onAction(ActionEvent event) {}
+    void cboxGrade_onAction(ActionEvent event) {
+    }
 
     @FXML
-    void dtDOB_onAction(ActionEvent event) {}
+    void dtDOB_onAction(ActionEvent event) {
+    }
 
     @FXML
-    void rbFemale(ActionEvent event) {}
+    void rbFemale(ActionEvent event) {
+    }
 
     @FXML
-    void txtAddress_onAction(ActionEvent event) {}
+    void txtAddress_onAction(ActionEvent event) {
+    }
 
     @FXML
-    void txtFatherName_onAction(ActionEvent event) {}
+    void txtFatherName_onAction(ActionEvent event) {
+    }
 
     @FXML
-    void txtMotherName_onACtion(ActionEvent event) {}
+    void txtMotherName_onACtion(ActionEvent event) {
+    }
 
     @FXML
     void txtNewTelNo_onAction(ActionEvent event) {

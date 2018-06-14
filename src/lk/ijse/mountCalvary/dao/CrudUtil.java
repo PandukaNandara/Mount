@@ -7,24 +7,20 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 public class CrudUtil {
-
     private static PreparedStatement getPreparedStatement(String sql, Object... params) throws Exception {
 
         int paramsCount = questionMark(sql);
         if (paramsCount != params.length) {
-            System.out.println(params.length);
-            System.out.println(paramsCount);
             throw new RuntimeException("Parameters count is mismatched");
         }
 
         Connection connection = DBConnection.getInstance().getConnection();
-        PreparedStatement pstm = connection.prepareStatement(sql);
+        PreparedStatement pStm = connection.prepareStatement(sql);
 
         for (int i = 0; i < params.length; i++) {
-            pstm.setObject(i + 1, params[i]);
+            pStm.setObject(i + 1, params[i]);
         }
-
-        return pstm;
+        return pStm;
     }
 
     public static ResultSet executeQuery(String sql, Object... params) throws Exception {

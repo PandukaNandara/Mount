@@ -26,6 +26,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import static lk.ijse.mountCalvary.controller.basic.ScreenLoader.loadPanel;
 
@@ -83,7 +85,8 @@ public class AddStudentForActivity_controller implements Initializable {
         try {
             loadActivityWithStudent();
         } catch (Exception e) {
-
+            Logger.getLogger(AddStudentForActivity_controller.class.getName()).log(Level.SEVERE, null, e);
+            e.printStackTrace();
         }
 
     }
@@ -98,9 +101,9 @@ public class AddStudentForActivity_controller implements Initializable {
 
         Date joinDate = Common.LocalDateToDate(dtJoinedDate.getValue());
         if (joinDate == null) {
-            if(firstTime) {
+            if (firstTime) {
                 firstTime = false;
-            }else{
+            } else {
                 Common.showError("Please enter the joined date");
             }
 
@@ -136,7 +139,7 @@ public class AddStudentForActivity_controller implements Initializable {
             allStudent.add(((RegistrationDTO) o).getStudentDTO());
             autoComplete.changeSuggestion(allStudent);
 
-        }catch (Exception e){
+        } catch (Exception e) {
             Common.showError("Please select a row");
         }
     }
@@ -144,17 +147,18 @@ public class AddStudentForActivity_controller implements Initializable {
     @FXML
     void btSubmit_onAction(ActionEvent event) {
         try {
-            if(registrationBOImpl.addAllRegistration(tblStudentList.getItems())){
+            if (registrationBOImpl.addAllRegistration(tblStudentList.getItems())) {
                 Common.showMessage("Registration successful");
                 try {
                     loadPanel("/lk/ijse/mountCalvary/view/basic/ActivityMenu.fxml", this.acAddStudent, this);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-            }else{
+            } else {
                 Common.showWarning("Somethings wrong");
             }
         } catch (Exception e) {
+            Logger.getLogger(AddStudentForActivity_controller.class.getName()).log(Level.SEVERE, null, e);
             Common.showWarning("Something's wrong we can't do your request");
             e.printStackTrace();
         }
@@ -162,7 +166,7 @@ public class AddStudentForActivity_controller implements Initializable {
 
     @FXML
     void cboxActivity_onAction(ActionEvent event) {
-        ActivityDTO select  = cboxActivity.getSelectionModel().getSelectedItem();
+        ActivityDTO select = cboxActivity.getSelectionModel().getSelectedItem();
         ObservableList<StudentDTO> stList = select.getStudentDTOS();
         autoComplete.changeSuggestion(stList);
         autoComplete.setAutoCompletionsAction(event1 -> {
@@ -176,11 +180,13 @@ public class AddStudentForActivity_controller implements Initializable {
     private void txtStudentName_onAction(ActionEvent actionEvent) {
         performAdd();
     }
+
     private void performAdd() {
         StudentDTO studentDTO = Common.searchStudent(txtStudentName.getText().trim(), cboxActivity.getSelectionModel().getSelectedItem().getStudentDTOS());
         try {
             txtStudentID.setText(studentDTO.getSID() + "");
-        }catch (Exception e){}
+        } catch (Exception e) {
+        }
         btAdd.fire();
     }
 

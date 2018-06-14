@@ -28,6 +28,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class UpdateAttendance_controller implements Initializable {
 
@@ -45,6 +47,9 @@ public class UpdateAttendance_controller implements Initializable {
 
     @FXML
     private TableView<RegistrationDTO> tblStudentList;
+
+    @FXML
+    private TableColumn<RegistrationDTO, String> colClass;
 
     @FXML
     private TableColumn<RegistrationDTO, String> colStudentList;
@@ -73,11 +78,14 @@ public class UpdateAttendance_controller implements Initializable {
     @FXML
     private JFXButton btAddAll;
 
+    @FXML
+    private TableColumn<AttendantSheetDTO, Date> colDate;
+
+
     private ActivityBO activityBOImpl;
     private TeacherBO teacherBOImpl;
     private AttendantSheetBO attendantSheetBOImpl;
-    @FXML
-    private TableColumn<AttendantSheetDTO, Date> colDate;
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -87,6 +95,8 @@ public class UpdateAttendance_controller implements Initializable {
         attendantSheetBOImpl = BOFactory.getInstance().getBO(BOFactory.BOType.ATTENDANT_SHEET);
 
         colStudentList.setCellValueFactory(new PropertyValueFactory<>("studentName"));
+        colClass.setCellValueFactory(new PropertyValueFactory<>("studentClass"));
+
         colStudent.setCellValueFactory(new PropertyValueFactory<>("studentName"));
         colTeacherInCharge.setCellValueFactory(new PropertyValueFactory<>("teacherName"));
         colActivity.setCellValueFactory(new PropertyValueFactory<>("activityName"));
@@ -96,10 +106,12 @@ public class UpdateAttendance_controller implements Initializable {
                 SelectionMode.MULTIPLE
         );
         try {
-            loadActivityWithStudent();
+            loadActivity();
             loadTeacherInCharge();
         } catch (Exception e) {
+            Logger.getLogger(UpdateAttendance_controller.class.getName()).log(Level.SEVERE, null, e);
             e.printStackTrace();
+
         }
     }
 
@@ -107,8 +119,8 @@ public class UpdateAttendance_controller implements Initializable {
         cboxTeacherInCharge.getItems().setAll(teacherBOImpl.getAllTeacher());
     }
 
-    private void loadActivityWithStudent() throws Exception {
-        ArrayList<ActivityDTO> activityWithStudent = activityBOImpl.getActivityWithStudent();
+    private void loadActivity() throws Exception {
+        ArrayList<ActivityDTO> activityWithStudent = activityBOImpl.getAllActivity();
         cboxActivity.getItems().setAll(activityWithStudent);
     }
 
@@ -141,7 +153,7 @@ public class UpdateAttendance_controller implements Initializable {
         boolean answer = Common.askWarning("Do you want to cancel?");
         if (answer) {
             try {
-                ScreenLoader.loadPanel("/lk/ijse/mountCalvary/view/basic/MainMenuFrame.fxml", this.acUpdateAttendance, this);
+                ScreenLoader.loadPanel("/lk/ijse/mountCalvary/view/basic/MainMenu.fxml", this.acUpdateAttendance, this);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -170,15 +182,16 @@ public class UpdateAttendance_controller implements Initializable {
                 try {
                     if (attendantSheetBOImpl.saveAllAttendantSheet(attendantSheetDTOS)) {
                         Common.showMessage("Attendant sheet successfully updated");
-
                         try {
-                            ScreenLoader.loadPanel("/lk/ijse/mountCalvary/view/basic/MainMenuFrame.fxml", this.acUpdateAttendance, this);
+                            ScreenLoader.loadPanel("/lk/ijse/mountCalvary/view/basic/MainMenu.fxml", this.acUpdateAttendance, this);
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
                     }
                 } catch (Exception e) {
+                    Logger.getLogger(UpdateAttendance_controller.class.getName()).log(Level.SEVERE, null, e);
                     e.printStackTrace();
+
                 }
             }
         }
@@ -186,7 +199,12 @@ public class UpdateAttendance_controller implements Initializable {
 
     @FXML
     void cboxActivity_onAction(ActionEvent event) {
-        tblStudentList.getItems().setAll(cboxActivity.getSelectionModel().getSelectedItem().getRegistrationDTOS());
+        try {
+            tblStudentList.getItems().setAll(activityBOImpl.getRegistrationOfThisActivity(cboxActivity.getSelectionModel().getSelectedItem().getAID()));
+        } catch (Exception e) {
+            Logger.getLogger(UpdateAttendance_controller.class.getName()).log(Level.SEVERE, null, e);
+            e.printStackTrace();
+        }
     }
 
     @FXML

@@ -41,4 +41,6 @@ public interface QueryDAO extends SuperDAO {
     ArrayList<CustomEntity> getParticipationForThisEventAndCompetition(int EID, int CID) throws Exception;
 
     ArrayList<CustomEntity> getTeacherInChargeListForThisCompetition(int cid) throws Exception;
+
+    ArrayList<CustomEntity> getPaymentDetailForThisMonthAndYearAndActivity(int aid, int year, int month) throws Exception;
 }

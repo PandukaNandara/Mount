@@ -5,45 +5,46 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="acUpdateAttendance" prefHeight="785.0" prefWidth="1235.0" style="-fx-background-color: white;" styleClass="main-frame" stylesheets="@../../css/size.css" xmlns="http://javafx.com/javafx/8.0.141" fx:controller="lk.ijse.mountCalvary.controller.attendance.UpdateAttendance_controller">
-   <children>
-      <Label layoutX="85.0" layoutY="24.0" prefHeight="42.0" prefWidth="209.0" text="Update attendance">
-         <font>
-            <Font name="Arial Bold" size="18.0" />
-         </font>
-      </Label>
-      <JFXComboBox fx:id="cboxActivity" labelFloat="true" layoutX="81.0" layoutY="89.0" onAction="#cboxActivity_onAction" prefHeight="25.0" prefWidth="508.0" promptText="Activity" />
-      <JFXComboBox fx:id="cboxTeacherInCharge" labelFloat="true" layoutX="81.0" layoutY="134.0" onAction="#cboxTeacherInCharge_onAction" prefHeight="25.0" prefWidth="508.0" promptText="Teacher in charge" />
-      <JFXDatePicker fx:id="dpDate" layoutX="81.0" layoutY="176.0" onAction="#dpDate_onAction" promptText="Date" showWeekNumbers="true" />
-      <TableView fx:id="tblStudentList" layoutX="81.0" layoutY="222.0" minHeight="67.0" minWidth="1080.0" prefHeight="232.0" prefWidth="1287.0">
-        <columns>
-          <TableColumn fx:id="colStudentList" prefWidth="75.0" text="Student list" />
-        </columns>
-         <columnResizePolicy>
-            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-         </columnResizePolicy>
-      </TableView>
-      <TableView fx:id="tblAttendance" layoutX="81.0" layoutY="511.0" prefHeight="274.0" prefWidth="1290.0">
-         <columns>
-            <TableColumn fx:id="colStudent" prefWidth="75.0" text="Student " />
-            <TableColumn fx:id="colActivity" prefWidth="75.0" text="Activity" />
-            <TableColumn fx:id="colDate" prefWidth="75.0" text="Date" />
-            <TableColumn fx:id="colTeacherInCharge" prefWidth="75.0" text="Teacher in charge" />
-         </columns>
-         <columnResizePolicy>
-            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-         </columnResizePolicy>
-      </TableView>
-      <JFXButton fx:id="btUpdate" layoutX="1246.0" layoutY="822.0" onAction="#btUpdate_onAction" prefHeight="33.0" prefWidth="124.0" style="-fx-background-color: #2196F3;" text="Update" textFill="WHITE" />
-      <JFXButton fx:id="btRemove" layoutX="1246.0" layoutY="484.0" onAction="#btRemove_onAction" prefHeight="18.0" prefWidth="124.0" text="Remove" textFill="#2196f3">
-         <font>
-            <Font name="System Bold" size="12.0" />
-         </font>
-      </JFXButton>
-      <JFXButton fx:id="btAddAll" layoutX="81.0" layoutY="467.0" onAction="#btAddAll_onAction" prefHeight="33.0" prefWidth="124.0" style="-fx-background-color: #2196F3;" text="Add all" textFill="WHITE" />
-      <JFXButton fx:id="btCancel" cancelButton="true" layoutX="1091.0" layoutY="819.0" onAction="#btCancel_onAction" prefHeight="40.0" prefWidth="124.0" text="Cancel" textFill="#2196f3">
-         <font>
-            <Font name="System Bold" size="12.0" />
-         </font>
-      </JFXButton>
-   </children>
+    <children>
+        <Label layoutX="81.0" layoutY="27.0" prefHeight="42.0" prefWidth="209.0" text="Update attendance">
+            <font>
+                <Font name="Arial Bold" size="18.0" />
+            </font>
+        </Label>
+        <JFXComboBox fx:id="cboxActivity" labelFloat="true" layoutX="81.0" layoutY="89.0" onAction="#cboxActivity_onAction" prefHeight="25.0" prefWidth="508.0" promptText="Activity" />
+        <JFXComboBox fx:id="cboxTeacherInCharge" labelFloat="true" layoutX="81.0" layoutY="134.0" onAction="#cboxTeacherInCharge_onAction" prefHeight="25.0" prefWidth="508.0" promptText="Teacher in charge" />
+        <JFXDatePicker fx:id="dpDate" layoutX="81.0" layoutY="176.0" onAction="#dpDate_onAction" promptText="Date" showWeekNumbers="true" />
+        <TableView fx:id="tblStudentList" accessibleText="Hey" layoutX="81.0" layoutY="222.0" minHeight="67.0" minWidth="1080.0" prefHeight="232.0" prefWidth="1287.0">
+            <columns>
+                <TableColumn fx:id="colStudentList" prefWidth="75.0" text="Student " />
+            <TableColumn fx:id="colClass" prefWidth="75.0" text="Class" />
+            </columns>
+            <columnResizePolicy>
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+            </columnResizePolicy>
+        </TableView>
+        <TableView fx:id="tblAttendance" layoutX="81.0" layoutY="511.0" prefHeight="274.0" prefWidth="1290.0">
+            <columns>
+                <TableColumn fx:id="colStudent" prefWidth="75.0" text="Student " />
+                <TableColumn fx:id="colActivity" prefWidth="75.0" text="Activity" />
+                <TableColumn fx:id="colDate" prefWidth="75.0" text="Date" />
+                <TableColumn fx:id="colTeacherInCharge" prefWidth="75.0" text="Teacher in charge" />
+            </columns>
+            <columnResizePolicy>
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+            </columnResizePolicy>
+        </TableView>
+        <JFXButton fx:id="btUpdate" layoutX="1246.0" layoutY="822.0" onAction="#btUpdate_onAction" prefHeight="33.0" prefWidth="124.0" style="-fx-background-color: #2196F3;" text="Update" textFill="WHITE" />
+        <JFXButton fx:id="btRemove" layoutX="1246.0" layoutY="484.0" onAction="#btRemove_onAction" prefHeight="18.0" prefWidth="124.0" text="Remove" textFill="#2196f3">
+            <font>
+                <Font name="System Bold" size="12.0" />
+            </font>
+        </JFXButton>
+        <JFXButton fx:id="btAddAll" layoutX="81.0" layoutY="467.0" onAction="#btAddAll_onAction" prefHeight="33.0" prefWidth="124.0" style="-fx-background-color: #2196F3;" text="Add all" textFill="WHITE" />
+        <JFXButton fx:id="btCancel" cancelButton="true" layoutX="1091.0" layoutY="819.0" onAction="#btCancel_onAction" prefHeight="40.0" prefWidth="124.0" text="Cancel" textFill="#2196f3">
+            <font>
+                <Font name="System Bold" size="12.0" />
+            </font>
+        </JFXButton>
+    </children>
 </AnchorPane>

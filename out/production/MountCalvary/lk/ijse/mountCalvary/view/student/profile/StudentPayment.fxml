@@ -3,13 +3,10 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import de.jensd.fx.glyphs.icons525.Icons525View?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
-
-<AnchorPane fx:id="acStudentPayment" prefHeight="785.0" prefWidth="1235.0" style="-fx-background-color: white;" styleClass="profile-frame" stylesheets="@../../../css/size.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.mountCalvary.controller.student.profile.StudentPaymentController">
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="acStudentPayment" prefHeight="785.0" prefWidth="1235.0" style="-fx-background-color: white;" styleClass="profile-frame" stylesheets="@../../../css/size.css" xmlns="http://javafx.com/javafx/8.0.141" fx:controller="lk.ijse.mountCalvary.controller.student.profile.StudentPaymentController">
    <children>
       <Label layoutX="58.0" layoutY="24.0" prefHeight="36.0" prefWidth="309.0" text="Student Payment">
          <font>

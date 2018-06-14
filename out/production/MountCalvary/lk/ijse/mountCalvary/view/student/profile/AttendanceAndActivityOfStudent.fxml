@@ -6,9 +6,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
-<AnchorPane fx:id="attendanceAndActivityOfStudent" prefHeight="745.0" prefWidth="1022.0" styleClass="profile-frame"
-            stylesheets="@../../../css/size.css" xmlns="http://javafx.com/javafx/8.0.141"
-            xmlns:fx="http://javafx.com/fxml/1"
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="attendanceAndActivityOfStudent" prefHeight="745.0" prefWidth="1022.0"
+            styleClass="profile-frame" stylesheets="@../../../css/size.css"
+            xmlns="http://javafx.com/javafx/8.0.141"
             fx:controller="lk.ijse.mountCalvary.controller.student.profile.AttendanceAndActivityOfStudentController">
     <children>
         <Label layoutX="50.0" layoutY="20.0" prefHeight="36.0" prefWidth="309.0"

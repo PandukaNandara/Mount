@@ -24,6 +24,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Date;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import static lk.ijse.mountCalvary.controller.Common.isInteger;
 import static lk.ijse.mountCalvary.controller.Common.showError;
@@ -137,6 +139,7 @@ public class NewStudent_controller implements Initializable {
         try {
             loadActivity();
         } catch (Exception e) {
+            Logger.getLogger(NewStudent_controller.class.getName()).log(Level.SEVERE, null, e);
             e.printStackTrace();
         }
 
@@ -202,12 +205,13 @@ public class NewStudent_controller implements Initializable {
                         if (checkDOB()) {
                             if (checkParents()) {
                                 int stId = getStudentID();
-                                String stName = txtStudentName.getText().trim().replaceAll(" +", " ");;
+                                String stName = txtStudentName.getText().trim().replaceAll(" +", " ");
+                                ;
                                 String house = cboxHouse.getSelectionModel().getSelectedItem();
                                 boolean gender = rbMale.isSelected() ? true : false;
                                 String grade = cboxGrade.getSelectionModel().getSelectedItem();
                                 String class_ = cboxClass.getSelectionModel().getSelectedItem();
-                                if(!grade.equals("Left"))
+                                if (!grade.equals("Left"))
                                     grade += "-";
                                 else
                                     class_ = "";
@@ -219,7 +223,7 @@ public class NewStudent_controller implements Initializable {
                                 String note = txtaDesc.getText();
                                 ObservableList<TelNoDTO> allTelNum = tblTelNo.getItems();
                                 ObservableList<RegistrationDTO> allInitialActivity = tblActivity.getItems();
-                                try{
+                                try {
                                     boolean b = student.addStudent(new StudentDTO(stId, stName, gender, DOB, grade_class, fatherName, motherName, note, house, address, allTelNum, allInitialActivity));
                                     String text = "";
                                     if (b)
@@ -228,7 +232,7 @@ public class NewStudent_controller implements Initializable {
                                         text = "Student has not successfully added";
                                     Alert a = new Alert(Alert.AlertType.INFORMATION, text, ButtonType.OK);
                                     a.showAndWait();
-                                }catch (Exception e){
+                                } catch (Exception e) {
                                     showError(e.getMessage());
                                 }
                                 if (Common.askQuestion("Do you want to add more student?")) {

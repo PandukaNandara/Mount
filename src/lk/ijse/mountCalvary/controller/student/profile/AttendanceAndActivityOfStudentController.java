@@ -25,51 +25,38 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class AttendanceAndActivityOfStudentController implements Initializable {
 
+    private static JasperReport attendanceOfStudentReport;
     @FXML
     private AnchorPane attendanceAndActivityOfStudent;
-
     @FXML
     private TableView<RegistrationDTO> tblRegistration;
-
     @FXML
     private TableColumn<RegistrationDTO, String> colActivity_tblRegistration;
-
     @FXML
     private TableColumn<RegistrationDTO, Date> colJoinedDate_tblRegistration;
-
     @FXML
     private TableView<AttendantSheetDTO> tblAttendantSheet;
-
     @FXML
     private TableColumn<AttendantSheetDTO, Date> colDate_tblAttendantSheet;
-
     @FXML
     private TableColumn<AttendantSheetDTO, String> colActivity_tblAttendantSheet;
-
     @FXML
     private TableColumn<AttendantSheetDTO, String> colTeacherInCharge_tblAttendantSheet;
-
     @FXML
     private JFXComboBox<String> cboxTimeRange;
-
     private studentProfileController studentProfileController;
-
     @FXML
     private JFXComboBox<ActivityDTO> cboxActivity;
-
-
     private ObservableList<RegistrationDTO> registrationDTOS;
-
     private RegistrationBO registrationBOImpl;
     private AttendantSheetBO attendantSheetBOImpl;
-
     private ObservableList<AttendantSheetDTO> allAttendance;
-
     private String[] ageGroup = DateRange.getDateRange();
-    private static JasperReport attendanceOfStudentReport;
     private StudentDTO selectedStudent;
     private JasperReport activityOfStudentReport;
 
@@ -81,7 +68,7 @@ public class AttendanceAndActivityOfStudentController implements Initializable {
         colActivity_tblAttendantSheet.setCellValueFactory(new PropertyValueFactory<>("activityName"));
         colDate_tblAttendantSheet.setCellValueFactory(new PropertyValueFactory<>("date"));
         colTeacherInCharge_tblAttendantSheet.setCellValueFactory(new PropertyValueFactory<>("teacherName"));
-        
+
         registrationBOImpl = BOFactory.getInstance().getBO(BOFactory.BOType.REGISTRATION);
         attendantSheetBOImpl = BOFactory.getInstance().getBO(BOFactory.BOType.ATTENDANT_SHEET);
     }
@@ -141,6 +128,7 @@ public class AttendanceAndActivityOfStudentController implements Initializable {
             selectedStudent = i;
             loadIntoRegistration(i);
         } catch (Exception e) {
+            Logger.getLogger(AttendanceAndActivityOfStudentController.class.getName()).log(Level.SEVERE, null, e);
             e.printStackTrace();
         }
     }
@@ -189,7 +177,7 @@ public class AttendanceAndActivityOfStudentController implements Initializable {
                 attendanceMap.put("StudentID", selectedStudent.getSID());
                 attendanceMap.put("StudentName", selectedStudent.getsName());
                 attendanceMap.put("Attendance", attendantSheet);
-                if(selectedActivity.getAID() == -1){
+                if (selectedActivity.getAID() == -1) {
                     attendanceMap.put("seeActivity", true);
                 }
                 attendanceMap.put("ActivityName", selectedActivity.getaName());
@@ -206,6 +194,7 @@ public class AttendanceAndActivityOfStudentController implements Initializable {
                 Common.showError("Please select a student to print.");
             }
         } catch (Exception e) {
+            Logger.getLogger(AttendanceAndActivityOfStudentController.class.getName()).log(Level.SEVERE, null, e);
             e.printStackTrace();
         }
 

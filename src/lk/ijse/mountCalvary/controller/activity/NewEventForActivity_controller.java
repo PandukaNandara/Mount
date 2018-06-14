@@ -25,6 +25,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class NewEventForActivity_controller implements Initializable {
 
@@ -92,6 +94,7 @@ public class NewEventForActivity_controller implements Initializable {
         try {
             loadActivityWithOldEvent();
         } catch (Exception e) {
+            Logger.getLogger(NewEventForActivity_controller.class.getName()).log(Level.SEVERE, null, e);
             e.printStackTrace();
         }
     }
@@ -153,12 +156,12 @@ public class NewEventForActivity_controller implements Initializable {
                     if (eventBOImpl.addAllEvent(eventList)) {
                         Common.showMessage("Events has successfully added");
                         try {
-                            Stage thisWindow =  (Stage) (this.acNewEvntForActivity.getScene().getWindow());
+                            Stage thisWindow = (Stage) (this.acNewEvntForActivity.getScene().getWindow());
                             String window = thisWindow.getClass().getName();
                             System.out.println(window);
                             if (window.equals("temp")) {
                                 thisWindow.close();
-                            }else{
+                            } else {
                                 ScreenLoader.loadPanel("/lk/ijse/mountCalvary/view/basic/ActivityMenu.fxml", this.acNewEvntForActivity, this);
                             }
                         } catch (IOException e) {
@@ -168,6 +171,7 @@ public class NewEventForActivity_controller implements Initializable {
                         Common.showError("Something's wrong we can't do your request");
                     }
                 } catch (Exception e) {
+                    Logger.getLogger(NewEventForActivity_controller.class.getName()).log(Level.SEVERE, null, e);
                     Common.showError("Something's wrong we can't do your request");
                     e.printStackTrace();
                 }

@@ -25,6 +25,8 @@ import lk.ijse.mountCalvary.model.ParticipationDTO;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class DeleteCompetition_controller implements Initializable {
     @FXML
@@ -75,6 +77,7 @@ public class DeleteCompetition_controller implements Initializable {
         try {
             loadCompetition();
         } catch (Exception e) {
+            Logger.getLogger(DeleteCompetition_controller.class.getName()).log(Level.SEVERE, null, e);
             e.printStackTrace();
         }
     }
@@ -106,21 +109,22 @@ public class DeleteCompetition_controller implements Initializable {
                 int participationCount = participationBOImpl.getParticipationForThisCompetition(CID).size();
                 String message = "";
 
-                if(eventListCount >  1 && participationCount > 1){
+                if (eventListCount > 1 && participationCount > 1) {
                     message = "There are " + eventListCount + " events and " + participationCount + " participation records for the competition.";
-                }else{
+                } else {
                     message = "There is " + eventListCount + " event and " + participationCount + " participation records for the competition.";
                 }
                 boolean yes = Common.askWarning(message + " Do you want to delete this competition? If you delete, all records will be deleted.");
-                if(yes){
-                    if(competitionBOImpl.deleteCompetition(CID)){
+                if (yes) {
+                    if (competitionBOImpl.deleteCompetition(CID)) {
                         Common.showMessage("Competition has successfully deleted");
-                    }else {
+                    } else {
                         Common.showWarning("Something's wrong we can't do your request now.");
                     }
                 }
             }
         } catch (Exception e) {
+            Logger.getLogger(DeleteCompetition_controller.class.getName()).log(Level.SEVERE, null, e);
             e.printStackTrace();
         }
         try {
@@ -137,6 +141,7 @@ public class DeleteCompetition_controller implements Initializable {
             ObservableList<EventListDTO> eventListForThisCompetition = eventListBOImpl.getEventListForThisCompetition(selectedCompetition.getCID());
             tblEventInCompetition.getItems().setAll(eventListForThisCompetition);
         } catch (Exception e) {
+            Logger.getLogger(DeleteCompetition_controller.class.getName()).log(Level.SEVERE, null, e);
             e.printStackTrace();
         }
     }
@@ -149,6 +154,7 @@ public class DeleteCompetition_controller implements Initializable {
             ObservableList<ParticipationDTO> participationForThisEventList = participationBOImpl.getParticipationForThisEventList(selectedEventList.getELID());
             tblStudentList.getItems().setAll(participationForThisEventList);
         } catch (Exception e) {
+            Logger.getLogger(DeleteCompetition_controller.class.getName()).log(Level.SEVERE, null, e);
             e.printStackTrace();
         }
     }

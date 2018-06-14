@@ -24,6 +24,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class EventForCompetition_controller implements Initializable {
     @FXML
@@ -108,6 +110,7 @@ public class EventForCompetition_controller implements Initializable {
             loadAgeGroup();
             loadActivity();
         } catch (Exception e) {
+            Logger.getLogger(EventForCompetition_controller.class.getName()).log(Level.SEVERE, null, e);
             e.printStackTrace();
         }
     }
@@ -119,9 +122,11 @@ public class EventForCompetition_controller implements Initializable {
             eventListDTOS = eventListBOImpl.getEventListForThisCompetition(cboxCompetition.getSelectionModel().getSelectedItem().getCID());
             tblEventList.getItems().setAll(eventListDTOS);
         } catch (Exception e) {
+            Logger.getLogger(EventForCompetition_controller.class.getName()).log(Level.SEVERE, null, e);
             e.printStackTrace();
         }
     }
+
     private void loadCompetition() throws Exception {
         cboxCompetition.getItems().setAll(competitionBOImpl.getAllCompetition());
     }
@@ -181,13 +186,13 @@ public class EventForCompetition_controller implements Initializable {
     @FXML
     void btRemove_tblEventList_onAction(ActionEvent event) {
         EventListDTO selectedItem = tblEventList.getSelectionModel().getSelectedItem();
-        if(selectedItem != null){
-            if(selectedItem.isNewEventList()){
+        if (selectedItem != null) {
+            if (selectedItem.isNewEventList()) {
                 Common.removeItemFromTable(tblEventList);
-            }else {
+            } else {
                 Common.showError("This event has already added. You cannot remove it.");
             }
-        }else{
+        } else {
             Common.showError("Please select an event to remove.");
         }
     }
@@ -198,6 +203,7 @@ public class EventForCompetition_controller implements Initializable {
             ObservableList<EventDTO> eventDTOS = eventBOImpl.getEventForThisActivity(cboxActivity.getSelectionModel().getSelectedItem().getAID());
             tblEventListOfActivity.getItems().setAll(eventDTOS);
         } catch (Exception e) {
+            Logger.getLogger(EventForCompetition_controller.class.getName()).log(Level.SEVERE, null, e);
             e.printStackTrace();
         }
 
@@ -246,6 +252,7 @@ public class EventForCompetition_controller implements Initializable {
                     }
 
                 } catch (Exception e) {
+                    Logger.getLogger(EventForCompetition_controller.class.getName()).log(Level.SEVERE, null, e);
                     Common.showError("Something's wrong we can't do your request now");
                     e.printStackTrace();
 
@@ -269,6 +276,7 @@ public class EventForCompetition_controller implements Initializable {
             fooController.setSelectedItem(cboxCompetition.getSelectionModel().getSelectedIndex());
 
         } catch (Exception e) {
+            Logger.getLogger(EventForCompetition_controller.class.getName()).log(Level.SEVERE, null, e);
             e.printStackTrace();
         }
     }
@@ -302,6 +310,7 @@ public class EventForCompetition_controller implements Initializable {
 
             loadActivity();
         } catch (Exception e) {
+            Logger.getLogger(EventForCompetition_controller.class.getName()).log(Level.SEVERE, null, e);
             e.printStackTrace();
         }
 

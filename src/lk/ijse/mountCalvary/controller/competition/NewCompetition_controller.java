@@ -27,6 +27,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class NewCompetition_controller implements Initializable {
 
@@ -67,12 +69,15 @@ public class NewCompetition_controller implements Initializable {
         try {
             loadTeacher();
         } catch (Exception e) {
+            Logger.getLogger(NewCompetition_controller.class.getName()).log(Level.SEVERE, null, e);
             e.printStackTrace();
         }
     }
+
     private void loadTeacher() throws Exception {
         cboxTeacherInCharge.getItems().setAll(teacherBOImpl.getAllTeacher());
     }
+
     @FXML
     void btAdd_teacherInCharge_onAction(ActionEvent event) {
         TeacherDTO selectTeacher = (TeacherDTO) cboxTeacherInCharge.getSelectionModel().getSelectedItem();
@@ -83,6 +88,7 @@ public class NewCompetition_controller implements Initializable {
             cboxTeacherInCharge.getItems().remove(selectTeacher);
         }
     }
+
     @FXML
     void btNext_newCompetition_onAction(ActionEvent event) {
         String compName = txtCompetitionName.getText().trim();
@@ -101,13 +107,13 @@ public class NewCompetition_controller implements Initializable {
             Common.showError("Please enter the location of the competition where it is held.");
         } else if (teacherList.size() == 0) {
             Common.showError("Please add teacher for the competition");
-        }else if(date == null){
+        } else if (date == null) {
             Common.showError("Please select the date that the competition was held.");
         } else if (txtaDesc.getText().length() > 700) {
             Common.showError("Competition description can contain only 700 characters. You have entered " + txtaDesc.getText().length() + " characters (with spaces).");
             try {
                 txtaDesc.selectRange(700, txtaDesc.getText().length());
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         } else if (desc.length() < 1) {
@@ -117,7 +123,7 @@ public class NewCompetition_controller implements Initializable {
             } else {
                 addCompetition(competitionDTO);
             }
-        } else if(Common.askQuestion("Do you want to create this competition?")){
+        } else if (Common.askQuestion("Do you want to create this competition?")) {
             addCompetition(competitionDTO);
         }
         //
@@ -157,6 +163,7 @@ public class NewCompetition_controller implements Initializable {
 //                        EventForCompetition_controller fooController = (EventForCompetition_controller) fxmlLoader.getController();
 //                        fooController.setLblHead("Pass");
                     } catch (Exception e) {
+                        Logger.getLogger(NewCompetition_controller.class.getName()).log(Level.SEVERE, null, e);
                         ScreenLoader.loadPanel("/lk/ijse/mountCalvary/view/competition/StudentForCompetition.fxml", this.acNewCompetition, this);
                         e.printStackTrace();
                     }
@@ -171,6 +178,7 @@ public class NewCompetition_controller implements Initializable {
                 Common.showError("Something's wrong we can't do your request now");
             }
         } catch (Exception e) {
+            Logger.getLogger(NewCompetition_controller.class.getName()).log(Level.SEVERE, null, e);
             Common.showError("Something's wrong we can't do your request now");
             e.printStackTrace();
         }

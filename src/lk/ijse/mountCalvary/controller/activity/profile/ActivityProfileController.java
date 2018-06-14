@@ -15,6 +15,8 @@ import lk.ijse.mountCalvary.model.ActivityDTO;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ActivityProfileController implements Initializable {
 
@@ -63,6 +65,7 @@ public class ActivityProfileController implements Initializable {
         try {
             loadAllActivity();
         } catch (Exception e) {
+            Logger.getLogger(ActivityProfileController.class.getName()).log(Level.SEVERE, null, e);
             e.printStackTrace();
         }
 

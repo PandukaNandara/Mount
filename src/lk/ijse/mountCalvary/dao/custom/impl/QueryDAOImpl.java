@@ -437,9 +437,9 @@ public class QueryDAOImpl implements QueryDAO {
                 "  month,\n" +
                 "  year\n" +
                 "from student s, registration r, payment py\n" +
-                "where AID = ? and\n" +
+                "where\n" +
                 "      (r.SID = s.SID and\n" +
-                "       r.RID = py.RID)\n", AID);
+                "       r.RID = py.RID) and AID = ? \n", AID);
         while (rst.next()) {
             paymentList.add(new CustomEntity(
                             rst.getInt("PAYID"),
@@ -538,6 +538,39 @@ public class QueryDAOImpl implements QueryDAO {
             allTeacherInCharge.add(teacher);
         }
         return allTeacherInCharge;
+    }
+
+    @Override
+    public ArrayList<CustomEntity> getPaymentDetailForThisMonthAndYearAndActivity(int aid, int year, int month) throws Exception {
+        ArrayList<CustomEntity> paymentDetail = new ArrayList<>();
+        ResultSet rst = CrudUtil.executeQuery("select\n" +
+                "  PAYID,\n" +
+                "  r.RID,\n" +
+                "  s.SID,\n" +
+                "  sName,\n" +
+                "  fee,\n" +
+                "  month,\n" +
+                "  year\n" +
+                "from student s, registration r, payment py\n" +
+                "where \n" +
+                "      (r.SID = s.SID and\n" +
+                "       r.RID = py.RID) and \n" +
+                "AID = ? and " +
+                "month = ? and " +
+                "year = ?" , aid, month, year);
+        while (rst.next()) {
+            paymentDetail.add(new CustomEntity(
+                            rst.getInt("PAYID"),
+                            rst.getInt("RID"),
+                            rst.getInt("SID"),
+                            rst.getString("sName"),
+                            rst.getBigDecimal("fee"),
+                            rst.getInt("month"),
+                            rst.getInt("year")
+                    )
+            );
+        }
+        return paymentDetail;
     }
 
 }

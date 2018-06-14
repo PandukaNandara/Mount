@@ -3,13 +3,10 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import de.jensd.fx.glyphs.icons525.Icons525View?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
-
-<AnchorPane fx:id="EventAndCompetitionOfActivity" prefHeight="745.0" prefWidth="1022.0" styleClass="profile-frame" stylesheets="@../../../css/size.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.mountCalvary.controller.activity.profile.EventAndCompetitionOfActivityController">
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="EventAndCompetitionOfActivity" prefHeight="745.0" prefWidth="1022.0" styleClass="profile-frame" stylesheets="@../../../css/size.css" xmlns="http://javafx.com/javafx/8.0.141" fx:controller="lk.ijse.mountCalvary.controller.activity.profile.EventAndCompetitionOfActivityController">
    <children>
       <Label layoutX="57.0" layoutY="29.0" prefHeight="44.0" prefWidth="301.0" text="Event List">
          <font>

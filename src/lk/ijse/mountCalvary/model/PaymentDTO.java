@@ -17,6 +17,8 @@ public class PaymentDTO {
     private String activityName;
     private String studentName;
 
+    private boolean isNewOne;
+
     public PaymentDTO(RegistrationDTO registrationDTO, BigDecimal fee, Month month, int year) {
         setRegistrationDTO(registrationDTO);
         this.fee = fee;
@@ -32,6 +34,12 @@ public class PaymentDTO {
         this.fee = fee;
         setMonth(month);
         this.year = year;
+    }
+
+    public PaymentDTO(RegistrationDTO registrationDTO, Month month, int year) {
+        this.month = month;
+        this.year = year;
+        this.registrationDTO = registrationDTO;
     }
 
     public PaymentDTO(int PAYID, int RID, BigDecimal fee, Month month, int year) {
@@ -61,7 +69,10 @@ public class PaymentDTO {
         setMonth(month);
         setYear(year);
     }
-
+    public PaymentDTO(int payid, int rid, int sid, String sName, BigDecimal fee, Month month, int year, String activityName) {
+        this(payid, rid, sid, sName, fee, month, year);
+        setActivityName(activityName);
+    }
     public String getActivityName() {
         return activityName;
     }
@@ -163,5 +174,13 @@ public class PaymentDTO {
 
     public void setMonth_name(String month_name) {
         this.month_name = month_name;
+    }
+
+    public boolean isNewOne() {
+        return isNewOne;
+    }
+
+    public void setNewOne(boolean newOne) {
+        isNewOne = newOne;
     }
 }

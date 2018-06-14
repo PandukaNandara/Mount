@@ -12,6 +12,8 @@ import lk.ijse.mountCalvary.model.TeacherDTO;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ActivityDetailController implements Initializable {
 
@@ -31,6 +33,7 @@ public class ActivityDetailController implements Initializable {
 
     private TeacherBO teacherBOImpl;
     private ArrayList<TeacherDTO> allTeacher;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         teacherBOImpl = BOFactory.getInstance().getBO(BOFactory.BOType.TEACHER);
@@ -38,6 +41,7 @@ public class ActivityDetailController implements Initializable {
             loadTeacher();
 
         } catch (Exception e) {
+            Logger.getLogger(ActivityDetailController.class.getName()).log(Level.SEVERE, null, e);
             e.printStackTrace();
         }
     }
@@ -52,8 +56,8 @@ public class ActivityDetailController implements Initializable {
     }
 
     public void insertActivity(ActivityDTO activityDTO) {
-        for(TeacherDTO oneTeacher : allTeacher){
-            if(activityDTO.getTID() == oneTeacher.getTID()){
+        for (TeacherDTO oneTeacher : allTeacher) {
+            if (activityDTO.getTID() == oneTeacher.getTID()) {
                 txtActivityName.setText(activityDTO.getaName());
                 txtTeacherInCharge.setText(oneTeacher.getTName());
             }

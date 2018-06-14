@@ -4,13 +4,10 @@
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import de.jensd.fx.glyphs.icons525.Icons525View?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
-
-<AnchorPane fx:id="AttendantSheet" prefHeight="745.0" prefWidth="1022.0" style="-fx-background-color: white;" styleClass="profile-frame" stylesheets="@../../../css/size.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.mountCalvary.controller.activity.profile.AttendantSheetController">
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="AttendantSheet" prefHeight="745.0" prefWidth="1022.0" style="-fx-background-color: white;" styleClass="profile-frame" stylesheets="@../../../css/size.css" xmlns="http://javafx.com/javafx/8.0.141" fx:controller="lk.ijse.mountCalvary.controller.activity.profile.AttendantSheetController">
    <children>
       <Label layoutX="59.0" layoutY="40.0" prefHeight="40.0" prefWidth="209.0" text="Attendant sheet">
          <font>

@@ -72,17 +72,15 @@ public class EventListDAOImpl implements EventListDAO {
         }
         return allEvent_list;
     }
-
     @Override
     public Integer lastIndex() throws Exception {
         return CrudUtil.executeQuery("SELECT max(ELID) From event_list").getInt(1);
     }
-
     @Override
     public Integer getIncrementIndex() throws Exception {
         ResultSet rst = CrudUtil.executeQuery("SELECT AUTO_INCREMENT\n" +
-                "FROM information_schema.tables\n" +
-                "WHERE table_name = 'event_list'\n" +
+                "FROM information_schema.tables \n" +
+                "WHERE table_name = 'event_list' \n" +
                 "AND table_schema = DATABASE( ) ;");
         rst.next();
         return rst.getInt(1) - 1;

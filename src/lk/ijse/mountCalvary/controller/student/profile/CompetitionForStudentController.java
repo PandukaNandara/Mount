@@ -23,16 +23,16 @@ import java.net.URL;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class CompetitionForStudentController implements Initializable {
 
+    private static JasperReport competitionReport;
     @FXML
     protected AnchorPane competitionForStudent;
-
     @FXML
     protected TableView<ParticipationDTO> tblParticipation;
-
-    private static JasperReport competitionReport;
     @FXML
     protected TableColumn<ParticipationDTO, String> colCompetition;
     @FXML
@@ -48,12 +48,11 @@ public class CompetitionForStudentController implements Initializable {
     protected JFXComboBox<?> cboxCompetition;
     @FXML
     protected JFXComboBox<?> cboxActivity;
-
-    private studentProfileController studentProfileController;
-
-    private ParticipationBO participationBOImpl;
     @FXML
     protected TableColumn<ParticipationDTO, String> colPerformance;
+    private studentProfileController studentProfileController;
+    private ParticipationBO participationBOImpl;
+    private StudentDTO selectedStudent;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -66,7 +65,6 @@ public class CompetitionForStudentController implements Initializable {
 
         participationBOImpl = BOFactory.getInstance().getBO(BOFactory.BOType.PARTICIPATION);
     }
-    private StudentDTO selectedStudent;
 
     @FXML
     private void btPrint_onAction(ActionEvent actionEvent) {
@@ -75,7 +73,7 @@ public class CompetitionForStudentController implements Initializable {
             try {
 //                Progress progress = new Progress(competitionForStudent,"Loading report", "Now loading");
 //                progress.show();
-                if(competitionReport == null){
+                if (competitionReport == null) {
                     InputStream resourceAsStream = getClass().getResourceAsStream("/lk/ijse/mountCalvary/report/student/CompetitionForStudentReport.jrxml");
                     competitionReport = JasperCompileManager.compileReport(resourceAsStream);
                 }
@@ -92,12 +90,14 @@ public class CompetitionForStudentController implements Initializable {
 
 //                progress.close();
             } catch (Exception e) {
+                Logger.getLogger(CompetitionForStudentController.class.getName()).log(Level.SEVERE, null, e);
                 e.printStackTrace();
             }
         } else {
             Common.showError("Please select a student to print.");
         }
     }
+
     @FXML
     void cboxActivity_onAction(ActionEvent event) {
 
@@ -118,12 +118,14 @@ public class CompetitionForStudentController implements Initializable {
     public void init(studentProfileController studentProfileController) {
         this.studentProfileController = studentProfileController;
     }
-    public void insertStudentID(StudentDTO student){
+
+    public void insertStudentID(StudentDTO student) {
         try {
             selectedStudent = student;
             ObservableList<ParticipationDTO> achievement = participationBOImpl.getCompetitionAndAchievementOfThisStudent(student.getSID());
             tblParticipation.getItems().setAll(achievement);
         } catch (Exception e) {
+            Logger.getLogger(CompetitionForStudentController.class.getName()).log(Level.SEVERE, null, e);
             e.printStackTrace();
         }
     }

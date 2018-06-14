@@ -10,24 +10,26 @@ import java.util.ArrayList;
 public class LogInDAOImpl implements LogInDAO {
     @Override
     public boolean save(LogIn li) throws Exception {
-        return CrudUtil.executeUpdate("Insert Into LOGIN values(?,?,?)",
+        return CrudUtil.executeUpdate("Insert Into LOGIN values(?,?,?,?)",
                 li.getLogInID(),
                 li.getUserName(),
-                li.getPassword()
+                li.getPassword(),
+                li.getSalt()
         ) > 0;
     }
 
     @Override
     public boolean saveWithoutPKey(LogIn li) throws Exception {
-        return CrudUtil.executeUpdate("Insert Into LOGIN (userName, password) values(?,?)",
+        return CrudUtil.executeUpdate("Insert Into LOGIN (userName, password, salt) values(?,?,?)",
                 li.getUserName(),
-                li.getPassword()
+                li.getPassword(),
+                li.getSalt()
         ) > 0;
     }
 
     @Override
     public boolean update(LogIn li) throws Exception {
-        return CrudUtil.executeUpdate("Update LOGIN set logInID = ?, userName = ?, password = ? where logInID = ?",
+        return CrudUtil.executeUpdate("Update LOGIN set logInID = ?, userName = ?, password = ?, salt = ? where logInID = ?",
                 li.getLogInID(),
                 li.getUserName(),
                 li.getPassword(),
@@ -47,7 +49,23 @@ public class LogInDAOImpl implements LogInDAO {
             return new LogIn(
                     rst.getInt("LogInID"),
                     rst.getString("userName"),
-                    rst.getString("password")
+                    rst.getString("password"),
+                    rst.getString("salt")
+            );
+        }else{
+            return null;
+        }
+    }
+
+    @Override
+    public LogIn search(String username) throws Exception {
+        ResultSet rst = CrudUtil.executeQuery("select * from LogIn where userName = ?",username);
+        if(rst.next()){
+            return new LogIn(
+                    rst.getInt("LogInID"),
+                    rst.getString("userName"),
+                    rst.getString("password"),
+                    rst.getString("salt")
             );
         }else{
             return null;
@@ -62,7 +80,8 @@ public class LogInDAOImpl implements LogInDAO {
             logInList.add(new LogIn(
                     rst.getInt("LogInID"),
                     rst.getString("userName"),
-                    rst.getString("password")
+                    rst.getString("password"),
+                    rst.getString("salt")
             ));
         }
         return logInList;

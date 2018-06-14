@@ -25,6 +25,8 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class StudentForCompetition_controller implements Initializable {
     ObservableList<RegistrationDTO> filteredRegistration;
@@ -122,6 +124,7 @@ public class StudentForCompetition_controller implements Initializable {
             ageGroupDTOS = ageGroupBOImpl.getAgeGroups();
 
         } catch (Exception e) {
+            Logger.getLogger(StudentForCompetition_controller.class.getName()).log(Level.SEVERE, null, e);
             e.printStackTrace();
         }
 //        txtStudentName.focusedProperty().addListener((observable, oldValue, newValue) -> {
@@ -168,6 +171,7 @@ public class StudentForCompetition_controller implements Initializable {
             ObservableList<ParticipationDTO> participationDTOS = participationBOImpl.getParticipationForThisCompetition(CID);
             tblStudentList.getItems().setAll(participationDTOS);
         } catch (Exception e) {
+            Logger.getLogger(StudentForCompetition_controller.class.getName()).log(Level.SEVERE, null, e);
             e.printStackTrace();
         }
 
@@ -229,6 +233,7 @@ public class StudentForCompetition_controller implements Initializable {
 
             autoCompleteStudentName.changeSuggestion(filteredRegistration);
         } catch (Exception e) {
+            Logger.getLogger(StudentForCompetition_controller.class.getName()).log(Level.SEVERE, null, e);
             e.printStackTrace();
 
         }
@@ -249,13 +254,13 @@ public class StudentForCompetition_controller implements Initializable {
                 }
                 int age = LocalDate.now().getYear() - Common.DateToLocalDate(oneRegi.getDOB()).getYear();
                 if (oneRegi.isGender() == eventList.isGender() &&
-                        age > ageGroup.getMin() && age < ageGroup.getMax()){
-                        oneRegi.setAge(age);
-                        filter.add(oneRegi);
-                    }
+                        age > ageGroup.getMin() && age < ageGroup.getMax()) {
+                    oneRegi.setAge(age);
+                    filter.add(oneRegi);
+                }
             }
             return FXCollections.observableArrayList(filter);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
@@ -299,6 +304,7 @@ public class StudentForCompetition_controller implements Initializable {
                 cboxResult.show();
             }
         } catch (Exception e) {
+            Logger.getLogger(StudentForCompetition_controller.class.getName()).log(Level.SEVERE, null, e);
             e.printStackTrace();
 
         }
@@ -326,6 +332,7 @@ public class StudentForCompetition_controller implements Initializable {
                 Common.showWarning("Something's wrong we can't do your request");
             }
         } catch (Exception e) {
+            Logger.getLogger(StudentForCompetition_controller.class.getName()).log(Level.SEVERE, null, e);
             Common.showError("Something's wrong we can't do your request \n Error code  \n" + e.getMessage());
             e.printStackTrace();
         }

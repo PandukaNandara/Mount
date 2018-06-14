@@ -25,11 +25,13 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class NewActivity_controller implements Initializable {
 
-    ArrayList<StudentDTO> allStudent;
-    ArrayList<TeacherDTO> allTeacher;
+    private ArrayList<StudentDTO> allStudent;
+    private ArrayList<TeacherDTO> allTeacher;
     @FXML
     private TableView<EventDTO> tblEvent;
     @FXML
@@ -100,10 +102,12 @@ public class NewActivity_controller implements Initializable {
                 try {
                     txtStudentID.setText(Common.searchStudent(txtStudentName.getText(), allStudent).getSID() + "");
                 } catch (Exception e) {
-                    System.out.println(e);
+                    Logger.getLogger(NewActivity_controller.class.getName()).log(Level.SEVERE, null, e);
+                    e.printStackTrace();
                 }
             });
         } catch (Exception e) {
+            Logger.getLogger(NewActivity_controller.class.getName()).log(Level.SEVERE, null, e);
             e.printStackTrace();
         }
         loadTeachers();
@@ -114,7 +118,6 @@ public class NewActivity_controller implements Initializable {
     }
 
 
-
     @FXML
     void btAdd_Event_onAction(ActionEvent event) {
         String event_name = txtEventName.getText();
@@ -123,7 +126,7 @@ public class NewActivity_controller implements Initializable {
         if (event_name.length() < 2) {
             Common.showError("Please enter the event name ");
         } else if (!(male || female)) {
-            Common.showError("Please select the gender of the event " + male + "  " + female);
+            Common.showError("Please select the gender of the event.");
         } else {
             if (male) {
                 tblEvent.getItems().add(new EventDTO(event_name, EventDTO.MALE));
@@ -187,31 +190,32 @@ public class NewActivity_controller implements Initializable {
 
     private void addActivity() {
         String aName = txtActivityName.getText();
-        if(aName.length() > 0){
+        if (aName.length() > 0) {
             TeacherDTO teachInCharge = cboxTeacher.getSelectionModel().getSelectedItem();
-            if(teachInCharge != null){
+            if (teachInCharge != null) {
                 ObservableList<RegistrationDTO> regList = tblStudentList.getItems();
                 ObservableList<EventDTO> evenList = tblEvent.getItems();
-             //   System.out.println(regList.toString());
+                //   System.out.println(regList.toString());
                 try {
-                    if(activityBOImpl.addActivityWithStudentAndEvent(new ActivityDTO(aName, teachInCharge.getTID(), regList, evenList))){
+                    if (activityBOImpl.addActivityWithStudentAndEvent(new ActivityDTO(aName, teachInCharge.getTID(), regList, evenList))) {
                         Common.showMessage("Activity has successfully added");
                         try {
                             ScreenLoader.loadPanel("/lk/ijse/mountCalvary/view/basic/StudentMenu.fxml", this.acNewActivity, this);
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
-                    }else{
+                    } else {
                         Common.showWarning("Something's wrong we can't do your request");
                     }
                 } catch (Exception e) {
+                    Logger.getLogger(NewActivity_controller.class.getName()).log(Level.SEVERE, null, e);
                     Common.showWarning("Something's wrong we can't do your request");
                     e.printStackTrace();
                 }
-            }else{
+            } else {
                 Common.showError("Please select the teacher in charge");
             }
-        }else{
+        } else {
             Common.showError("The Activity name is incorrect");
         }
     }
