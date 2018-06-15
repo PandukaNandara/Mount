@@ -111,10 +111,10 @@ public class Common {
 
     public static void loadHouse(JFXComboBox cboxHouse) {
         cboxHouse.getItems().addAll(
-                "House 1",
-                "House 2",
-                "House 3",
-                "House 4"
+                "Diamond",
+                "Opal",
+                "Sapphire",
+                "Crystal"
         );
     }
     public static Integer[] loadYear(){
@@ -122,14 +122,14 @@ public class Common {
         return new Integer[]{year - 3, year - 2, year - 1, year};
     }
 
-    public static LocalDate DateToLocalDate(Date dt){
+    public static LocalDate dateToLocalDate(Date dt){
         try{
             return new java.sql.Date( dt.getTime()).toLocalDate();
         }catch (Exception e){
             return null;
         }
     }
-    public static Date LocalDateToDate(LocalDate dt){
+    public static Date localDateToDate(LocalDate dt){
         try{
             return java.sql.Date.valueOf(dt);
         }catch (Exception e){

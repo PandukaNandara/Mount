@@ -36,7 +36,7 @@ public class TeacherInChargeDAOImpl implements TeacherInChargeListDAO {
 
     @Override
     public boolean delete(Integer id) throws Exception {
-        return CrudUtil.executeUpdate("DELETE from TEACHER_IN_CHARGE_LIST set TINCID = ?, TID = ?, CID = ?", id) > 0;
+        return CrudUtil.executeUpdate("DELETE from TEACHER_IN_CHARGE_LIST where TINCID = ?", id) > 0;
     }
 
     @Override

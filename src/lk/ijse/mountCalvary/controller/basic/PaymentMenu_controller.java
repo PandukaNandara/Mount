@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.AnchorPane;
+import lk.ijse.mountCalvary.controller.GlobalBoolean;
 
 import java.io.IOException;
 import java.net.URL;
@@ -30,6 +31,7 @@ public class PaymentMenu_controller implements Initializable {
     @FXML
     void btActivityPayment_onAction(ActionEvent event) {
         try {
+            GlobalBoolean.setLock(false);
             ScreenLoader.loadPanel("/lk/ijse/mountCalvary/view/activity/profile/ActivityPayment.fxml",this.acPaymentMenu, this);
         } catch (IOException e) {
             e.printStackTrace();

@@ -14,10 +14,7 @@ import javafx.scene.layout.AnchorPane;
 import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.ActivityBO;
 import lk.ijse.mountCalvary.business.custom.PaymentBO;
-import lk.ijse.mountCalvary.controller.AutoComplete;
-import lk.ijse.mountCalvary.controller.Common;
-import lk.ijse.mountCalvary.controller.Month;
-import lk.ijse.mountCalvary.controller.Reporter;
+import lk.ijse.mountCalvary.controller.*;
 import lk.ijse.mountCalvary.model.ActivityDTO;
 import lk.ijse.mountCalvary.model.PaymentDTO;
 import lk.ijse.mountCalvary.model.RegistrationDTO;
@@ -68,6 +65,8 @@ public class ActivityPaymentController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        GlobalBoolean.setLock(false);
+
         colStudent_tblActivityPayment.setCellValueFactory(new PropertyValueFactory<>("studentName"));
         colFee_tblActivityPayment.setCellValueFactory(new PropertyValueFactory<>("fee"));
         colMonth_tblActivityPayment.setCellValueFactory(new PropertyValueFactory<>("month"));
@@ -138,7 +137,7 @@ public class ActivityPaymentController implements Initializable {
 
         } catch (Exception e) {
             Logger.getLogger(ActivityPaymentController.class.getName()).log(Level.SEVERE, null, e);
-            e.printStackTrace();
+
         }
     }
 
@@ -172,7 +171,7 @@ public class ActivityPaymentController implements Initializable {
                 Reporter.showReport(paymentPrint, "Activity payment");
             } catch (Exception e) {
                 Logger.getLogger(ActivityPaymentController.class.getName()).log(Level.SEVERE, null, e);
-                e.printStackTrace();
+
             }
         } else {
             Common.showError("Please select a student to print.");

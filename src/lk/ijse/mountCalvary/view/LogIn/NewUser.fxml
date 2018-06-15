@@ -1,50 +1,61 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
 <?import com.jfoenix.controls.*?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="acNewUser" prefHeight="592.0" prefWidth="416.0" xmlns="http://javafx.com/javafx/8.0.141" fx:controller="lk.ijse.mountCalvary.controller.LogIn.NewUser_controller">
-   <children>
-      <VBox alignment="CENTER" fillWidth="false" layoutY="145.0" prefHeight="272.0" prefWidth="416.0" spacing="30.0" AnchorPane.bottomAnchor="175.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="145.0">
-         <children>
-            <HBox>
-               <children>
-                  <FontAwesomeIconView glyphName="USER" size="20" wrappingWidth="28.0" />
-                  <JFXTextField fx:id="txtUserName" labelFloat="true" onAction="#txtUserName_onAction" prefHeight="3.0" prefWidth="282.0" promptText="User name" />
-               </children>
-            </HBox>
-            <HBox>
-               <children>
-                  <FontAwesomeIconView glyphName="KEY" size="20" wrappingWidth="28.0" />
-                  <JFXPasswordField fx:id="txtPassword" labelFloat="true" onAction="#txtPassword_onAction" prefHeight="13.0" prefWidth="282.0" promptText="Password" />
-               </children>
-            </HBox>
-            <HBox>
-               <children>
-                  <FontAwesomeIconView glyphName="REPEAT" size="20" wrappingWidth="28.0" />
-                  <JFXPasswordField fx:id="txtRepeatPassword" labelFloat="true" onAction="#txtRepeatPassword_onAction" prefHeight="7.0" prefWidth="282.0" promptText="Repeat Password" />
-               </children>
-            </HBox>
-         </children>
-         <padding>
-            <Insets bottom="40.0" left="40.0" right="40.0" top="40.0" />
-         </padding>
-      </VBox>
-      <Text layoutX="49.0" layoutY="137.0" strokeType="OUTSIDE" strokeWidth="0.0" text="New User" textAlignment="CENTER" wrappingWidth="320.13671875">
-         <font>
-            <Font name="Arial" size="38.0" />
-         </font>
-      </Text>
-      <JFXButton fx:id="btSignUp" layoutX="133.0" layoutY="462.0" onAction="#btSignUp_onAction" prefHeight="37.0" prefWidth="151.0" ripplerFill="WHITE" style="-fx-background-color: #0091EA;" stylesheets="@../../css/size.css" text="Sign Up" textFill="WHITE" />
-      <JFXButton layoutX="133.0" layoutY="511.0" prefHeight="4.0" prefWidth="151.0" ripplerFill="#909090" text="Cancel" textFill="#0091ea">
-         <font>
-            <Font name="System Bold" size="12.0" />
-         </font>
-      </JFXButton>
-      <FontAwesomeIconView glyphName="USER_PLUS" layoutX="181.0" layoutY="79.0" size="60" wrappingWidth="71.0" />
-   </children>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="acNewUser" prefHeight="592.0" prefWidth="416.0"
+            xmlns="http://javafx.com/javafx/8.0.141"
+            fx:controller="lk.ijse.mountCalvary.controller.LogIn.NewUser_controller">
+    <children>
+        <VBox alignment="CENTER" fillWidth="false" layoutY="145.0" prefHeight="272.0" prefWidth="416.0" spacing="30.0"
+              AnchorPane.bottomAnchor="175.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+              AnchorPane.topAnchor="145.0">
+            <children>
+                <HBox>
+                    <children>
+                        <FontAwesomeIconView glyphName="USER" size="20" wrappingWidth="28.0"/>
+                        <JFXTextField fx:id="txtUserName" labelFloat="true" onAction="#txtUserName_onAction"
+                                      prefHeight="3.0" prefWidth="282.0" promptText="User name"/>
+                    </children>
+                </HBox>
+                <HBox>
+                    <children>
+                        <FontAwesomeIconView glyphName="KEY" size="20" wrappingWidth="28.0"/>
+                        <JFXPasswordField fx:id="txtPassword" labelFloat="true" onAction="#txtPassword_onAction"
+                                          prefHeight="13.0" prefWidth="282.0" promptText="Password"/>
+                    </children>
+                </HBox>
+                <HBox>
+                    <children>
+                        <FontAwesomeIconView glyphName="REPEAT" size="20" wrappingWidth="28.0"/>
+                        <JFXPasswordField fx:id="txtRepeatPassword" labelFloat="true"
+                                          onAction="#txtRepeatPassword_onAction" prefHeight="7.0" prefWidth="282.0"
+                                          promptText="Repeat Password"/>
+                    </children>
+                </HBox>
+            </children>
+            <padding>
+                <Insets bottom="40.0" left="40.0" right="40.0" top="40.0"/>
+            </padding>
+        </VBox>
+        <Text layoutX="49.0" layoutY="137.0" strokeType="OUTSIDE" strokeWidth="0.0" text="New User"
+              textAlignment="CENTER" wrappingWidth="320.13671875">
+            <font>
+                <Font name="Arial" size="38.0"/>
+            </font>
+        </Text>
+        <JFXButton fx:id="btSignUp" layoutX="133.0" layoutY="462.0" onAction="#btSignUp_onAction" prefHeight="37.0"
+                   prefWidth="151.0" ripplerFill="WHITE" style="-fx-background-color: #0091EA;"
+                   stylesheets="@../../css/size.css" text="Sign Up" textFill="WHITE"/>
+        <JFXButton fx:id="btCancel" layoutX="133.0" layoutY="511.0" onAction="#btCancel_onAction" prefHeight="4.0"
+                   prefWidth="151.0" ripplerFill="#909090" text="Cancel" textFill="#0091ea">
+            <font>
+                <Font name="System Bold" size="12.0"/>
+            </font>
+        </JFXButton>
+        <FontAwesomeIconView glyphName="USER_PLUS" layoutX="181.0" layoutY="79.0" size="60" wrappingWidth="71.0"/>
+    </children>
 </AnchorPane>

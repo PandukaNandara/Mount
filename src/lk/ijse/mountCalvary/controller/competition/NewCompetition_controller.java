@@ -17,6 +17,7 @@ import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.CompetitionBO;
 import lk.ijse.mountCalvary.business.custom.TeacherBO;
 import lk.ijse.mountCalvary.controller.Common;
+import lk.ijse.mountCalvary.controller.GlobalBoolean;
 import lk.ijse.mountCalvary.controller.basic.ScreenLoader;
 import lk.ijse.mountCalvary.model.CompetitionDTO;
 import lk.ijse.mountCalvary.model.TeacherDTO;
@@ -63,6 +64,8 @@ public class NewCompetition_controller implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        GlobalBoolean.setLock(true);
+
         colTeacherInCharge.setCellValueFactory(new PropertyValueFactory<>("tName"));
         teacherBOImpl = BOFactory.getInstance().getBO(BOFactory.BOType.TEACHER);
         competitionBOImpl = BOFactory.getInstance().getBO(BOFactory.BOType.COMPETITION);
@@ -70,7 +73,7 @@ public class NewCompetition_controller implements Initializable {
             loadTeacher();
         } catch (Exception e) {
             Logger.getLogger(NewCompetition_controller.class.getName()).log(Level.SEVERE, null, e);
-            e.printStackTrace();
+
         }
     }
 
@@ -93,7 +96,7 @@ public class NewCompetition_controller implements Initializable {
     void btNext_newCompetition_onAction(ActionEvent event) {
         String compName = txtCompetitionName.getText().trim();
         String location = txtLocation.getText().trim();
-        Date date = Common.LocalDateToDate(dtDate.getValue());
+        Date date = Common.localDateToDate(dtDate.getValue());
         String desc = txtaDesc.getText();
         ObservableList<TeacherDTO> teacherList = tblTeacherInChargeList.getItems();
         ArrayList<TeacherInChargeListDTO> teacherInChargeList = new ArrayList<>();
@@ -165,7 +168,7 @@ public class NewCompetition_controller implements Initializable {
                     } catch (Exception e) {
                         Logger.getLogger(NewCompetition_controller.class.getName()).log(Level.SEVERE, null, e);
                         ScreenLoader.loadPanel("/lk/ijse/mountCalvary/view/competition/StudentForCompetition.fxml", this.acNewCompetition, this);
-                        e.printStackTrace();
+
                     }
                 } else {
                     try {
@@ -180,7 +183,7 @@ public class NewCompetition_controller implements Initializable {
         } catch (Exception e) {
             Logger.getLogger(NewCompetition_controller.class.getName()).log(Level.SEVERE, null, e);
             Common.showError("Something's wrong we can't do your request now");
-            e.printStackTrace();
+
         }
     }
 

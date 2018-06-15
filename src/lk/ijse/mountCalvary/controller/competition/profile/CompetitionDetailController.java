@@ -14,6 +14,7 @@ import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.CompetitionBO;
 import lk.ijse.mountCalvary.business.custom.TeacherInChargeListBO;
 import lk.ijse.mountCalvary.controller.Common;
+import lk.ijse.mountCalvary.controller.GlobalBoolean;
 import lk.ijse.mountCalvary.controller.Reporter;
 import lk.ijse.mountCalvary.model.CompetitionDTO;
 import lk.ijse.mountCalvary.model.TeacherInChargeListDTO;
@@ -57,6 +58,8 @@ public class CompetitionDetailController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        GlobalBoolean.setLock(false);
+
         colTeacherInCharge.setCellValueFactory(new PropertyValueFactory<>("teacherName"));
 
         competitionBOImpl = BOFactory.getInstance().getBO(BOFactory.BOType.COMPETITION);
@@ -82,7 +85,7 @@ public class CompetitionDetailController implements Initializable {
 
         } catch (Exception e) {
             Logger.getLogger(CompetitionDetailController.class.getName()).log(Level.SEVERE, null, e);
-            e.printStackTrace();
+
         }
     }
 
@@ -113,7 +116,7 @@ public class CompetitionDetailController implements Initializable {
                 Reporter.showReport(competitionPrint, "Competition details");
             } catch (Exception e) {
                 Logger.getLogger(CompetitionDetailController.class.getName()).log(Level.SEVERE, null, e);
-                e.printStackTrace();
+
             }
         } else {
             Common.showError("Please select a competition to print.");

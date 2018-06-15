@@ -14,6 +14,7 @@ import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.PaymentBO;
 import lk.ijse.mountCalvary.business.custom.RegistrationBO;
 import lk.ijse.mountCalvary.controller.Common;
+import lk.ijse.mountCalvary.controller.GlobalBoolean;
 import lk.ijse.mountCalvary.controller.Month;
 import lk.ijse.mountCalvary.controller.Reporter;
 import lk.ijse.mountCalvary.model.ActivityDTO;
@@ -66,6 +67,8 @@ public class StudentPaymentController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        GlobalBoolean.setLock(false);
+
         colActivity_tblStudentPayment.setCellValueFactory(new PropertyValueFactory<>("activityName"));
         colMonth_tblStudentPayment.setCellValueFactory(new PropertyValueFactory<>("month"));
         colFee_tblStudentPayment.setCellValueFactory(new PropertyValueFactory<>("fee"));
@@ -110,7 +113,7 @@ public class StudentPaymentController implements Initializable {
             cboxActivity.getSelectionModel().select(0);
         } catch (Exception e) {
             Logger.getLogger(StudentPaymentController.class.getName()).log(Level.SEVERE, null, e);
-            e.printStackTrace();
+
         }
     }
 
@@ -220,7 +223,7 @@ public class StudentPaymentController implements Initializable {
 //                progress.close();
             } catch (Exception e) {
                 Logger.getLogger(StudentPaymentController.class.getName()).log(Level.SEVERE, null, e);
-                e.printStackTrace();
+
             }
         } else {
             Common.showError("Please select a student to print.");

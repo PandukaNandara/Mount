@@ -17,6 +17,7 @@ import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.ActivityBO;
 import lk.ijse.mountCalvary.business.custom.EventBO;
 import lk.ijse.mountCalvary.controller.Common;
+import lk.ijse.mountCalvary.controller.GlobalBoolean;
 import lk.ijse.mountCalvary.controller.basic.ScreenLoader;
 import lk.ijse.mountCalvary.model.ActivityDTO;
 import lk.ijse.mountCalvary.model.EventDTO;
@@ -82,6 +83,7 @@ public class NewEventForActivity_controller implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        GlobalBoolean.setLock(true);
 
         colOldEventName_tblOldEvent.setCellValueFactory(new PropertyValueFactory<>("eventName"));
         colOldEventGender_tblOldEvent.setCellValueFactory(new PropertyValueFactory<>("genderType"));
@@ -95,7 +97,7 @@ public class NewEventForActivity_controller implements Initializable {
             loadActivityWithOldEvent();
         } catch (Exception e) {
             Logger.getLogger(NewEventForActivity_controller.class.getName()).log(Level.SEVERE, null, e);
-            e.printStackTrace();
+
         }
     }
 
@@ -173,7 +175,7 @@ public class NewEventForActivity_controller implements Initializable {
                 } catch (Exception e) {
                     Logger.getLogger(NewEventForActivity_controller.class.getName()).log(Level.SEVERE, null, e);
                     Common.showError("Something's wrong we can't do your request");
-                    e.printStackTrace();
+
                 }
             } else {
                 Common.showError("Please add some event");

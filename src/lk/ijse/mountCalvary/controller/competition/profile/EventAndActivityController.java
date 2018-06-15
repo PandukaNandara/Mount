@@ -14,6 +14,7 @@ import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.EventListBO;
 import lk.ijse.mountCalvary.business.custom.ParticipationBO;
 import lk.ijse.mountCalvary.controller.Common;
+import lk.ijse.mountCalvary.controller.GlobalBoolean;
 import lk.ijse.mountCalvary.controller.Reporter;
 import lk.ijse.mountCalvary.model.AgeGroupDTO;
 import lk.ijse.mountCalvary.model.CompetitionDTO;
@@ -62,6 +63,8 @@ public class EventAndActivityController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        GlobalBoolean.setLock(false);
+
         colActivity_tblEventInCompetition.setCellValueFactory(new PropertyValueFactory<>("activityName"));
         colAgeGroup_tblEventInCompetition.setCellValueFactory(new PropertyValueFactory<>("ageGroupDTO"));
         colEvent_tblEventInCompetition.setCellValueFactory(new PropertyValueFactory<>("eventName"));
@@ -89,7 +92,7 @@ public class EventAndActivityController implements Initializable {
             tblEventInCompetition.getItems().setAll(eventListForThisCompetition);
         } catch (Exception e) {
             Logger.getLogger(EventAndActivityController.class.getName()).log(Level.SEVERE, null, e);
-            e.printStackTrace();
+
         }
 
     }
@@ -102,7 +105,7 @@ public class EventAndActivityController implements Initializable {
             tblStudentList.getItems().setAll(participationForThisEventList);
         } catch (Exception e) {
             Logger.getLogger(EventAndActivityController.class.getName()).log(Level.SEVERE, null, e);
-            e.printStackTrace();
+
         }
     }
 
@@ -143,7 +146,7 @@ public class EventAndActivityController implements Initializable {
                     Reporter.showReport(competitionPrint, "Event and participation");
                 } catch (Exception e) {
                     Logger.getLogger(EventAndActivityController.class.getName()).log(Level.SEVERE, null, e);
-                    e.printStackTrace();
+
                 }
             } else {
                 Common.showError("Please select an event from the Event list.");

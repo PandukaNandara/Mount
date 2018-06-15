@@ -14,10 +14,7 @@ import javafx.scene.layout.AnchorPane;
 import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.ActivityBO;
 import lk.ijse.mountCalvary.business.custom.AttendantSheetBO;
-import lk.ijse.mountCalvary.controller.AutoComplete;
-import lk.ijse.mountCalvary.controller.Common;
-import lk.ijse.mountCalvary.controller.DateRange;
-import lk.ijse.mountCalvary.controller.Reporter;
+import lk.ijse.mountCalvary.controller.*;
 import lk.ijse.mountCalvary.model.ActivityDTO;
 import lk.ijse.mountCalvary.model.AttendantSheetDTO;
 import lk.ijse.mountCalvary.model.RegistrationDTO;
@@ -37,7 +34,7 @@ public class AttendantSheetController implements Initializable {
 
     private static JasperReport attendanceOfStudentReport;
     @FXML
-    private AnchorPane AttendantSheet;
+    private AnchorPane attendantSheet;
     @FXML
     private TableView<AttendantSheetDTO> tblAttendantSheet;
     @FXML
@@ -66,6 +63,8 @@ public class AttendantSheetController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        GlobalBoolean.setLock(false);
+
         colDate.setCellValueFactory(new PropertyValueFactory<>("date"));
         colStudentName.setCellValueFactory(new PropertyValueFactory<>("studentName"));
         colTeacherInCharge.setCellValueFactory(new PropertyValueFactory<>("teacherName"));
@@ -136,13 +135,13 @@ public class AttendantSheetController implements Initializable {
             selectedActivity = activityDTO;
             attendanceSheet = attendantSheetBOImpl.getAttendanceSheetForThisActivity(activityDTO.getAID());
             allRegistration = activityBOImpl.getRegistrationOfThisActivity(activityDTO.getAID());
-            cboxTimeRange.getItems().setAll(DateRange.getDateRange());
+            cboxTimeRange.getItems().setAll(DateRange.getDateRanges());
             tblAttendantSheet.getItems().setAll(attendanceSheet);
             cboxTimeRange.getSelectionModel().select(DateRange.ALL);
             autoComplete.changeSuggestion(allRegistration);
         } catch (Exception e) {
             Logger.getLogger(AttendantSheetController.class.getName()).log(Level.SEVERE, null, e);
-            e.printStackTrace();
+
         }
     }
 
@@ -155,10 +154,13 @@ public class AttendantSheetController implements Initializable {
     private void btPrint_onAction(ActionEvent actionEvent) {
         if (selectedActivity != null) {
             try {
+                Progress.showMessage(attendantSheet,"Loading report", "Now loading");
+
                 String studentName = txtStudent.getText();
                 if (attendanceOfStudentReport == null) {
                     InputStream attendanceOfStudentFile = getClass().getResourceAsStream("/lk/ijse/mountCalvary/report/activity/AttendanceOfActivityReport.jrxml");
                     attendanceOfStudentReport = JasperCompileManager.compileReport(attendanceOfStudentFile);
+
                 }
                 JRBeanCollectionDataSource attendantSheet = new JRBeanCollectionDataSource(tblAttendantSheet.getItems());
                 HashMap attendanceMap = new HashMap();
@@ -172,9 +174,11 @@ public class AttendantSheetController implements Initializable {
 
                 JasperPrint attendancePrint = JasperFillManager.fillReport(attendanceOfStudentReport, attendanceMap, new JREmptyDataSource());
                 Reporter.showReport(attendancePrint, "Attendance sheet");
+
+                Progress.hide();
             } catch (Exception e) {
                 Logger.getLogger(AttendantSheetController.class.getName()).log(Level.SEVERE, null, e);
-                e.printStackTrace();
+
             }
         } else {
             Common.showError("Please select an activity to print.");

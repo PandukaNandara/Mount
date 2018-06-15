@@ -6,6 +6,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.layout.AnchorPane;
 import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.TeacherBO;
+import lk.ijse.mountCalvary.controller.GlobalBoolean;
 import lk.ijse.mountCalvary.model.ActivityDTO;
 import lk.ijse.mountCalvary.model.TeacherDTO;
 
@@ -36,13 +37,15 @@ public class ActivityDetailController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        GlobalBoolean.setLock(false);
+
         teacherBOImpl = BOFactory.getInstance().getBO(BOFactory.BOType.TEACHER);
         try {
             loadTeacher();
 
         } catch (Exception e) {
             Logger.getLogger(ActivityDetailController.class.getName()).log(Level.SEVERE, null, e);
-            e.printStackTrace();
+
         }
     }
 

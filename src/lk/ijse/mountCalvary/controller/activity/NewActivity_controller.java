@@ -1,6 +1,7 @@
 package lk.ijse.mountCalvary.controller.activity;
 
 import com.jfoenix.controls.*;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -14,11 +15,11 @@ import lk.ijse.mountCalvary.business.custom.ActivityBO;
 import lk.ijse.mountCalvary.business.custom.RegistrationBO;
 import lk.ijse.mountCalvary.business.custom.StudentBO;
 import lk.ijse.mountCalvary.business.custom.TeacherBO;
+import lk.ijse.mountCalvary.controller.AutoComplete;
 import lk.ijse.mountCalvary.controller.Common;
+import lk.ijse.mountCalvary.controller.GlobalBoolean;
 import lk.ijse.mountCalvary.controller.basic.ScreenLoader;
 import lk.ijse.mountCalvary.model.*;
-import org.controlsfx.control.textfield.AutoCompletionBinding;
-import org.controlsfx.control.textfield.TextFields;
 
 import java.io.IOException;
 import java.net.URL;
@@ -30,8 +31,6 @@ import java.util.logging.Logger;
 
 public class NewActivity_controller implements Initializable {
 
-    private ArrayList<StudentDTO> allStudent;
-    private ArrayList<TeacherDTO> allTeacher;
     @FXML
     private TableView<EventDTO> tblEvent;
     @FXML
@@ -81,8 +80,16 @@ public class NewActivity_controller implements Initializable {
     @FXML
     private AnchorPane acNewActivity;
 
+    private AutoComplete<StudentDTO> studentAuto;
+
+    private ObservableList<StudentDTO> allStudent;
+
+    private ArrayList<TeacherDTO> allTeacher;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        GlobalBoolean.setLock(true);
+
         studentBOImpl = BOFactory.getInstance().getBO(BOFactory.BOType.STUDENT);
         activityBOImpl = BOFactory.getInstance().getBO(BOFactory.BOType.ACTIVITY);
         regBOImpl = BOFactory.getInstance().getBO(BOFactory.BOType.REGISTRATION);
@@ -95,22 +102,26 @@ public class NewActivity_controller implements Initializable {
         colEventName.setCellValueFactory(new PropertyValueFactory<>("eventName"));
         colGender.setCellValueFactory(new PropertyValueFactory<>("genderType"));
         try {
-            allStudent = studentBOImpl.getAll();
+            allStudent = FXCollections.observableArrayList(studentBOImpl.getAll());
             allTeacher = teacherBOImpl.getAllTeacher();
-            AutoCompletionBinding<StudentDTO> studentDTOAutoCompletionBind = TextFields.bindAutoCompletion(txtStudentName, allStudent);
-            studentDTOAutoCompletionBind.setOnAutoCompleted(event -> {
-                try {
-                    txtStudentID.setText(Common.searchStudent(txtStudentName.getText(), allStudent).getSID() + "");
-                } catch (Exception e) {
-                    Logger.getLogger(NewActivity_controller.class.getName()).log(Level.SEVERE, null, e);
-                    e.printStackTrace();
-                }
-            });
+            studentAuto = new AutoComplete<>(txtStudentName);
+            studentAuto.changeSuggestion(allStudent);
+
+            studentAuto.setAutoCompletionsAction(event -> setStudentID());
         } catch (Exception e) {
             Logger.getLogger(NewActivity_controller.class.getName()).log(Level.SEVERE, null, e);
-            e.printStackTrace();
+
         }
         loadTeachers();
+    }
+    private void setStudentID(){
+        try {
+            txtStudentID.setText(Common.searchStudent(txtStudentName.getText(), allStudent).getSID() + "");
+        }catch (NullPointerException e){
+            Common.showError("Invalid student name or name is not existed");
+        }catch (Exception e) {
+            Logger.getLogger(NewActivity_controller.class.getName()).log(Level.SEVERE, null, e);
+        }
     }
 
     private void loadTeachers() {
@@ -140,7 +151,7 @@ public class NewActivity_controller implements Initializable {
 
     @FXML
     void btAdd_Student_onAction(ActionEvent event) {
-        Date joinDate = Common.LocalDateToDate(dtJoinedDate.getValue());
+        Date joinDate = Common.localDateToDate(dtJoinedDate.getValue());
         if (joinDate == null) {
             Common.showError("Please enter the joined date");
         } else if (txtStudentName.getText().length() < 1) {
@@ -152,6 +163,7 @@ public class NewActivity_controller implements Initializable {
                 txtStudentName.selectAll();
             } else {
                 allStudent.remove(selectedStudent);
+                studentAuto.changeSuggestion(allStudent);
                 tblStudentList.getItems().add(new RegistrationDTO(selectedStudent, joinDate));
                 txtStudentName.setText("");
                 txtStudentID.setText("");
@@ -163,7 +175,7 @@ public class NewActivity_controller implements Initializable {
     void btRemove_tblStudentList_onAction(ActionEvent event) {
         Object o = Common.removeItemFromTable(tblStudentList);
         allStudent.add(((RegistrationDTO) o).getStudentDTO());
-
+        studentAuto.changeSuggestion(allStudent);
     }
 
     @FXML
@@ -197,6 +209,10 @@ public class NewActivity_controller implements Initializable {
                 ObservableList<EventDTO> evenList = tblEvent.getItems();
                 //   System.out.println(regList.toString());
                 try {
+                    if(evenList.size() == 0){
+                        if(rbtMale.isSelected()) evenList.add(new EventDTO("Default " + aName + " event", GenderDTO.MALE));
+                        if(rbtFemale.isSelected()) evenList.add(new EventDTO("Default " + aName + " event", GenderDTO.FEMALE));
+                    }
                     if (activityBOImpl.addActivityWithStudentAndEvent(new ActivityDTO(aName, teachInCharge.getTID(), regList, evenList))) {
                         Common.showMessage("Activity has successfully added");
                         try {
@@ -210,7 +226,7 @@ public class NewActivity_controller implements Initializable {
                 } catch (Exception e) {
                     Logger.getLogger(NewActivity_controller.class.getName()).log(Level.SEVERE, null, e);
                     Common.showWarning("Something's wrong we can't do your request");
-                    e.printStackTrace();
+
                 }
             } else {
                 Common.showError("Please select the teacher in charge");
@@ -222,7 +238,7 @@ public class NewActivity_controller implements Initializable {
 
     @FXML
     void dtJoinedDate_onAction(ActionEvent event) {
-
+        btAdd_Student.fire();
     }
 
     @FXML
@@ -274,6 +290,19 @@ public class NewActivity_controller implements Initializable {
 
     @FXML
     private void txtStudentID_onAction(ActionEvent actionEvent) {
+        if(Common.isInteger(txtStudentID.getText())){
+            int id = Integer.parseInt(txtStudentID.getText());
+            StudentDTO studentDTO = Common.searchStudent(id, allStudent);
+            if(studentDTO != null){
+                txtStudentName.setText(studentDTO.getsName());
+                dtJoinedDate.requestFocus();
+            }else {
+                Common.showError("No suitable student for this student ID.");
+            }
+        }else{
+            Common.showError("Student ID is invalid.");
+            txtStudentID.selectAll();
+        }
 
     }
 

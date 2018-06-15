@@ -17,6 +17,7 @@ import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.*;
 import lk.ijse.mountCalvary.controller.AutoComplete;
 import lk.ijse.mountCalvary.controller.Common;
+import lk.ijse.mountCalvary.controller.GlobalBoolean;
 import lk.ijse.mountCalvary.controller.basic.ScreenLoader;
 import lk.ijse.mountCalvary.model.*;
 
@@ -93,6 +94,7 @@ public class StudentForCompetition_controller implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        GlobalBoolean.setLock(true);
 
         colActivity_tblEventInCompetition.setCellValueFactory(new PropertyValueFactory<>("activityName"));
         colAgeGroup_tblEventInCompetition.setCellValueFactory(new PropertyValueFactory<>("ageGroupDTO"));
@@ -125,7 +127,7 @@ public class StudentForCompetition_controller implements Initializable {
 
         } catch (Exception e) {
             Logger.getLogger(StudentForCompetition_controller.class.getName()).log(Level.SEVERE, null, e);
-            e.printStackTrace();
+
         }
 //        txtStudentName.focusedProperty().addListener((observable, oldValue, newValue) -> {
 //            if (tblEventInCompetition.getSelectionModel().isEmpty()) {
@@ -172,7 +174,7 @@ public class StudentForCompetition_controller implements Initializable {
             tblStudentList.getItems().setAll(participationDTOS);
         } catch (Exception e) {
             Logger.getLogger(StudentForCompetition_controller.class.getName()).log(Level.SEVERE, null, e);
-            e.printStackTrace();
+
         }
 
     }
@@ -195,7 +197,10 @@ public class StudentForCompetition_controller implements Initializable {
     @FXML
     void btAddStudent_onAction(ActionEvent event) {
 
-        String performance = txtPerfomence.getText();
+        String performance = txtPerfomence.getText().trim();
+        if(performance.length() < 2){
+            performance = "-";
+        }
         String result = cboxResult.getValue();
         String studentName = txtStudentName.getText();
         if (studentName.length() < 1) {
@@ -234,7 +239,7 @@ public class StudentForCompetition_controller implements Initializable {
             autoCompleteStudentName.changeSuggestion(filteredRegistration);
         } catch (Exception e) {
             Logger.getLogger(StudentForCompetition_controller.class.getName()).log(Level.SEVERE, null, e);
-            e.printStackTrace();
+
 
         }
     }
@@ -252,7 +257,7 @@ public class StudentForCompetition_controller implements Initializable {
                         continue L1;
                     }
                 }
-                int age = LocalDate.now().getYear() - Common.DateToLocalDate(oneRegi.getDOB()).getYear();
+                int age = LocalDate.now().getYear() - Common.dateToLocalDate(oneRegi.getDOB()).getYear();
                 if (oneRegi.isGender() == eventList.isGender() &&
                         age > ageGroup.getMin() && age < ageGroup.getMax()) {
                     oneRegi.setAge(age);
@@ -272,6 +277,7 @@ public class StudentForCompetition_controller implements Initializable {
         txtAgeGroup.setText("");
         cboxResult.setValue("");
         txtPerfomence.setText("");
+        txtAge.setText("");
     }
 
     @FXML
@@ -305,7 +311,7 @@ public class StudentForCompetition_controller implements Initializable {
             }
         } catch (Exception e) {
             Logger.getLogger(StudentForCompetition_controller.class.getName()).log(Level.SEVERE, null, e);
-            e.printStackTrace();
+
 
         }
     }
@@ -334,7 +340,7 @@ public class StudentForCompetition_controller implements Initializable {
         } catch (Exception e) {
             Logger.getLogger(StudentForCompetition_controller.class.getName()).log(Level.SEVERE, null, e);
             Common.showError("Something's wrong we can't do your request \n Error code  \n" + e.getMessage());
-            e.printStackTrace();
+
         }
 
     }

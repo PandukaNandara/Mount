@@ -19,7 +19,7 @@ public class AgeGroupDAOImpl implements AgeGroupDAO {
     }
     @Override
     public boolean saveWithoutPKey(AgeGroup ag) throws Exception {
-        return CrudUtil.executeUpdate("INSERT into age_group(group_name, min, max) values(?, ?, ?, ?)",
+        return CrudUtil.executeUpdate("INSERT into age_group(group_name, min, max) values(?, ?, ?)",
                 ag.getGID(),
                 ag.getGroupName(),
                 ag.getMin(),
@@ -44,7 +44,7 @@ public class AgeGroupDAOImpl implements AgeGroupDAO {
 
     @Override
     public AgeGroup search(Integer id) throws Exception {
-        ResultSet rst = CrudUtil.executeQuery("SELECT * From age_group where ELID = ?", id);
+        ResultSet rst = CrudUtil.executeQuery("SELECT * From age_group where GID = ?", id);
         if(rst.next()) {
             return new AgeGroup(
                     rst.getInt("GID"),

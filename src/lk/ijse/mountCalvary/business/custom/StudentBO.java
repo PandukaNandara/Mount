@@ -11,6 +11,8 @@ public interface StudentBO extends SuperBO {
 
     ArrayList<StudentDTO> getAll() throws Exception;
 
+    int getNewIndex() throws Exception;
+
     ArrayList<StudentDTO> getAllStudentNameAndNumber() throws Exception;
 
     boolean updateStudent(StudentDTO studentDTO) throws Exception;

@@ -10,9 +10,11 @@ import javafx.scene.layout.AnchorPane;
 import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.LogInBO;
 import lk.ijse.mountCalvary.controller.Common;
+import lk.ijse.mountCalvary.controller.GlobalBoolean;
 import lk.ijse.mountCalvary.controller.basic.ScreenLoader;
 import lk.ijse.mountCalvary.model.LogInDTO;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -39,6 +41,8 @@ public class NewUser_controller implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        GlobalBoolean.setLock(false);
+
         logInBOImpl = BOFactory.getInstance().getBO(BOFactory.BOType.LOG_IN);
     }
 
@@ -58,7 +62,7 @@ public class NewUser_controller implements Initializable {
             if(logInBOImpl.add(new LogInDTO(txtUserName.getText(), txtPassword.getText()))){
                 Common.showMessage(
                   String.format("A new user has successfully added. %n" +
-                          "User name :   %s %n " +
+                          "User name :   %s %n" +
                           "Password  :   %s %n ", txtUserName.getText(), txtPassword.getText())
                 );
             }else {
@@ -96,8 +100,16 @@ public class NewUser_controller implements Initializable {
             }
         } catch (Exception e) {
             Logger.getLogger(NewUser_controller.class.getName()).log(Level.SEVERE, null, e);
-            e.printStackTrace();
+
         }
     }
 
+    @FXML
+    private void btCancel_onAction(ActionEvent actionEvent) {
+        try {
+            ScreenLoader.loadPanel("/lk/ijse/mountCalvary/view/LogIn/LogIn.fxml", acNewUser, this);
+        } catch (IOException e) {
+            Logger.getLogger(NewUser_controller.class.getName()).log(Level.SEVERE, null, e);
+        }
+    }
 }

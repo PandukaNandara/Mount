@@ -17,6 +17,7 @@ import lk.ijse.mountCalvary.business.custom.ActivityBO;
 import lk.ijse.mountCalvary.business.custom.PaymentBO;
 import lk.ijse.mountCalvary.controller.AutoComplete;
 import lk.ijse.mountCalvary.controller.Common;
+import lk.ijse.mountCalvary.controller.GlobalBoolean;
 import lk.ijse.mountCalvary.controller.Month;
 import lk.ijse.mountCalvary.controller.basic.ScreenLoader;
 import lk.ijse.mountCalvary.model.ActivityDTO;
@@ -94,13 +95,17 @@ public class MakePayment_controller implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        GlobalBoolean.setLock(true);
+
         colActivity_tblStudentPayment.setCellValueFactory(new PropertyValueFactory<>("activityName"));
         colStudent_tblStudentPayment.setCellValueFactory(new PropertyValueFactory<>("studentName"));
         colFee_tblStudentPayment.setCellValueFactory(new PropertyValueFactory<>("fee"));
         colMonth_tblStudentPayment.setCellValueFactory(new PropertyValueFactory<>("month"));
         colYear_tblStudentPayment.setCellValueFactory(new PropertyValueFactory<>("year"));
+
         activityBOImpl = BOFactory.getInstance().getBO(BOFactory.BOType.ACTIVITY);
         paymentBOImpl = BOFactory.getInstance().getBO(BOFactory.BOType.PAYMENT);
+
         //paymentBOImpl = BOFactory.getInstance().getBO()
         auto = new AutoComplete<>(txtStudentName);
         auto.setAutoCompletionsAction(event1 -> searchStudent());
@@ -113,7 +118,6 @@ public class MakePayment_controller implements Initializable {
             loadActivity();
         } catch (Exception e) {
             Logger.getLogger(MakePayment_controller.class.getName()).log(Level.SEVERE, null, e);
-            e.printStackTrace();
         }
     }
 
@@ -223,7 +227,7 @@ public class MakePayment_controller implements Initializable {
             } catch (Exception e) {
                 Logger.getLogger(MakePayment_controller.class.getName()).log(Level.SEVERE, null, e);
                 Common.showWarning(e.toString());
-                e.printStackTrace();
+
             }
         }
     }
@@ -238,7 +242,7 @@ public class MakePayment_controller implements Initializable {
             auto.changeSuggestion(registrationOfThisActivity);
         } catch (Exception e) {
             Logger.getLogger(MakePayment_controller.class.getName()).log(Level.SEVERE, null, e);
-            e.printStackTrace();
+
         }
 //
 //        ObservableList<RegistrationDTO> regList = select.getRegistrationDTOS();

@@ -13,6 +13,7 @@ import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.StudentBO;
 import lk.ijse.mountCalvary.business.custom.TelNoBO;
 import lk.ijse.mountCalvary.controller.Common;
+import lk.ijse.mountCalvary.controller.GlobalBoolean;
 import lk.ijse.mountCalvary.controller.basic.ScreenLoader;
 import lk.ijse.mountCalvary.model.StudentDTO;
 import lk.ijse.mountCalvary.model.TelNoDTO;
@@ -32,8 +33,7 @@ import static lk.ijse.mountCalvary.controller.Common.showError;
 
 public class UpdateStudent_controller implements Initializable {
 
-    StudentBO studentBO;
-    ArrayList<StudentDTO> allStudent;
+
     @FXML
     private AnchorPane acNewStudent;
     @FXML
@@ -85,16 +85,20 @@ public class UpdateStudent_controller implements Initializable {
     @FXML
     private TableColumn<TelNoDTO, Integer> colNewTelNo_tblUpdatedTelNo;
     private TelNoBO telNo;
-
+    private StudentBO studentBO;
+    private ArrayList<StudentDTO> allStudent;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        telNo = BOFactory.getInstance().getBO(BOFactory.BOType.TEL_NO);
+        GlobalBoolean.setLock(true);
+
 
         colTelNo_tblTelNo.setCellValueFactory(new PropertyValueFactory<>("telNo"));
         colOdlTelNo_tblUpdatedTelNo.setCellValueFactory(new PropertyValueFactory<>("telNo"));
         colNewTelNo_tblUpdatedTelNo.setCellValueFactory(new PropertyValueFactory<>("oldTelNo"));
 
         studentBO = BOFactory.getInstance().getBO(BOFactory.BOType.STUDENT);
+        telNo = BOFactory.getInstance().getBO(BOFactory.BOType.TEL_NO);
+
         Common.loadHouse(cboxHouse);
         Common.loadClass(cboxClass);
         Common.loadGrade(cboxGrade);
@@ -104,13 +108,11 @@ public class UpdateStudent_controller implements Initializable {
             allStudent = studentBO.getAllStudentNameAndNumber();
             System.out.println(allStudent);
             AutoCompletionBinding<StudentDTO> stList = TextFields.bindAutoCompletion(txtStudentName, allStudent);
-            stList.setOnAutoCompleted(event -> {
-                        btSearch.fire();
-                    }
+            stList.setOnAutoCompleted(event -> btSearch.fire()
             );
         } catch (Exception e) {
             Logger.getLogger(UpdateStudent_controller.class.getName()).log(Level.SEVERE, null, e);
-            e.printStackTrace();
+
         }
 
     }
@@ -126,7 +128,7 @@ public class UpdateStudent_controller implements Initializable {
                 loadStudentData(studentDTO);
             } catch (Exception e) {
                 Logger.getLogger(UpdateStudent_controller.class.getName()).log(Level.SEVERE, null, e);
-                e.printStackTrace();
+
             }
         }
     }
@@ -144,7 +146,7 @@ public class UpdateStudent_controller implements Initializable {
                     loadStudentData(studentDTO);
                 } catch (Exception e) {
                     Logger.getLogger(UpdateStudent_controller.class.getName()).log(Level.SEVERE, null, e);
-                    e.printStackTrace();
+
                 }
             }
         } else {
@@ -169,7 +171,7 @@ public class UpdateStudent_controller implements Initializable {
         cboxHouse.setValue(i.getHouse());
         if (!i.isGender())
             rbFemale.fire();
-        dtDOB.setValue(Common.DateToLocalDate(i.getDOB()));
+        dtDOB.setValue(Common.dateToLocalDate(i.getDOB()));
         txtAddress.setText(i.getAddress());
         tblTelNo.setItems(i.getTelNoList());
         txtaDesc.setText(i.getNote());
@@ -271,7 +273,7 @@ public class UpdateStudent_controller implements Initializable {
                                     a.showAndWait();
                                 } catch (Exception e) {
                                     Logger.getLogger(UpdateStudent_controller.class.getName()).log(Level.SEVERE, null, e);
-                                    showError(e.getMessage());
+                                    showError("Something's wrong we can't do your request.");
                                 }
 
                                 try {

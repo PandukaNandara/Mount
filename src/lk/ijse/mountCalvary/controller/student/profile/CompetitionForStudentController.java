@@ -12,6 +12,7 @@ import javafx.scene.layout.AnchorPane;
 import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.ParticipationBO;
 import lk.ijse.mountCalvary.controller.Common;
+import lk.ijse.mountCalvary.controller.GlobalBoolean;
 import lk.ijse.mountCalvary.controller.Reporter;
 import lk.ijse.mountCalvary.model.ParticipationDTO;
 import lk.ijse.mountCalvary.model.StudentDTO;
@@ -56,6 +57,8 @@ public class CompetitionForStudentController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        GlobalBoolean.setLock(false);
+
         colActivity.setCellValueFactory(new PropertyValueFactory<>("activityName"));
         colCompetition.setCellValueFactory(new PropertyValueFactory<>("competitionName"));
         colDate.setCellValueFactory(new PropertyValueFactory<>("date"));
@@ -71,8 +74,7 @@ public class CompetitionForStudentController implements Initializable {
 
         if (selectedStudent != null) {
             try {
-//                Progress progress = new Progress(competitionForStudent,"Loading report", "Now loading");
-//                progress.show();
+
                 if (competitionReport == null) {
                     InputStream resourceAsStream = getClass().getResourceAsStream("/lk/ijse/mountCalvary/report/student/CompetitionForStudentReport.jrxml");
                     competitionReport = JasperCompileManager.compileReport(resourceAsStream);
@@ -88,10 +90,10 @@ public class CompetitionForStudentController implements Initializable {
 
                 Reporter.showReport(jasperPrint, "Competition for student");
 
-//                progress.close();
+
             } catch (Exception e) {
                 Logger.getLogger(CompetitionForStudentController.class.getName()).log(Level.SEVERE, null, e);
-                e.printStackTrace();
+
             }
         } else {
             Common.showError("Please select a student to print.");
@@ -126,7 +128,7 @@ public class CompetitionForStudentController implements Initializable {
             tblParticipation.getItems().setAll(achievement);
         } catch (Exception e) {
             Logger.getLogger(CompetitionForStudentController.class.getName()).log(Level.SEVERE, null, e);
-            e.printStackTrace();
+
         }
     }
 

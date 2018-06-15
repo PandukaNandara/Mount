@@ -83,6 +83,11 @@ public class StudentBOImpl implements StudentBO {
     }
 
     @Override
+    public int getNewIndex() throws Exception {
+        return studentDAOImpl.getIncrementIndex();
+    }
+
+    @Override
     public ArrayList<StudentDTO> getAllStudentNameAndNumber() throws Exception {
         ArrayList<Student> all = studentDAOImpl.getAllStudentNameAndNumber();
         ArrayList<StudentDTO> allDTO = new ArrayList<>();

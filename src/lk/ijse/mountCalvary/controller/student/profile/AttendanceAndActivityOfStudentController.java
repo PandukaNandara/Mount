@@ -14,6 +14,7 @@ import lk.ijse.mountCalvary.business.custom.AttendantSheetBO;
 import lk.ijse.mountCalvary.business.custom.RegistrationBO;
 import lk.ijse.mountCalvary.controller.Common;
 import lk.ijse.mountCalvary.controller.DateRange;
+import lk.ijse.mountCalvary.controller.GlobalBoolean;
 import lk.ijse.mountCalvary.controller.Reporter;
 import lk.ijse.mountCalvary.model.ActivityDTO;
 import lk.ijse.mountCalvary.model.AttendantSheetDTO;
@@ -56,12 +57,14 @@ public class AttendanceAndActivityOfStudentController implements Initializable {
     private RegistrationBO registrationBOImpl;
     private AttendantSheetBO attendantSheetBOImpl;
     private ObservableList<AttendantSheetDTO> allAttendance;
-    private String[] ageGroup = DateRange.getDateRange();
+    private String[] ageGroup = DateRange.getDateRanges();
     private StudentDTO selectedStudent;
     private JasperReport activityOfStudentReport;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        GlobalBoolean.setLock(false);
+
         colJoinedDate_tblRegistration.setCellValueFactory(new PropertyValueFactory<>("joinedDate"));
         colActivity_tblRegistration.setCellValueFactory(new PropertyValueFactory<>("activityName"));
 
@@ -129,7 +132,7 @@ public class AttendanceAndActivityOfStudentController implements Initializable {
             loadIntoRegistration(i);
         } catch (Exception e) {
             Logger.getLogger(AttendanceAndActivityOfStudentController.class.getName()).log(Level.SEVERE, null, e);
-            e.printStackTrace();
+
         }
     }
 
@@ -195,7 +198,7 @@ public class AttendanceAndActivityOfStudentController implements Initializable {
             }
         } catch (Exception e) {
             Logger.getLogger(AttendanceAndActivityOfStudentController.class.getName()).log(Level.SEVERE, null, e);
-            e.printStackTrace();
+
         }
 
     }

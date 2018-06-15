@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.AnchorPane;
+import lk.ijse.mountCalvary.controller.GlobalBoolean;
 import lk.ijse.mountCalvary.controller.Reporter;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -29,7 +30,7 @@ public class SpecialReportMenu_controller implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        GlobalBoolean.setLock(false);
     }
 
     @FXML

@@ -18,6 +18,7 @@ import javafx.util.Duration;
 import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.LogInBO;
 import lk.ijse.mountCalvary.controller.Common;
+import lk.ijse.mountCalvary.controller.GlobalBoolean;
 import lk.ijse.mountCalvary.controller.basic.ScreenLoader;
 import lk.ijse.mountCalvary.model.LogInDTO;
 
@@ -41,6 +42,8 @@ public class LogIn_controller implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        GlobalBoolean.setLock(false);
+
         txtUserName.setText("");
         txtPassword.setText("");
         logInBOImpl = BOFactory.getInstance().getBO(BOFactory.BOType.LOG_IN);
@@ -78,12 +81,12 @@ public class LogIn_controller implements Initializable {
 
     @FXML
     private void txtUserName_onAction(ActionEvent actionEvent) {
-        txtUserName.requestFocus();
+        txtPassword.requestFocus();
     }
 
     @FXML
     private void txtPassword_onAction(ActionEvent actionEvent) {
-        txtUserName.requestFocus();
+        btLogIn.fire();
     }
 
     @FXML

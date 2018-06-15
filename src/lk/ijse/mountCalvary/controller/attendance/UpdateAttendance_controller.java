@@ -17,6 +17,7 @@ import lk.ijse.mountCalvary.business.custom.ActivityBO;
 import lk.ijse.mountCalvary.business.custom.AttendantSheetBO;
 import lk.ijse.mountCalvary.business.custom.TeacherBO;
 import lk.ijse.mountCalvary.controller.Common;
+import lk.ijse.mountCalvary.controller.GlobalBoolean;
 import lk.ijse.mountCalvary.controller.basic.ScreenLoader;
 import lk.ijse.mountCalvary.model.ActivityDTO;
 import lk.ijse.mountCalvary.model.AttendantSheetDTO;
@@ -89,6 +90,7 @@ public class UpdateAttendance_controller implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        GlobalBoolean.setLock(true);
 
         activityBOImpl = BOFactory.getInstance().getBO(BOFactory.BOType.ACTIVITY);
         teacherBOImpl = BOFactory.getInstance().getBO(BOFactory.BOType.TEACHER);
@@ -110,7 +112,7 @@ public class UpdateAttendance_controller implements Initializable {
             loadTeacherInCharge();
         } catch (Exception e) {
             Logger.getLogger(UpdateAttendance_controller.class.getName()).log(Level.SEVERE, null, e);
-            e.printStackTrace();
+
 
         }
     }
@@ -126,7 +128,7 @@ public class UpdateAttendance_controller implements Initializable {
 
     @FXML
     void btAddAll_onAction(ActionEvent event) {
-        Date day = Common.LocalDateToDate(dpDate.getValue());
+        Date day = Common.localDateToDate(dpDate.getValue());
         ObservableList<RegistrationDTO> selectedItems = tblStudentList.getSelectionModel().getSelectedItems();
         TeacherDTO selectedTeacher = cboxTeacherInCharge.getSelectionModel().getSelectedItem();
         if (day == null) {
@@ -138,12 +140,13 @@ public class UpdateAttendance_controller implements Initializable {
             Common.showError("Please select the teacher in charge");
         } else {
             for (RegistrationDTO oneReg : selectedItems) {
-                System.out.println(oneReg.hashCode());
                 tblAttendance.getItems().add(new AttendantSheetDTO(
                         oneReg, selectedTeacher, day
                 ));
-                tblStudentList.getItems().remove(oneReg);
-                cboxActivity.getSelectionModel().getSelectedItem().getRegistrationDTOS().remove(oneReg);
+                try {
+                    tblStudentList.getItems().remove(oneReg);
+                    cboxActivity.getSelectionModel().getSelectedItem().getRegistrationDTOS().remove(oneReg);
+                }catch (NullPointerException e){}
             }
         }
     }
@@ -190,7 +193,7 @@ public class UpdateAttendance_controller implements Initializable {
                     }
                 } catch (Exception e) {
                     Logger.getLogger(UpdateAttendance_controller.class.getName()).log(Level.SEVERE, null, e);
-                    e.printStackTrace();
+
 
                 }
             }
@@ -203,7 +206,7 @@ public class UpdateAttendance_controller implements Initializable {
             tblStudentList.getItems().setAll(activityBOImpl.getRegistrationOfThisActivity(cboxActivity.getSelectionModel().getSelectedItem().getAID()));
         } catch (Exception e) {
             Logger.getLogger(UpdateAttendance_controller.class.getName()).log(Level.SEVERE, null, e);
-            e.printStackTrace();
+
         }
     }
 

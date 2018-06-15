@@ -12,6 +12,7 @@ import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.ActivityBO;
 import lk.ijse.mountCalvary.business.custom.TeacherBO;
 import lk.ijse.mountCalvary.controller.Common;
+import lk.ijse.mountCalvary.controller.GlobalBoolean;
 import lk.ijse.mountCalvary.controller.basic.ScreenLoader;
 import lk.ijse.mountCalvary.model.ActivityDTO;
 import lk.ijse.mountCalvary.model.TeacherDTO;
@@ -49,6 +50,8 @@ public class UpdateActivity_controller implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        GlobalBoolean.setLock(true);
+
         teacherBOImpl = BOFactory.getInstance().getBO(BOFactory.BOType.TEACHER);
         activityBOImpl = BOFactory.getInstance().getBO(BOFactory.BOType.ACTIVITY);
         cboxTeacherInCharge.setDisable(true);
@@ -95,7 +98,7 @@ public class UpdateActivity_controller implements Initializable {
                 }
             } catch (Exception e) {
                 Logger.getLogger(UpdateActivity_controller.class.getName()).log(Level.SEVERE, null, e);
-                e.printStackTrace();
+
             }
             ScreenLoader.loadPanel("/lk/ijse/mountCalvary/view/basic/ActivityMenu.fxml", this.acUpdateActivity, this);
         } catch (IOException e) {

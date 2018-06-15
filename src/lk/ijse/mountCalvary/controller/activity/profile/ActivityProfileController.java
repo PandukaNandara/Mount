@@ -10,6 +10,7 @@ import javafx.scene.layout.BorderPane;
 import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.ActivityBO;
 import lk.ijse.mountCalvary.controller.Common;
+import lk.ijse.mountCalvary.controller.GlobalBoolean;
 import lk.ijse.mountCalvary.model.ActivityDTO;
 
 import java.net.URL;
@@ -60,13 +61,15 @@ public class ActivityProfileController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        GlobalBoolean.setLock(false);
+
         activityBOImpl = BOFactory.getInstance().getBO(BOFactory.BOType.ACTIVITY);
 
         try {
             loadAllActivity();
         } catch (Exception e) {
             Logger.getLogger(ActivityProfileController.class.getName()).log(Level.SEVERE, null, e);
-            e.printStackTrace();
+
         }
 
         activityDetailController.init(this);

@@ -7,6 +7,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import lk.ijse.mountCalvary.controller.Common;
+import lk.ijse.mountCalvary.controller.GlobalBoolean;
 
 import java.io.IOException;
 import java.net.URL;
@@ -50,6 +51,7 @@ public class MainMenuFrame_controller implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
+            GlobalBoolean.setLock(false);
             ScreenLoader.loadPanel("/lk/ijse/mountCalvary/view/basic/MainMenu.fxml", this.acMenu, this);
         } catch (IOException e) {
             e.printStackTrace();
@@ -59,6 +61,8 @@ public class MainMenuFrame_controller implements Initializable {
     @FXML
     private void btMainMenu_onAction(ActionEvent actionEvent) {
         try {
+            if(GlobalBoolean.isLocked() && doYouWantToDiscard())
+                return;
             ScreenLoader.loadPanel("/lk/ijse/mountCalvary/view/basic/MainMenu.fxml", this.acMenu, this);
         } catch (IOException e) {
             e.printStackTrace();
@@ -68,6 +72,8 @@ public class MainMenuFrame_controller implements Initializable {
     @FXML
     private void btStudentMenu_onAction(ActionEvent actionEvent) {
         try {
+            if(GlobalBoolean.isLocked() && doYouWantToDiscard())
+                return;
             ScreenLoader.loadPanel("/lk/ijse/mountCalvary/view/basic/StudentMenu.fxml", this.acMenu, this);
         } catch (IOException e) {
             e.printStackTrace();
@@ -77,6 +83,8 @@ public class MainMenuFrame_controller implements Initializable {
     @FXML
     private void btActivityMenu_onAction(ActionEvent actionEvent) {
         try {
+            if(GlobalBoolean.isLocked() && doYouWantToDiscard())
+                return;
             ScreenLoader.loadPanel("/lk/ijse/mountCalvary/view/basic/ActivityMenu.fxml", this.acMenu, this);
         } catch (IOException e) {
             e.printStackTrace();
@@ -86,6 +94,8 @@ public class MainMenuFrame_controller implements Initializable {
     @FXML
     private void btCompetitionMenu_onAction(ActionEvent actionEvent) {
         try {
+            if(GlobalBoolean.isLocked() && doYouWantToDiscard())
+                return;
             ScreenLoader.loadPanel("/lk/ijse/mountCalvary/view/basic/CompetitionMenu.fxml", this.acMenu, this);
         } catch (IOException e) {
             e.printStackTrace();
@@ -95,6 +105,8 @@ public class MainMenuFrame_controller implements Initializable {
     @FXML
     private void btTeacherMenu_onAction(ActionEvent actionEvent) {
         try {
+            if(GlobalBoolean.isLocked() && doYouWantToDiscard())
+                return;
             ScreenLoader.loadPanel("/lk/ijse/mountCalvary/view/basic/TeacherMenu.fxml", this.acMenu, this);
         } catch (IOException e) {
             e.printStackTrace();
@@ -104,6 +116,8 @@ public class MainMenuFrame_controller implements Initializable {
     @FXML
     private void btUpdateAttendanceMenu_onAction(ActionEvent actionEvent) {
         try {
+            if(GlobalBoolean.isLocked() && doYouWantToDiscard())
+                return;
             ScreenLoader.loadPanel("/lk/ijse/mountCalvary/view/attendance/UpdateAttendance.fxml", this.acMenu, this);
         } catch (IOException e) {
             e.printStackTrace();
@@ -113,29 +127,38 @@ public class MainMenuFrame_controller implements Initializable {
     @FXML
     private void btSpecialReportMenu_onAction(ActionEvent actionEvent) {
         try {
+            if(GlobalBoolean.isLocked() && doYouWantToDiscard())
+                return;
             ScreenLoader.loadPanel("/lk/ijse/mountCalvary/view/basic/SpecialReportMenu.fxml", this.acMenu, this);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
+
     @FXML
     private void btSettingsMenu_onAction(ActionEvent actionEvent) {
-        Common.showMessage("Still Developing");
-//        try {
-//            ScreenLoader.loadPanel("/lk/ijse/mountCalvary/view/", this.acMenu, this);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+        try {
+            if(GlobalBoolean.isLocked() && doYouWantToDiscard())
+                return;
+            ScreenLoader.loadPanel("/lk/ijse/mountCalvary/view/settings/Settings.fxml", this.acMenu, this);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 
     @FXML
     private void btPayment_onAction(ActionEvent actionEvent) {
         try {
+            if(GlobalBoolean.isLocked() && doYouWantToDiscard())
+                return;
             ScreenLoader.loadPanel("/lk/ijse/mountCalvary/view/payment/MakePayment.fxml", this.acMenu, this);
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    private boolean doYouWantToDiscard() {
+        return !Common.askQuestion("Do you stop this this task?");
     }
 }

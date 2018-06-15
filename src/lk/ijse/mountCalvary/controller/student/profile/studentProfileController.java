@@ -12,6 +12,7 @@ import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.StudentBO;
 import lk.ijse.mountCalvary.controller.AutoComplete;
 import lk.ijse.mountCalvary.controller.Common;
+import lk.ijse.mountCalvary.controller.GlobalBoolean;
 import lk.ijse.mountCalvary.model.StudentDTO;
 
 import java.net.URL;
@@ -57,6 +58,8 @@ public class studentProfileController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        GlobalBoolean.setLock(false);
+
         studentBOImpl = BOFactory.getInstance().getBO(BOFactory.BOType.STUDENT);
         try {
             loadStudentDetail();
@@ -66,7 +69,7 @@ public class studentProfileController implements Initializable {
             });
         } catch (Exception e) {
             Logger.getLogger(studentProfileController.class.getName()).log(Level.SEVERE, null, e);
-            e.printStackTrace();
+
         }
         personalDetailController.init(this);
         attendanceAndActivityOfStudentController.init(this);

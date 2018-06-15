@@ -14,6 +14,7 @@ import lk.ijse.mountCalvary.business.custom.ActivityBO;
 import lk.ijse.mountCalvary.business.custom.StudentBO;
 import lk.ijse.mountCalvary.business.custom.TelNoBO;
 import lk.ijse.mountCalvary.controller.Common;
+import lk.ijse.mountCalvary.controller.GlobalBoolean;
 import lk.ijse.mountCalvary.controller.basic.ScreenLoader;
 import lk.ijse.mountCalvary.model.ActivityDTO;
 import lk.ijse.mountCalvary.model.RegistrationDTO;
@@ -116,37 +117,40 @@ public class NewStudent_controller implements Initializable {
     @FXML
     private JFXComboBox<String> cboxHouse;
 
-    private ActivityBO activity;
-    private TelNoBO telNo;
-    private StudentBO student;
+    private ActivityBO activityBOImpl;
+    private TelNoBO telNoBOImpl;
+    private StudentBO studentBOImpl;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        colTelNo_tblTelNo.setCellValueFactory(new PropertyValueFactory<>("telNo"));
-        colActivity.setCellValueFactory(new PropertyValueFactory<>("activity"));
+        GlobalBoolean.setLock(true);
+        colTelNo_tblTelNo.setCellValueFactory(new PropertyValueFactory<>("telNoBOImpl"));
+        colActivity.setCellValueFactory(new PropertyValueFactory<>("activityBOImpl"));
         colJoinedDate.setCellValueFactory(new PropertyValueFactory<>("joinedDate"));
 
-        student = BOFactory.getInstance().getBO(BOFactory.BOType.STUDENT);
-        activity = BOFactory.getInstance().getBO(BOFactory.BOType.ACTIVITY);
-        telNo = BOFactory.getInstance().getBO(BOFactory.BOType.TEL_NO);
+        studentBOImpl = BOFactory.getInstance().getBO(BOFactory.BOType.STUDENT);
+        activityBOImpl = BOFactory.getInstance().getBO(BOFactory.BOType.ACTIVITY);
+        telNoBOImpl = BOFactory.getInstance().getBO(BOFactory.BOType.TEL_NO);
 
         txtStudentID.requestFocus();
         Common.loadHouse(cboxHouse);
         Common.loadGrade(cboxGrade);
         Common.loadClass(cboxClass);
 
-
         try {
             loadActivity();
+            int newIndex = studentBOImpl.getNewIndex() + 1;
+            txtStudentID.setText(String.valueOf(newIndex));
+            txtStudentID.setEditable(false);
         } catch (Exception e) {
             Logger.getLogger(NewStudent_controller.class.getName()).log(Level.SEVERE, null, e);
-            e.printStackTrace();
+
         }
 
     }
 
     private void loadActivity() throws Exception {
-        for (ActivityDTO act : activity.getAllActivity()) {
+        for (ActivityDTO act : activityBOImpl.getAllActivity()) {
             cboxActivityName.getItems().addAll(act);
         }
     }
@@ -158,7 +162,7 @@ public class NewStudent_controller implements Initializable {
         ActivityDTO selectedItem = cboxActivityName.getSelectionModel().getSelectedItem();
         Date date = null;
         if (selectedItem == null) {
-            Common.showError("Please select an activity");
+            Common.showError("Please select an activityBOImpl");
         } else if (Common.getDate(dtJoinedDate) == null) {
             Common.showError("Please select the joined date");
         } else {
@@ -182,7 +186,7 @@ public class NewStudent_controller implements Initializable {
 
         } else if (!checkStudentID()) {
 
-            Common.showError("Please enter the student ID");
+            Common.showError("Please enter the studentBOImpl ID");
 
         } else {
             int stNum = getStudentID();
@@ -206,9 +210,8 @@ public class NewStudent_controller implements Initializable {
                             if (checkParents()) {
                                 int stId = getStudentID();
                                 String stName = txtStudentName.getText().trim().replaceAll(" +", " ");
-                                ;
                                 String house = cboxHouse.getSelectionModel().getSelectedItem();
-                                boolean gender = rbMale.isSelected() ? true : false;
+                                boolean gender = rbMale.isSelected();
                                 String grade = cboxGrade.getSelectionModel().getSelectedItem();
                                 String class_ = cboxClass.getSelectionModel().getSelectedItem();
                                 if (!grade.equals("Left"))
@@ -224,7 +227,7 @@ public class NewStudent_controller implements Initializable {
                                 ObservableList<TelNoDTO> allTelNum = tblTelNo.getItems();
                                 ObservableList<RegistrationDTO> allInitialActivity = tblActivity.getItems();
                                 try {
-                                    boolean b = student.addStudent(new StudentDTO(stId, stName, gender, DOB, grade_class, fatherName, motherName, note, house, address, allTelNum, allInitialActivity));
+                                    boolean b = studentBOImpl.addStudent(new StudentDTO(stId, stName, gender, DOB, grade_class, fatherName, motherName, note, house, address, allTelNum, allInitialActivity));
                                     String text = "";
                                     if (b)
                                         text = "Student has successfully added";
@@ -235,7 +238,7 @@ public class NewStudent_controller implements Initializable {
                                 } catch (Exception e) {
                                     showError(e.getMessage());
                                 }
-                                if (Common.askQuestion("Do you want to add more student?")) {
+                                if (Common.askQuestion("Do you want to add more studentBOImpl?")) {
                                     try {
                                         ScreenLoader.loadPanel("/lk/ijse/mountCalvary/view/student/NewStudent.fxml", this.acNewStudent, this);
                                     } catch (IOException e) {
@@ -264,7 +267,7 @@ public class NewStudent_controller implements Initializable {
                 showError("Please enter Student name");
             }
         } else {
-            showError("Please enter the student ID");
+            showError("Please enter the studentBOImpl ID");
         }
 
     }
@@ -386,12 +389,13 @@ public class NewStudent_controller implements Initializable {
             }
             txtStudentName.requestFocus();
         } else {
-            Common.showError("Please input valid student ID as number");
+            Common.showError("Please input valid studentBOImpl ID as number");
         }
     }
 
     @FXML
     void txtStudentName(ActionEvent event) {
+        rbMale.requestFocus();
 
     }
 

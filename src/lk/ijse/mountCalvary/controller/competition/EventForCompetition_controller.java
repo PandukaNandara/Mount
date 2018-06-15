@@ -17,6 +17,7 @@ import javafx.scene.layout.Pane;
 import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.*;
 import lk.ijse.mountCalvary.controller.Common;
+import lk.ijse.mountCalvary.controller.GlobalBoolean;
 import lk.ijse.mountCalvary.controller.basic.ScreenLoader;
 import lk.ijse.mountCalvary.model.*;
 
@@ -90,6 +91,7 @@ public class EventForCompetition_controller implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        GlobalBoolean.setLock(true);
         //columns of event of activity
         colEvent_tblEventListOfActivity.setCellValueFactory(new PropertyValueFactory<>("eventName"));
         colGender_tblEventListOfActivity.setCellValueFactory(new PropertyValueFactory<>("genderType"));
@@ -111,7 +113,7 @@ public class EventForCompetition_controller implements Initializable {
             loadActivity();
         } catch (Exception e) {
             Logger.getLogger(EventForCompetition_controller.class.getName()).log(Level.SEVERE, null, e);
-            e.printStackTrace();
+
         }
     }
 
@@ -123,7 +125,7 @@ public class EventForCompetition_controller implements Initializable {
             tblEventList.getItems().setAll(eventListDTOS);
         } catch (Exception e) {
             Logger.getLogger(EventForCompetition_controller.class.getName()).log(Level.SEVERE, null, e);
-            e.printStackTrace();
+
         }
     }
 
@@ -204,7 +206,7 @@ public class EventForCompetition_controller implements Initializable {
             tblEventListOfActivity.getItems().setAll(eventDTOS);
         } catch (Exception e) {
             Logger.getLogger(EventForCompetition_controller.class.getName()).log(Level.SEVERE, null, e);
-            e.printStackTrace();
+
         }
 
     }
@@ -254,7 +256,7 @@ public class EventForCompetition_controller implements Initializable {
                 } catch (Exception e) {
                     Logger.getLogger(EventForCompetition_controller.class.getName()).log(Level.SEVERE, null, e);
                     Common.showError("Something's wrong we can't do your request now");
-                    e.printStackTrace();
+
 
                 }
             }
@@ -277,7 +279,7 @@ public class EventForCompetition_controller implements Initializable {
 
         } catch (Exception e) {
             Logger.getLogger(EventForCompetition_controller.class.getName()).log(Level.SEVERE, null, e);
-            e.printStackTrace();
+
         }
     }
 
@@ -311,7 +313,7 @@ public class EventForCompetition_controller implements Initializable {
             loadActivity();
         } catch (Exception e) {
             Logger.getLogger(EventForCompetition_controller.class.getName()).log(Level.SEVERE, null, e);
-            e.printStackTrace();
+
         }
 
     }

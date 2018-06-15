@@ -14,6 +14,7 @@ import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.ActivityBO;
 import lk.ijse.mountCalvary.controller.Common;
 import lk.ijse.mountCalvary.controller.DateRange;
+import lk.ijse.mountCalvary.controller.GlobalBoolean;
 import lk.ijse.mountCalvary.controller.Reporter;
 import lk.ijse.mountCalvary.model.ActivityDTO;
 import lk.ijse.mountCalvary.model.RegistrationDTO;
@@ -54,6 +55,8 @@ public class JoinedStudentController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        GlobalBoolean.setLock(false);
+
         colStudent.setCellValueFactory(new PropertyValueFactory<>("studentName"));
         colJoinedDate.setCellValueFactory(new PropertyValueFactory<>("joinedDate"));
         colClass.setCellValueFactory(new PropertyValueFactory<>("studentClass"));
@@ -72,11 +75,11 @@ public class JoinedStudentController implements Initializable {
             registrationOfThisActivity = activityBOImpl.getRegistrationOfThisActivity(activityDTO.getAID());
             cboxTimeRange.getSelectionModel().select(DateRange.ALL);
             tblStudentList.getItems().setAll(registrationOfThisActivity);
-            cboxTimeRange.getItems().setAll(DateRange.getDateRange());
+            cboxTimeRange.getItems().setAll(DateRange.getDateRanges());
             cboxTimeRange.getSelectionModel().select(0);
         } catch (Exception e) {
             Logger.getLogger(JoinedStudentController.class.getName()).log(Level.SEVERE, null, e);
-            e.printStackTrace();
+
         }
     }
 
@@ -137,7 +140,7 @@ public class JoinedStudentController implements Initializable {
 
             } catch (Exception e) {
                 Logger.getLogger(JoinedStudentController.class.getName()).log(Level.SEVERE, null, e);
-                e.printStackTrace();
+
             }
         } else {
             Common.showError("Please select an activity to print.");

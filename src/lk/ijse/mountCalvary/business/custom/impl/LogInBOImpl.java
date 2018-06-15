@@ -26,6 +26,7 @@ public class LogInBOImpl implements LogInBO {
         LogIn search = logInDAOImpl.search(log.getUserName());
         if (search == null)
             return false;
+
         return PasswordUtils.verifyUserPassword(log.getPassword(), search.getPassword(), search.getSalt());
     }
 

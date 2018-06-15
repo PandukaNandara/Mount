@@ -15,6 +15,7 @@ import javafx.scene.layout.AnchorPane;
 import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.TelNoBO;
 import lk.ijse.mountCalvary.controller.Common;
+import lk.ijse.mountCalvary.controller.GlobalBoolean;
 import lk.ijse.mountCalvary.controller.Reporter;
 import lk.ijse.mountCalvary.model.GenderDTO;
 import lk.ijse.mountCalvary.model.StudentDTO;
@@ -79,6 +80,8 @@ public class PersonalDetailController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        GlobalBoolean.setLock(false);
+
         colTelNo.setCellValueFactory(new PropertyValueFactory<>("telNo"));
 
         telNoBOImpl = BOFactory.getInstance().getBO(BOFactory.BOType.TEL_NO);
@@ -113,14 +116,14 @@ public class PersonalDetailController implements Initializable {
                 rbMale.fire();
             else
                 rbMale.fire();
-            txtBirthDay.setText(Common.DateToLocalDate(i.getDOB()).toString());
+            txtBirthDay.setText(Common.dateToLocalDate(i.getDOB()).toString());
             txtAddress.setText(i.getAddress());
 
             try {
                 tblTelNo.setItems(telNoBOImpl.getTelNosForThisStudent(i.getSID()));
             } catch (Exception e) {
                 Logger.getLogger(PersonalDetailController.class.getName()).log(Level.SEVERE, null, e);
-                e.printStackTrace();
+
             }
             txtaDescStudent.setText(i.getNote());
         } else {
@@ -152,7 +155,7 @@ public class PersonalDetailController implements Initializable {
 
             } catch (Exception e) {
                 Logger.getLogger(PersonalDetailController.class.getName()).log(Level.SEVERE, null, e);
-                e.printStackTrace();
+
             }
         } else {
             Common.showError("Please select a student to print.");

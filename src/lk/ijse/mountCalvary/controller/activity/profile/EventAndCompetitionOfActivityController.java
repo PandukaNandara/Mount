@@ -16,6 +16,7 @@ import lk.ijse.mountCalvary.business.custom.AgeGroupBO;
 import lk.ijse.mountCalvary.business.custom.EventBO;
 import lk.ijse.mountCalvary.business.custom.ParticipationBO;
 import lk.ijse.mountCalvary.controller.Common;
+import lk.ijse.mountCalvary.controller.GlobalBoolean;
 import lk.ijse.mountCalvary.controller.Reporter;
 import lk.ijse.mountCalvary.model.*;
 import net.sf.jasperreports.engine.*;
@@ -68,6 +69,8 @@ public class EventAndCompetitionOfActivityController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        GlobalBoolean.setLock(false);
+
         colCompetition_tblCompetitionList.setCellValueFactory(new PropertyValueFactory<>("comName"));
         colDate_tblCompetitionList.setCellValueFactory(new PropertyValueFactory<>("date"));
 
@@ -101,7 +104,7 @@ public class EventAndCompetitionOfActivityController implements Initializable {
             loadAgeGroup();
         } catch (Exception e) {
             Logger.getLogger(EventAndCompetitionOfActivityController.class.getName()).log(Level.SEVERE, null, e);
-            e.printStackTrace();
+
         }
     }
 
@@ -117,7 +120,7 @@ public class EventAndCompetitionOfActivityController implements Initializable {
             }
         } catch (Exception e) {
             Logger.getLogger(EventAndCompetitionOfActivityController.class.getName()).log(Level.SEVERE, null, e);
-            e.printStackTrace();
+
         }
     }
 
@@ -128,7 +131,7 @@ public class EventAndCompetitionOfActivityController implements Initializable {
         } catch (NullPointerException e) {
         } catch (Exception e) {
             Logger.getLogger(EventAndCompetitionOfActivityController.class.getName()).log(Level.SEVERE, null, e);
-            e.printStackTrace();
+
         }
     }
 
@@ -155,7 +158,7 @@ public class EventAndCompetitionOfActivityController implements Initializable {
         } catch (NullPointerException n) {
         } catch (Exception e) {
             Logger.getLogger(EventAndCompetitionOfActivityController.class.getName()).log(Level.SEVERE, null, e);
-            e.printStackTrace();
+
         }
     }
 

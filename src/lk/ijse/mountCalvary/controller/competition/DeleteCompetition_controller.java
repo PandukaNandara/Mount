@@ -16,6 +16,7 @@ import lk.ijse.mountCalvary.business.custom.CompetitionBO;
 import lk.ijse.mountCalvary.business.custom.EventListBO;
 import lk.ijse.mountCalvary.business.custom.ParticipationBO;
 import lk.ijse.mountCalvary.controller.Common;
+import lk.ijse.mountCalvary.controller.GlobalBoolean;
 import lk.ijse.mountCalvary.controller.basic.ScreenLoader;
 import lk.ijse.mountCalvary.model.AgeGroupDTO;
 import lk.ijse.mountCalvary.model.CompetitionDTO;
@@ -62,6 +63,8 @@ public class DeleteCompetition_controller implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        GlobalBoolean.setLock(true);
+
         colActivity_tblEventInCompetition.setCellValueFactory(new PropertyValueFactory<>("activityName"));
         colAgeGroup_tblEventInCompetition.setCellValueFactory(new PropertyValueFactory<>("ageGroupDTO"));
         colEvent_tblEventInCompetition.setCellValueFactory(new PropertyValueFactory<>("eventName"));
@@ -78,7 +81,7 @@ public class DeleteCompetition_controller implements Initializable {
             loadCompetition();
         } catch (Exception e) {
             Logger.getLogger(DeleteCompetition_controller.class.getName()).log(Level.SEVERE, null, e);
-            e.printStackTrace();
+
         }
     }
 
@@ -125,7 +128,7 @@ public class DeleteCompetition_controller implements Initializable {
             }
         } catch (Exception e) {
             Logger.getLogger(DeleteCompetition_controller.class.getName()).log(Level.SEVERE, null, e);
-            e.printStackTrace();
+
         }
         try {
             ScreenLoader.loadPanel("/lk/ijse/mountCalvary/view/basic/CompetitionMenu.fxml", this.acDeleteCompetition, this);
@@ -142,7 +145,7 @@ public class DeleteCompetition_controller implements Initializable {
             tblEventInCompetition.getItems().setAll(eventListForThisCompetition);
         } catch (Exception e) {
             Logger.getLogger(DeleteCompetition_controller.class.getName()).log(Level.SEVERE, null, e);
-            e.printStackTrace();
+
         }
     }
 
@@ -155,7 +158,7 @@ public class DeleteCompetition_controller implements Initializable {
             tblStudentList.getItems().setAll(participationForThisEventList);
         } catch (Exception e) {
             Logger.getLogger(DeleteCompetition_controller.class.getName()).log(Level.SEVERE, null, e);
-            e.printStackTrace();
+
         }
     }
 

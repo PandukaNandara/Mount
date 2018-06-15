@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import lk.ijse.mountCalvary.controller.Common;
 
@@ -18,6 +19,7 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         launch(args);
+
     }
 
     @Override
@@ -40,12 +42,13 @@ public class Main extends Application {
             primaryStage.setTitle("Mount Calvary Extra curriculum activity management system");
             primaryStage.setScene(new Scene(root));
             primaryStage.centerOnScreen();
+            primaryStage.getIcons().add(new Image("/lk/ijse/mountCalvary/assets/defaultIcon.png"));
             primaryStage.setResizable(false);
             primaryStage.show();
 
         } catch (Exception e) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, e);
-            e.printStackTrace();
+
         }
     }
 }

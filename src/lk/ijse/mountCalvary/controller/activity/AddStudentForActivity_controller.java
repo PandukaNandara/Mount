@@ -17,6 +17,7 @@ import lk.ijse.mountCalvary.business.custom.ActivityBO;
 import lk.ijse.mountCalvary.business.custom.RegistrationBO;
 import lk.ijse.mountCalvary.controller.AutoComplete;
 import lk.ijse.mountCalvary.controller.Common;
+import lk.ijse.mountCalvary.controller.GlobalBoolean;
 import lk.ijse.mountCalvary.model.ActivityDTO;
 import lk.ijse.mountCalvary.model.RegistrationDTO;
 import lk.ijse.mountCalvary.model.StudentDTO;
@@ -76,6 +77,8 @@ public class AddStudentForActivity_controller implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        GlobalBoolean.setLock(true);
+
         activityBOImpl = BOFactory.getInstance().getBO(BOFactory.BOType.ACTIVITY);
         registrationBOImpl = BOFactory.getInstance().getBO(BOFactory.BOType.REGISTRATION);
 
@@ -86,7 +89,7 @@ public class AddStudentForActivity_controller implements Initializable {
             loadActivityWithStudent();
         } catch (Exception e) {
             Logger.getLogger(AddStudentForActivity_controller.class.getName()).log(Level.SEVERE, null, e);
-            e.printStackTrace();
+
         }
 
     }
@@ -99,7 +102,7 @@ public class AddStudentForActivity_controller implements Initializable {
     @FXML
     void btAdd_onAction(ActionEvent event) {
 
-        Date joinDate = Common.LocalDateToDate(dtJoinedDate.getValue());
+        Date joinDate = Common.localDateToDate(dtJoinedDate.getValue());
         if (joinDate == null) {
             if (firstTime) {
                 firstTime = false;
@@ -160,7 +163,7 @@ public class AddStudentForActivity_controller implements Initializable {
         } catch (Exception e) {
             Logger.getLogger(AddStudentForActivity_controller.class.getName()).log(Level.SEVERE, null, e);
             Common.showWarning("Something's wrong we can't do your request");
-            e.printStackTrace();
+
         }
     }
 

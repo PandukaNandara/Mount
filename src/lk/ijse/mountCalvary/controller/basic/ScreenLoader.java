@@ -13,14 +13,6 @@ import java.io.IOException;
 
 
 public class ScreenLoader {
-
-//    public enum Menu{
-//        MAIN_MENU, ACTIVITY_MENU, TEACHER, COMPETITION_MENU, STUDENT_MENU, UPDATE_ATTENDANCE, SPECIAL_REPORT
-//    }
-//    public enum Activity{
-//        ACTIVITY_PROFILE, NEW_ACTIVITY, NEW_EVENT, ADD_STUDENT, UPDATE_ACTIVITY
-//    }
-
     public static void loadWindow(String url, Pane pane, Initializable controller) throws IOException {
         Parent root = FXMLLoader.load(controller.getClass().getResource(url));
         Scene sc = new Scene(root);
@@ -33,12 +25,10 @@ public class ScreenLoader {
 //        JFXSpinner spinner = new JFXSpinner();
 //        where.getChildren().setAll(spinner);
 //
-
         FadeTransition t = new FadeTransition(Duration.millis(200), where);
         t.setFromValue(0.0);
         t.setToValue(5.0);
         t.play();
-
 //        RotateTransition rt = new RotateTransition(Duration.millis(500), where);
 //        rt.setByAngle(180);
 //        rt.setCycleCount(4);
@@ -57,7 +47,6 @@ public class ScreenLoader {
 //        tt.setCycleCount(2);
 //        tt.setAutoReverse(true);
 //        tt.play();
-
         Parent root = FXMLLoader.load(controller.getClass().getResource(url));
         where.getChildren().setAll(root);
         return root;

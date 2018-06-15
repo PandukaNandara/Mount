@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<?import com.jfoenix.controls.JFXTextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="acMenu2" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" fx:controller="sample.Menu1">
-   <children>
-      <JFXTextField fx:id="txtMenu2" labelFloat="true" layoutX="58.0" layoutY="188.0" onAction="#txtMenu2_onAction" prefHeight="25.0" prefWidth="484.0" promptText="Menu 2" />
-   </children>
-</AnchorPane>

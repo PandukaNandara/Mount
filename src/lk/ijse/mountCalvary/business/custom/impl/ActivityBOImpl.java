@@ -76,6 +76,7 @@ public class ActivityBOImpl implements ActivityBO {
             if (activityImpl.save(new Activity(activity.getaName(), activity.getTID()))) {
                 int AID = activityImpl.getIncrementIndex();
                 ObservableList<EventDTO> allEvent = activity.getEventDTOS();
+
                 for (EventDTO oneEvent : allEvent) {
                     if (!eventImpl.saveWithoutPKey(new Event(oneEvent.getEventName(), oneEvent.isGender(), AID))) {
                         return false;

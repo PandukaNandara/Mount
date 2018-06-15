@@ -1,0 +1,48 @@
+<component name="ArtifactManager">
+  <artifact type="javafx" name="MountCalvary">
+    <output-path>$PROJECT_DIR$/out/artifacts/MountCalvary</output-path>
+    <properties id="javafx-properties">
+      <options>
+        <option name="appClass" value="lk.ijse.mountCalvary.main.Main" />
+        <option name="convertCss2Bin" value="true" />
+        <option name="description" value="" />
+        <option name="height" value="600" />
+        <option name="htmlPlaceholderId" value="" />
+        <option name="title" value="Extra curriculum Activity Management System" />
+        <option name="vendor" value="" />
+        <option name="version" value="1.0" />
+        <option name="width" value="400" />
+      </options>
+    </properties>
+    <root id="root">
+      <element id="archive" name="MountCalvary.jar">
+        <element id="module-output" name="MountCalvary" />
+        <element id="file-copy" path="$PROJECT_DIR$/Lib/com.lowagie.text-2.1.7.jar" />
+        <element id="file-copy" path="$PROJECT_DIR$/Lib/commons-beanutils-1.8.3.jar" />
+        <element id="file-copy" path="$PROJECT_DIR$/Lib/commons-digester-2.1.jar" />
+        <element id="file-copy" path="$PROJECT_DIR$/Lib/controlsfx-8.40.11.jar" />
+        <element id="file-copy" path="$PROJECT_DIR$/Lib/controlsfx-8.40.9.jar" />
+        <element id="file-copy" path="$PROJECT_DIR$/Lib/fontawesomefx-commons-8.15.jar" />
+        <element id="file-copy" path="$PROJECT_DIR$/Lib/fontawesomefx-controls-8.15.jar" />
+        <element id="file-copy" path="$PROJECT_DIR$/Lib/fontawesomefx-emojione-2.2.7-2.jar" />
+        <element id="file-copy" path="$PROJECT_DIR$/Lib/fontawesomefx-fontawesome-4.7.0-5.jar" />
+        <element id="file-copy" path="$PROJECT_DIR$/Lib/fontawesomefx-glyphsbrowser-1.3.0.jar" />
+        <element id="file-copy" path="$PROJECT_DIR$/Lib/fontawesomefx-icons525-3.0.0-4.jar" />
+        <element id="file-copy" path="$PROJECT_DIR$/Lib/fontawesomefx-materialdesignfont-1.7.22-4.jar" />
+        <element id="file-copy" path="$PROJECT_DIR$/Lib/fontawesomefx-materialicons-2.2.0-5.jar" />
+        <element id="file-copy" path="$PROJECT_DIR$/Lib/fontawesomefx-octicons-4.3.0-5.jar" />
+        <element id="file-copy" path="$PROJECT_DIR$/Lib/fontawesomefx-weathericons-2.0.10-5.jar" />
+        <element id="file-copy" path="$PROJECT_DIR$/Lib/itext-2.1.7-src.jar" />
+        <element id="file-copy" path="$PROJECT_DIR$/Lib/itextpdf-5.3.4.jar" />
+        <element id="file-copy" path="$PROJECT_DIR$/Lib/jasperreports-6.4.3.jar" />
+        <element id="file-copy" path="$PROJECT_DIR$/Lib/jasperreports-fonts-6.4.3.jar" />
+        <element id="file-copy" path="$PROJECT_DIR$/Lib/jcommon-1.0.8.jar" />
+        <element id="file-copy" path="$PROJECT_DIR$/Lib/jfoenix.jar" />
+        <element id="file-copy" path="$PROJECT_DIR$/Lib/jfreechart-1.0.13.jar" />
+        <element id="file-copy" path="$PROJECT_DIR$/Lib/mysql-connector-java-5.1.23-bin.jar" />
+        <element id="file-copy" path="$PROJECT_DIR$/Lib/org-apache-commons-logging.jar" />
+        <element id="file-copy" path="$PROJECT_DIR$/Lib/org.apache.commons.collections.jar" />
+      </element>
+    </root>
+  </artifact>
+</component>

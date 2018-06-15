@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.AnchorPane;
+import lk.ijse.mountCalvary.controller.GlobalBoolean;
 
 import java.io.IOException;
 import java.net.URL;
@@ -29,7 +30,7 @@ public class StudentMenu_controller implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        GlobalBoolean.setLock(false);
     }
     @FXML
     void btBack_onAction(ActionEvent event) {

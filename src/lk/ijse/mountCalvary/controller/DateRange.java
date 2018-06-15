@@ -14,7 +14,7 @@ public class DateRange {
     public static final int IN_THIS_YEAR  = 3;
     private static LocalDate today = LocalDate.now();
 
-    public static String[] getDateRange() {
+    public static String[] getDateRanges() {
         return new String[]{
                 "All",
                 "This week",
@@ -41,7 +41,7 @@ public class DateRange {
     }
 
     private static boolean isInThisMonth(Date dt) {
-        LocalDate date = Common.DateToLocalDate(dt);
+        LocalDate date = Common.dateToLocalDate(dt);
         if (today.getMonth() == date.getMonth() && isInThisYear(dt))
             return true;
         else
@@ -49,7 +49,7 @@ public class DateRange {
     }
 
     private static boolean isInThisWeek(Date dt) {
-        LocalDate date = Common.DateToLocalDate(dt);
+        LocalDate date = Common.dateToLocalDate(dt);
         TemporalField woy = WeekFields.of(Locale.getDefault()).weekOfWeekBasedYear();
         int week_today = today.get(woy);
         int week_day = date.get(woy);
@@ -59,7 +59,7 @@ public class DateRange {
     }
 
     private static boolean isInThisYear(Date dt) {
-        LocalDate date = Common.DateToLocalDate(dt);
+        LocalDate date = Common.dateToLocalDate(dt);
         if (date.getYear() == today.getYear())
             return true;
         else

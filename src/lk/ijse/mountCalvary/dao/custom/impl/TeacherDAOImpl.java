@@ -52,7 +52,7 @@ public class TeacherDAOImpl implements TeacherDAO {
 
     @Override
     public Teacher search(String name) throws Exception {
-        ResultSet rst = CrudUtil.executeQuery("SELECT * From Teacher where TID like ?%", name);
+        ResultSet rst = CrudUtil.executeQuery("SELECT * From Teacher where tName like ?", name);
         if (rst.next()) {
             return new Teacher(
                     rst.getInt("TID"),

@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.VBox;
+import lk.ijse.mountCalvary.controller.GlobalBoolean;
 
 import java.io.IOException;
 import java.net.URL;
@@ -32,6 +33,11 @@ public class MainMenu_controller implements Initializable {
 
     @FXML
     private JFXButton btSpecialReport;
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        GlobalBoolean.setLock(false);
+    }
 
     @FXML
     void btActivity_onAction(ActionEvent event) {
@@ -87,10 +93,6 @@ public class MainMenu_controller implements Initializable {
         }
     }
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-
-    }
 
     @FXML
     private void btPayment_onAction(ActionEvent actionEvent) {

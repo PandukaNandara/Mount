@@ -31,7 +31,7 @@ public class PaymentDAOImpl implements PaymentDAO {
 
     @Override
     public boolean update(Payment pay) throws Exception {
-        return CrudUtil.executeUpdate("UPDATE Payment set PAYID = ?, RID = ?, fee = ?, month = ?, year = ?, where PAYID = ?",
+        return CrudUtil.executeUpdate("UPDATE Payment set PAYID = ?, RID = ?, fee = ?, month = ?, year = ? where PAYID = ?",
                 pay.getPAYID(),
                 pay.getRID(),
                 pay.getFee().toString(),

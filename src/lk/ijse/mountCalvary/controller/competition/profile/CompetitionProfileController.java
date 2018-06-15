@@ -12,12 +12,15 @@ import javafx.scene.layout.VBox;
 import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.CompetitionBO;
 import lk.ijse.mountCalvary.controller.Common;
+import lk.ijse.mountCalvary.controller.GlobalBoolean;
 import lk.ijse.mountCalvary.controller.basic.ScreenLoader;
 import lk.ijse.mountCalvary.model.CompetitionDTO;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class CompetitionProfileController implements Initializable {
 
@@ -59,6 +62,7 @@ public class CompetitionProfileController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        GlobalBoolean.setLock(false);
 
         competitionBOImpl = BOFactory.getInstance().getBO(BOFactory.BOType.COMPETITION);
 
@@ -68,7 +72,8 @@ public class CompetitionProfileController implements Initializable {
         try {
             loadCompetition();
         }catch (Exception e){
-            e.printStackTrace();
+            Logger.getLogger(CompetitionProfileController.class.getName()).log(Level.SEVERE, null, e);
+
         }
     }
 
