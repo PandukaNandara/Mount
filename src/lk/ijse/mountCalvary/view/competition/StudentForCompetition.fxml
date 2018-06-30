@@ -4,7 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.*?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="acStudentForCompetition" prefHeight="785.0" prefWidth="1235.0" style="-fx-background-color: white;" styleClass="main-frame" stylesheets="@../../css/size.css" xmlns="http://javafx.com/javafx/8.0.141" fx:controller="lk.ijse.mountCalvary.controller.competition.StudentForCompetition_controller">
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="acStudentForCompetition" prefHeight="785.0" prefWidth="1235.0" style="" styleClass="main-frame" stylesheets="@../../css/size.css" xmlns="http://javafx.com/javafx/8.0.141" fx:controller="lk.ijse.mountCalvary.controller.competition.StudentForCompetition_controller">
    <children>
       <JFXButton fx:id="btFinish" layoutX="1253.0" layoutY="811.0" onAction="#btFinish_onAction" prefHeight="33.0" prefWidth="124.0" style="-fx-background-color: #2196F3;" text="Submit" textFill="WHITE" />
       <Label layoutX="76.0" layoutY="24.0" prefHeight="42.0" prefWidth="409.0" text="Student for competition">
@@ -46,9 +46,9 @@
             <Font name="Arial" size="18.0" />
          </font>
       </Label>
-      <JFXTextField fx:id="txtStudentID" editable="false" labelFloat="true" layoutX="76.0" layoutY="377.0" onAction="#txtStudent_onAction" prefHeight="25.0" prefWidth="124.0" promptText="Student ID" />
+      <JFXTextField fx:id="txtStudentID" labelFloat="true" layoutX="76.0" layoutY="377.0" onAction="#txtStudentID_onAction" prefHeight="25.0" prefWidth="124.0" promptText="Student ID" />
       <JFXComboBox fx:id="cboxResult" editable="true" labelFloat="true" layoutX="1050.0" layoutY="377.0" onAction="#cboxResult_onAction" prefHeight="25.0" prefWidth="327.0" promptText="Result" />
-      <JFXTextField fx:id="txtPerfomence" labelFloat="true" layoutX="76.0" layoutY="421.0" onAction="#txtPerformance_onAction" prefHeight="25.0" prefWidth="1150.0" promptText="Perfomence" />
+      <JFXTextField fx:id="txtPerformance" labelFloat="true" layoutX="76.0" layoutY="421.0" onAction="#txtPerformance_onAction" prefHeight="25.0" prefWidth="1150.0" promptText="Perfomence" />
       <JFXTextField fx:id="txtGender" editable="false" labelFloat="true" layoutX="498.0" layoutY="309.0" onAction="#txtGender_onAction" prefHeight="25.0" prefWidth="492.0" promptText="Gender" />
       <JFXTextField fx:id="txtAgeGroup" editable="false" labelFloat="true" layoutX="1050.0" layoutY="309.0" onAction="#txtAgeGroup_onAction" prefHeight="25.0" prefWidth="327.0" promptText="Age group" />
       <JFXButton fx:id="btViewStudentList" layoutX="960.0" layoutY="298.0" onAction="#btViewStudentList_onAction" prefHeight="33.0" prefWidth="216.0" text="View student list for this activity" textFill="#2196f3" visible="false">

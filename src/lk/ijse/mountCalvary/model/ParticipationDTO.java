@@ -190,7 +190,7 @@ public class ParticipationDTO {
         return newOne;
     }
 
-    public void setNewOne(boolean newOne) {
+    public void setAsNewOne(boolean newOne) {
         this.newOne = newOne;
     }
 

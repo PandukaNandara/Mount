@@ -2,7 +2,7 @@ package lk.ijse.mountCalvary.model;
 
 import java.util.Date;
 
-public class RegistrationDTO {
+public class RegistrationDTO implements SearchProvider{
     private int RID;
     private int SID;
     private int AID;
@@ -213,5 +213,15 @@ public class RegistrationDTO {
 
     public void setJoinedDate_string(String joinedDate_string) {
         this.joinedDate_string = joinedDate_string;
+    }
+
+    @Override
+    public int getID() {
+        return SID;
+    }
+
+    @Override
+    public String getName() {
+        return studentName;
     }
 }

@@ -9,8 +9,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.ActivityBO;
-import lk.ijse.mountCalvary.controller.Common;
 import lk.ijse.mountCalvary.controller.GlobalBoolean;
+import lk.ijse.mountCalvary.controller.OptionPane;
 import lk.ijse.mountCalvary.model.ActivityDTO;
 
 import java.net.URL;
@@ -123,7 +123,7 @@ public class ActivityProfileController implements Initializable {
         if (activityDTO != null) {
             showDataOnTabs(activityDTO);
         } else {
-            Common.showError("Please select an activity");
+            OptionPane.showError("Please select an activity");
         }
     }
 

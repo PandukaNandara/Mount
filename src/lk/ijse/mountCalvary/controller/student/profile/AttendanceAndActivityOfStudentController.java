@@ -12,9 +12,9 @@ import javafx.scene.layout.AnchorPane;
 import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.AttendantSheetBO;
 import lk.ijse.mountCalvary.business.custom.RegistrationBO;
-import lk.ijse.mountCalvary.controller.Common;
 import lk.ijse.mountCalvary.controller.DateRange;
 import lk.ijse.mountCalvary.controller.GlobalBoolean;
+import lk.ijse.mountCalvary.controller.OptionPane;
 import lk.ijse.mountCalvary.controller.Reporter;
 import lk.ijse.mountCalvary.model.ActivityDTO;
 import lk.ijse.mountCalvary.model.AttendantSheetDTO;
@@ -126,7 +126,7 @@ public class AttendanceAndActivityOfStudentController implements Initializable {
         this.studentProfileController = studentProfileController;
     }
 
-    public void insertStudentID(StudentDTO i) {
+    protected void insertStudentID(StudentDTO i) {
         try {
             selectedStudent = i;
             loadIntoRegistration(i);
@@ -194,7 +194,7 @@ public class AttendanceAndActivityOfStudentController implements Initializable {
                 Reporter.showReport(activityPrint, "Attendance and activity of student");
 
             } else {
-                Common.showError("Please select a student to print.");
+                OptionPane.showError("Please select a student to print.");
             }
         } catch (Exception e) {
             Logger.getLogger(AttendanceAndActivityOfStudentController.class.getName()).log(Level.SEVERE, null, e);

@@ -1,5 +1,6 @@
 package lk.ijse.mountCalvary.business.custom;
 
+import javafx.collections.ObservableList;
 import lk.ijse.mountCalvary.business.SuperBO;
 import lk.ijse.mountCalvary.model.StudentDTO;
 
@@ -13,9 +14,11 @@ public interface StudentBO extends SuperBO {
 
     int getNewIndex() throws Exception;
 
-    ArrayList<StudentDTO> getAllStudentNameAndNumber() throws Exception;
+    ObservableList<StudentDTO> getAllStudentNameAndNumber() throws Exception;
 
     boolean updateStudent(StudentDTO studentDTO) throws Exception;
 
     StudentDTO getStudent(int SID) throws Exception;
+
+    ObservableList<StudentDTO> getStudentNotDoThisActivity(int AID) throws Exception;
 }

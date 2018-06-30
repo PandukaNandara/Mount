@@ -15,8 +15,8 @@ import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.AgeGroupBO;
 import lk.ijse.mountCalvary.business.custom.EventBO;
 import lk.ijse.mountCalvary.business.custom.ParticipationBO;
-import lk.ijse.mountCalvary.controller.Common;
 import lk.ijse.mountCalvary.controller.GlobalBoolean;
+import lk.ijse.mountCalvary.controller.OptionPane;
 import lk.ijse.mountCalvary.controller.Reporter;
 import lk.ijse.mountCalvary.model.*;
 import net.sf.jasperreports.engine.*;
@@ -174,13 +174,13 @@ public class EventAndCompetitionOfActivityController implements Initializable {
         ObservableList<ParticipationDTO> participationDTOS = tblParticipation.getItems();
 
         if (selectedActivity == null) {
-            Common.showError("Please select an activity to print.");
+            OptionPane.showError("Please select an activity to print.");
         } else if (eventDTO == null) {
-            Common.showError("Please select an event.");
+            OptionPane.showError("Please select an event.");
         } else if (competitionDTO == null) {
-            Common.showError("Please select a competition from the competition table.");
+            OptionPane.showError("Please select a competition from the competition table.");
         } else if (participationDTOS.size() == 0) {
-            boolean ask = Common.askWarning("There's no participation for this event in this competition. Do you wish to continue?");
+            boolean ask = OptionPane.askWarning("There's no participation for this event in this competition. Do you wish to continue?");
             if (ask) {
                 generateReport(participationDTOS, competitionDTO, eventDTO);
             }

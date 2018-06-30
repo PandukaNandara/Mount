@@ -18,6 +18,7 @@ import lk.ijse.mountCalvary.business.custom.CompetitionBO;
 import lk.ijse.mountCalvary.business.custom.TeacherBO;
 import lk.ijse.mountCalvary.controller.Common;
 import lk.ijse.mountCalvary.controller.GlobalBoolean;
+import lk.ijse.mountCalvary.controller.OptionPane;
 import lk.ijse.mountCalvary.controller.basic.ScreenLoader;
 import lk.ijse.mountCalvary.model.CompetitionDTO;
 import lk.ijse.mountCalvary.model.TeacherDTO;
@@ -85,7 +86,7 @@ public class NewCompetition_controller implements Initializable {
     void btAdd_teacherInCharge_onAction(ActionEvent event) {
         TeacherDTO selectTeacher = (TeacherDTO) cboxTeacherInCharge.getSelectionModel().getSelectedItem();
         if (selectTeacher == null) {
-            Common.showError("Please select a teacher from the list");
+            OptionPane.showError("Please select a teacher from the list");
         } else {
             tblTeacherInChargeList.getItems().add(selectTeacher);
             cboxTeacherInCharge.getItems().remove(selectTeacher);
@@ -105,28 +106,28 @@ public class NewCompetition_controller implements Initializable {
         }
         CompetitionDTO competitionDTO = new CompetitionDTO(compName, location, date, desc, FXCollections.observableArrayList(teacherInChargeList));
         if (compName.length() < 2) {
-            Common.showError("Please enter the Competition name");
+            OptionPane.showError("Please enter the Competition name");
         } else if (location.length() < 2) {
-            Common.showError("Please enter the location of the competition where it is held.");
+            OptionPane.showError("Please enter the location of the competition where it is held.");
         } else if (teacherList.size() == 0) {
-            Common.showError("Please add teacher for the competition");
+            OptionPane.showError("Please add teacher for the competition");
         } else if (date == null) {
-            Common.showError("Please select the date that the competition was held.");
+            OptionPane.showError("Please select the date that the competition was held.");
         } else if (txtaDesc.getText().length() > 700) {
-            Common.showError("Competition description can contain only 700 characters. You have entered " + txtaDesc.getText().length() + " characters (with spaces).");
+            OptionPane.showError("Competition description can contain only 700 characters. You have entered " + txtaDesc.getText().length() + " characters (with spaces).");
             try {
                 txtaDesc.selectRange(700, txtaDesc.getText().length());
             } catch (Exception e) {
                 e.printStackTrace();
             }
         } else if (desc.length() < 1) {
-            boolean ask = Common.askWarning("Are you sure want to continue without adding description for the competition?");
+            boolean ask = OptionPane.askWarning("Are you sure want to continue without adding description for the competition?");
             if (!ask) {
                 txtaDesc.requestFocus();
             } else {
                 addCompetition(competitionDTO);
             }
-        } else if (Common.askQuestion("Do you want to create this competition?")) {
+        } else if (OptionPane.askQuestion("Do you want to create this competition?")) {
             addCompetition(competitionDTO);
         }
         //
@@ -151,7 +152,7 @@ public class NewCompetition_controller implements Initializable {
     private void addCompetition(CompetitionDTO competitionDTO) {
         try {
             if (competitionBOImpl.addCompetitionWithTeacherInCharge(competitionDTO)) {
-                boolean next = Common.askQuestion("Competition has successfully created. Do you want add Event for the competition? You can add them later.");
+                boolean next = OptionPane.askQuestion("Competition has successfully created. Do you want add Event for the competition? You can add them later.");
                 if (next) {
                     try {
                         FXMLLoader fxmlLoader = new FXMLLoader();
@@ -178,11 +179,11 @@ public class NewCompetition_controller implements Initializable {
                     }
                 }
             } else {
-                Common.showError("Something's wrong we can't do your request now");
+                OptionPane.showError("Something's wrong we can't do your request now");
             }
         } catch (Exception e) {
             Logger.getLogger(NewCompetition_controller.class.getName()).log(Level.SEVERE, null, e);
-            Common.showError("Something's wrong we can't do your request now");
+            OptionPane.showError("Something's wrong we can't do your request now");
 
         }
     }
@@ -191,7 +192,7 @@ public class NewCompetition_controller implements Initializable {
     void btRemove_tblTeacherInChargeList_onAction(ActionEvent event) {
         TeacherDTO selectTeacher = (TeacherDTO) Common.removeItemFromTable(tblTeacherInChargeList);
         if (selectTeacher == null) {
-            Common.showError("Please select the teacher to remove");
+            OptionPane.showError("Please select the teacher to remove");
         } else {
             cboxTeacherInCharge.getItems().add(selectTeacher);
         }
@@ -219,7 +220,7 @@ public class NewCompetition_controller implements Initializable {
 
     @FXML
     private void btCancel_onAction(ActionEvent actionEvent) {
-        boolean answer = Common.askWarning("Do you want to cancel?");
+        boolean answer = OptionPane.askWarning("Do you want to cancel?");
         if (answer) {
             try {
                 ScreenLoader.loadPanel("/lk/ijse/mountCalvary/view/basic/StudentMenu.fxml", this.acNewCompetition, this);

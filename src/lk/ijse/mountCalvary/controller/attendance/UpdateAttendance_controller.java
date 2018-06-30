@@ -18,6 +18,7 @@ import lk.ijse.mountCalvary.business.custom.AttendantSheetBO;
 import lk.ijse.mountCalvary.business.custom.TeacherBO;
 import lk.ijse.mountCalvary.controller.Common;
 import lk.ijse.mountCalvary.controller.GlobalBoolean;
+import lk.ijse.mountCalvary.controller.OptionPane;
 import lk.ijse.mountCalvary.controller.basic.ScreenLoader;
 import lk.ijse.mountCalvary.model.ActivityDTO;
 import lk.ijse.mountCalvary.model.AttendantSheetDTO;
@@ -87,7 +88,6 @@ public class UpdateAttendance_controller implements Initializable {
     private TeacherBO teacherBOImpl;
     private AttendantSheetBO attendantSheetBOImpl;
 
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         GlobalBoolean.setLock(true);
@@ -132,12 +132,12 @@ public class UpdateAttendance_controller implements Initializable {
         ObservableList<RegistrationDTO> selectedItems = tblStudentList.getSelectionModel().getSelectedItems();
         TeacherDTO selectedTeacher = cboxTeacherInCharge.getSelectionModel().getSelectedItem();
         if (day == null) {
-            Common.showError("Please enter the date");
+            OptionPane.showError("Please enter the date");
         } else if (selectedItems.size() == 0) {
-            Common.showError("Please select students");
+            OptionPane.showError("Please select students");
 
         } else if (selectedTeacher == null) {
-            Common.showError("Please select the teacher in charge");
+            OptionPane.showError("Please select the teacher in charge");
         } else {
             for (RegistrationDTO oneReg : selectedItems) {
                 tblAttendance.getItems().add(new AttendantSheetDTO(
@@ -153,7 +153,7 @@ public class UpdateAttendance_controller implements Initializable {
 
     @FXML
     void btCancel_onAction(ActionEvent event) {
-        boolean answer = Common.askWarning("Do you want to cancel?");
+        boolean answer = OptionPane.askWarning("Do you want to cancel?");
         if (answer) {
             try {
                 ScreenLoader.loadPanel("/lk/ijse/mountCalvary/view/basic/MainMenu.fxml", this.acUpdateAttendance, this);
@@ -171,7 +171,7 @@ public class UpdateAttendance_controller implements Initializable {
             removeItem.getRegistrationDTO().getActivity().getRegistrationDTOS().add(removeItem.getRegistrationDTO());
             tblStudentList.getItems().add(removeItem.getRegistrationDTO());
         } else {
-            Common.showError("Please select an Student to remove");
+            OptionPane.showError("Please select an Student to remove");
         }
     }
 
@@ -179,12 +179,12 @@ public class UpdateAttendance_controller implements Initializable {
     void btUpdate_onAction(ActionEvent event) {
         ObservableList<AttendantSheetDTO> attendantSheetDTOS = tblAttendance.getItems();
         if (attendantSheetDTOS.size() == 0) {
-            Common.showError("Please add some attendant detail");
+            OptionPane.showError("Please add some attendant detail");
         } else {
-            if (Common.askQuestion("Do you want to update attendance?")) {
+            if (OptionPane.askQuestion("Do you want to update attendance?")) {
                 try {
                     if (attendantSheetBOImpl.saveAllAttendantSheet(attendantSheetDTOS)) {
-                        Common.showMessage("Attendant sheet successfully updated");
+                        OptionPane.showMessage("Attendant sheet successfully updated");
                         try {
                             ScreenLoader.loadPanel("/lk/ijse/mountCalvary/view/basic/MainMenu.fxml", this.acUpdateAttendance, this);
                         } catch (IOException e) {

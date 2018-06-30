@@ -11,8 +11,8 @@ import javafx.scene.layout.AnchorPane;
 import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.ActivityBO;
 import lk.ijse.mountCalvary.business.custom.TeacherBO;
-import lk.ijse.mountCalvary.controller.Common;
 import lk.ijse.mountCalvary.controller.GlobalBoolean;
+import lk.ijse.mountCalvary.controller.OptionPane;
 import lk.ijse.mountCalvary.controller.basic.ScreenLoader;
 import lk.ijse.mountCalvary.model.ActivityDTO;
 import lk.ijse.mountCalvary.model.TeacherDTO;
@@ -94,7 +94,7 @@ public class UpdateActivity_controller implements Initializable {
             upAct.setTID(cboxTeacherInCharge.getSelectionModel().getSelectedItem().getTID());
             try {
                 if (activityBOImpl.updateTeacherOfActivity(upAct)) {
-                    Common.showMessage("Activity has Successfully updated");
+                    OptionPane.showMessage("Activity has Successfully updated");
                 }
             } catch (Exception e) {
                 Logger.getLogger(UpdateActivity_controller.class.getName()).log(Level.SEVERE, null, e);

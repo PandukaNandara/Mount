@@ -1,12 +1,15 @@
 package lk.ijse.mountCalvary.business.custom.impl;
 
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import lk.ijse.mountCalvary.business.custom.StudentBO;
 import lk.ijse.mountCalvary.dao.DAOFactory;
+import lk.ijse.mountCalvary.dao.custom.QueryDAO;
 import lk.ijse.mountCalvary.dao.custom.RegistrationDAO;
 import lk.ijse.mountCalvary.dao.custom.StudentDAO;
 import lk.ijse.mountCalvary.dao.custom.TelNoDAO;
 import lk.ijse.mountCalvary.db.DBConnection;
+import lk.ijse.mountCalvary.entity.CustomEntity;
 import lk.ijse.mountCalvary.entity.Registration;
 import lk.ijse.mountCalvary.entity.Student;
 import lk.ijse.mountCalvary.entity.TelNo;
@@ -22,13 +25,15 @@ public class StudentBOImpl implements StudentBO {
     private StudentDAO studentDAOImpl;
     private TelNoDAO telNoDAOImpl;
     private RegistrationDAO registrationDAOImpl;
-
+    private QueryDAO queryDAOImpl;
     public StudentBOImpl() {
         this.studentDAOImpl = DAOFactory.getInstance().getDAO(DAOFactory.DAOType.STUDENT);
 
         this.telNoDAOImpl = DAOFactory.getInstance().getDAO(DAOFactory.DAOType.TELEPHONE_NO);
 
         this.registrationDAOImpl = DAOFactory.getInstance().getDAO(DAOFactory.DAOType.REGISTRATION);
+
+        queryDAOImpl = DAOFactory.getInstance().getDAO(DAOFactory.DAOType.CUSTOM);
     }
 
     @Override
@@ -88,14 +93,14 @@ public class StudentBOImpl implements StudentBO {
     }
 
     @Override
-    public ArrayList<StudentDTO> getAllStudentNameAndNumber() throws Exception {
+    public ObservableList<StudentDTO> getAllStudentNameAndNumber() throws Exception {
         ArrayList<Student> all = studentDAOImpl.getAllStudentNameAndNumber();
         ArrayList<StudentDTO> allDTO = new ArrayList<>();
 
         for (Student one : all) {
             allDTO.add(new StudentDTO(one.getSID(), one.getsName()));
         }
-        return allDTO;
+        return FXCollections.observableArrayList(allDTO);
     }
 
 
@@ -150,6 +155,17 @@ public class StudentBOImpl implements StudentBO {
                 student.getAddress(),
                 FXCollections.observableArrayList(telNo)
         );
+    }
+
+    @Override
+    public ObservableList<StudentDTO> getStudentNotDoThisActivity(int AID) throws Exception {
+        ArrayList<CustomEntity> nonRegistrations = queryDAOImpl.getAllStudentNotDoThisActivity(AID);
+        ArrayList<StudentDTO> registrationDTOS = new ArrayList<>();
+        for(CustomEntity oneStudent : nonRegistrations){
+            registrationDTOS.add(new StudentDTO(oneStudent.getStudent().getSID(), oneStudent.getStudent().getsName()));
+        }
+        System.out.println(registrationDTOS);
+        return FXCollections.observableArrayList(registrationDTOS);
     }
 }
 //System.out.println("TEMP" + st.getSID() +" "+ st.getStudentName() +" "+ st.isGender() +" "+ st.getDOB() +" "+ st.getsClass() +" "+ st.getFatherName() +" "+ st.getMotherName() +" "+ st.getNote() +" "+ st.getHouse() +" "+ st.getAddress());

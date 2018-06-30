@@ -15,6 +15,7 @@ import lk.ijse.mountCalvary.business.custom.StudentBO;
 import lk.ijse.mountCalvary.business.custom.TelNoBO;
 import lk.ijse.mountCalvary.controller.Common;
 import lk.ijse.mountCalvary.controller.GlobalBoolean;
+import lk.ijse.mountCalvary.controller.OptionPane;
 import lk.ijse.mountCalvary.controller.basic.ScreenLoader;
 import lk.ijse.mountCalvary.model.ActivityDTO;
 import lk.ijse.mountCalvary.model.RegistrationDTO;
@@ -29,7 +30,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static lk.ijse.mountCalvary.controller.Common.isInteger;
-import static lk.ijse.mountCalvary.controller.Common.showError;
+import static lk.ijse.mountCalvary.controller.OptionPane.showError;
 
 public class NewStudent_controller implements Initializable {
 
@@ -162,16 +163,16 @@ public class NewStudent_controller implements Initializable {
         ActivityDTO selectedItem = cboxActivityName.getSelectionModel().getSelectedItem();
         Date date = null;
         if (selectedItem == null) {
-            Common.showError("Please select an activityBOImpl");
+            OptionPane.showError("Please select an activityBOImpl");
         } else if (Common.getDate(dtJoinedDate) == null) {
-            Common.showError("Please select the joined date");
+            OptionPane.showError("Please select the joined date");
         } else {
             date = Common.getDate(dtJoinedDate);
             if (checkStudentID()) {
                 int id = getStudentID();
                 tblActivity.getItems().add(new RegistrationDTO(id, selectedItem, date));
             } else
-                Common.showError("Please enter Student ID");
+                OptionPane.showError("Please enter Student ID");
         }
     }
 
@@ -182,11 +183,11 @@ public class NewStudent_controller implements Initializable {
 
         if (!(tel.length() == 10 && tel.matches("[0][0-9]{9}"))) {
 
-            Common.showError("Please enter a valid phone number");
+            OptionPane.showError("Please enter a valid phone number");
 
         } else if (!checkStudentID()) {
 
-            Common.showError("Please enter the studentBOImpl ID");
+            OptionPane.showError("Please enter the studentBOImpl ID");
 
         } else {
             int stNum = getStudentID();
@@ -238,7 +239,7 @@ public class NewStudent_controller implements Initializable {
                                 } catch (Exception e) {
                                     showError(e.getMessage());
                                 }
-                                if (Common.askQuestion("Do you want to add more studentBOImpl?")) {
+                                if (OptionPane.askQuestion("Do you want to add more studentBOImpl?")) {
                                     try {
                                         ScreenLoader.loadPanel("/lk/ijse/mountCalvary/view/student/NewStudent.fxml", this.acNewStudent, this);
                                     } catch (IOException e) {
@@ -389,7 +390,7 @@ public class NewStudent_controller implements Initializable {
             }
             txtStudentName.requestFocus();
         } else {
-            Common.showError("Please input valid studentBOImpl ID as number");
+            OptionPane.showError("Please input valid studentBOImpl ID as number");
         }
     }
 
@@ -419,7 +420,7 @@ public class NewStudent_controller implements Initializable {
 
     @FXML
     private void btCancel_onAction(ActionEvent actionEvent) {
-        boolean answer = Common.askQuestion("Do you want to cancel?");
+        boolean answer = OptionPane.askQuestion("Do you want to cancel?");
         if (answer) {
             try {
                 ScreenLoader.loadPanel("/lk/ijse/mountCalvary/view/basic/StudentMenu.fxml", this.acNewStudent, this);

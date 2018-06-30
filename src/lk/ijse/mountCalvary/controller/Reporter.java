@@ -5,8 +5,9 @@ import javafx.stage.Stage;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.view.JasperViewer;
 
-import java.awt.*;
+import javax.swing.*;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Reporter {
@@ -25,11 +26,17 @@ public class Reporter {
         return fileChooser.showSaveDialog(stage);
     }
 
-    public static void showReport(JasperPrint jasperPrint, String title){
+    public static void showReport(JasperPrint jasperPrint, String title) throws IOException {
         JasperViewer jv = new JasperViewer(jasperPrint, false);
+
+        ImageIcon img = new ImageIcon("/lk/ijse/mountCalvary/assets/print.ico");
+        jv.setIconImage(img.getImage());
+
         jv.setAlwaysOnTop(true);
         jv.setTitle(title);
-        jv.setIconImage(Toolkit.getDefaultToolkit().getImage(jv.getClass().getResource("/lk/ijse/mountCalvary/assets/report-icon.ico")));
+
+
+
         jv.setVisible(true);
 
     }

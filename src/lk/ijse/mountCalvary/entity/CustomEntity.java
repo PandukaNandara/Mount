@@ -131,7 +131,6 @@ public class CustomEntity {
 
     public CustomEntity(Student student) {
         this.student = student;
-
     }
 
     public CustomEntity(int payid, int rid, int sid, String sName, BigDecimal fee, int month, int year) {

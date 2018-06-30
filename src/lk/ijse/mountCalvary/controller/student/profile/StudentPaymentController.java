@@ -13,10 +13,7 @@ import javafx.scene.layout.AnchorPane;
 import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.PaymentBO;
 import lk.ijse.mountCalvary.business.custom.RegistrationBO;
-import lk.ijse.mountCalvary.controller.Common;
-import lk.ijse.mountCalvary.controller.GlobalBoolean;
-import lk.ijse.mountCalvary.controller.Month;
-import lk.ijse.mountCalvary.controller.Reporter;
+import lk.ijse.mountCalvary.controller.*;
 import lk.ijse.mountCalvary.model.ActivityDTO;
 import lk.ijse.mountCalvary.model.PaymentDTO;
 import lk.ijse.mountCalvary.model.StudentDTO;
@@ -96,7 +93,7 @@ public class StudentPaymentController implements Initializable {
         filterPayment();
     }
 
-    public void insertStudentID(StudentDTO studentDTO) {
+    protected void insertStudentID(StudentDTO studentDTO) {
         try {
             selectedStudent = studentDTO;
             paymentDetailOfThisStudent = null;
@@ -226,7 +223,7 @@ public class StudentPaymentController implements Initializable {
 
             }
         } else {
-            Common.showError("Please select a student to print.");
+            OptionPane.showError("Please select a student to print.");
         }
     }
 

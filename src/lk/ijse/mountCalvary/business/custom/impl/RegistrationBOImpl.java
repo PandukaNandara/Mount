@@ -61,4 +61,28 @@ public class RegistrationBOImpl implements RegistrationBO {
         }
         return FXCollections.observableArrayList(activityDTOS);
     }
+//
+//    public static RegistrationDTO searchRegistration(String name, ArrayList<RegistrationDTO> list) {
+//        return searchRegistration(name, FXCollections.observableArrayList(list));
+//    }
+//
+//    public static RegistrationDTO searchRegistration(int SID, ArrayList<RegistrationDTO> list) {
+//        return searchRegistration(SID, FXCollections.observableArrayList(list));
+//    }
+//
+//    public static RegistrationDTO searchRegistration(String name, ObservableList<RegistrationDTO> list) {
+//        for (RegistrationDTO oneRegi : list) {
+//            if (oneRegi.getStudentName().toLowerCase().equals(name.trim().toLowerCase().replaceAll(" +", " ")))
+//                return oneRegi;
+//        }
+//        return null;
+//    }
+//
+//    public static RegistrationDTO searchRegistration(int SID, ObservableList<RegistrationDTO> list) {
+//        for (RegistrationDTO oneRegi : list) {
+//            if (oneRegi.getSID() == SID)
+//                return oneRegi;
+//        }
+//        return null;
+//    }
 }

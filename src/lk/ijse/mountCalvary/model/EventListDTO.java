@@ -3,6 +3,7 @@ package lk.ijse.mountCalvary.model;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import lk.ijse.mountCalvary.entity.EventList;
+import lk.ijse.mountCalvary.entity.Gender;
 import lk.ijse.mountCalvary.entity.Participation;
 
 import java.util.ArrayList;
@@ -39,11 +40,11 @@ public class EventListDTO {
         eventDTO = new EventDTO(eventList.getEvent());
         eventName = eventDTO.getEventName();
         activityName = eventDTO.getActivityName();
-        if (eventDTO.isGender() == GenderDTO.MALE) {
-            gender = GenderDTO.MALE;
+        if (eventDTO.isGender() == Gender.MALE) {
+            gender = Gender.MALE;
             genderType = "Male";
         } else {
-            gender = GenderDTO.FEMALE;
+            gender = Gender.FEMALE;
             genderType = "Female";
         }
         ArrayList<ParticipationDTO> participationDTOS = new ArrayList<>();
@@ -65,11 +66,11 @@ public class EventListDTO {
         this.EID = eventDTO.getEID();
         this.GID = ageGroupDTO.getGID();
         activityName = eventDTO.getActivityName();
-        if (eventDTO.isGender() == GenderDTO.MALE) {
-            gender = GenderDTO.MALE;
+        if (eventDTO.isGender() == Gender.MALE) {
+            gender = Gender.MALE;
             genderType = "Male";
         } else {
-            gender = GenderDTO.FEMALE;
+            gender = Gender.FEMALE;
             genderType = "Female";
         }
     }
@@ -83,11 +84,11 @@ public class EventListDTO {
         this.EID = eventDTO.getEID();
         this.GID = ageGroupDTO.getGID();
         activityName = eventDTO.getActivityName();
-        if (eventDTO.isGender() == GenderDTO.MALE) {
-            gender = GenderDTO.MALE;
+        if (eventDTO.isGender() == Gender.MALE) {
+            gender = Gender.MALE;
             genderType = "Male";
         } else {
-            gender = GenderDTO.FEMALE;
+            gender = Gender.FEMALE;
             genderType = "Female";
         }
     }
@@ -104,11 +105,11 @@ public class EventListDTO {
         this.EID = eventDTO.getEID();
         this.eventDTO = eventDTO;
         activityName = eventDTO.getActivityName();
-        if (eventDTO.isGender() == GenderDTO.MALE) {
-            gender = GenderDTO.MALE;
+        if (eventDTO.isGender() == Gender.MALE) {
+            gender = Gender.MALE;
             genderType = "Male";
         } else {
-            gender = GenderDTO.FEMALE;
+            gender = Gender.FEMALE;
             genderType = "Female";
         }
     }
@@ -122,11 +123,11 @@ public class EventListDTO {
         this.EID = eventDTO.getEID();
         activityName = eventDTO.getActivityName();
         this.CID = competitionDTO.getCID();
-        if (eventDTO.isGender() == GenderDTO.MALE) {
-            gender = GenderDTO.MALE;
+        if (eventDTO.isGender() == Gender.MALE) {
+            gender = Gender.MALE;
             genderType = "Male";
         } else {
-            gender = GenderDTO.FEMALE;
+            gender = Gender.FEMALE;
             genderType = "Female";
         }
     }

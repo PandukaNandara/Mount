@@ -11,8 +11,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.ParticipationBO;
-import lk.ijse.mountCalvary.controller.Common;
 import lk.ijse.mountCalvary.controller.GlobalBoolean;
+import lk.ijse.mountCalvary.controller.OptionPane;
 import lk.ijse.mountCalvary.controller.Reporter;
 import lk.ijse.mountCalvary.model.ParticipationDTO;
 import lk.ijse.mountCalvary.model.StudentDTO;
@@ -96,7 +96,7 @@ public class CompetitionForStudentController implements Initializable {
 
             }
         } else {
-            Common.showError("Please select a student to print.");
+            OptionPane.showError("Please select a student to print.");
         }
     }
 
@@ -121,7 +121,7 @@ public class CompetitionForStudentController implements Initializable {
         this.studentProfileController = studentProfileController;
     }
 
-    public void insertStudentID(StudentDTO student) {
+    protected void insertStudentID(StudentDTO student) {
         try {
             selectedStudent = student;
             ObservableList<ParticipationDTO> achievement = participationBOImpl.getCompetitionAndAchievementOfThisStudent(student.getSID());

@@ -15,8 +15,8 @@ import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.CompetitionBO;
 import lk.ijse.mountCalvary.business.custom.EventListBO;
 import lk.ijse.mountCalvary.business.custom.ParticipationBO;
-import lk.ijse.mountCalvary.controller.Common;
 import lk.ijse.mountCalvary.controller.GlobalBoolean;
+import lk.ijse.mountCalvary.controller.OptionPane;
 import lk.ijse.mountCalvary.controller.basic.ScreenLoader;
 import lk.ijse.mountCalvary.model.AgeGroupDTO;
 import lk.ijse.mountCalvary.model.CompetitionDTO;
@@ -105,7 +105,7 @@ public class DeleteCompetition_controller implements Initializable {
             CompetitionDTO selectedCompetition = cboxCompetition.getSelectionModel().getSelectedItem();
 
             if (selectedCompetition == null) {
-                Common.showError("Please select a competition.");
+                OptionPane.showError("Please select a competition.");
             } else {
                 int CID = selectedCompetition.getCID();
                 int eventListCount = eventListBOImpl.getEventListForThisCompetition(CID).size();
@@ -117,12 +117,12 @@ public class DeleteCompetition_controller implements Initializable {
                 } else {
                     message = "There is " + eventListCount + " event and " + participationCount + " participation records for the competition.";
                 }
-                boolean yes = Common.askWarning(message + " Do you want to delete this competition? If you delete, all records will be deleted.");
+                boolean yes = OptionPane.askWarning(message + " Do you want to delete this competition? If you delete, all records will be deleted.");
                 if (yes) {
                     if (competitionBOImpl.deleteCompetition(CID)) {
-                        Common.showMessage("Competition has successfully deleted");
+                        OptionPane.showMessage("Competition has successfully deleted");
                     } else {
-                        Common.showWarning("Something's wrong we can't do your request now.");
+                        OptionPane.showWarning("Something's wrong we can't do your request now.");
                     }
                 }
             }

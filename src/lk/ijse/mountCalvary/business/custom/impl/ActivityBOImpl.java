@@ -38,28 +38,28 @@ public class ActivityBOImpl implements ActivityBO {
     public ArrayList<ActivityDTO> getAllActivity() throws Exception {
         ArrayList<Activity> all = activityImpl.getAll();
         ArrayList<ActivityDTO> activityList = new ArrayList<>();
-        for(Activity a: all){
+        for (Activity a : all) {
             activityList.add(new ActivityDTO(a.getAID(), a.getaName(), a.getTID()));
         }
         return activityList;
     }
 
     @Override
-    public ArrayList<ActivityDTO> getAllActivityWithEvent()throws Exception{
+    public ArrayList<ActivityDTO> getAllActivityWithEvent() throws Exception {
 
         ArrayList<Event> allEvent = eventImpl.getAll();
 
         ArrayList<Activity> allActivity = activityImpl.getAll();
 
         ArrayList<ActivityDTO> allActivityWithEvent = new ArrayList<>();
-        for (int i = 0; i < allActivity.size(); i++){
+        for (int i = 0; i < allActivity.size(); i++) {
             Activity oneAct = allActivity.get(i);
-            allActivityWithEvent.add(i,new ActivityDTO(oneAct.getAID(), oneAct.getaName(), oneAct.getTID()));
+            allActivityWithEvent.add(i, new ActivityDTO(oneAct.getAID(), oneAct.getaName(), oneAct.getTID()));
             ArrayList<EventDTO> eventForActivity = new ArrayList<>();
-            for(int j = 0; j < allEvent.size(); j++){
+            for (int j = 0; j < allEvent.size(); j++) {
                 Event oneEvent = allEvent.get(j);
-                if(allActivityWithEvent.get(i).getAID() == oneEvent.getAID()){
-                   eventForActivity.add(new EventDTO(oneEvent.getEID(), oneEvent.geteName(), oneEvent.isGender(), allActivityWithEvent.get(i)));
+                if (allActivityWithEvent.get(i).getAID() == oneEvent.getAID()) {
+                    eventForActivity.add(new EventDTO(oneEvent.getEID(), oneEvent.geteName(), oneEvent.isGender(), allActivityWithEvent.get(i)));
                 }
             }
             allActivityWithEvent.get(i).setEventDTOS(FXCollections.observableArrayList(eventForActivity));
@@ -93,24 +93,31 @@ public class ActivityBOImpl implements ActivityBO {
             }
             conn.commit();
             return true;
-        }finally{
+        } finally {
             conn.rollback();
             conn.setAutoCommit(true);
         }
     }
 
     @Override
-    public ArrayList<ActivityDTO> getActivityWithStudent() throws Exception{
+    public ArrayList<ActivityDTO> getActivityWithStudent() throws Exception {
 
         ArrayList<ActivityDTO> activityDTOS = getAllActivity();
-        for(ActivityDTO activityDTO : activityDTOS){
+        for (ActivityDTO activityDTO : activityDTOS) {
 
             ArrayList<CustomEntity> registrationOfThisActivity = queryDAOImpl.getRegistrationOfThisActivity(activityDTO.getAID());
             ArrayList<RegistrationDTO> registrations = new ArrayList<>();
 
-            for(CustomEntity oneRegi : registrationOfThisActivity){
+            for (CustomEntity oneRegi : registrationOfThisActivity) {
 
-                RegistrationDTO registrationDTO = new RegistrationDTO(oneRegi.getRID(), oneRegi.getSID(), activityDTO.getAID(), oneRegi.getsName(), oneRegi.getDOB(), oneRegi.isGender(), activityDTO.getaName());
+                RegistrationDTO registrationDTO = new RegistrationDTO(oneRegi.getRID(),
+                        oneRegi.getSID(),
+                        activityDTO.getAID(),
+                        oneRegi.getsName(),
+                        oneRegi.getDOB(),
+                        oneRegi.isGender(),
+                        activityDTO.getaName()
+                );
                 registrationDTO.setActivity(activityDTO);
                 registrations.add(registrationDTO);
 
@@ -123,10 +130,10 @@ public class ActivityBOImpl implements ActivityBO {
     @Override
     public ArrayList<ActivityDTO> getActivityWithStudentNotDoThis() throws Exception {
         ArrayList<ActivityDTO> allActivity = getAllActivity();
-        for(ActivityDTO oneActivity : allActivity){
+        for (ActivityDTO oneActivity : allActivity) {
             ArrayList<CustomEntity> allStudentNotDoThisActivity = queryDAOImpl.getAllStudentNotDoThisActivity(oneActivity.getAID());
             ArrayList<StudentDTO> students = new ArrayList<>();
-            for(CustomEntity oneCustom : allStudentNotDoThisActivity)
+            for (CustomEntity oneCustom : allStudentNotDoThisActivity)
                 students.add(new StudentDTO(oneCustom.getStudent().getSID(), oneCustom.getStudent().getsName()));
             oneActivity.setStudentDTOS(students);
         }
@@ -137,23 +144,23 @@ public class ActivityBOImpl implements ActivityBO {
     public boolean updateTeacherOfActivity(ActivityDTO updateActivity) throws Exception {
         conn = DBConnection.getInstance().getConnection();
         conn.setAutoCommit(false);
-        try{
-            if(!activityImpl.update(new Activity(updateActivity.getAID(), updateActivity.getaName(), updateActivity.getTID()))){
+        try {
+            if (!activityImpl.update(new Activity(updateActivity.getAID(), updateActivity.getaName(), updateActivity.getTID()))) {
                 return false;
             }
             conn.commit();
             return true;
-        }finally {
+        } finally {
             conn.rollback();
             conn.setAutoCommit(true);
         }
     }
 
     @Override
-    public ObservableList<RegistrationDTO> getRegistrationOfThisActivity(int AID) throws Exception{
+    public ObservableList<RegistrationDTO> getRegistrationOfThisActivity(int AID) throws Exception {
         ArrayList<CustomEntity> registration = queryDAOImpl.getRegistrationOfThisActivity(AID);
         ArrayList<RegistrationDTO> registrationDTOS = new ArrayList<>();
-        for(CustomEntity oneRegi : registration){
+        for (CustomEntity oneRegi : registration) {
             RegistrationDTO registrationDTO = new RegistrationDTO(oneRegi.getRID(), oneRegi.getSID(), oneRegi.getsName(), oneRegi.getJoinedDate());
             registrationDTO.setStudentClass(oneRegi.getStudentClass());
             registrationDTO.setDOB(oneRegi.getDOB());

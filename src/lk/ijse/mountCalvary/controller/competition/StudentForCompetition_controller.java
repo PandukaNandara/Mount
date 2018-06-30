@@ -18,6 +18,7 @@ import lk.ijse.mountCalvary.business.custom.*;
 import lk.ijse.mountCalvary.controller.AutoComplete;
 import lk.ijse.mountCalvary.controller.Common;
 import lk.ijse.mountCalvary.controller.GlobalBoolean;
+import lk.ijse.mountCalvary.controller.OptionPane;
 import lk.ijse.mountCalvary.controller.basic.ScreenLoader;
 import lk.ijse.mountCalvary.model.*;
 
@@ -66,7 +67,7 @@ public class StudentForCompetition_controller implements Initializable {
     @FXML
     private JFXComboBox<String> cboxResult;
     @FXML
-    private JFXTextField txtPerfomence;
+    private JFXTextField txtPerformance;
     @FXML
     private JFXTextField txtGender;
     @FXML
@@ -88,7 +89,6 @@ public class StudentForCompetition_controller implements Initializable {
     private ParticipationBO participationBOImpl;
     private EventListBO eventListBOImpl;
 
-    private ArrayList<ActivityDTO> activityDTOS;
     private ObservableList<AgeGroupDTO> ageGroupDTOS;
     private AutoComplete<RegistrationDTO> autoCompleteStudentName;
 
@@ -99,8 +99,9 @@ public class StudentForCompetition_controller implements Initializable {
         colActivity_tblEventInCompetition.setCellValueFactory(new PropertyValueFactory<>("activityName"));
         colAgeGroup_tblEventInCompetition.setCellValueFactory(new PropertyValueFactory<>("ageGroupDTO"));
         colEvent_tblEventInCompetition.setCellValueFactory(new PropertyValueFactory<>("eventName"));
-        colEvent_tblStudentLIst.setCellValueFactory(new PropertyValueFactory<>("eventName"));
         colGender_tblEventInCompetition.setCellValueFactory(new PropertyValueFactory<>("genderType"));
+
+        colEvent_tblStudentLIst.setCellValueFactory(new PropertyValueFactory<>("eventName"));
         colPerformance_tblStudentList.setCellValueFactory(new PropertyValueFactory<>("performance"));
         colResult_tblStudentLIst.setCellValueFactory(new PropertyValueFactory<>("result"));
         colStudent_tblStudentLIst.setCellValueFactory(new PropertyValueFactory<>("studentName"));
@@ -113,18 +114,14 @@ public class StudentForCompetition_controller implements Initializable {
 
         eventListBOImpl = BOFactory.getInstance().getBO(BOFactory.BOType.EVENT_LIST);
 
-
         participationBOImpl = BOFactory.getInstance().getBO(BOFactory.BOType.PARTICIPATION);
 
-
         try {
-
             cboxResult.getItems().setAll(Common.getResultSet());
             loadCompetition();
-//            loadCompetitionWithParticipation();
-            loadActivityWithStudent();
             ageGroupDTOS = ageGroupBOImpl.getAgeGroups();
-
+//            loadCompetitionWithParticipation();
+//            loadActivityWithStudent();
         } catch (Exception e) {
             Logger.getLogger(StudentForCompetition_controller.class.getName()).log(Level.SEVERE, null, e);
 
@@ -137,18 +134,18 @@ public class StudentForCompetition_controller implements Initializable {
 //            }
 //        });
         autoCompleteStudentName = new AutoComplete<>(txtStudentName);
-
+        autoCompleteStudentName.setAutoCompletionsAction(event -> hit_txtStudentName());
     }
 
     private void loadCompetition() throws Exception {
         cboxCompetition.getItems().setAll(competitionBOImpl.getAllCompetition());
     }
-
-    private void loadActivityWithStudent() throws Exception {
-
-        activityDTOS = activityBOImpl.getActivityWithStudent();
-
-    }
+//
+//    private void loadActivityWithStudent() throws Exception {
+//
+//        activityDTOS = activityBOImpl.getActivityWithStudent();
+//
+//    }
 
 //    private void loadCompetitionWithParticipation() throws Exception {
 //
@@ -196,24 +193,23 @@ public class StudentForCompetition_controller implements Initializable {
 
     @FXML
     void btAddStudent_onAction(ActionEvent event) {
-
-        String performance = txtPerfomence.getText().trim();
-        if(performance.length() < 2){
+        String performance = txtPerformance.getText().trim();
+        if (performance.length() < 2) {
             performance = "-";
         }
         String result = cboxResult.getValue();
         String studentName = txtStudentName.getText();
         if (studentName.length() < 1) {
-            Common.showError("Please select the student");
+            OptionPane.showError("Please select the student");
         } else if (result.length() == 0) {
-            Common.showError("Please enter the result of the student");
+            OptionPane.showError("Please enter the result of the student");
         } else {
             EventListDTO selectedItem = tblEventInCompetition.getSelectionModel().getSelectedItem();
             String eventName = selectedItem.getEventName() + " - " + selectedItem.getActivityName() + " - " + selectedItem.getGenderType();
-
-            RegistrationDTO registrationDTO = Common.searchRegistration(studentName, filteredRegistration);
+            RegistrationDTO registrationDTO = autoCompleteStudentName.getSelectedItemByName();
             ParticipationDTO newParticipation = new ParticipationDTO(selectedItem.getELID(), registrationDTO, result, performance, eventName);
-            newParticipation.setNewOne(true);
+
+            newParticipation.setAsNewOne(true);
 
             tblStudentList.getItems().add(newParticipation);
 
@@ -264,6 +260,7 @@ public class StudentForCompetition_controller implements Initializable {
                     filter.add(oneRegi);
                 }
             }
+            System.out.println(filter);
             return FXCollections.observableArrayList(filter);
         } catch (Exception e) {
             e.printStackTrace();
@@ -272,17 +269,17 @@ public class StudentForCompetition_controller implements Initializable {
     }
 
     private void clearAll() {
-        txtStudentID.setText("");
-        txtStudentName.setText("");
-        txtAgeGroup.setText("");
+        txtStudentID.clear();
+        txtStudentName.clear();
+        txtAgeGroup.clear();
         cboxResult.setValue("");
-        txtPerfomence.setText("");
-        txtAge.setText("");
+        txtPerformance.clear();
+        txtAge.clear();
     }
 
     @FXML
     void btCancel(ActionEvent event) {
-        boolean answer = Common.askQuestion("Do you want to cancel?");
+        boolean answer = OptionPane.askQuestion("Do you want to cancel?");
         if (answer) {
             try {
                 ScreenLoader.loadPanel("/lk/ijse/mountCalvary/view/basic/CompetitionMenu.fxml", this.acStudentForCompetition, this);
@@ -294,26 +291,34 @@ public class StudentForCompetition_controller implements Initializable {
 
     @FXML
     void txtStudentName_onAction(ActionEvent event) {
-        RegistrationDTO reg = Common.searchRegistration(txtStudentName.getText(), filteredRegistration);
+        hit_txtStudentName();
+    }
+
+    private void hit_txtStudentName() {
+        RegistrationDTO reg = autoCompleteStudentName.getSelectedItemByName();
         try {
             if (reg == null) {
 
-                Common.showError("Please insert the corresponding student or select a event of the competition.");
+                OptionPane.showError("Please insert the corresponding student or select a event of the competition.");
 
                 txtAge.setText("");
                 txtStudentID.setText("");
 
             } else {
-                txtAge.setText(reg.getAge() + "");
-                txtStudentID.setText(reg.getSID() + "");
-                cboxResult.requestFocus();
-                cboxResult.show();
+                showRegistrationDetail(reg);
+
             }
         } catch (Exception e) {
             Logger.getLogger(StudentForCompetition_controller.class.getName()).log(Level.SEVERE, null, e);
-
-
         }
+    }
+
+    private void showRegistrationDetail(RegistrationDTO reg) {
+        txtAge.setText(String.valueOf(reg.getAge()));
+        txtStudentID.setText(String.valueOf(reg.getSID()));
+        txtStudentName.setText(reg.getStudentName());
+        cboxResult.requestFocus();
+        cboxResult.show();
     }
 
     @FXML
@@ -328,19 +333,18 @@ public class StudentForCompetition_controller implements Initializable {
         }
         try {
             if (participationBOImpl.addAllParticipation(FXCollections.observableArrayList(newParticipation))) {
-                Common.showMessage("All participation are successfully processed");
+                OptionPane.showMessage("All participation are successfully processed");
                 try {
                     lk.ijse.mountCalvary.controller.basic.ScreenLoader.loadPanel("/lk/ijse/mountCalvary/view/basic/CompetitionMenu.fxml", this.acStudentForCompetition, this);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             } else {
-                Common.showWarning("Something's wrong we can't do your request");
+                OptionPane.showWarning("Something's wrong we can't do your request");
             }
         } catch (Exception e) {
             Logger.getLogger(StudentForCompetition_controller.class.getName()).log(Level.SEVERE, null, e);
-            Common.showError("Something's wrong we can't do your request \n Error code  \n" + e.getMessage());
-
+            OptionPane.showError("Something's wrong we can't do your request \n Error code  \n" + e.getMessage());
         }
 
     }
@@ -349,21 +353,38 @@ public class StudentForCompetition_controller implements Initializable {
     void btRemove_tblStudentList_onAction(ActionEvent event) {
         ParticipationDTO selectedItem = tblStudentList.getSelectionModel().getSelectedItem();
         if (selectedItem == null) {
-            Common.showError("Please select some participation");
+            OptionPane.showError("Please select some participation");
         } else if (selectedItem.isNewOne()) {
             Common.removeItemFromTable(tblStudentList);
 
             EventListDTO selectedEvent = tblEventInCompetition.getSelectionModel().getSelectedItem();
 
-
             filteredRegistration = filterRegistration(selectedEvent);
             autoCompleteStudentName.changeSuggestion(filteredRegistration);
 
         } else {
-            Common.showError("This participation is already added. You cannot remove it.");
+            OptionPane.showError("This participation is already added. You cannot remove it.");
         }
     }
 
+    @FXML
+    void txtStudentID_onAction(ActionEvent event) {
+        if (Common.isInteger(txtStudentID.getText())) {
+            try {
+                showRegistrationDetail(autoCompleteStudentName.searchByID(txtStudentID.getText()));
+            } catch (NullPointerException e) {
+                if(autoCompleteStudentName.isResultSetEmpty())
+                    OptionPane.showError("Please select competition.");
+                else
+                    OptionPane.showError("Please insert the corresponding student ID for the event that you have selected in event list.");
+            }
+        } else {
+            OptionPane.showError("Please enter a valid student ID.");
+            txtStudentName.clear();
+            txtStudentID.selectAll();
+            txtAge.clear();
+        }
+    }
     @FXML
     void btViewStudentList_onAction(ActionEvent event) {
 
@@ -389,10 +410,6 @@ public class StudentForCompetition_controller implements Initializable {
     @FXML
     void txtPerformance_onAction(ActionEvent event) {
         btAddStudent.fire();
-    }
-
-    @FXML
-    void txtStudent_onAction(ActionEvent event) {
     }
 
     @FXML

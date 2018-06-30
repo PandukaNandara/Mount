@@ -88,12 +88,10 @@ public class AttendantSheetController implements Initializable {
     }
 
     private void filterData() {
-
-        String name = txtStudent.getText().trim();
         int timeRange = cboxTimeRange.getSelectionModel().getSelectedIndex();
         int reg;
         try {
-            reg = Common.searchRegistration(name, allRegistration).getRID();
+            reg = autoComplete.getSelectedItemByName().getRID();
         } catch (NullPointerException e) {
             reg = -1;
         }
@@ -181,7 +179,7 @@ public class AttendantSheetController implements Initializable {
 
             }
         } else {
-            Common.showError("Please select an activity to print.");
+            OptionPane.showError("Please select an activity to print.");
         }
 
     }

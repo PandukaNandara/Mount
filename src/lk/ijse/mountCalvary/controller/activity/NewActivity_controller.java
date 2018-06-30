@@ -1,7 +1,6 @@
 package lk.ijse.mountCalvary.controller.activity;
 
 import com.jfoenix.controls.*;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -12,13 +11,14 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.ActivityBO;
-import lk.ijse.mountCalvary.business.custom.RegistrationBO;
 import lk.ijse.mountCalvary.business.custom.StudentBO;
 import lk.ijse.mountCalvary.business.custom.TeacherBO;
 import lk.ijse.mountCalvary.controller.AutoComplete;
 import lk.ijse.mountCalvary.controller.Common;
 import lk.ijse.mountCalvary.controller.GlobalBoolean;
+import lk.ijse.mountCalvary.controller.OptionPane;
 import lk.ijse.mountCalvary.controller.basic.ScreenLoader;
+import lk.ijse.mountCalvary.entity.Gender;
 import lk.ijse.mountCalvary.model.*;
 
 import java.io.IOException;
@@ -71,7 +71,7 @@ public class NewActivity_controller implements Initializable {
     private JFXButton btCancel;
     private StudentBO studentBOImpl;
     private ActivityBO activityBOImpl;
-    private RegistrationBO regBOImpl;
+
     private TeacherBO teacherBOImpl;
     @FXML
     private JFXTextField txtStudentName;
@@ -86,13 +86,15 @@ public class NewActivity_controller implements Initializable {
 
     private ArrayList<TeacherDTO> allTeacher;
 
+    private StudentDTO selectedStudent;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         GlobalBoolean.setLock(true);
 
         studentBOImpl = BOFactory.getInstance().getBO(BOFactory.BOType.STUDENT);
         activityBOImpl = BOFactory.getInstance().getBO(BOFactory.BOType.ACTIVITY);
-        regBOImpl = BOFactory.getInstance().getBO(BOFactory.BOType.REGISTRATION);
+
         teacherBOImpl = BOFactory.getInstance().getBO(BOFactory.BOType.TEACHER);
 
         //Table
@@ -102,24 +104,24 @@ public class NewActivity_controller implements Initializable {
         colEventName.setCellValueFactory(new PropertyValueFactory<>("eventName"));
         colGender.setCellValueFactory(new PropertyValueFactory<>("genderType"));
         try {
-            allStudent = FXCollections.observableArrayList(studentBOImpl.getAll());
+            allStudent = studentBOImpl.getAllStudentNameAndNumber();
             allTeacher = teacherBOImpl.getAllTeacher();
-            studentAuto = new AutoComplete<>(txtStudentName);
-            studentAuto.changeSuggestion(allStudent);
-
+            studentAuto = new AutoComplete<>(txtStudentName, allStudent);
             studentAuto.setAutoCompletionsAction(event -> setStudentID());
+
         } catch (Exception e) {
             Logger.getLogger(NewActivity_controller.class.getName()).log(Level.SEVERE, null, e);
-
         }
         loadTeachers();
     }
-    private void setStudentID(){
+
+    private void setStudentID() {
         try {
-            txtStudentID.setText(Common.searchStudent(txtStudentName.getText(), allStudent).getSID() + "");
-        }catch (NullPointerException e){
-            Common.showError("Invalid student name or name is not existed");
-        }catch (Exception e) {
+            selectedStudent = studentAuto.getSelectedItemByName();
+            txtStudentID.setText(String.valueOf(selectedStudent.getSID()));
+        } catch (NullPointerException e) {
+            OptionPane.showError("Invalid student name or name is not existed");
+        } catch (Exception e) {
             Logger.getLogger(NewActivity_controller.class.getName()).log(Level.SEVERE, null, e);
         }
     }
@@ -135,9 +137,9 @@ public class NewActivity_controller implements Initializable {
         boolean male = rbtMale.isSelected();
         boolean female = rbtFemale.isSelected();
         if (event_name.length() < 2) {
-            Common.showError("Please enter the event name ");
+            OptionPane.showError("Please enter the event name ");
         } else if (!(male || female)) {
-            Common.showError("Please select the gender of the event.");
+            OptionPane.showError("Please select the gender of the event.");
         } else {
             if (male) {
                 tblEvent.getItems().add(new EventDTO(event_name, EventDTO.MALE));
@@ -153,14 +155,15 @@ public class NewActivity_controller implements Initializable {
     void btAdd_Student_onAction(ActionEvent event) {
         Date joinDate = Common.localDateToDate(dtJoinedDate.getValue());
         if (joinDate == null) {
-            Common.showError("Please enter the joined date");
+            OptionPane.showError("Please enter the joined date");
         } else if (txtStudentName.getText().length() < 1) {
-            Common.showError("Please enter the student name");
+            OptionPane.showError("Please enter the student name");
         } else {
-            StudentDTO selectedStudent = Common.searchStudent(txtStudentName.getText().trim(), allStudent);
+            selectedStudent = studentAuto.getSelectedItemByName();
             if (selectedStudent == null) {
-                Common.showError("This student is already added to the activity or not a correct valid student.");
+                OptionPane.showError("This student is not a valid student.");
                 txtStudentName.selectAll();
+                txtStudentName.requestFocus();
             } else {
                 allStudent.remove(selectedStudent);
                 studentAuto.changeSuggestion(allStudent);
@@ -180,7 +183,7 @@ public class NewActivity_controller implements Initializable {
 
     @FXML
     void btCancel_onAction(ActionEvent event) {
-        boolean answer = Common.askWarning("Do you want to cancel?");
+        boolean answer = OptionPane.askWarning("Do you want to cancel?");
         if (answer) {
             try {
                 ScreenLoader.loadPanel("/lk/ijse/mountCalvary/view/basic/StudentMenu.fxml", this.acNewActivity, this);
@@ -209,41 +212,55 @@ public class NewActivity_controller implements Initializable {
                 ObservableList<EventDTO> evenList = tblEvent.getItems();
                 //   System.out.println(regList.toString());
                 try {
-                    if(evenList.size() == 0){
-                        if(rbtMale.isSelected()) evenList.add(new EventDTO("Default " + aName + " event", GenderDTO.MALE));
-                        if(rbtFemale.isSelected()) evenList.add(new EventDTO("Default " + aName + " event", GenderDTO.FEMALE));
+                    if (evenList.size() == 0) {
+                        if (rbtMale.isSelected())
+                            evenList.add(new EventDTO("Default " + aName + " event", Gender.MALE));
+                        if (rbtFemale.isSelected())
+                            evenList.add(new EventDTO("Default " + aName + " event", Gender.FEMALE));
                     }
                     if (activityBOImpl.addActivityWithStudentAndEvent(new ActivityDTO(aName, teachInCharge.getTID(), regList, evenList))) {
-                        Common.showMessage("Activity has successfully added");
+                        OptionPane.showMessage("Activity has successfully added");
                         try {
                             ScreenLoader.loadPanel("/lk/ijse/mountCalvary/view/basic/StudentMenu.fxml", this.acNewActivity, this);
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
                     } else {
-                        Common.showWarning("Something's wrong we can't do your request");
+                        OptionPane.showWarning("Something's wrong we can't do your request");
                     }
                 } catch (Exception e) {
                     Logger.getLogger(NewActivity_controller.class.getName()).log(Level.SEVERE, null, e);
-                    Common.showWarning("Something's wrong we can't do your request");
-
+                    OptionPane.showWarning("Something's wrong we can't do your request");
                 }
             } else {
-                Common.showError("Please select the teacher in charge");
+                OptionPane.showError("Please select the teacher in charge");
             }
         } else {
-            Common.showError("The Activity name is incorrect");
+            OptionPane.showError("The Activity name is incorrect");
         }
+    }
+
+    @FXML
+    private void txtStudentID_onAction(ActionEvent actionEvent) {
+        if (Common.isInteger(txtStudentID.getText())) {
+            int id = Integer.parseInt(txtStudentID.getText());
+            selectedStudent = studentAuto.searchByID(id);
+            if (selectedStudent != null) {
+                txtStudentName.setText(selectedStudent.getsName());
+                dtJoinedDate.requestFocus();
+            } else {
+                OptionPane.showError("No suitable student for this student ID.");
+            }
+        } else {
+            OptionPane.showError("Student ID is invalid.");
+            txtStudentID.selectAll();
+        }
+
     }
 
     @FXML
     void dtJoinedDate_onAction(ActionEvent event) {
         btAdd_Student.fire();
-    }
-
-    @FXML
-    void btPhysicalActivity_onAction(ActionEvent event) {
-
     }
 
     @FXML
@@ -253,58 +270,26 @@ public class NewActivity_controller implements Initializable {
 
 
     @FXML
-    void btStudentID_onAction(ActionEvent event) {
-
-    }
-
-    @FXML
-    void cboxStudent(ActionEvent event) {
-
-    }
-
-    @FXML
     void cboxTeacher_onAction(ActionEvent event) {
 
     }
 
     @FXML
     void rbtFemale_onAction(ActionEvent event) {
-
     }
 
     @FXML
     void rbtMale_onAction(ActionEvent event) {
-
     }
 
     @FXML
     void rbxNonPhysicalActivity_onAction(ActionEvent event) {
-
     }
 
     @FXML
     void txtActivityName_onAction(ActionEvent event) {
-
     }
 
-
-    @FXML
-    private void txtStudentID_onAction(ActionEvent actionEvent) {
-        if(Common.isInteger(txtStudentID.getText())){
-            int id = Integer.parseInt(txtStudentID.getText());
-            StudentDTO studentDTO = Common.searchStudent(id, allStudent);
-            if(studentDTO != null){
-                txtStudentName.setText(studentDTO.getsName());
-                dtJoinedDate.requestFocus();
-            }else {
-                Common.showError("No suitable student for this student ID.");
-            }
-        }else{
-            Common.showError("Student ID is invalid.");
-            txtStudentID.selectAll();
-        }
-
-    }
 
     @FXML
     private void txtStudentName_onAction(ActionEvent actionEvent) {

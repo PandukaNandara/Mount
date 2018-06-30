@@ -13,11 +13,13 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import lk.ijse.mountCalvary.business.BOFactory;
+import lk.ijse.mountCalvary.business.custom.StudentBO;
 import lk.ijse.mountCalvary.business.custom.TelNoBO;
 import lk.ijse.mountCalvary.controller.Common;
 import lk.ijse.mountCalvary.controller.GlobalBoolean;
+import lk.ijse.mountCalvary.controller.OptionPane;
 import lk.ijse.mountCalvary.controller.Reporter;
-import lk.ijse.mountCalvary.model.GenderDTO;
+import lk.ijse.mountCalvary.entity.Gender;
 import lk.ijse.mountCalvary.model.StudentDTO;
 import lk.ijse.mountCalvary.model.TelNoDTO;
 import net.sf.jasperreports.engine.*;
@@ -77,11 +79,13 @@ public class PersonalDetailController implements Initializable {
     @FXML
     private JFXButton btPrint;
     private TelNoBO telNoBOImpl;
+    private StudentBO studentBOImpl;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         GlobalBoolean.setLock(false);
 
+        studentBOImpl = BOFactory.getInstance().getBO(BOFactory.BOType.STUDENT);
         colTelNo.setCellValueFactory(new PropertyValueFactory<>("telNo"));
 
         telNoBOImpl = BOFactory.getInstance().getBO(BOFactory.BOType.TEL_NO);
@@ -90,14 +94,18 @@ public class PersonalDetailController implements Initializable {
 
     public void init(studentProfileController studentProfileController) {
         this.studentProfileController = studentProfileController;
-        allStudentDetail = studentProfileController.getAllStudentDetail();
     }
 
-    public void insertStudentID(StudentDTO i) {
+    protected void insertStudentID(StudentDTO i) {
         loadStudentData(i);
     }
 
     private void loadStudentData(StudentDTO i) {
+        try {
+            i = studentBOImpl.getStudent(i.getSID());
+        } catch (Exception e) {
+            Logger.getLogger(PersonalDetailController.class.getName()).log(Level.SEVERE, null, e);
+        }
         if (i != null) {
             selectedStudent = i;
             txtStudentID.setText("" + i.getSID());
@@ -127,7 +135,7 @@ public class PersonalDetailController implements Initializable {
             }
             txtaDescStudent.setText(i.getNote());
         } else {
-            Common.showError("Please select corresponding student");
+            OptionPane.showError("Please select corresponding student");
         }
     }
 
@@ -144,13 +152,15 @@ public class PersonalDetailController implements Initializable {
                 map.put("StudentID", selectedStudent.getSID());
                 map.put("StudentName", selectedStudent.getsName());
                 map.put("DOB", selectedStudent.getDOB().toString());
-                map.put("Gender", selectedStudent.isGender() == GenderDTO.MALE ? "Male" : "Female");
+                map.put("Gender", selectedStudent.isGender() == Gender.MALE ? "Male" : "Female");
                 map.put("FatherName", selectedStudent.getFatherName());
                 map.put("MotherName", selectedStudent.getMotherName());
                 map.put("Address", selectedStudent.getAddress());
                 map.put("Note", selectedStudent.getNote().length() < 2 ? " - " : selectedStudent.getNote());
                 map.put("TelephoneNumbers", telNos);
+
                 JasperPrint jasperPrint = JasperFillManager.fillReport(studentPersonalDetail, map, new JREmptyDataSource());
+
                 Reporter.showReport(jasperPrint, "Personal details");
 
             } catch (Exception e) {
@@ -158,7 +168,7 @@ public class PersonalDetailController implements Initializable {
 
             }
         } else {
-            Common.showError("Please select a student to print.");
+            OptionPane.showError("Please select a student to print.");
         }
     }
 

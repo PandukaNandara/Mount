@@ -9,8 +9,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.layout.AnchorPane;
 import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.LogInBO;
-import lk.ijse.mountCalvary.controller.Common;
 import lk.ijse.mountCalvary.controller.GlobalBoolean;
+import lk.ijse.mountCalvary.controller.OptionPane;
 import lk.ijse.mountCalvary.controller.basic.ScreenLoader;
 import lk.ijse.mountCalvary.model.LogInDTO;
 
@@ -42,7 +42,6 @@ public class NewUser_controller implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         GlobalBoolean.setLock(false);
-
         logInBOImpl = BOFactory.getInstance().getBO(BOFactory.BOType.LOG_IN);
     }
 
@@ -50,23 +49,23 @@ public class NewUser_controller implements Initializable {
     void btSignUp_onAction(ActionEvent event) {
         try {
             if (!logInBOImpl.isNewOne(txtUserName.getText())){
-                Common.showError("This user name is already existed.");
+                OptionPane.showError("This user name is already existed.");
                 return;
             }else if (!checkPasswordAreSame()) {
-                Common.showError("Passwords are mismatched.");
+                OptionPane.showError("Passwords are mismatched.");
                 txtPassword.requestFocus();
                 txtRepeatPassword.selectAll();
                 txtPassword.selectAll();
                 return;
             }
             if(logInBOImpl.add(new LogInDTO(txtUserName.getText(), txtPassword.getText()))){
-                Common.showMessage(
+                OptionPane.showMessage(
                   String.format("A new user has successfully added. %n" +
                           "User name :   %s %n" +
                           "Password  :   %s %n ", txtUserName.getText(), txtPassword.getText())
                 );
             }else {
-                Common.showWarning("Something's wrong. We can't do your request.");
+                OptionPane.showWarning("Something's wrong. We can't do your request.");
             }
             ScreenLoader.loadPanel("/lk/ijse/mountCalvary/view/LogIn/LogIn.fxml", acNewUser, this);
         } catch (Exception e) {
@@ -96,7 +95,7 @@ public class NewUser_controller implements Initializable {
             if (newOne) {
                 txtPassword.requestFocus();
             } else {
-                Common.showError("This user name is already existed.");
+                OptionPane.showError("This user name is already existed.");
             }
         } catch (Exception e) {
             Logger.getLogger(NewUser_controller.class.getName()).log(Level.SEVERE, null, e);

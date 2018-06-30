@@ -4,7 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="acNewStudent" prefHeight="785.0" prefWidth="1235.0" style="-fx-background-color: white;" styleClass="main-frame" stylesheets="@../../css/size.css" xmlns="http://javafx.com/javafx/8.0.141" fx:controller="lk.ijse.mountCalvary.controller.student.UpdateStudent_controller">
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="acUpdateStudent" prefHeight="785.0" prefWidth="1235.0" style="-fx-background-color: white;" styleClass="main-frame" stylesheets="@../../css/size.css" xmlns="http://javafx.com/javafx/8.0.141" fx:controller="lk.ijse.mountCalvary.controller.student.UpdateStudent_controller">
    <children>
       <JFXTextField fx:id="txtStudentName" labelFloat="true" layoutX="253.0" layoutY="92.0" onAction="#txtStudentName" prefHeight="25.0" prefWidth="941.0" promptText="Student name" />
       <Label layoutX="66.0" layoutY="36.0" prefHeight="36.0" prefWidth="309.0" text="Update student">

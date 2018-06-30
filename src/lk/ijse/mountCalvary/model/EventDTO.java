@@ -1,10 +1,11 @@
 package lk.ijse.mountCalvary.model;
 
 import lk.ijse.mountCalvary.entity.Event;
+import lk.ijse.mountCalvary.entity.Gender;
 
 import java.util.ArrayList;
 
-public class EventDTO implements GenderDTO {
+public class EventDTO implements Gender {
     private int EID;
     private String eventName;
     private boolean gender;
@@ -16,7 +17,8 @@ public class EventDTO implements GenderDTO {
 
     public EventDTO() {
     }
-    public EventDTO(Event event){
+
+    public EventDTO(Event event) {
         AID = event.getAID();
         EID = event.getEID();
         eventName = event.geteName();
@@ -27,6 +29,7 @@ public class EventDTO implements GenderDTO {
         else
             genderType = "Female";
     }
+
     public EventDTO(String eventName, boolean gender) {
         this.eventName = eventName;
         this.gender = gender;
@@ -58,6 +61,7 @@ public class EventDTO implements GenderDTO {
         else
             genderType = "Female";
     }
+
     public EventDTO(int EID, String eventName, boolean gender, int AID) {
         this.EID = EID;
         this.eventName = eventName;
@@ -68,6 +72,7 @@ public class EventDTO implements GenderDTO {
         else
             genderType = "Female";
     }
+
     public int getEID() {
         return EID;
     }
@@ -110,7 +115,7 @@ public class EventDTO implements GenderDTO {
 
     @Override
     public String toString() {
-        return eventName +"  -  "+genderType;
+        return eventName + "  -  " + genderType;
     }
 
     public ActivityDTO getActivityDTO() {

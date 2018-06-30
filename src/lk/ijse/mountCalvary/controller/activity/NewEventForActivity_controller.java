@@ -18,6 +18,7 @@ import lk.ijse.mountCalvary.business.custom.ActivityBO;
 import lk.ijse.mountCalvary.business.custom.EventBO;
 import lk.ijse.mountCalvary.controller.Common;
 import lk.ijse.mountCalvary.controller.GlobalBoolean;
+import lk.ijse.mountCalvary.controller.OptionPane;
 import lk.ijse.mountCalvary.controller.basic.ScreenLoader;
 import lk.ijse.mountCalvary.model.ActivityDTO;
 import lk.ijse.mountCalvary.model.EventDTO;
@@ -112,9 +113,9 @@ public class NewEventForActivity_controller implements Initializable {
         boolean male = rbxMale.isSelected();
         boolean female = rbxFemale.isSelected();
         if (event_name.length() < 2) {
-            Common.showError("Please enter the event name ");
+            OptionPane.showError("Please enter the event name ");
         } else if (!(male || female)) {
-            Common.showError("Please select the gender of the event ");
+            OptionPane.showError("Please select the gender of the event ");
         } else {
             if (cboxActivityName.getSelectionModel().getSelectedItem() != null) {
                 int AID = cboxActivityName.getSelectionModel().getSelectedItem().getAID();
@@ -126,14 +127,14 @@ public class NewEventForActivity_controller implements Initializable {
                     tblNewEvent.getItems().add(new EventDTO(event_name, EventDTO.FEMALE, AID));
                 }
             } else {
-                Common.showError("Please select the activity");
+                OptionPane.showError("Please select the activity");
             }
         }
     }
 
     @FXML
     void btCancel_onAction(ActionEvent event) {
-        boolean answer = Common.askQuestion("Do you want to cancel?");
+        boolean answer = OptionPane.askQuestion("Do you want to cancel?");
         if (answer) {
             try {
                 ScreenLoader.loadPanel("/lk/ijse/mountCalvary/view/basic/StudentMenu.fxml", this.acNewEvntForActivity, this);
@@ -156,7 +157,7 @@ public class NewEventForActivity_controller implements Initializable {
             if (eventList.size() != 0) {
                 try {
                     if (eventBOImpl.addAllEvent(eventList)) {
-                        Common.showMessage("Events has successfully added");
+                        OptionPane.showMessage("Events has successfully added");
                         try {
                             Stage thisWindow = (Stage) (this.acNewEvntForActivity.getScene().getWindow());
                             String window = thisWindow.getClass().getName();
@@ -170,18 +171,18 @@ public class NewEventForActivity_controller implements Initializable {
                             e.printStackTrace();
                         }
                     } else {
-                        Common.showError("Something's wrong we can't do your request");
+                        OptionPane.showError("Something's wrong we can't do your request");
                     }
                 } catch (Exception e) {
                     Logger.getLogger(NewEventForActivity_controller.class.getName()).log(Level.SEVERE, null, e);
-                    Common.showError("Something's wrong we can't do your request");
+                    OptionPane.showError("Something's wrong we can't do your request");
 
                 }
             } else {
-                Common.showError("Please add some event");
+                OptionPane.showError("Please add some event");
             }
         } else {
-            Common.showError("Please select the activity");
+            OptionPane.showError("Please select the activity");
         }
     }
 

@@ -6,8 +6,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
-import lk.ijse.mountCalvary.controller.Common;
 import lk.ijse.mountCalvary.controller.GlobalBoolean;
+import lk.ijse.mountCalvary.controller.OptionPane;
 
 import java.io.IOException;
 import java.net.URL;
@@ -159,6 +159,6 @@ public class MainMenuFrame_controller implements Initializable {
         }
     }
     private boolean doYouWantToDiscard() {
-        return !Common.askQuestion("Do you stop this this task?");
+        return !OptionPane.askQuestion("Do you stop this this task?");
     }
 }

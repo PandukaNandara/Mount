@@ -17,8 +17,8 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.LogInBO;
-import lk.ijse.mountCalvary.controller.Common;
 import lk.ijse.mountCalvary.controller.GlobalBoolean;
+import lk.ijse.mountCalvary.controller.OptionPane;
 import lk.ijse.mountCalvary.controller.basic.ScreenLoader;
 import lk.ijse.mountCalvary.model.LogInDTO;
 
@@ -62,6 +62,7 @@ public class LogIn_controller implements Initializable {
                     Parent root = FXMLLoader.load(this.getClass().getResource("/lk/ijse/mountCalvary/view/basic/MainMenuFrame.fxml"));
                     Scene sc = new Scene(root);
                     Stage window = (Stage) this.acLogIn.getScene().getWindow();
+                    window.setTitle("Mount Calvary Extra curriculum activity management system");
                     window.setScene(sc);
                     window.centerOnScreen();
                     window.show();
@@ -73,7 +74,7 @@ public class LogIn_controller implements Initializable {
                 a.showAndWait();
             }
         }catch (NullPointerException e){
-            Common.showError("This user is no longer available.");
+            OptionPane.showError("This user is no longer available.");
         }catch (Exception e) {
             Logger.getLogger(NewUser_controller.class.getName()).log(Level.SEVERE, null, e);
         }

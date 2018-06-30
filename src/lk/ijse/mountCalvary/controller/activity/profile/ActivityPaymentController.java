@@ -99,12 +99,9 @@ public class ActivityPaymentController implements Initializable {
     private void filterData() {
         try {
             ArrayList<PaymentDTO> paymentDTOS = new ArrayList<>();
-
-            String name = txtStudent.getText();
-
             int rid;
             try {
-                rid = Common.searchRegistration(name, allRegistration).getRID();
+                rid = autoComplete.getSelectedItemByName().getRID();
             } catch (NullPointerException e) {
                 rid = -1;
             }
@@ -119,10 +116,7 @@ public class ActivityPaymentController implements Initializable {
                     paymentDTOS.add(onePayment);
             }
             tblActivityPayment.getItems().setAll(paymentDTOS);
-        } catch (NullPointerException e) {
-
-
-        }
+        } catch (NullPointerException e) {}
     }
 
     public void insertActivity(ActivityDTO activityDTO) {
@@ -174,7 +168,7 @@ public class ActivityPaymentController implements Initializable {
 
             }
         } else {
-            Common.showError("Please select a student to print.");
+            OptionPane.showError("Please select a student to print.");
         }
     }
 

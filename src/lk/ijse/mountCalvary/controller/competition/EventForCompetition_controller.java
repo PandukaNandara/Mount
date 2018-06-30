@@ -18,6 +18,7 @@ import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.*;
 import lk.ijse.mountCalvary.controller.Common;
 import lk.ijse.mountCalvary.controller.GlobalBoolean;
+import lk.ijse.mountCalvary.controller.OptionPane;
 import lk.ijse.mountCalvary.controller.basic.ScreenLoader;
 import lk.ijse.mountCalvary.model.*;
 
@@ -149,9 +150,9 @@ public class EventForCompetition_controller implements Initializable {
 
         ObservableList<EventListDTO> eventListDTOS = tblEventList.getItems();
         if (eventDTO == null) {
-            Common.showError("Please select an event from event table of the activity");
+            OptionPane.showError("Please select an event from event table of the activity");
         } else if (ageGroupDTO == null) {
-            Common.showError("Please select the age group");
+            OptionPane.showError("Please select the age group");
         } else {
             CompetitionDTO competitionDTO = cboxCompetition.getSelectionModel().getSelectedItem();
             EventListDTO adding = new EventListDTO(eventDTO, competitionDTO, ageGroupDTO);
@@ -166,7 +167,7 @@ public class EventForCompetition_controller implements Initializable {
                 i++;
             }
             if (isAdded) {
-                Common.showError("This event has been already added for this age group");
+                OptionPane.showError("This event has been already added for this age group");
                 tblEventList.scrollTo(i);
                 tblEventList.getSelectionModel().select(i);
             } else {
@@ -192,10 +193,10 @@ public class EventForCompetition_controller implements Initializable {
             if (selectedItem.isNewEventList()) {
                 Common.removeItemFromTable(tblEventList);
             } else {
-                Common.showError("This event has already added. You cannot remove it.");
+                OptionPane.showError("This event has already added. You cannot remove it.");
             }
         } else {
-            Common.showError("Please select an event to remove.");
+            OptionPane.showError("Please select an event to remove.");
         }
     }
 
@@ -238,12 +239,12 @@ public class EventForCompetition_controller implements Initializable {
                 }
             }
             if (newEventList.size() == 0) {
-                if (Common.askWarning("You don't add any event for the competition. Do you wish to continue to add student for the list?"))
+                if (OptionPane.askWarning("You don't add any event for the competition. Do you wish to continue to add student for the list?"))
                     goAhead();
             } else {
                 try {
                     if (eventListBOImpl.addAllEventList(newEventList)) {
-                        boolean next = Common.askQuestion("Event List has successfully updated. Do you want add student for competition? You can add them later.");
+                        boolean next = OptionPane.askQuestion("Event List has successfully updated. Do you want add student for competition? You can add them later.");
                         if (next) {
                             goAhead();
                         } else {
@@ -255,13 +256,13 @@ public class EventForCompetition_controller implements Initializable {
 
                 } catch (Exception e) {
                     Logger.getLogger(EventForCompetition_controller.class.getName()).log(Level.SEVERE, null, e);
-                    Common.showError("Something's wrong we can't do your request now");
+                    OptionPane.showError("Something's wrong we can't do your request now");
 
 
                 }
             }
         } else {
-            Common.showError("Please select the competition");
+            OptionPane.showError("Please select the competition");
         }
     }
 
@@ -285,7 +286,7 @@ public class EventForCompetition_controller implements Initializable {
 
     @FXML
     private void btCancel(ActionEvent actionEvent) {
-        boolean answer = Common.askQuestion("Do you want to cancel?");
+        boolean answer = OptionPane.askQuestion("Do you want to cancel?");
         if (answer) {
             try {
                 ScreenLoader.loadPanel("/lk/ijse/mountCalvary/view/basic/CompetitionMenu.fxml", this.acEventForCompetition, this);

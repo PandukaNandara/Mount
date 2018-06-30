@@ -6,8 +6,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
-import lk.ijse.mountCalvary.controller.Common;
 import lk.ijse.mountCalvary.controller.GlobalBoolean;
+import lk.ijse.mountCalvary.controller.OptionPane;
 import lk.ijse.mountCalvary.db.DBConnection;
 
 import java.io.File;
@@ -37,7 +37,7 @@ public class Settings_controller implements Initializable {
     @FXML
     void btBackup_onAction(ActionEvent event) {
         try {
-            if (!Common.askQuestion("Are you sure want to backup your data?"))
+            if (!OptionPane.askQuestion("Are you sure want to backup your data?"))
                 return;
             FileChooser fileChooser = new FileChooser();
 
@@ -61,14 +61,14 @@ public class Settings_controller implements Initializable {
                 if (writeBackup) {
 
 
-                    Common.showMessage("Successfully backup file is created.");
+                    OptionPane.showMessage("Successfully backup file is created.");
                 } else {
-                    Common.showMessage("Something's wrong. we can't do your request.");
+                    OptionPane.showMessage("Something's wrong. we can't do your request.");
                 }
             }
 
         } catch (Exception e) {
-            Common.showMessage("Something's wrong. we can't do your request.");
+            OptionPane.showMessage("Something's wrong. we can't do your request.");
             Logger.getLogger(Settings_controller.class.getName()).log(Level.SEVERE, null, e);
         }
     }
@@ -76,7 +76,7 @@ public class Settings_controller implements Initializable {
     @FXML
     void btRestore_onAction(ActionEvent event) {
         try {
-            if (!Common.askQuestion("Are you sure want to restore your data? Your current data will be deleted."))
+            if (!OptionPane.askQuestion("Are you sure want to restore your data? Your current data will be deleted."))
                 return;
             FileChooser fileChooser = new FileChooser();
 
@@ -90,14 +90,14 @@ public class Settings_controller implements Initializable {
             if (openFile != null) {
                 boolean restoreBackup = BackpAndRestore.restoreBackup(openFile.getAbsolutePath());
                 if (restoreBackup) {
-                    Common.showMessage("Successfully backup file is restored.");
+                    OptionPane.showMessage("Successfully backup file is restored.");
                 } else {
-                    Common.showMessage("Something's wrong. we can't do your request.");
+                    OptionPane.showMessage("Something's wrong. we can't do your request.");
                 }
             }
 
         } catch (Exception e) {
-            Common.showMessage("Something's wrong. we can't do your request.");
+            OptionPane.showMessage("Something's wrong. we can't do your request.");
             Logger.getLogger(Settings_controller.class.getName()).log(Level.SEVERE, null, e);
         }
     }

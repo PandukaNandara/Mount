@@ -11,8 +11,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.CompetitionBO;
-import lk.ijse.mountCalvary.controller.Common;
 import lk.ijse.mountCalvary.controller.GlobalBoolean;
+import lk.ijse.mountCalvary.controller.OptionPane;
 import lk.ijse.mountCalvary.controller.basic.ScreenLoader;
 import lk.ijse.mountCalvary.model.CompetitionDTO;
 
@@ -87,7 +87,7 @@ public class CompetitionProfileController implements Initializable {
         if(competitionDTO != null){
             showOnTabs(competitionDTO);
         }else {
-            Common.showError("Please select a competition.");
+            OptionPane.showError("Please select a competition.");
         }
     }
 

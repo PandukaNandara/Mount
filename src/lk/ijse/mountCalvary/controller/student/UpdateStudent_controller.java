@@ -9,33 +9,33 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.StudentBO;
 import lk.ijse.mountCalvary.business.custom.TelNoBO;
+import lk.ijse.mountCalvary.controller.AutoComplete;
 import lk.ijse.mountCalvary.controller.Common;
 import lk.ijse.mountCalvary.controller.GlobalBoolean;
+import lk.ijse.mountCalvary.controller.OptionPane;
 import lk.ijse.mountCalvary.controller.basic.ScreenLoader;
 import lk.ijse.mountCalvary.model.StudentDTO;
 import lk.ijse.mountCalvary.model.TelNoDTO;
-import org.controlsfx.control.textfield.AutoCompletionBinding;
-import org.controlsfx.control.textfield.TextFields;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static lk.ijse.mountCalvary.controller.Common.isInteger;
-import static lk.ijse.mountCalvary.controller.Common.showError;
+import static lk.ijse.mountCalvary.controller.OptionPane.showError;
 
 public class UpdateStudent_controller implements Initializable {
 
 
     @FXML
-    private AnchorPane acNewStudent;
+    private AnchorPane acUpdateStudent;
     @FXML
     private JFXTextField txtStudentName;
     @FXML
@@ -86,7 +86,11 @@ public class UpdateStudent_controller implements Initializable {
     private TableColumn<TelNoDTO, Integer> colNewTelNo_tblUpdatedTelNo;
     private TelNoBO telNo;
     private StudentBO studentBO;
-    private ArrayList<StudentDTO> allStudent;
+    private ObservableList<StudentDTO> allStudent;
+    private AutoComplete<StudentDTO> autoCompleteStudent;
+    @FXML
+    private VBox newStudent;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         GlobalBoolean.setLock(true);
@@ -106,22 +110,23 @@ public class UpdateStudent_controller implements Initializable {
         rbFemale.setDisable(true);
         try {
             allStudent = studentBO.getAllStudentNameAndNumber();
-            System.out.println(allStudent);
-            AutoCompletionBinding<StudentDTO> stList = TextFields.bindAutoCompletion(txtStudentName, allStudent);
-            stList.setOnAutoCompleted(event -> btSearch.fire()
-            );
+            autoCompleteStudent = new AutoComplete<>(txtStudentName, allStudent);
+            autoCompleteStudent.setAutoCompletionsAction(event -> btSearch.fire());
+
         } catch (Exception e) {
             Logger.getLogger(UpdateStudent_controller.class.getName()).log(Level.SEVERE, null, e);
-
         }
 
     }
 
     @FXML
     void btSearch_onAction(ActionEvent event) {
-        StudentDTO i = searchStudent(txtStudentName.getText().trim(), allStudent);
+        autoCompleteStudent.getSelectedItemByName();
+        //StudentDTO i = StudentBOImpl.searchStudent(txtStudentName.getText().trim(), allStudent);
+        StudentDTO i = autoCompleteStudent.getSelectedItemByName();
+
         if (i == null) {
-            Common.showError("Please select the student");
+            OptionPane.showError("Please select the student");
         } else {
             try {
                 StudentDTO studentDTO = studentBO.getStudent(i.getSID());
@@ -136,10 +141,10 @@ public class UpdateStudent_controller implements Initializable {
     @FXML
     void txtStudentID_onAction(ActionEvent event) {
         if (checkStudentID()) {
-            StudentDTO i = searchStudent(Integer.parseInt(txtStudentID.getText()), allStudent);
-
+            //StudentDTO i = StudentBOImpl.searchStudent(Integer.parseInt(txtStudentID.getText()), allStudent);
+            StudentDTO i = autoCompleteStudent.searchByID(txtStudentID.getText());
             if (i == null) {
-                Common.showError("There is no student who has student id " + txtStudentID.getId());
+                OptionPane.showError("There is no student who has student id " + txtStudentID.getId());
             } else {
                 try {
                     StudentDTO studentDTO = studentBO.getStudent(i.getSID());
@@ -150,7 +155,7 @@ public class UpdateStudent_controller implements Initializable {
                 }
             }
         } else {
-            Common.showError("Please input valid student ID as number");
+            OptionPane.showError("Please input valid student ID as number");
         }
 
     }
@@ -177,24 +182,6 @@ public class UpdateStudent_controller implements Initializable {
         txtaDesc.setText(i.getNote());
     }
 
-    private StudentDTO searchStudent(int id, ArrayList<StudentDTO> list) {
-        for (StudentDTO one : list) {
-            if (one.getSID() == id) {
-                return one;
-            }
-        }
-        return null;
-    }
-
-    private StudentDTO searchStudent(String text, ArrayList<StudentDTO> list) {
-        for (StudentDTO one : list) {
-            if (one.getsName().equals(text.trim())) {
-                return one;
-            }
-        }
-        return null;
-    }
-
     @FXML
     void btUpdateStudent_onAction(ActionEvent event) {
         updateStudent();
@@ -214,11 +201,11 @@ public class UpdateStudent_controller implements Initializable {
         System.out.println("");
         if (!(tel.length() == 10 && tel.matches("[0][0-9]{9}"))) {
 
-            Common.showError("Please enter a valid phone number");
+            OptionPane.showError("Please enter a valid phone number");
 
         } else if (!checkStudentID()) {
 
-            Common.showError("Please enter the student ID");
+            OptionPane.showError("Please enter the student ID");
 
         } else {
             int newNumber = Integer.parseInt(tel);
@@ -277,7 +264,7 @@ public class UpdateStudent_controller implements Initializable {
                                 }
 
                                 try {
-                                    ScreenLoader.loadPanel("/lk/ijse/mountCalvary/view/basic/StudentMenu.fxml", this.acNewStudent, this);
+                                    ScreenLoader.loadPanel("/lk/ijse/mountCalvary/view/basic/StudentMenu.fxml", this.acUpdateStudent, this);
                                 } catch (IOException e) {
                                     e.printStackTrace();
                                 }
@@ -323,10 +310,10 @@ public class UpdateStudent_controller implements Initializable {
 
     @FXML
     void btCancel_onAction(ActionEvent event) {
-        boolean answer = Common.askQuestion("Do you want to cancel?");
+        boolean answer = OptionPane.askQuestion("Do you want to cancel?");
         if (answer) {
             try {
-                ScreenLoader.loadPanel("/lk/ijse/mountCalvary/view/basic/StudentMenu.fxml", this.acNewStudent, this);
+                ScreenLoader.loadPanel("/lk/ijse/mountCalvary/view/basic/StudentMenu.fxml", this.acUpdateStudent, this);
             } catch (IOException e) {
                 e.printStackTrace();
             }

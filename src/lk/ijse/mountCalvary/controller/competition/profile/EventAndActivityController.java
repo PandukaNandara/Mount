@@ -13,8 +13,8 @@ import javafx.scene.layout.AnchorPane;
 import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.EventListBO;
 import lk.ijse.mountCalvary.business.custom.ParticipationBO;
-import lk.ijse.mountCalvary.controller.Common;
 import lk.ijse.mountCalvary.controller.GlobalBoolean;
+import lk.ijse.mountCalvary.controller.OptionPane;
 import lk.ijse.mountCalvary.controller.Reporter;
 import lk.ijse.mountCalvary.model.AgeGroupDTO;
 import lk.ijse.mountCalvary.model.CompetitionDTO;
@@ -125,7 +125,7 @@ public class EventAndActivityController implements Initializable {
                     String ageGroup = selectedEventList.getAgeGroupDTO().toString();
                     String gender_string = selectedEventList.getGenderType();
                     if (tblStudentList.getItems().size() == 0 &&
-                            (!Common.askWarning("There's no participation for this event. Do you want to continue?")))
+                            (!OptionPane.askWarning("There's no participation for this event. Do you want to continue?")))
                         return;
                     JRBeanCollectionDataSource participations = new JRBeanCollectionDataSource(tblStudentList.getItems());
                     if (competitionDetailReport == null) {
@@ -149,10 +149,10 @@ public class EventAndActivityController implements Initializable {
 
                 }
             } else {
-                Common.showError("Please select an event from the Event list.");
+                OptionPane.showError("Please select an event from the Event list.");
             }
         } else {
-            Common.showError("Please select a competition to print.");
+            OptionPane.showError("Please select a competition to print.");
         }
     }
 }

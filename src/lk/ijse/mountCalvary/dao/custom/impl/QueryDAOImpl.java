@@ -21,8 +21,10 @@ public class QueryDAOImpl implements QueryDAO {
                 "from student\n" +
                 "where SID not in(select distinct s.SID\n" +
                 "from student s, registration r\n" +
-                "where s.SID = r.SID and AID = ?);", AID);
+                "where s.SID = r.SID and AID = ?)", AID);
         while (rst.next()) {
+            System.out.println(rst.getInt("SID") +"  "+
+                    rst.getString("sName"));
             allStudent.add(new CustomEntity(new Student(
                             rst.getInt("SID"),
                             rst.getString("sName")
@@ -530,7 +532,7 @@ public class QueryDAOImpl implements QueryDAO {
                 "from teacher_in_charge_list ticl, teacher t\n" +
                 "where (ticl.TID = t.TID) and CID = ?", cid);
 
-        while(rst.next()){
+        while (rst.next()) {
             CustomEntity teacher = new CustomEntity();
             teacher.setTINCID(rst.getInt("TINCID"));
             teacher.setTID(rst.getInt("TID"));
@@ -557,7 +559,7 @@ public class QueryDAOImpl implements QueryDAO {
                 "       r.RID = py.RID) and \n" +
                 "AID = ? and " +
                 "month = ? and " +
-                "year = ?" , aid, month, year);
+                "year = ?", aid, month, year);
         while (rst.next()) {
             paymentDetail.add(new CustomEntity(
                             rst.getInt("PAYID"),

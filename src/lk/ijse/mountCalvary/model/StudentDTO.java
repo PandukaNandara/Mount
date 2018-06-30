@@ -1,10 +1,11 @@
 package lk.ijse.mountCalvary.model;
 
 import javafx.collections.ObservableList;
+import lk.ijse.mountCalvary.entity.Gender;
 
 import java.util.Date;
 
-public class StudentDTO implements GenderDTO {
+public class StudentDTO implements Gender, SearchProvider{
 
     private int SID;
     private String sName;
@@ -90,25 +91,6 @@ public class StudentDTO implements GenderDTO {
         return sName;
     }
 
-    /*
-        @Override
-        public String toString() {
-            return "StudentDTO{" +
-                    "SID=" + SID +
-                    ", sName='" + sName + '\'' +
-                    ", DOB=" + DOB +
-                    ", gender=" + gender +
-                    ", sClass='" + sClass + '\'' +
-                    ", fatherName='" + fatherName + '\'' +
-                    ", motherName='" + motherName + '\'' +
-                    ", note='" + note + '\'' +
-                    ", house='" + house + '\'' +
-                    ", address='" + address + '\'' +
-                    ", telNoList=" + telNoList.toString() +
-                    "allInitialActivity=" + allInitialActivity.toString() +
-                    '}';
-        }
-        */
     public int getSID() {
         return SID;
     }
@@ -203,5 +185,15 @@ public class StudentDTO implements GenderDTO {
 
     public void setAllInitialActivity(ObservableList<RegistrationDTO> allInitialActivity) {
         this.allInitialActivity = allInitialActivity;
+    }
+
+    @Override
+    public int getID() {
+        return SID;
+    }
+
+    @Override
+    public String getName() {
+        return sName;
     }
 }

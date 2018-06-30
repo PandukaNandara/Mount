@@ -36,10 +36,12 @@ public class DBConnection {
         connection = DriverManager.getConnection(jdbcURL, user, password);
     }
     public static DBConnection getInstance() throws Exception{
-        if(dbConnection == null){
+        if(dbConnection != null){
+            return dbConnection;
+        }else{
             dbConnection = new DBConnection();
+            return dbConnection;
         }
-        return dbConnection;
     }
     public Connection getConnection(){
         return connection;

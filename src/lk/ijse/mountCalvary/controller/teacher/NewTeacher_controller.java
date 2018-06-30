@@ -13,6 +13,7 @@ import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.TeacherBO;
 import lk.ijse.mountCalvary.controller.Common;
 import lk.ijse.mountCalvary.controller.GlobalBoolean;
+import lk.ijse.mountCalvary.controller.OptionPane;
 import lk.ijse.mountCalvary.controller.basic.ScreenLoader;
 import lk.ijse.mountCalvary.model.TeacherDTO;
 
@@ -67,9 +68,9 @@ public class NewTeacher_controller implements Initializable {
     private void btSubmit_onAction(ActionEvent actionEvent) {
         try{
             if(tblTeacher.getItems().size() == 0) {
-                Common.showError("Please add a teacher");
+                OptionPane.showError("Please add a teacher");
             }else if(teacher.addAllTeacher(tblTeacher.getItems())){
-                Common.showMessage("All teachers successfully added");
+                OptionPane.showMessage("All teachers successfully added");
                 try {
                     ScreenLoader.loadPanel("/lk/ijse/mountCalvary/view/basic/MainMenu.fxml", this.acNewTeacher, this);
                 } catch (IOException e) {
@@ -78,7 +79,7 @@ public class NewTeacher_controller implements Initializable {
             }
 
         }catch(Exception e){
-            Common.showError(e.getMessage());
+            OptionPane.showError(e.getMessage());
         }
     }
 
@@ -94,7 +95,7 @@ public class NewTeacher_controller implements Initializable {
             System.out.println(5 + teacherName + 5);
             tblTeacher.getItems().add(new TeacherDTO(teacherName));
         }else {
-            Common.showError("The teacher name is incorrect");
+            OptionPane.showError("The teacher name is incorrect");
         }
         txtTeacherName.selectAll();
         txtTeacherName.requestFocus();

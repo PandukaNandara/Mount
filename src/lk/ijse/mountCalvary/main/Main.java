@@ -6,7 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import lk.ijse.mountCalvary.controller.Common;
+import lk.ijse.mountCalvary.controller.OptionPane;
 
 import javax.swing.*;
 import java.io.IOException;
@@ -31,15 +31,14 @@ public class Main extends Application {
                 fileHandler.setFormatter(new SimpleFormatter());
                 errorLogger.addHandler(fileHandler);
             } catch (IOException e) {
-                Common.showError("The log file has been deleted.");
+                OptionPane.showError("The log file has been deleted.");
                 e.printStackTrace();
-
             }
 
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 
             Parent root = FXMLLoader.load(getClass().getResource("/lk/ijse/mountCalvary/view/LogIn/LogIn.fxml"));
-            primaryStage.setTitle("Mount Calvary Extra curriculum activity management system");
+            primaryStage.setTitle("Log in");
             primaryStage.setScene(new Scene(root));
             primaryStage.centerOnScreen();
             primaryStage.getIcons().add(new Image("/lk/ijse/mountCalvary/assets/defaultIcon.png"));

@@ -13,8 +13,8 @@ import javafx.scene.layout.AnchorPane;
 import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.CompetitionBO;
 import lk.ijse.mountCalvary.business.custom.TeacherInChargeListBO;
-import lk.ijse.mountCalvary.controller.Common;
 import lk.ijse.mountCalvary.controller.GlobalBoolean;
+import lk.ijse.mountCalvary.controller.OptionPane;
 import lk.ijse.mountCalvary.controller.Reporter;
 import lk.ijse.mountCalvary.model.CompetitionDTO;
 import lk.ijse.mountCalvary.model.TeacherInChargeListDTO;
@@ -119,7 +119,7 @@ public class CompetitionDetailController implements Initializable {
 
             }
         } else {
-            Common.showError("Please select a competition to print.");
+            OptionPane.showError("Please select a competition to print.");
         }
 
     }

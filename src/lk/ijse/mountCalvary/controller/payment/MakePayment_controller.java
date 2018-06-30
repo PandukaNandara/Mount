@@ -15,10 +15,7 @@ import javafx.scene.layout.AnchorPane;
 import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.ActivityBO;
 import lk.ijse.mountCalvary.business.custom.PaymentBO;
-import lk.ijse.mountCalvary.controller.AutoComplete;
-import lk.ijse.mountCalvary.controller.Common;
-import lk.ijse.mountCalvary.controller.GlobalBoolean;
-import lk.ijse.mountCalvary.controller.Month;
+import lk.ijse.mountCalvary.controller.*;
 import lk.ijse.mountCalvary.controller.basic.ScreenLoader;
 import lk.ijse.mountCalvary.model.ActivityDTO;
 import lk.ijse.mountCalvary.model.PaymentDTO;
@@ -151,13 +148,13 @@ public class MakePayment_controller implements Initializable {
                     tblStudentPayment.getItems().add(paymentDTO);
                     clearAll(false);
                 } else {
-                    Common.showWarning("This student has paid in this month and year for this activity.");
+                    OptionPane.showWarning("This student has paid in this month and year for this activity.");
                 }
 
                 txtStudentID.requestFocus();
             }
         } catch (NumberFormatException e) {
-            Common.showError("The fee value is incorrect");
+            OptionPane.showError("The fee value is incorrect");
             txtFee.requestFocus();
             txtFee.selectAll();
         }
@@ -165,7 +162,7 @@ public class MakePayment_controller implements Initializable {
 
     @FXML
     void btCancel_onAction(ActionEvent event) {
-        boolean answer = Common.askWarning("Do you want to cancel?");
+        boolean answer = OptionPane.askWarning("Do you want to cancel?");
         if (answer) {
             try {
                 ScreenLoader.loadPanel("/lk/ijse/mountCalvary/view/basic/MainMenu.fxml", this.acUpdatePayment, this);
@@ -203,30 +200,30 @@ public class MakePayment_controller implements Initializable {
     void btRemove_tblStudentPayment_onAction(ActionEvent event) {
         if (tblStudentPayment.getSelectionModel().getSelectedItem().isNewOne()) {
             if (Common.removeItemFromTable(tblStudentPayment) == null)
-                Common.showError("Please select an item from the table");
+                OptionPane.showError("Please select an item from the table");
         } else {
-            Common.showError("This payment record is already added.");
+            OptionPane.showError("This payment record is already added.");
         }
     }
 
     @FXML
     void btSubmit_onAction(ActionEvent event) {
-        if (Common.askQuestion("Do you want to make all payment?")) {
+        if (OptionPane.askQuestion("Do you want to make all payment?")) {
             ObservableList<PaymentDTO> newPayment = FXCollections.observableArrayList();
             for (PaymentDTO onePayment : tblStudentPayment.getItems())
                 if (onePayment.isNewOne())
                     newPayment.add(onePayment);
             try {
                 if (paymentBOImpl.addAllPayment(newPayment)) {
-                    Common.showMessage("All Payment has successfully made.");
+                    OptionPane.showMessage("All Payment has successfully made.");
                     ScreenLoader.loadPanel("/lk/ijse/mountCalvary/view/basic/MainMenu.fxml", this.acUpdatePayment, this);
                 } else {
-                    Common.showWarning("Something's wrong we can't do your request.");
+                    OptionPane.showWarning("Something's wrong we can't do your request.");
                 }
 
             } catch (Exception e) {
                 Logger.getLogger(MakePayment_controller.class.getName()).log(Level.SEVERE, null, e);
-                Common.showWarning(e.toString());
+                OptionPane.showWarning(e.toString());
 
             }
         }
@@ -256,8 +253,7 @@ public class MakePayment_controller implements Initializable {
     }
 
     private void searchStudent() {
-        String studentName = txtStudentName.getText().trim();
-        selectedRegistrationDTO = Common.searchRegistration(studentName, registrationOfThisActivity);
+        selectedRegistrationDTO = auto.getSelectedItemByName();
         if (checkStudentIsCorrect())
             txtFee.requestFocus();
     }
@@ -274,11 +270,12 @@ public class MakePayment_controller implements Initializable {
             txtStudentName.requestFocus();
         } else if (Common.isInteger(studentID)) {
             int SID = Integer.parseInt(studentID);
-            selectedRegistrationDTO = Common.searchRegistration(SID, registrationOfThisActivity);
+
+            selectedRegistrationDTO = auto.searchByID(SID);
             if (checkStudentIsCorrect())
                 txtFee.requestFocus();
         } else {
-            Common.showError("The Student ID is invalid.");
+            OptionPane.showError("The Student ID is invalid.");
         }
     }
 
@@ -288,7 +285,7 @@ public class MakePayment_controller implements Initializable {
             txtStudentID.setText(selectedRegistrationDTO.getSID() + "");
             return true;
         } else {
-            Common.showError("the student ID is not existed.");
+            OptionPane.showError("the student ID is not existed.");
             return false;
         }
     }
