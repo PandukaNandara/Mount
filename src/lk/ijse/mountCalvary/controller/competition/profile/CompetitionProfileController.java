@@ -6,14 +6,13 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.CompetitionBO;
 import lk.ijse.mountCalvary.controller.GlobalBoolean;
 import lk.ijse.mountCalvary.controller.OptionPane;
-import lk.ijse.mountCalvary.controller.basic.ScreenLoader;
+import lk.ijse.mountCalvary.controller.ScreenLoader;
 import lk.ijse.mountCalvary.model.CompetitionDTO;
 
 import java.io.IOException;
@@ -48,18 +47,18 @@ public class CompetitionProfileController implements Initializable {
     @FXML
     private JFXComboBox<CompetitionDTO> cboxCompetitionName;
     @FXML
-    private AnchorPane competitionDetail;
+    private VBox competitionDetail;
     @FXML
-    private AnchorPane eventAndActivity;
+    private VBox eventAndActivity;
     @FXML
     private CompetitionDetailController competitionDetailController;
     @FXML
-    private AnchorPane acCompetitionRoot;
+    private VBox acCompetitionRoot;
     @FXML
     private EventAndActivityController eventAndActivityController;
 
     private CompetitionBO competitionBOImpl;
-
+    private ScreenLoader screenLoader = ScreenLoader.getInstance();
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         GlobalBoolean.setLock(false);
@@ -104,7 +103,7 @@ public class CompetitionProfileController implements Initializable {
     @FXML
     void btCompetitionDetails_onAction(ActionEvent event) {
         try {
-            ScreenLoader.loadPanel("/lk/ijse/mountCalvary/view/competition/profile/CompetitionDetail.fxml", this.acCompetitionRoot, this);
+            screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/competition/profile/CompetitionDetail.fxml", this.acCompetitionRoot, this);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -113,7 +112,7 @@ public class CompetitionProfileController implements Initializable {
     @FXML
     void btEventDetail_onAction(ActionEvent event) {
         try {
-            ScreenLoader.loadPanel("/lk/ijse/mountCalvary/view/competition/profile/EventAndActivity.fxml", this.acCompetitionRoot, this);
+            screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/competition/profile/EventAndActivity.fxml", this.acCompetitionRoot, this);
         } catch (IOException e) {
             e.printStackTrace();
         }

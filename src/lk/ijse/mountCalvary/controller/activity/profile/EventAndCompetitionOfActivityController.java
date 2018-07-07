@@ -10,7 +10,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.AgeGroupBO;
 import lk.ijse.mountCalvary.business.custom.EventBO;
@@ -35,7 +35,7 @@ public class EventAndCompetitionOfActivityController implements Initializable {
 
     private static JasperReport eventAndCompetitionReport;
     @FXML
-    private AnchorPane EventAndCompetitionOfActivity;
+    private VBox EventAndCompetitionOfActivity;
     @FXML
     private JFXComboBox<EventDTO> cboxEvent;
     @FXML
@@ -116,7 +116,7 @@ public class EventAndCompetitionOfActivityController implements Initializable {
                 ObservableList<CompetitionDTO> competitionForThisEvent = eventBOImpl.getCompetitionForThisEvent(eid);
                 tblCompetitionList.getItems().setAll(competitionForThisEvent);
                 tblParticipation.getItems().removeAll(tblParticipation.getItems());
-            } catch (NullPointerException e) {
+            } catch (NullPointerException ignored) {
             }
         } catch (Exception e) {
             Logger.getLogger(EventAndCompetitionOfActivityController.class.getName()).log(Level.SEVERE, null, e);
@@ -128,7 +128,7 @@ public class EventAndCompetitionOfActivityController implements Initializable {
     private void cboxAgeGroup_onAction(ActionEvent actionEvent) {
         try {
             filterStudentList();
-        } catch (NullPointerException e) {
+        } catch (NullPointerException ignored) {
         } catch (Exception e) {
             Logger.getLogger(EventAndCompetitionOfActivityController.class.getName()).log(Level.SEVERE, null, e);
 
@@ -155,7 +155,7 @@ public class EventAndCompetitionOfActivityController implements Initializable {
             participations = participationBOImpl.getParticipationForThisEventAndCompetition(EID, CID);
             filterStudentList();
             //tblParticipation.getItems().setAll(participations);
-        } catch (NullPointerException n) {
+        } catch (NullPointerException ignored) {
         } catch (Exception e) {
             Logger.getLogger(EventAndCompetitionOfActivityController.class.getName()).log(Level.SEVERE, null, e);
 

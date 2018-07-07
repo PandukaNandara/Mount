@@ -6,8 +6,8 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.StudentBO;
 import lk.ijse.mountCalvary.controller.AutoComplete;
@@ -26,7 +26,7 @@ public class studentProfileController implements Initializable {
     @FXML
     private BorderPane bpStudentProfile;
     @FXML
-    private AnchorPane studentProfile_controller;
+    private VBox studentProfile_controller;
     @FXML
     private JFXButton btSearch;
     @FXML
@@ -34,13 +34,13 @@ public class studentProfileController implements Initializable {
     @FXML
     private JFXTextField txtStudentID;
     @FXML
-    private AnchorPane personalDetail;
+    private VBox personalDetail;
     @FXML
-    private AnchorPane attendanceAndActivityOfStudent;
+    private VBox attendanceAndActivityOfStudent;
     @FXML
-    private AnchorPane competitionForStudent;
+    private VBox competitionForStudent;
     @FXML
-    private AnchorPane studentPayment;
+    private VBox studentPayment;
 
     @FXML
     private CompetitionForStudentController competitionForStudentController;

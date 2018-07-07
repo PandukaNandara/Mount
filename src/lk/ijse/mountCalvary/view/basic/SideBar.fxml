@@ -8,7 +8,8 @@
 <?import de.jensd.fx.glyphs.octicons.OctIconView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.*?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="785.0" prefWidth="300.0" style="-fx-background-color: #232323;" xmlns="http://javafx.com/javafx/8.0.141">
+<AnchorPane prefHeight="785.0" prefWidth="300.0" style="-fx-background-color: #232323;"
+            xmlns="http://javafx.com/javafx/8.0.141">
    <children>
       <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" prefHeight="71.0" prefWidth="301.0" ripplerFill="#2196f3" text="Main Menu" textFill="WHITE">
          <font>

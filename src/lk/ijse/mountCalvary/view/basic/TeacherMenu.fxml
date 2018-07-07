@@ -3,19 +3,28 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="acTeacherMenu" maxHeight="893.0" maxWidth="1235.0" prefHeight="782.0" prefWidth="1235.0" style="-fx-background-color: white;" styleClass="main-frame" stylesheets="@../../css/size.css" xmlns="http://javafx.com/javafx/8.0.141" fx:controller="lk.ijse.mountCalvary.controller.basic.TeacherMenu_controller">
+<?import java.net.*?>
+<VBox xmlns:fx="http://javafx.com/fxml/1" fx:id="acTeacherMenu" styleClass="sub-main-frame"
+      xmlns="http://javafx.com/javafx/8.0.141"
+      fx:controller="lk.ijse.mountCalvary.controller.basic.TeacherMenu_controller">
    <children>
-      <JFXButton fx:id="btBack" layoutX="36.0" layoutY="24.0" onAction="#btBack_onAction" prefHeight="33.0" prefWidth="69.0" text="Back">
+       <Region prefHeight="10.0" prefWidth="1280.0"/>
+       <JFXButton fx:id="btBack" onAction="#btBack_onAction" prefHeight="45.0" prefWidth="69.0" styleClass="back"
+                  text="Back">
          <graphic>
             <FontAwesomeIconView glyphName="ARROW_LEFT" size="25" />
          </graphic>
+           <VBox.margin>
+               <Insets left="10.0"/>
+           </VBox.margin>
       </JFXButton>
-      <VBox alignment="CENTER" layoutY="421.0" prefHeight="67.0" prefWidth="1442.0">
+       <VBox alignment="CENTER" prefHeight="67.0" styleClass="menu-button-pane" VBox.vgrow="ALWAYS">
          <children>
-            <JFXButton fx:id="btNewTeacher" onAction="#btNewTeacher_onAction" prefHeight="65.0" prefWidth="554.0" style="-fx-background-color: #2196F3;" text="New Teacher" textFill="WHITE">
+             <JFXButton fx:id="btNewTeacher" onAction="#btNewTeacher_onAction" prefHeight="65.0" prefWidth="554.0"
+                        style="-fx-background-color: #2196F3;" styleClass="menu-button" text="New Teacher"
+                        textFill="WHITE">
                <font>
                   <Font size="27.0" />
                </font>
@@ -23,7 +32,15 @@
          </children>
       </VBox>
    </children>
-   <padding>
-      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-   </padding>
-</AnchorPane>
+    <stylesheets>
+        <URL value="@../../css/frame.css"/>
+        <URL value="@../../css/button.css"/>
+        <URL value="@../../css/combo-box.css"/>
+        <URL value="@../../css/table-view.css"/>
+        <URL value="@../../css/text-and-password-field.css"/>
+        <URL value="@../../css/date-picker.css"/>
+        <URL value="@../../css/radio-button.css"/>
+        <URL value="@../../css/text-area.css"/>
+        <URL value="@../../css/label.css"/>
+    </stylesheets>
+</VBox>

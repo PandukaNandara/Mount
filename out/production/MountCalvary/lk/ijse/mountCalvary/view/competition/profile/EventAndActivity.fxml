@@ -2,17 +2,34 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import de.jensd.fx.glyphs.icons525.Icons525View?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import java.net.URL?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="acEventForActivity" prefHeight="745.0" prefWidth="1022.0" styleClass="profile-frame" stylesheets="@../../../css/size.css" xmlns="http://javafx.com/javafx/8.0.141" fx:controller="lk.ijse.mountCalvary.controller.competition.profile.EventAndActivityController">
+
+<VBox fx:id="acEventForActivity" styleClass="profile-frame" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.mountCalvary.controller.competition.profile.EventAndActivityController">
    <children>
-      <Label layoutX="62.0" layoutY="27.0" prefHeight="42.0" prefWidth="409.0" text="Event and avtivity">
-         <font>
-            <Font name="Arial Bold" size="18.0" />
-         </font>
-      </Label>
-      <TableView fx:id="tblEventInCompetition" layoutX="62.0" layoutY="114.0" onMouseClicked="#tblEventInCompetition_mouseClick" prefHeight="158.0" prefWidth="1327.0">
+      <HBox>
+         <children>
+            <Label maxWidth="1.7976931348623157E308" prefHeight="42.0" prefWidth="409.0" text="Event and activity" HBox.hgrow="ALWAYS">
+               <font>
+                  <Font name="Arial Bold" size="18.0" />
+               </font>
+            </Label>
+            <JFXButton fx:id="btPrint" alignment="CENTER" buttonType="RAISED" onAction="#btPrint_onAction" prefHeight="45.0" prefWidth="108.0" ripplerFill="WHITE" style="-fx-background-color: #2196f3;" text="Print" textAlignment="CENTER" textFill="WHITE">
+               <graphic>
+                  <Icons525View fill="WHITE" glyphName="PRINTER" size="25" wrappingWidth="37.0" />
+               </graphic>
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </JFXButton>
+         </children>
+      </HBox>
+      <TableView fx:id="tblEventInCompetition" onMouseClicked="#tblEventInCompetition_mouseClick" prefHeight="158.0" prefWidth="1327.0" tableMenuButtonVisible="true" VBox.vgrow="ALWAYS">
          <columns>
             <TableColumn fx:id="colActivity_tblEventInCompetition" prefWidth="75.0" text="Activity" />
             <TableColumn fx:id="colEvent_tblEventInCompetition" prefWidth="75.0" text="Event" />
@@ -23,7 +40,12 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <TableView fx:id="tblStudentList" layoutX="62.0" layoutY="340.0" onMouseClicked="#tblStudentList_mouseClick" prefHeight="369.0" prefWidth="1327.0">
+      <Label prefHeight="42.0" prefWidth="409.0" text="Participation for event">
+         <font>
+            <Font name="Arial Bold" size="18.0" />
+         </font>
+      </Label>
+      <TableView fx:id="tblStudentList" onMouseClicked="#tblStudentList_mouseClick" prefHeight="369.0" prefWidth="1327.0" tableMenuButtonVisible="true" VBox.vgrow="ALWAYS">
          <columns>
             <TableColumn fx:id="colStudent_tblStudentLIst" prefWidth="292.125" text="Student" />
             <TableColumn fx:id="colResult_tblStudentLIst" prefWidth="348.34375" text="Result" />
@@ -33,16 +55,17 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <Label layoutX="62.0" layoutY="285.0" prefHeight="42.0" prefWidth="409.0" text="Participation for event">
-         <font>
-            <Font name="Arial Bold" size="18.0" />
-         </font>
-      </Label>
-      <JFXButton fx:id="btPrint" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" layoutX="1312.0" layoutY="21.0" onAction="#btPrint_onAction" prefHeight="77.0" prefWidth="79.0" ripplerFill="WHITE" style="-fx-background-color: #2196f3;" text="Print" textAlignment="CENTER" textFill="WHITE">
-         <graphic>
-            <Icons525View fill="WHITE" glyphName="PRINTER" size="50" wrappingWidth="49.0" />
-         </graphic>
-      </JFXButton>
-
    </children>
-</AnchorPane>
+   <stylesheets>
+      <URL value="@../../../css/frame.css" />
+      <URL value="@../../../css/combo-box.css" />
+      <URL value="@../../../css/table-view.css" />
+      <URL value="@../../../css/text-and-password-field.css" />
+      <URL value="@../../../css/date-picker.css" />
+      <URL value="@../../../css/radio-button.css" />
+      <URL value="@../../../css/text-area.css" />
+      <URL value="@../../../css/button.css" />
+      <URL value="@../../../css/label.css" />
+   </stylesheets>
+
+</VBox>

@@ -4,29 +4,37 @@
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXTabPane?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="ActivityProfile" styleClass="main-frame" stylesheets="@../../../css/size.css" xmlns="http://javafx.com/javafx/8.0.141" fx:controller="lk.ijse.mountCalvary.controller.activity.profile.ActivityProfileController">
+<?import java.net.*?>
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="ActivityProfile" styleClass="profile-main-frame"
+            xmlns="http://javafx.com/javafx/8.0.141"
+            fx:controller="lk.ijse.mountCalvary.controller.activity.profile.ActivityProfileController">
    <top>
-      <AnchorPane fx:id="bpActivityProfileTop" minHeight="-Infinity" minWidth="-Infinity" prefHeight="78.0" prefWidth="1235.0" style="-fx-background-color: #F2F2F2;" BorderPane.alignment="CENTER">
+      <HBox fx:id="bpActivityProfileTop" styleClass="top-profile-frame">
          <children>
-            <JFXButton fx:id="btSearch" layoutX="1277.0" layoutY="20.0" onAction="#btSearch_onAction" prefHeight="34.0" prefWidth="116.0" style="-fx-background-color: #2196F3;" text="Search" textFill="WHITE" />
-            <Label layoutX="14.0" layoutY="24.0" prefHeight="34.0" prefWidth="282.0" text="Activity Profile">
+            <Label maxWidth="1.7976931348623157E308" minWidth="0.0" styleClass="super-title" text="Activity Profile"
+                   HBox.hgrow="ALWAYS">
                <font>
                   <Font size="22.0" />
                </font>
             </Label>
-            <JFXComboBox fx:id="cboxActivity" labelFloat="true" layoutX="793.0" layoutY="25.0" onAction="#cboxActivity_onAction" prefHeight="25.0" prefWidth="429.0" promptText="Activity" />
+            <JFXComboBox fx:id="cboxActivity" labelFloat="true" onAction="#cboxActivity_onAction" prefHeight="25.0"
+                         prefWidth="429.0" promptText="Activity"/>
+            <JFXButton fx:id="btSearch" onAction="#btSearch_onAction" prefHeight="34.0" prefWidth="116.0"
+                       style="-fx-background-color: #2196F3;" text="Search" textFill="WHITE"/>
          </children>
-      </AnchorPane>
+      </HBox>
    </top>
    <center>
-      <JFXTabPane minHeight="549.0" prefHeight="549.0" prefWidth="470.0" rotateGraphic="true" stylesheets="@../../../css/size.css" BorderPane.alignment="CENTER">
+      <JFXTabPane minHeight="549.0" prefHeight="549.0" prefWidth="470.0" rotateGraphic="true"
+                  stylesheets="@../../../css/frame.css" BorderPane.alignment="CENTER">
          <Tab closable="false" text="Activity Details">
          <content>
             <fx:include fx:id="activityDetail" source="ActivityDetail.fxml" />
          </content>
+
       </Tab>
          <Tab closable="false" text="Attendant Sheet">
             <fx:include fx:id="attendantSheet" source="AttendantSheet.fxml" />
@@ -48,4 +56,16 @@
          </Tab>
       </JFXTabPane>
    </center>
+   <stylesheets>
+      <URL value="@../../../css/frame.css"/>
+      <URL value="@../../../css/combo-box.css"/>
+      <URL value="@../../../css/table-view.css"/>
+      <URL value="@../../../css/text-and-password-field.css"/>
+      <URL value="@../../../css/date-picker.css"/>
+      <URL value="@../../../css/radio-button.css"/>
+      <URL value="@../../../css/text-area.css"/>
+      <URL value="@../../../css/button.css"/>
+      <URL value="@../../../css/label.css"/>
+      <URL value="@../../../css/tab-pane.css"/>
+   </stylesheets>
 </BorderPane>

@@ -42,7 +42,8 @@ public class Main extends Application {
             primaryStage.setScene(new Scene(root));
             primaryStage.centerOnScreen();
             primaryStage.getIcons().add(new Image("/lk/ijse/mountCalvary/assets/defaultIcon.png"));
-            primaryStage.setResizable(false);
+//            primaryStage.setResizable(false);
+
             primaryStage.show();
 
         } catch (Exception e) {

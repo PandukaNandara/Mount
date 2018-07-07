@@ -5,8 +5,9 @@ import com.jfoenix.controls.JFXComboBox;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.ActivityBO;
 import lk.ijse.mountCalvary.controller.GlobalBoolean;
@@ -28,21 +29,21 @@ public class ActivityProfileController implements Initializable {
 //    @FXML
 //    private JFXButton btExcel;
     @FXML
-    private AnchorPane bpActivityProfileTop;
+    private HBox bpActivityProfileTop;
     @FXML
     private JFXButton btSearch;
     @FXML
-    private AnchorPane activityDetail;
+    private VBox activityDetail;
     @FXML
-    private AnchorPane attendantSheet;
+    private VBox attendantSheet;
     @FXML
-    private AnchorPane joinedStudent;
+    private VBox joinedStudent;
     @FXML
-    private AnchorPane eventAndCompetitionOfActivity;
+    private VBox eventAndCompetitionOfActivity;
     @FXML
     private JFXComboBox<ActivityDTO> cboxActivity;
     @FXML
-    private AnchorPane activityPayment;
+    private VBox activityPayment;
 
     @FXML
     private ActivityDetailController activityDetailController;

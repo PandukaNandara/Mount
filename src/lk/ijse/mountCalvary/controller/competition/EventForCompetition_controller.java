@@ -12,14 +12,14 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.*;
 import lk.ijse.mountCalvary.controller.Common;
 import lk.ijse.mountCalvary.controller.GlobalBoolean;
 import lk.ijse.mountCalvary.controller.OptionPane;
-import lk.ijse.mountCalvary.controller.basic.ScreenLoader;
+import lk.ijse.mountCalvary.controller.ScreenLoader;
 import lk.ijse.mountCalvary.model.*;
 
 import java.io.IOException;
@@ -37,7 +37,7 @@ public class EventForCompetition_controller implements Initializable {
     private JFXButton btSubmit;
 
     @FXML
-    private AnchorPane acEventForCompetition;
+    private VBox acEventForCompetition;
 
 
     @FXML
@@ -89,7 +89,7 @@ public class EventForCompetition_controller implements Initializable {
     private ActivityBO activityBOImpl;
     private EventListBO eventListBOImpl;
     private EventBO eventBOImpl;
-
+    private ScreenLoader screenLoader = ScreenLoader.getInstance();
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         GlobalBoolean.setLock(true);
@@ -120,7 +120,7 @@ public class EventForCompetition_controller implements Initializable {
 
     private void hitComboBox() {
         tblEventList.getItems().removeAll(tblEventList.getItems());
-        ObservableList<EventListDTO> eventListDTOS = null;
+        ObservableList<EventListDTO> eventListDTOS;
         try {
             eventListDTOS = eventListBOImpl.getEventListForThisCompetition(cboxCompetition.getSelectionModel().getSelectedItem().getCID());
             tblEventList.getItems().setAll(eventListDTOS);
@@ -248,7 +248,7 @@ public class EventForCompetition_controller implements Initializable {
                         if (next) {
                             goAhead();
                         } else {
-                            ScreenLoader.loadPanel("/lk/ijse/mountCalvary/view/basic/CompetitionMenu.fxml", this.acEventForCompetition, this);
+                            screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/basic/CompetitionMenu.fxml", this.acEventForCompetition, this);
                         }
                     } else {
                         throw new Exception();
@@ -272,7 +272,7 @@ public class EventForCompetition_controller implements Initializable {
 
             Pane p = fxmlLoader.load(getClass().getResource("/lk/ijse/mountCalvary/view/competition/StudentForCompetition.fxml").openStream());
 
-            StudentForCompetition_controller fooController = (StudentForCompetition_controller) fxmlLoader.getController();
+            StudentForCompetition_controller fooController = fxmlLoader.getController();
 
             this.acEventForCompetition.getChildren().setAll(p);
 
@@ -289,7 +289,7 @@ public class EventForCompetition_controller implements Initializable {
         boolean answer = OptionPane.askQuestion("Do you want to cancel?");
         if (answer) {
             try {
-                ScreenLoader.loadPanel("/lk/ijse/mountCalvary/view/basic/CompetitionMenu.fxml", this.acEventForCompetition, this);
+                screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/basic/CompetitionMenu.fxml", this.acEventForCompetition, this);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -309,7 +309,7 @@ public class EventForCompetition_controller implements Initializable {
 //            stage.setScene(new Scene(p));
 //            stage.showAndWait();
 
-            ScreenLoader.loadNewWindow("/lk/ijse/mountCalvary/view/activity/NewEventForActivity.fxml", this);
+            screenLoader.loadNewWindow("/lk/ijse/mountCalvary/view/activity/NewEventForActivity.fxml", this);
 
             loadActivity();
         } catch (Exception e) {

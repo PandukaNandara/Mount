@@ -11,15 +11,15 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.CompetitionBO;
 import lk.ijse.mountCalvary.business.custom.TeacherBO;
 import lk.ijse.mountCalvary.controller.Common;
 import lk.ijse.mountCalvary.controller.GlobalBoolean;
 import lk.ijse.mountCalvary.controller.OptionPane;
-import lk.ijse.mountCalvary.controller.basic.ScreenLoader;
+import lk.ijse.mountCalvary.controller.ScreenLoader;
 import lk.ijse.mountCalvary.model.CompetitionDTO;
 import lk.ijse.mountCalvary.model.TeacherDTO;
 import lk.ijse.mountCalvary.model.TeacherInChargeListDTO;
@@ -36,7 +36,7 @@ public class NewCompetition_controller implements Initializable {
 
     TeacherBO teacherBOImpl;
     @FXML
-    private AnchorPane acNewCompetition;
+    private VBox acNewCompetition;
     @FXML
     private JFXButton btNext_newCompetition;
     @FXML
@@ -62,7 +62,7 @@ public class NewCompetition_controller implements Initializable {
     @FXML
     private JFXComboBox cboxTeacherInCharge;
     private CompetitionBO competitionBOImpl;
-
+    private ScreenLoader screenLoader = ScreenLoader.getInstance();
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         GlobalBoolean.setLock(true);
@@ -132,7 +132,7 @@ public class NewCompetition_controller implements Initializable {
         }
         //
 //        try {
-//            Parent root = ScreenLoader.loadPanel("/sample/test/EventForCompetition.fxml", this.acNewCompetition, this);
+//            Parent root = screenLoader.loadOnCenterOfBorderPane("/sample/test/EventForCompetition.fxml", this.acNewCompetition, this);
 //            System.out.println("Pass ____");
 //
 //            Label lblData = (Label) root.lookup("#lblHead");
@@ -157,10 +157,10 @@ public class NewCompetition_controller implements Initializable {
                     try {
                         FXMLLoader fxmlLoader = new FXMLLoader();
                         Pane p = fxmlLoader.load(getClass().getResource("/lk/ijse/mountCalvary/view/competition/EventForCompetition.fxml").openStream());
-                        EventForCompetition_controller fooController = (EventForCompetition_controller) fxmlLoader.getController();
+                        EventForCompetition_controller fooController = fxmlLoader.getController();
                         this.acNewCompetition.getChildren().setAll(p);
                         fooController.setSelectedItem(0);
-//                        Parent root = ScreenLoader.loadPanel("/lk/ijse/mountCalvary/view/competition/EventForCompetition.fxml", this.acNewCompetition, this);
+//                        Parent root = screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/competition/EventForCompetition.fxml", this.acNewCompetition, this);
 //                        System.out.println("Pass ____");
 //                        FXMLLoader fxmlLoader = new FXMLLoader();
 //                        Pane p = fxmlLoader.load(getClass().getResource("/lk/ijse/mountCalvary/view/competition/EventForCompetition.fxml").openStream());
@@ -168,12 +168,12 @@ public class NewCompetition_controller implements Initializable {
 //                        fooController.setLblHead("Pass");
                     } catch (Exception e) {
                         Logger.getLogger(NewCompetition_controller.class.getName()).log(Level.SEVERE, null, e);
-                        ScreenLoader.loadPanel("/lk/ijse/mountCalvary/view/competition/StudentForCompetition.fxml", this.acNewCompetition, this);
+                        screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/competition/StudentForCompetition.fxml", this.acNewCompetition, this);
 
                     }
                 } else {
                     try {
-                        ScreenLoader.loadPanel("/lk/ijse/mountCalvary/view/basic/CompetitionMenu.fxml", this.acNewCompetition, this);
+                        screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/basic/CompetitionMenu.fxml", this.acNewCompetition, this);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -223,7 +223,7 @@ public class NewCompetition_controller implements Initializable {
         boolean answer = OptionPane.askWarning("Do you want to cancel?");
         if (answer) {
             try {
-                ScreenLoader.loadPanel("/lk/ijse/mountCalvary/view/basic/StudentMenu.fxml", this.acNewCompetition, this);
+                screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/basic/StudentMenu.fxml", this.acNewCompetition, this);
             } catch (IOException e) {
                 e.printStackTrace();
             }

@@ -10,7 +10,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.ActivityBO;
 import lk.ijse.mountCalvary.business.custom.PaymentBO;
@@ -35,7 +35,7 @@ public class ActivityPaymentController implements Initializable {
 
     private static JasperReport paymentReport;
     @FXML
-    private AnchorPane acActivityPayment;
+    private VBox acActivityPayment;
     @FXML
     private TableView<PaymentDTO> tblActivityPayment;
     @FXML
@@ -116,7 +116,8 @@ public class ActivityPaymentController implements Initializable {
                     paymentDTOS.add(onePayment);
             }
             tblActivityPayment.getItems().setAll(paymentDTOS);
-        } catch (NullPointerException e) {}
+        } catch (NullPointerException ignored) {
+        }
     }
 
     public void insertActivity(ActivityDTO activityDTO) {

@@ -8,16 +8,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.StudentBO;
 import lk.ijse.mountCalvary.business.custom.TelNoBO;
-import lk.ijse.mountCalvary.controller.AutoComplete;
-import lk.ijse.mountCalvary.controller.Common;
-import lk.ijse.mountCalvary.controller.GlobalBoolean;
-import lk.ijse.mountCalvary.controller.OptionPane;
-import lk.ijse.mountCalvary.controller.basic.ScreenLoader;
+import lk.ijse.mountCalvary.controller.*;
 import lk.ijse.mountCalvary.model.StudentDTO;
 import lk.ijse.mountCalvary.model.TelNoDTO;
 
@@ -35,7 +30,7 @@ public class UpdateStudent_controller implements Initializable {
 
 
     @FXML
-    private AnchorPane acUpdateStudent;
+    private VBox acUpdateStudent;
     @FXML
     private JFXTextField txtStudentName;
     @FXML
@@ -90,6 +85,7 @@ public class UpdateStudent_controller implements Initializable {
     private AutoComplete<StudentDTO> autoCompleteStudent;
     @FXML
     private VBox newStudent;
+    private ScreenLoader screenLoader = ScreenLoader.getInstance();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -198,7 +194,6 @@ public class UpdateStudent_controller implements Initializable {
     @FXML
     void btUpdate_telNo_onAction(ActionEvent event) {
         String tel = txtNewTelNo.getText().trim();
-        System.out.println("");
         if (!(tel.length() == 10 && tel.matches("[0][0-9]{9}"))) {
 
             OptionPane.showError("Please enter a valid phone number");
@@ -235,7 +230,7 @@ public class UpdateStudent_controller implements Initializable {
 
                                 String house = cboxHouse.getSelectionModel().getSelectedItem();
 
-                                boolean gender = rbMale.isSelected() ? true : false;
+                                boolean gender = rbMale.isSelected();
                                 String grade = cboxGrade.getSelectionModel().getSelectedItem();
                                 String class_ = cboxClass.getSelectionModel().getSelectedItem();
                                 if (!grade.equals("Left"))
@@ -251,7 +246,7 @@ public class UpdateStudent_controller implements Initializable {
                                 ObservableList<TelNoDTO> allTelNum = tblUpdatedTelNo.getItems();
                                 try {
                                     boolean b = studentBO.updateStudent(new StudentDTO(stId, stName, gender, DOB, grade_class, fatherName, motherName, note, house, address, allTelNum));
-                                    String text = "";
+                                    String text;
                                     if (b)
                                         text = "Student has successfully updated";
                                     else
@@ -264,7 +259,7 @@ public class UpdateStudent_controller implements Initializable {
                                 }
 
                                 try {
-                                    ScreenLoader.loadPanel("/lk/ijse/mountCalvary/view/basic/StudentMenu.fxml", this.acUpdateStudent, this);
+                                    screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/basic/StudentMenu.fxml", this.acUpdateStudent, this);
                                 } catch (IOException e) {
                                     e.printStackTrace();
                                 }
@@ -290,9 +285,7 @@ public class UpdateStudent_controller implements Initializable {
     }
 
     private boolean checkParents() {
-        if (txtMotherName.getText().length() == 0 && txtFatherName.getText().length() == 0)
-            return false;
-        return true;
+        return txtMotherName.getText().length() != 0 || txtFatherName.getText().length() != 0;
     }
 
     private boolean checkDOB() {
@@ -313,7 +306,7 @@ public class UpdateStudent_controller implements Initializable {
         boolean answer = OptionPane.askQuestion("Do you want to cancel?");
         if (answer) {
             try {
-                ScreenLoader.loadPanel("/lk/ijse/mountCalvary/view/basic/StudentMenu.fxml", this.acUpdateStudent, this);
+                screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/basic/StudentMenu.fxml", this.acUpdateStudent, this);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -325,16 +318,11 @@ public class UpdateStudent_controller implements Initializable {
         String clz = cboxClass.getSelectionModel().getSelectedItem();
         if (grade.equals("Left"))
             return true;
-        else if (clz.length() > 0 && grade.length() > 0)
-            return true;
-        else
-            return false;
+        else return clz.length() > 0 && grade.length() > 0;
     }
 
     private boolean checkStudentName() {
-        if (txtStudentName.getText().length() == 0)
-            return false;
-        return true;
+        return txtStudentName.getText().length() != 0;
     }
 
     @FXML

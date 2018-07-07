@@ -11,7 +11,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.StudentBO;
 import lk.ijse.mountCalvary.business.custom.TelNoBO;
@@ -29,6 +29,7 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -37,7 +38,7 @@ public class PersonalDetailController implements Initializable {
 
     private static JasperReport studentPersonalDetail;
     @FXML
-    private AnchorPane personalDetail;
+    private VBox personalDetail;
     @FXML
     private JFXTextField txtStudentName;
     @FXML
@@ -124,7 +125,7 @@ public class PersonalDetailController implements Initializable {
                 rbMale.fire();
             else
                 rbMale.fire();
-            txtBirthDay.setText(Common.dateToLocalDate(i.getDOB()).toString());
+            txtBirthDay.setText(Objects.requireNonNull(Common.dateToLocalDate(i.getDOB())).toString());
             txtAddress.setText(i.getAddress());
 
             try {

@@ -3,88 +3,14 @@
 <?import com.jfoenix.controls.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="acNewActivity" prefHeight="400.0" prefWidth="600.0"
-            styleClass="main-frame" stylesheets="@../../css/size.css" xmlns="http://javafx.com/javafx/8.0.141"
-            fx:controller="lk.ijse.mountCalvary.controller.activity.NewActivity_controller">
+<?import java.net.*?>
+<VBox xmlns:fx="http://javafx.com/fxml/1" fx:id="acNewActivity" prefHeight="782.0" prefWidth="1439.0" spacing="20.0"
+      styleClass="main-frame" xmlns="http://javafx.com/javafx/8.0.141"
+      fx:controller="lk.ijse.mountCalvary.controller.activity.NewActivity_controller">
     <children>
-        <TableView fx:id="tblEvent" layoutX="107.0" layoutY="685.0" prefHeight="108.0" prefWidth="1249.0">
-            <columns>
-                <TableColumn fx:id="colEventName" prefWidth="582.3333740234375" text="Event Name"/>
-                <TableColumn fx:id="colGender" prefWidth="237.0" text="Gender"/>
-            </columns>
-            <columnResizePolicy>
-                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
-            </columnResizePolicy>
-        </TableView>
-        <JFXButton fx:id="btRemove_tblEvent" layoutX="1230.0" layoutY="657.0" onAction="#btRemove_tblEvent_onAction"
-                   prefHeight="17.0" prefWidth="124.0" text="Remove" textFill="#2196f3">
-            <font>
-                <Font name="System Bold" size="12.0"/>
-            </font>
-        </JFXButton>
-        <VBox layoutY="37.0" prefHeight="186.0" prefWidth="1439.0" spacing="20.0">
-            <children>
-                <Label prefHeight="42.0" prefWidth="209.0" text="New Activity">
-                    <font>
-                        <Font name="Arial Bold" size="18.0"/>
-                    </font>
-                    <padding>
-                        <Insets bottom="10.0" right="10.0" top="10.0"/>
-                    </padding>
-                </Label>
-                <JFXTextField fx:id="txtActivityName" labelFloat="true" onAction="#txtActivityName_onAction"
-                              prefHeight="25.0" prefWidth="667.0" promptText="Activity Name"/>
-                <HBox>
-                    <children>
-                        <JFXComboBox fx:id="cboxTeacher" labelFloat="true" onAction="#cboxTeacher_onAction"
-                                     prefHeight="25.0" prefWidth="684.0" promptText="Teacher in charge">
-                            <HBox.margin>
-                                <Insets right="40.0"/>
-                            </HBox.margin>
-                        </JFXComboBox>
-                    </children>
-                </HBox>
-            </children>
-            <padding>
-                <Insets left="100.0" right="100.0"/>
-            </padding>
-        </VBox>
-        <Label layoutX="102.0" layoutY="186.0" prefHeight="42.0" prefWidth="209.0" text="Initial Student">
-            <font>
-                <Font name="Arial Bold" size="18.0"/>
-            </font>
-        </Label>
-        <TableView fx:id="tblStudentList" layoutX="100.0" layoutY="299.0" prefHeight="213.0" prefWidth="1250.0">
-            <columns>
-                <TableColumn fx:id="colStudentName" prefWidth="785.0" text="Student Name"/>
-                <TableColumn fx:id="colJoinedDate" prefWidth="456.0" text="Joined date"/>
-            </columns>
-            <columnResizePolicy>
-                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
-            </columnResizePolicy>
-        </TableView>
-        <JFXButton fx:id="btAdd_Event" layoutX="640.0" layoutY="631.0" onAction="#btAdd_Event_onAction"
-                   prefHeight="33.0" prefWidth="124.0" style="-fx-background-color: #2196F3;" text="Add"
-                   textFill="WHITE"/>
-        <JFXDatePicker fx:id="dtJoinedDate" layoutX="899.0" layoutY="234.0" onAction="#dtJoinedDate_onAction"
-                       prefHeight="25.0" prefWidth="290.0" promptText="Joined date"/>
-        <JFXTextField fx:id="txtStudentID" labelFloat="true" layoutX="102.0" layoutY="232.0"
-                      onAction="#txtStudentID_onAction" prefHeight="25.0" prefWidth="151.0" promptText="Student ID"/>
-        <JFXButton fx:id="btRemove_tblStudentList" layoutX="1225.0" layoutY="272.0"
-                   onAction="#btRemove_tblStudentList_onAction" prefHeight="8.0" prefWidth="124.0" text="Remove"
-                   textFill="#2196f3">
-            <font>
-                <Font name="System Bold" size="12.0"/>
-            </font>
-        </JFXButton>
-        <JFXTextField fx:id="txtStudentName" labelFloat="true" layoutX="276.0" layoutY="233.0"
-                      onAction="#txtStudentName_onAction" prefHeight="25.0" prefWidth="599.0"
-                      promptText="Student name"/>
-        <Label layoutX="108.0" layoutY="536.0" prefHeight="42.0" prefWidth="209.0" text="Initial Event">
+        <Label prefHeight="42.0" prefWidth="209.0" styleClass="title" text="New Activity">
             <font>
                 <Font name="Arial Bold" size="18.0"/>
             </font>
@@ -92,23 +18,113 @@
                 <Insets bottom="10.0" right="10.0" top="10.0"/>
             </padding>
         </Label>
-        <JFXTextField fx:id="txtEventName" labelFloat="true" layoutX="109.0" layoutY="587.0"
-                      onAction="#txtEventName_onAction" prefHeight="25.0" prefWidth="657.0" promptText="Event Name"/>
-        <Label layoutX="110.0" layoutY="642.0" prefHeight="17.0" prefWidth="136.0" text="Event Gender"/>
-        <JFXRadioButton fx:id="rbtMale" layoutX="255.0" layoutY="640.0" onAction="#rbtMale_onAction" prefHeight="17.0"
-                        prefWidth="162.0" selected="true" text="Male"/>
-        <JFXRadioButton fx:id="rbtFemale" layoutX="403.0" layoutY="640.0" onAction="#rbtFemale_onAction"
-                        prefHeight="17.0" selected="true" prefWidth="151.0" text="Female"/>
-        <JFXButton fx:id="btAdd_Student" layoutX="1223.0" layoutY="228.0" onAction="#btAdd_Student_onAction"
-                   prefHeight="33.0" prefWidth="124.0" style="-fx-background-color: #2196F3;" text="Add"
-                   textFill="WHITE"/>
-        <JFXButton fx:id="btFinish" layoutX="1229.0" layoutY="822.0" onAction="#btFinish_onAction" prefHeight="38.0"
-                   prefWidth="124.0" style="-fx-background-color: #2196F3;" text="Submit" textFill="WHITE"/>
-        <JFXButton fx:id="btCancel" cancelButton="true" layoutX="1076.0" layoutY="821.0" onAction="#btCancel_onAction"
-                   prefHeight="40.0" prefWidth="124.0" text="Cancel" textFill="#2196f3">
+        <JFXTextField fx:id="txtActivityName" labelFloat="true" onAction="#txtActivityName_onAction" prefHeight="25.0"
+                      prefWidth="667.0" promptText="Activity Name"/>
+        <JFXComboBox fx:id="cboxTeacher" labelFloat="true" onAction="#cboxTeacher_onAction" prefHeight="25.0"
+                     prefWidth="684.0" promptText="Teacher in charge"/>
+        <Label prefHeight="42.0" prefWidth="209.0" styleClass="sub-title" text="Initial Student">
             <font>
-                <Font name="System Bold" size="12.0"/>
+                <Font name="Arial Bold" size="18.0"/>
             </font>
-        </JFXButton>
+        </Label>
+        <HBox styleClass="node-pane" VBox.vgrow="ALWAYS">
+            <children>
+                <JFXTextField fx:id="txtStudentID" labelFloat="true" onAction="#txtStudentID_onAction" prefHeight="25.0"
+                              prefWidth="151.0" promptText="Student ID" HBox.hgrow="ALWAYS"/>
+                <JFXTextField fx:id="txtStudentName" labelFloat="true" onAction="#txtStudentName_onAction"
+                              prefHeight="25.0" prefWidth="599.0" promptText="Student name" HBox.hgrow="ALWAYS"/>
+                <JFXDatePicker fx:id="dtJoinedDate" onAction="#dtJoinedDate_onAction" prefHeight="25.0"
+                               prefWidth="290.0" promptText="Joined date" HBox.hgrow="NEVER"/>
+                <JFXButton fx:id="btAdd_Student" onAction="#btAdd_Student_onAction" prefHeight="33.0" prefWidth="124.0"
+                           style="-fx-background-color: #2196F3;" text="Add" textFill="WHITE"/>
+            </children>
+        </HBox>
+        <VBox prefHeight="215.0" prefWidth="1200.0" styleClass="table-pane" VBox.vgrow="ALWAYS">
+            <children>
+                <JFXButton fx:id="btRemove_tblStudentList" onAction="#btRemove_tblStudentList_onAction" prefHeight="8.0"
+                           prefWidth="124.0" styleClass="cancel" text="Remove" textFill="#2196f3">
+                    <font>
+                        <Font name="System Bold" size="12.0"/>
+                    </font>
+                </JFXButton>
+                <TableView fx:id="tblStudentList" prefHeight="213.0" tableMenuButtonVisible="true" prefWidth="1250.0"
+                           VBox.vgrow="ALWAYS">
+                    <columns>
+                        <TableColumn fx:id="colStudentName" prefWidth="785.0" text="Student Name"/>
+                        <TableColumn fx:id="colJoinedDate" prefWidth="456.0" text="Joined date"/>
+                    </columns>
+                    <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                    </columnResizePolicy>
+                </TableView>
+            </children>
+        </VBox>
+        <Label prefHeight="22.0" prefWidth="209.0" styleClass="sub-title" text="Initial Event">
+            <font>
+                <Font name="Arial Bold" size="18.0"/>
+            </font>
+            <padding>
+                <Insets bottom="10.0" right="10.0" top="10.0"/>
+            </padding>
+        </Label>
+        <JFXTextField fx:id="txtEventName" labelFloat="true" onAction="#txtEventName_onAction" prefHeight="25.0"
+                      prefWidth="657.0" promptText="Event Name"/>
+        <HBox alignment="CENTER_LEFT" prefHeight="33.0" prefWidth="657.0" VBox.vgrow="ALWAYS">
+            <children>
+                <Label prefHeight="17.0" prefWidth="136.0" text="Event Gender" HBox.hgrow="ALWAYS"/>
+                <JFXRadioButton fx:id="rbtMale" onAction="#rbtMale_onAction" prefHeight="17.0" prefWidth="157.0"
+                                selected="true" text="Male" HBox.hgrow="ALWAYS"/>
+                <JFXRadioButton fx:id="rbtFemale" onAction="#rbtFemale_onAction" prefHeight="17.0" prefWidth="238.0"
+                                selected="true" text="Female" HBox.hgrow="ALWAYS"/>
+                <JFXButton fx:id="btAdd_Event" onAction="#btAdd_Event_onAction" prefHeight="33.0" prefWidth="124.0"
+                           style="-fx-background-color: #2196F3;" text="Add" textFill="WHITE"/>
+            </children>
+        </HBox>
+        <VBox prefHeight="222.0" prefWidth="1239.0" styleClass="table-pane" VBox.vgrow="ALWAYS">
+            <children>
+                <JFXButton fx:id="btRemove_tblEvent" onAction="#btRemove_tblEvent_onAction" prefHeight="17.0"
+                           prefWidth="124.0" styleClass="cancel" text="Remove" textFill="#2196f3">
+                    <font>
+                        <Font name="System Bold" size="12.0"/>
+                    </font>
+                </JFXButton>
+                <TableView fx:id="tblEvent" prefHeight="108.0" prefWidth="1249.0" VBox.vgrow="ALWAYS">
+                    <columns>
+                        <TableColumn fx:id="colEventName" prefWidth="582.3333740234375" text="Event Name"/>
+                        <TableColumn fx:id="colGender" prefWidth="237.0" text="Gender"/>
+                    </columns>
+                    <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                    </columnResizePolicy>
+                </TableView>
+            </children>
+        </VBox>
+        <HBox styleClass="button-pane">
+            <children>
+                <JFXButton fx:id="btCancel" cancelButton="true" onAction="#btCancel_onAction" prefHeight="40.0"
+                           prefWidth="124.0" styleClass="cancel" text="Cancel" textFill="#2196f3">
+                    <font>
+                        <Font name="System Bold" size="12.0"/>
+                    </font>
+                </JFXButton>
+                <JFXButton fx:id="btFinish" onAction="#btFinish_onAction" prefHeight="38.0" prefWidth="124.0"
+                           style="-fx-background-color: #2196F3;" text="Submit" textFill="WHITE"/>
+            </children>
+        </HBox>
     </children>
-</AnchorPane>
+    <stylesheets>
+        <URL value="@../../css/frame.css"/>
+        <URL value="@../../css/button.css"/>
+        <URL value="@../../css/combo-box.css"/>
+        <URL value="@../../css/table-view.css"/>
+        <URL value="@../../css/text-and-password-field.css"/>
+        <URL value="@../../css/date-picker.css"/>
+        <URL value="@../../css/radio-button.css"/>
+        <URL value="@../../css/text-area.css"/>
+        <URL value="@../../css/label.css"/>
+    </stylesheets>
+    <padding>
+        <Insets left="100.0" right="100.0"/>
+    </padding>
+
+</VBox>

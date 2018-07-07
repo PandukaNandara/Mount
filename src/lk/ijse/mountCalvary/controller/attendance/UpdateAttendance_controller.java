@@ -11,7 +11,7 @@ import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.ActivityBO;
 import lk.ijse.mountCalvary.business.custom.AttendantSheetBO;
@@ -19,7 +19,7 @@ import lk.ijse.mountCalvary.business.custom.TeacherBO;
 import lk.ijse.mountCalvary.controller.Common;
 import lk.ijse.mountCalvary.controller.GlobalBoolean;
 import lk.ijse.mountCalvary.controller.OptionPane;
-import lk.ijse.mountCalvary.controller.basic.ScreenLoader;
+import lk.ijse.mountCalvary.controller.ScreenLoader;
 import lk.ijse.mountCalvary.model.ActivityDTO;
 import lk.ijse.mountCalvary.model.AttendantSheetDTO;
 import lk.ijse.mountCalvary.model.RegistrationDTO;
@@ -36,7 +36,7 @@ import java.util.logging.Logger;
 public class UpdateAttendance_controller implements Initializable {
 
     @FXML
-    private AnchorPane acUpdateAttendance;
+    private VBox acUpdateAttendance;
 
     @FXML
     private JFXComboBox<ActivityDTO> cboxActivity;
@@ -87,6 +87,7 @@ public class UpdateAttendance_controller implements Initializable {
     private ActivityBO activityBOImpl;
     private TeacherBO teacherBOImpl;
     private AttendantSheetBO attendantSheetBOImpl;
+    private ScreenLoader screenLoader = ScreenLoader.getInstance();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -146,7 +147,8 @@ public class UpdateAttendance_controller implements Initializable {
                 try {
                     tblStudentList.getItems().remove(oneReg);
                     cboxActivity.getSelectionModel().getSelectedItem().getRegistrationDTOS().remove(oneReg);
-                }catch (NullPointerException e){}
+                } catch (NullPointerException ignored) {
+                }
             }
         }
     }
@@ -156,7 +158,7 @@ public class UpdateAttendance_controller implements Initializable {
         boolean answer = OptionPane.askWarning("Do you want to cancel?");
         if (answer) {
             try {
-                ScreenLoader.loadPanel("/lk/ijse/mountCalvary/view/basic/MainMenu.fxml", this.acUpdateAttendance, this);
+                screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/basic/MainMenu.fxml", this.acUpdateAttendance, this);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -186,7 +188,7 @@ public class UpdateAttendance_controller implements Initializable {
                     if (attendantSheetBOImpl.saveAllAttendantSheet(attendantSheetDTOS)) {
                         OptionPane.showMessage("Attendant sheet successfully updated");
                         try {
-                            ScreenLoader.loadPanel("/lk/ijse/mountCalvary/view/basic/MainMenu.fxml", this.acUpdateAttendance, this);
+                            screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/basic/MainMenu.fxml", this.acUpdateAttendance, this);
                         } catch (IOException e) {
                             e.printStackTrace();
                         }

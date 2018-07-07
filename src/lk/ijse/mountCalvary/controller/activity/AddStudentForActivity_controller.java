@@ -11,15 +11,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.ActivityBO;
 import lk.ijse.mountCalvary.business.custom.RegistrationBO;
 import lk.ijse.mountCalvary.business.custom.StudentBO;
-import lk.ijse.mountCalvary.controller.AutoComplete;
-import lk.ijse.mountCalvary.controller.Common;
-import lk.ijse.mountCalvary.controller.GlobalBoolean;
-import lk.ijse.mountCalvary.controller.OptionPane;
+import lk.ijse.mountCalvary.controller.*;
 import lk.ijse.mountCalvary.model.ActivityDTO;
 import lk.ijse.mountCalvary.model.RegistrationDTO;
 import lk.ijse.mountCalvary.model.StudentDTO;
@@ -32,15 +29,13 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static lk.ijse.mountCalvary.controller.basic.ScreenLoader.loadPanel;
-
 
 public class AddStudentForActivity_controller implements Initializable {
     @FXML
     private JFXTextField txtStudentName;
 
     @FXML
-    private AnchorPane acAddStudent;
+    private VBox acAddStudent;
 
     @FXML
     private TableView<RegistrationDTO> tblStudentList;
@@ -80,6 +75,7 @@ public class AddStudentForActivity_controller implements Initializable {
     private boolean firstTime = true;
     private ObservableList<StudentDTO> allStudent;
 
+    private ScreenLoader screenLoader = ScreenLoader.getInstance();
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         GlobalBoolean.setLock(true);
@@ -158,7 +154,7 @@ public class AddStudentForActivity_controller implements Initializable {
             if (registrationBOImpl.addAllRegistration(tblStudentList.getItems())) {
                 OptionPane.showMessage("Registration successful");
                 try {
-                    loadPanel("/lk/ijse/mountCalvary/view/basic/ActivityMenu.fxml", this.acAddStudent, this);
+                    screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/basic/ActivityMenu.fxml", this.acAddStudent, this);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -203,7 +199,7 @@ public class AddStudentForActivity_controller implements Initializable {
         boolean answer = OptionPane.askQuestion("Do you want to cancel?");
         if (answer) {
             try {
-                loadPanel("/lk/ijse/mountCalvary/view/basic/StudentMenu.fxml", this.acAddStudent, this);
+                screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/basic/StudentMenu.fxml", this.acAddStudent, this);
             } catch (IOException e) {
                 e.printStackTrace();
             }

@@ -8,6 +8,7 @@
         <option name="description" value="" />
         <option name="height" value="600" />
         <option name="htmlPlaceholderId" value="" />
+        <option name="nativeBundle" value="deb" />
         <option name="title" value="Extra curriculum Activity Management System" />
         <option name="vendor" value="" />
         <option name="version" value="1.0" />

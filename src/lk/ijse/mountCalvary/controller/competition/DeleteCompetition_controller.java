@@ -10,14 +10,14 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.CompetitionBO;
 import lk.ijse.mountCalvary.business.custom.EventListBO;
 import lk.ijse.mountCalvary.business.custom.ParticipationBO;
 import lk.ijse.mountCalvary.controller.GlobalBoolean;
 import lk.ijse.mountCalvary.controller.OptionPane;
-import lk.ijse.mountCalvary.controller.basic.ScreenLoader;
+import lk.ijse.mountCalvary.controller.ScreenLoader;
 import lk.ijse.mountCalvary.model.AgeGroupDTO;
 import lk.ijse.mountCalvary.model.CompetitionDTO;
 import lk.ijse.mountCalvary.model.EventListDTO;
@@ -31,7 +31,7 @@ import java.util.logging.Logger;
 
 public class DeleteCompetition_controller implements Initializable {
     @FXML
-    private AnchorPane acDeleteCompetition;
+    private VBox acDeleteCompetition;
     @FXML
     private JFXButton btDelete;
     @FXML
@@ -60,7 +60,7 @@ public class DeleteCompetition_controller implements Initializable {
     private ParticipationBO participationBOImpl;
     private EventListBO eventListBOImpl;
     private CompetitionBO competitionBOImpl;
-
+    private ScreenLoader screenLoader = ScreenLoader.getInstance();
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         GlobalBoolean.setLock(true);
@@ -93,7 +93,7 @@ public class DeleteCompetition_controller implements Initializable {
     @FXML
     void btCancel_onAction(ActionEvent event) {
         try {
-            ScreenLoader.loadPanel("/lk/ijse/mountCalvary/view/basic/CompetitionMenu.fxml", this.acDeleteCompetition, this);
+            screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/basic/CompetitionMenu.fxml", this.acDeleteCompetition, this);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -110,7 +110,7 @@ public class DeleteCompetition_controller implements Initializable {
                 int CID = selectedCompetition.getCID();
                 int eventListCount = eventListBOImpl.getEventListForThisCompetition(CID).size();
                 int participationCount = participationBOImpl.getParticipationForThisCompetition(CID).size();
-                String message = "";
+                String message;
 
                 if (eventListCount > 1 && participationCount > 1) {
                     message = "There are " + eventListCount + " events and " + participationCount + " participation records for the competition.";
@@ -131,7 +131,7 @@ public class DeleteCompetition_controller implements Initializable {
 
         }
         try {
-            ScreenLoader.loadPanel("/lk/ijse/mountCalvary/view/basic/CompetitionMenu.fxml", this.acDeleteCompetition, this);
+            screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/basic/CompetitionMenu.fxml", this.acDeleteCompetition, this);
         } catch (IOException e) {
             e.printStackTrace();
         }

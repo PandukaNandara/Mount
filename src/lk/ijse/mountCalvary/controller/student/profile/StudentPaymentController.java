@@ -10,6 +10,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.PaymentBO;
 import lk.ijse.mountCalvary.business.custom.RegistrationBO;
@@ -54,13 +55,15 @@ public class StudentPaymentController implements Initializable {
     @FXML
     private JFXButton btPrint;
     @FXML
-    private AnchorPane acStudentPayment;
+    private VBox acStudentPayment;
     private studentProfileController studentProfileController;
     private ObservableList<PaymentDTO> paymentDetailOfThisStudent;
     private PaymentBO paymentBOImpl;
     private RegistrationBO registrationBOImpl;
     private ObservableList<ActivityDTO> activityListForThisStudent;
     private StudentDTO selectedStudent;
+    @FXML
+    private JFXButton btInverse;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -133,8 +136,13 @@ public class StudentPaymentController implements Initializable {
                     paymentDTOS.add(onePayment);
             }
             tblStudentPayment.getItems().setAll(paymentDTOS);
-        } catch (NullPointerException e) {
+        } catch (NullPointerException ignored) {
         }
+    }
+
+    @FXML
+    private void btInverse_onAction(ActionEvent actionEvent) {
+
     }
 
     @FXML

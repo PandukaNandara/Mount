@@ -9,7 +9,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.CompetitionBO;
 import lk.ijse.mountCalvary.business.custom.TeacherInChargeListBO;
@@ -32,8 +32,6 @@ public class CompetitionDetailController implements Initializable {
 
     private static JasperReport competitionDetailReport;
     @FXML
-    private AnchorPane acCompetitionDetail;
-    @FXML
     private JFXTextField txtCompetitionName;
     @FXML
     private JFXTextField txtLocation;
@@ -47,14 +45,16 @@ public class CompetitionDetailController implements Initializable {
     private JFXTextArea txtaDesc;
     @FXML
     private JFXTextField txtDate;
+    @FXML
+    private VBox acCompetitionDetail;
 
     private CompetitionProfileController competitionProfileController;
-
     private CompetitionBO competitionBOImpl;
     private TeacherInChargeListBO teacherInChargeListBOImpl;
+
+    private CompetitionDTO selectedCompetition;
     @FXML
     private JFXButton btPrint;
-    private CompetitionDTO selectedCompetition;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

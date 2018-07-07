@@ -3,24 +3,27 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXTabPane?>
 <?import com.jfoenix.controls.JFXTextField?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import java.net.URL?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="bpStudentProfile" styleClass="main-frame" stylesheets="@../../../css/size.css" xmlns="http://javafx.com/javafx/8.0.141" fx:controller="lk.ijse.mountCalvary.controller.student.profile.studentProfileController">
+
+<BorderPane fx:id="bpStudentProfile" styleClass="profile-main-frame" stylesheets="@../../../css/frame.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.mountCalvary.controller.student.profile.studentProfileController">
     <top>
-        <AnchorPane fx:id="studentProfile_controller" minHeight="-Infinity" minWidth="-Infinity" prefHeight="78.0" prefWidth="1174.0" style="-fx-background-color: #F2F2F2;" BorderPane.alignment="CENTER">
-            <children>
-                <JFXButton fx:id="btSearch" layoutX="1285.0" layoutY="25.0" onAction="#btSearch_onAction" prefHeight="34.0" prefWidth="116.0" style="-fx-background-color: #2196F3;" text="Search" textFill="WHITE" />
-                <Label layoutX="14.0" layoutY="24.0" prefHeight="34.0" prefWidth="282.0" text="Student Profile">
+      <HBox styleClass="top-profile-frame">
+         <children>
+                <Label maxWidth="1.7976931348623157E308" prefHeight="27.0" prefWidth="0.0" styleClass="super-title" text="Student Profile" HBox.hgrow="ALWAYS">
                     <font>
                         <Font size="22.0" />
                     </font>
                 </Label>
-                <JFXTextField fx:id="txtStudentName" labelFloat="true" layoutX="908.0" layoutY="32.0" onAction="#txtStudentName_onAction" prefHeight="25.0" prefWidth="363.0" promptText="Student name" unFocusColor="BLACK" />
-                <JFXTextField fx:id="txtStudentID" labelFloat="true" layoutX="744.0" layoutY="32.0" onAction="#btStudentID_onAction" prefHeight="25.0" prefWidth="139.0" promptText="Student ID" unFocusColor="BLACK" />
-            </children>
-        </AnchorPane>
+                <JFXTextField fx:id="txtStudentID" labelFloat="true" onAction="#btStudentID_onAction" prefHeight="25.0" prefWidth="139.0" promptText="Student ID" unFocusColor="BLACK" />
+                <JFXTextField fx:id="txtStudentName" labelFloat="true" onAction="#txtStudentName_onAction" prefHeight="25.0" prefWidth="363.0" promptText="Student name" unFocusColor="BLACK" />
+                <JFXButton fx:id="btSearch" onAction="#btSearch_onAction" prefHeight="34.0" prefWidth="116.0" style="-fx-background-color: #2196F3;" text="Search" textFill="WHITE" />
+         </children>
+      </HBox>
     </top>
    <center>
       <JFXTabPane BorderPane.alignment="CENTER">
@@ -33,9 +36,21 @@
          <Tab closable="false" text="Competition and achievement">
              <fx:include fx:id="competitionForStudent" source="CompetitionForStudent.fxml" />
          </Tab>
-         <Tab closable="false" text="Payment" >
+         <Tab closable="false" text="Payment">
              <fx:include fx:id="studentPayment" source="StudentPayment.fxml" />
          </Tab>
       </JFXTabPane>
    </center>
+    <stylesheets>
+        <URL value="@../../../css/frame.css" />
+        <URL value="@../../../css/combo-box.css" />
+        <URL value="@../../../css/table-view.css" />
+        <URL value="@../../../css/text-and-password-field.css" />
+        <URL value="@../../../css/date-picker.css" />
+        <URL value="@../../../css/radio-button.css" />
+        <URL value="@../../../css/text-area.css" />
+        <URL value="@../../../css/button.css" />
+        <URL value="@../../../css/tab-pane.css" />
+        <URL value="@../../../css/label.css" />
+    </stylesheets>
 </BorderPane>

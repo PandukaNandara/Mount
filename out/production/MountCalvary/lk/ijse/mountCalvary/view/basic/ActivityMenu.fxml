@@ -1,41 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.*?>
+<?import com.jfoenix.controls.JFXButton?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.*?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="acActivityMenu" maxHeight="893.0" maxWidth="1235.0" prefHeight="782.0" prefWidth="1235.0" style="-fx-background-color: white;" styleClass="main-frame" stylesheets="@../../css/size.css" xmlns="http://javafx.com/javafx/8.0.141" fx:controller="lk.ijse.mountCalvary.controller.basic.ActivityMenu_controller">
+<?import javafx.scene.text.Font?>
+
+<VBox fx:id="acActivityMenu" styleClass="sub-main-frame" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.mountCalvary.controller.basic.ActivityMenu_controller">
    <children>
-      <JFXButton fx:id="btBack" layoutX="36.0" layoutY="24.0" onAction="#btBack_onAction" prefHeight="33.0" prefWidth="69.0" text="Back">
+      <Region prefHeight="10.0" prefWidth="1280.0" />
+      <JFXButton fx:id="btBack" onAction="#btBack_onAction" prefHeight="45.0" prefWidth="69.0" styleClass="back" text="Back">
          <graphic>
             <FontAwesomeIconView glyphName="ARROW_LEFT" size="25" />
          </graphic>
+         <VBox.margin>
+            <Insets left="10.0" />
+         </VBox.margin>
       </JFXButton>
-      <VBox alignment="CENTER" layoutX="3.0" layoutY="228.0" prefHeight="285.0" prefWidth="1434.0" spacing="40.0">
+      <VBox alignment="CENTER" maxHeight="1.7976931348623157E308" spacing="40.0" styleClass="menu-button-pane" VBox.vgrow="ALWAYS">
          <children>
-            <JFXButton fx:id="btActivityProfile" onAction="#btActivityProfile_onAction" prefHeight="65.0" prefWidth="554.0" style="-fx-background-color: #2196F3;" text="Activity Profile" textFill="WHITE">
+            <JFXButton fx:id="btActivityProfile" onAction="#btActivityProfile_onAction" prefHeight="65.0" prefWidth="554.0" styleClass="menu-button" text="Activity Profile" textFill="WHITE">
                <font>
                   <Font size="27.0" />
                </font>
             </JFXButton>
-            <JFXButton fx:id="btNewActivity" onAction="#btNewActivity_onAction" prefHeight="65.0" prefWidth="554.0" style="-fx-background-color: #2196F3;" text="New Activity" textFill="WHITE">
+            <JFXButton fx:id="btNewActivity" onAction="#btNewActivity_onAction" prefHeight="65.0" prefWidth="554.0" styleClass="menu-button" text="New Activity" textFill="WHITE">
                <font>
                   <Font size="27.0" />
                </font>
             </JFXButton>
-            <JFXButton fx:id="btNewEvent" onAction="#btNewEvent_onAction" prefHeight="65.0" prefWidth="554.0" style="-fx-background-color: #2196F3;" text="New Event " textFill="WHITE">
+            <JFXButton fx:id="btNewEvent" onAction="#btNewEvent_onAction" prefHeight="65.0" prefWidth="554.0" styleClass="menu-button" text="New Event " textFill="WHITE">
                <font>
                   <Font size="27.0" />
                </font>
             </JFXButton>
-            <JFXButton fx:id="btAddStudent" onAction="#btAddStudent_onAction" prefHeight="65.0" prefWidth="554.0" style="-fx-background-color: #2196F3;" text="Add student" textFill="WHITE">
+            <JFXButton fx:id="btAddStudent" onAction="#btAddStudent_onAction" prefHeight="65.0" prefWidth="554.0" styleClass="menu-button" text="Add student" textFill="WHITE">
                <font>
                   <Font size="27.0" />
                </font>
             </JFXButton>
-            <JFXButton fx:id="btUpdateActivity" onAction="#btUpdateActivity_onAction" prefHeight="65.0" prefWidth="554.0" style="-fx-background-color: #2196F3;" text="Update Activity" textFill="WHITE">
+            <JFXButton fx:id="btUpdateActivity" onAction="#btUpdateActivity_onAction" prefHeight="65.0" prefWidth="554.0" styleClass="menu-button" text="Update Activity" textFill="WHITE">
                <font>
                   <Font size="27.0" />
                </font>
@@ -43,7 +49,15 @@
          </children>
       </VBox>
    </children>
-   <padding>
-      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-   </padding>
-</AnchorPane>
+   <stylesheets>
+      <URL value="@../../css/frame.css" />
+      <URL value="@../../css/button.css" />
+      <URL value="@../../css/combo-box.css" />
+      <URL value="@../../css/table-view.css" />
+      <URL value="@../../css/text-and-password-field.css" />
+      <URL value="@../../css/date-picker.css" />
+      <URL value="@../../css/radio-button.css" />
+      <URL value="@../../css/text-area.css" />
+      <URL value="@../../css/label.css" />
+   </stylesheets>
+</VBox>

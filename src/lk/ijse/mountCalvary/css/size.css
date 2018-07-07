@@ -37,13 +37,13 @@
 }
 
 .profile-frame {
-    -fx-pref-width: 1440px;
-    -fx-pref-height: 790px;
-    -fx-max-width: 1440px;
-    -fx-max-height: 790px;
-    -fx-min-width: 1440px;
-    -fx-min-height: 790px;
-    -fx-background-color: white;
+    /*-fx-pref-width: 1440px;*/
+    /*-fx-pref-height: 790px;*/
+    /*-fx-max-width: 1440px;*/
+    /*-fx-max-height: 790px;*/
+    /*-fx-min-width: 1440px;*/
+    /*-fx-min-height: 790px;*/
+    /*-fx-background-color: white;*/
 }
 /*
 Button

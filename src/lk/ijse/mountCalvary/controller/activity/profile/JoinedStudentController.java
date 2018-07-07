@@ -9,7 +9,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.ActivityBO;
 import lk.ijse.mountCalvary.controller.DateRange;
@@ -35,7 +35,7 @@ public class JoinedStudentController implements Initializable {
     private static JasperReport joinedStudentReport;
     ArrayList<RegistrationDTO> allJoinedStudent;
     @FXML
-    private AnchorPane JoinedStudent;
+    private VBox JoinedStudent;
     @FXML
     private TableView<RegistrationDTO> tblStudentList;
     @FXML

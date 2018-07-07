@@ -8,7 +8,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.AttendantSheetBO;
 import lk.ijse.mountCalvary.business.custom.RegistrationBO;
@@ -33,7 +33,7 @@ public class AttendanceAndActivityOfStudentController implements Initializable {
 
     private static JasperReport attendanceOfStudentReport;
     @FXML
-    private AnchorPane attendanceAndActivityOfStudent;
+    private VBox attendanceAndActivityOfStudent;
     @FXML
     private TableView<RegistrationDTO> tblRegistration;
     @FXML
@@ -110,7 +110,7 @@ public class AttendanceAndActivityOfStudentController implements Initializable {
                 }
             }
             tblAttendantSheet.getItems().setAll(filter);
-        } catch (NullPointerException e) {
+        } catch (NullPointerException ignored) {
         }
     }
 
@@ -187,8 +187,8 @@ public class AttendanceAndActivityOfStudentController implements Initializable {
                 attendanceMap.put("TimeRange", cboxTimeRange.getSelectionModel().getSelectedItem());
                 JasperPrint attendancePrint = JasperFillManager.fillReport(attendanceOfStudentReport, attendanceMap, new JREmptyDataSource());
                 List pages = attendancePrint.getPages();
-                for (int j = 0; j < pages.size(); j++) {
-                    JRPrintPage object = (JRPrintPage) pages.get(j);
+                for (Object page : pages) {
+                    JRPrintPage object = (JRPrintPage) page;
                     activityPrint.addPage(object);
                 }
                 Reporter.showReport(activityPrint, "Attendance and activity of student");

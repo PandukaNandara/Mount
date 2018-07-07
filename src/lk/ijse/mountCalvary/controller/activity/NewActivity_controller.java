@@ -8,16 +8,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.ActivityBO;
 import lk.ijse.mountCalvary.business.custom.StudentBO;
 import lk.ijse.mountCalvary.business.custom.TeacherBO;
-import lk.ijse.mountCalvary.controller.AutoComplete;
-import lk.ijse.mountCalvary.controller.Common;
-import lk.ijse.mountCalvary.controller.GlobalBoolean;
-import lk.ijse.mountCalvary.controller.OptionPane;
-import lk.ijse.mountCalvary.controller.basic.ScreenLoader;
+import lk.ijse.mountCalvary.controller.*;
 import lk.ijse.mountCalvary.entity.Gender;
 import lk.ijse.mountCalvary.model.*;
 
@@ -78,7 +74,7 @@ public class NewActivity_controller implements Initializable {
     @FXML
     private JFXTextField txtStudentID;
     @FXML
-    private AnchorPane acNewActivity;
+    private VBox acNewActivity;
 
     private AutoComplete<StudentDTO> studentAuto;
 
@@ -87,6 +83,8 @@ public class NewActivity_controller implements Initializable {
     private ArrayList<TeacherDTO> allTeacher;
 
     private StudentDTO selectedStudent;
+
+    private ScreenLoader screenLoader = ScreenLoader.getInstance();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -186,7 +184,7 @@ public class NewActivity_controller implements Initializable {
         boolean answer = OptionPane.askWarning("Do you want to cancel?");
         if (answer) {
             try {
-                ScreenLoader.loadPanel("/lk/ijse/mountCalvary/view/basic/StudentMenu.fxml", this.acNewActivity, this);
+                screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/basic/StudentMenu.fxml", this.acNewActivity, this);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -221,7 +219,7 @@ public class NewActivity_controller implements Initializable {
                     if (activityBOImpl.addActivityWithStudentAndEvent(new ActivityDTO(aName, teachInCharge.getTID(), regList, evenList))) {
                         OptionPane.showMessage("Activity has successfully added");
                         try {
-                            ScreenLoader.loadPanel("/lk/ijse/mountCalvary/view/basic/StudentMenu.fxml", this.acNewActivity, this);
+                            screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/basic/StudentMenu.fxml", this.acNewActivity, this);
                         } catch (IOException e) {
                             e.printStackTrace();
                         }

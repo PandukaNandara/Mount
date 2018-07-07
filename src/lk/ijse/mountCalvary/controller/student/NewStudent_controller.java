@@ -8,7 +8,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.ActivityBO;
 import lk.ijse.mountCalvary.business.custom.StudentBO;
@@ -16,7 +16,7 @@ import lk.ijse.mountCalvary.business.custom.TelNoBO;
 import lk.ijse.mountCalvary.controller.Common;
 import lk.ijse.mountCalvary.controller.GlobalBoolean;
 import lk.ijse.mountCalvary.controller.OptionPane;
-import lk.ijse.mountCalvary.controller.basic.ScreenLoader;
+import lk.ijse.mountCalvary.controller.ScreenLoader;
 import lk.ijse.mountCalvary.model.ActivityDTO;
 import lk.ijse.mountCalvary.model.RegistrationDTO;
 import lk.ijse.mountCalvary.model.StudentDTO;
@@ -35,7 +35,7 @@ import static lk.ijse.mountCalvary.controller.OptionPane.showError;
 public class NewStudent_controller implements Initializable {
 
     @FXML
-    private AnchorPane acNewStudent;
+    private VBox acNewStudent;
 
     @FXML
     private JFXTextField txtStudentName;
@@ -121,6 +121,7 @@ public class NewStudent_controller implements Initializable {
     private ActivityBO activityBOImpl;
     private TelNoBO telNoBOImpl;
     private StudentBO studentBOImpl;
+    private ScreenLoader screenLoader = ScreenLoader.getInstance();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -161,7 +162,7 @@ public class NewStudent_controller implements Initializable {
     void btAddActivity_onAction(ActionEvent event) {
 
         ActivityDTO selectedItem = cboxActivityName.getSelectionModel().getSelectedItem();
-        Date date = null;
+        Date date;
         if (selectedItem == null) {
             OptionPane.showError("Please select an activityBOImpl");
         } else if (Common.getDate(dtJoinedDate) == null) {
@@ -198,11 +199,11 @@ public class NewStudent_controller implements Initializable {
     }
 
     @FXML
-    void btFinish_activityForStudent_onAction(ActionEvent event) throws Exception {
+    void btFinish_activityForStudent_onAction(ActionEvent event) {
         addStudent();
     }
 
-    private void addStudent() throws Exception {
+    private void addStudent() {
         if (checkStudentID()) {
             if (checkStudentName()) {
                 if (checkClass()) {
@@ -229,7 +230,7 @@ public class NewStudent_controller implements Initializable {
                                 ObservableList<RegistrationDTO> allInitialActivity = tblActivity.getItems();
                                 try {
                                     boolean b = studentBOImpl.addStudent(new StudentDTO(stId, stName, gender, DOB, grade_class, fatherName, motherName, note, house, address, allTelNum, allInitialActivity));
-                                    String text = "";
+                                    String text;
                                     if (b)
                                         text = "Student has successfully added";
                                     else
@@ -241,13 +242,13 @@ public class NewStudent_controller implements Initializable {
                                 }
                                 if (OptionPane.askQuestion("Do you want to add more studentBOImpl?")) {
                                     try {
-                                        ScreenLoader.loadPanel("/lk/ijse/mountCalvary/view/student/NewStudent.fxml", this.acNewStudent, this);
+                                        screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/student/NewStudent.fxml", this.acNewStudent, this);
                                     } catch (IOException e) {
                                         e.printStackTrace();
                                     }
                                 } else {
                                     try {
-                                        ScreenLoader.loadPanel("/lk/ijse/mountCalvary/view/basic/StudentMenu.fxml", this.acNewStudent, this);
+                                        screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/basic/StudentMenu.fxml", this.acNewStudent, this);
                                     } catch (IOException e) {
                                         e.printStackTrace();
                                     }
@@ -274,9 +275,7 @@ public class NewStudent_controller implements Initializable {
     }
 
     private boolean checkParents() {
-        if (txtMotherName.getText().length() == 0 && txtFatherName.getText().length() == 0)
-            return false;
-        return true;
+        return txtMotherName.getText().length() != 0 || txtFatherName.getText().length() != 0;
     }
 
     private boolean checkDOB() {
@@ -297,16 +296,11 @@ public class NewStudent_controller implements Initializable {
         String clz = cboxClass.getSelectionModel().getSelectedItem();
         if (grade.equals("Left"))
             return true;
-        else if (clz.length() > 0 && grade.length() > 0)
-            return true;
-        else
-            return false;
+        else return clz.length() > 0 && grade.length() > 0;
     }
 
     private boolean checkStudentName() {
-        if (txtStudentName.getText().length() == 0)
-            return false;
-        return true;
+        return txtStudentName.getText().length() != 0;
     }
 
     private int getStudentID() {
@@ -423,7 +417,7 @@ public class NewStudent_controller implements Initializable {
         boolean answer = OptionPane.askQuestion("Do you want to cancel?");
         if (answer) {
             try {
-                ScreenLoader.loadPanel("/lk/ijse/mountCalvary/view/basic/StudentMenu.fxml", this.acNewStudent, this);
+                screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/basic/StudentMenu.fxml", this.acNewStudent, this);
             } catch (IOException e) {
                 e.printStackTrace();
             }

@@ -1,38 +1,66 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
 <?import com.jfoenix.controls.JFXButton?>
 <?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="acSettings" prefHeight="400.0" prefWidth="600.0" styleClass="main-frame" stylesheets="@../../css/size.css" xmlns="http://javafx.com/javafx/8.0.141" fx:controller="lk.ijse.mountCalvary.controller.settings.Settings_controller">
-   <children>
-      <Label layoutX="87.0" layoutY="95.0" prefHeight="33.0" prefWidth="425.0" text="Backup or restore your data">
-         <font>
-            <Font name="Arial" size="18.0" />
-         </font>
-      </Label>
-      <Label layoutX="87.0" layoutY="140.0" prefHeight="18.0" prefWidth="1305.0" text="Back up your database and restore them if the originals are lost damaged or deleted.">
-         <font>
-            <Font size="13.0" />
-         </font>
-      </Label>
-      <Label layoutX="87.0" layoutY="33.0" prefHeight="33.0" prefWidth="425.0" text="Settings">
-         <font>
-            <Font name="Arial" size="22.0" />
-         </font>
-      </Label>
-      <MaterialDesignIconView glyphName="SETTINGS" layoutX="30.0" layoutY="62.0" size="35" />
-      <JFXButton fx:id="btBackup" alignment="CENTER" buttonType="RAISED" layoutX="87.0" layoutY="178.0" onAction="#btBackup_onAction" prefHeight="36.0" prefWidth="128.0" ripplerFill="WHITE" style="-fx-background-color: #2196f3;" text="Backup" textAlignment="CENTER" textFill="WHITE">
-         <graphic>
-            <MaterialDesignIconView fill="WHITE" glyphName="ARROW_UP" size="20" />
-         </graphic>
-      </JFXButton>
-      <JFXButton fx:id="btRestore" alignment="CENTER" buttonType="RAISED" layoutX="236.0" layoutY="178.0" onAction="#btRestore_onAction" prefHeight="36.0" prefWidth="128.0" ripplerFill="WHITE" style="-fx-background-color: #2196f3;" text="Restore" textAlignment="CENTER" textFill="WHITE">
-         <graphic>
-            <MaterialDesignIconView fill="WHITE" glyphName="BACKUP_RESTORE" size="20" />
-         </graphic>
-      </JFXButton>
-   </children>
-</AnchorPane>
+<?import java.net.*?>
+<VBox xmlns:fx="http://javafx.com/fxml/1" fx:id="acSettings" styleClass="main-frame"
+      xmlns="http://javafx.com/javafx/8.0.141"
+      fx:controller="lk.ijse.mountCalvary.controller.settings.Settings_controller">
+    <children>
+        <HBox styleClass="node-pane">
+            <children>
+                <MaterialDesignIconView glyphName="SETTINGS" size="35" HBox.hgrow="ALWAYS"/>
+                <Label prefHeight="33.0" prefWidth="425.0" text="Settings">
+                    <font>
+                        <Font name="Arial" size="22.0"/>
+                    </font>
+                </Label>
+            </children>
+        </HBox>
+        <Label prefHeight="33.0" prefWidth="425.0" text="Backup or restore your data">
+            <font>
+                <Font name="Arial" size="18.0"/>
+            </font>
+        </Label>
+        <Label prefHeight="18.0" prefWidth="1305.0"
+               text="Back up your database and restore them if the originals are lost damaged or deleted.">
+            <font>
+                <Font size="13.0"/>
+            </font>
+        </Label>
+        <HBox styleClass="node-pane">
+            <children>
+                <JFXButton fx:id="btBackup" alignment="CENTER" buttonType="RAISED" onAction="#btBackup_onAction"
+                           prefHeight="36.0" prefWidth="128.0" ripplerFill="WHITE"
+                           style="-fx-background-color: #2196f3;" text="Backup" textAlignment="CENTER" textFill="WHITE">
+                    <graphic>
+                        <MaterialDesignIconView fill="WHITE" glyphName="ARROW_UP" size="20"/>
+                    </graphic>
+                </JFXButton>
+                <JFXButton fx:id="btRestore" alignment="CENTER" buttonType="RAISED" onAction="#btRestore_onAction"
+                           prefHeight="36.0" prefWidth="128.0" ripplerFill="WHITE"
+                           style="-fx-background-color: #2196f3;" text="Restore" textAlignment="CENTER"
+                           textFill="WHITE">
+                    <graphic>
+                        <MaterialDesignIconView fill="WHITE" glyphName="BACKUP_RESTORE" size="20"/>
+                    </graphic>
+                </JFXButton>
+            </children>
+        </HBox>
+    </children>
+    <stylesheets>
+        <URL value="@../../css/frame.css"/>
+        <URL value="@../../css/combo-box.css"/>
+        <URL value="@../../css/table-view.css"/>
+        <URL value="@../../css/text-and-password-field.css"/>
+        <URL value="@../../css/date-picker.css"/>
+        <URL value="@../../css/radio-button.css"/>
+        <URL value="@../../css/text-area.css"/>
+        <URL value="@../../css/button.css"/>
+        <URL value="@../../css/label.css"/>
+    </stylesheets>
+</VBox>

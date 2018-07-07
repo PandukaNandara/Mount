@@ -1,26 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.*?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import com.jfoenix.controls.JFXTextField?>
 <?import de.jensd.fx.glyphs.icons525.Icons525View?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import java.net.URL?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="acCompetitionDetail" prefHeight="745.0" prefWidth="1022.0" styleClass="profile-frame" stylesheets="@../../../css/size.css" xmlns="http://javafx.com/javafx/8.0.141" fx:controller="lk.ijse.mountCalvary.controller.competition.profile.CompetitionDetailController">
+
+<VBox fx:id="acCompetitionDetail" styleClass="profile-frame" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.mountCalvary.controller.competition.profile.CompetitionDetailController">
    <children>
-      <Label layoutX="95.0" layoutY="34.0" prefHeight="42.0" prefWidth="209.0" text="Competition Details">
-         <font>
-            <Font name="Arial Bold" size="18.0" />
-         </font>
-      </Label>
-      <JFXTextField fx:id="txtCompetitionName" labelFloat="true" layoutX="92.0" layoutY="111.0" prefHeight="29.0" prefWidth="669.0" promptText="Competition Name" />
-      <JFXTextField fx:id="txtLocation" labelFloat="true" layoutX="93.0" layoutY="167.0" prefHeight="29.0" prefWidth="669.0" promptText="Location" />
-      <JFXTextArea fx:id="txtaDesc" labelFloat="true" layoutX="95.0" layoutY="287.0" prefHeight="127.0" prefWidth="1278.0" promptText="Description" />
-      <Label layoutX="95.0" layoutY="432.0" prefHeight="42.0" prefWidth="209.0" text="Teacher in charge list">
+      <HBox prefHeight="37.0" styleClass="node-pane">
+         <children>
+            <Label maxWidth="1.7976931348623157E308" styleClass="title" text="Competition Details" HBox.hgrow="ALWAYS">
+               <font>
+                  <Font name="Arial Bold" size="18.0" />
+               </font>
+            </Label>
+            <JFXButton fx:id="btPrint" alignment="CENTER" buttonType="RAISED" onAction="#btPrint_onAction" prefHeight="45.0" prefWidth="108.0" ripplerFill="WHITE" style="-fx-background-color: #2196f3;" text="Print" textAlignment="CENTER" textFill="WHITE">
+               <graphic>
+                  <Icons525View fill="WHITE" glyphName="PRINTER" size="25" wrappingWidth="37.0" />
+               </graphic>
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </JFXButton>
+         </children>
+      </HBox>
+      <JFXTextField fx:id="txtCompetitionName" editable="false" labelFloat="true" prefHeight="29.0" prefWidth="669.0" promptText="Competition Name" />
+      <JFXTextField fx:id="txtLocation" editable="false" labelFloat="true" prefHeight="29.0" prefWidth="669.0" promptText="Location" />
+      <JFXTextField fx:id="txtDate" editable="false" labelFloat="true" prefHeight="29.0" prefWidth="669.0" promptText="Date" />
+      <JFXTextArea fx:id="txtaDesc" editable="false" labelFloat="true" maxHeight="1.7976931348623157E308" prefHeight="261.0" prefWidth="1200.0" promptText="Description" VBox.vgrow="ALWAYS" />
+      <Label prefHeight="42.0" prefWidth="209.0" styleClass="sub-title" text="Teacher in charge list">
          <font>
             <Font name="Arial" size="15.0" />
          </font>
       </Label>
-      <TableView fx:id="tblTeacherInCharge" layoutX="95.0" layoutY="491.0" prefHeight="251.0" prefWidth="1277.0">
+      <TableView fx:id="tblTeacherInCharge" tableMenuButtonVisible="true" maxHeight="1.7976931348623157E308" VBox.vgrow="ALWAYS">
          <columns>
             <TableColumn fx:id="colTeacherInCharge" prefWidth="75.0" text="Teacher in charge list" />
          </columns>
@@ -28,11 +48,17 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <JFXButton fx:id="btPrint" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" layoutX="1312.0" layoutY="21.0" onAction="#btPrint_onAction" prefHeight="77.0" prefWidth="79.0" ripplerFill="WHITE" style="-fx-background-color: #2196f3;" text="Print" textAlignment="CENTER" textFill="WHITE">
-         <graphic>
-            <Icons525View fill="WHITE" glyphName="PRINTER" size="50" wrappingWidth="49.0" />
-         </graphic>
-      </JFXButton>
-      <JFXTextField fx:id="txtDate" editable="false" labelFloat="true" layoutX="93.0" layoutY="227.0" prefHeight="29.0" prefWidth="669.0" promptText="Date" />
    </children>
-</AnchorPane>
+   <stylesheets>
+      <URL value="@../../../css/frame.css" />
+      <URL value="@../../../css/combo-box.css" />
+      <URL value="@../../../css/table-view.css" />
+      <URL value="@../../../css/text-and-password-field.css" />
+      <URL value="@../../../css/date-picker.css" />
+      <URL value="@../../../css/radio-button.css" />
+      <URL value="@../../../css/text-area.css" />
+      <URL value="@../../../css/button.css" />
+      <URL value="@../../../css/label.css" />
+      <URL value="@../../../css/tab-pane.css" />
+   </stylesheets>
+</VBox>

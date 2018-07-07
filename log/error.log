@@ -1217,3 +1217,67 @@ javax.imageio.IIOException: Can't read input file!
 
 Jun 16, 2018 10:47:28 AM com.sun.javafx.css.StyleManager loadStylesheetUnPrivileged
 WARNING: Resource "../../css/size.css" not found.
+Jul 04, 2018 11:16:25 PM com.sun.javafx.css.StyleManager loadStylesheetUnPrivileged
+INFO: Could not find stylesheet: file:/D:/MountCalvary/out/production/MountCalvary/lk/ijse/mountCalvary/css/frame.css
+Jul 04, 2018 11:16:25 PM com.sun.javafx.css.StyleManager loadStylesheetUnPrivileged
+INFO: Could not find stylesheet: file:/D:/MountCalvary/out/production/MountCalvary/lk/ijse/mountCalvary/css/button.css
+Jul 04, 2018 11:16:25 PM com.sun.javafx.css.StyleManager loadStylesheetUnPrivileged
+INFO: Could not find stylesheet: file:/D:/MountCalvary/out/production/MountCalvary/lk/ijse/mountCalvary/css/combo-box.css
+Jul 04, 2018 11:16:25 PM com.sun.javafx.css.StyleManager loadStylesheetUnPrivileged
+INFO: Could not find stylesheet: file:/D:/MountCalvary/out/production/MountCalvary/lk/ijse/mountCalvary/css/table-view.css
+Jul 04, 2018 11:16:25 PM com.sun.javafx.css.StyleManager loadStylesheetUnPrivileged
+INFO: Could not find stylesheet: file:/D:/MountCalvary/out/production/MountCalvary/lk/ijse/mountCalvary/css/text-and-password-field.css
+Jul 04, 2018 11:16:25 PM com.sun.javafx.css.StyleManager loadStylesheetUnPrivileged
+INFO: Could not find stylesheet: file:/D:/MountCalvary/out/production/MountCalvary/lk/ijse/mountCalvary/css/date-picker.css
+Jul 04, 2018 11:16:25 PM com.sun.javafx.css.StyleManager loadStylesheetUnPrivileged
+INFO: Could not find stylesheet: file:/D:/MountCalvary/out/production/MountCalvary/lk/ijse/mountCalvary/css/radio-button.css
+Jul 04, 2018 11:16:25 PM com.sun.javafx.css.StyleManager loadStylesheetUnPrivileged
+INFO: Could not find stylesheet: file:/D:/MountCalvary/out/production/MountCalvary/lk/ijse/mountCalvary/css/text-area.css
+Jul 04, 2018 11:16:25 PM com.sun.javafx.css.StyleManager loadStylesheetUnPrivileged
+INFO: Could not find stylesheet: file:/D:/MountCalvary/out/production/MountCalvary/lk/ijse/mountCalvary/css/label.css
+Jul 04, 2018 11:19:28 PM javafx.scene.CssStyleHelper calculateValue
+WARNING: Caught 'java.lang.ClassCastException: javafx.scene.paint.Color cannot be cast to javafx.css.ParsedValue' while converting value for '-fx-pref-width' from inline style on JFXButton[id=btActivityProfile, styleClass=button jfx-button menu-button]'Activity Profile'
+Jul 04, 2018 11:19:28 PM javafx.scene.CssStyleHelper calculateValue
+WARNING: Caught 'java.lang.ClassCastException: javafx.scene.paint.Color cannot be cast to javafx.css.ParsedValue' while converting value for '-fx-pref-width' from inline style on JFXButton[id=btActivityProfile, styleClass=button jfx-button menu-button]'Activity Profile'
+Jul 04, 2018 11:19:30 PM javafx.scene.CssStyleHelper calculateValue
+WARNING: Caught 'java.lang.ClassCastException: javafx.scene.paint.Color cannot be cast to javafx.css.ParsedValue' while converting value for '-fx-pref-width' from inline style on JFXButton[id=btActivityProfile, styleClass=button jfx-button menu-button]'Activity Profile'
+Jul 04, 2018 11:21:50 PM javafx.scene.CssStyleHelper calculateValue
+WARNING: Caught 'java.lang.ClassCastException: javafx.scene.paint.Color cannot be cast to javafx.css.ParsedValue' while converting value for '-fx-pref-width' from inline style on JFXButton[id=btActivityProfile, styleClass=button jfx-button menu-button]'Activity Profile'
+Jul 04, 2018 11:21:50 PM javafx.scene.CssStyleHelper calculateValue
+WARNING: Caught 'java.lang.ClassCastException: javafx.scene.paint.Color cannot be cast to javafx.css.ParsedValue' while converting value for '-fx-pref-width' from inline style on JFXButton[id=btActivityProfile, styleClass=button jfx-button menu-button]'Activity Profile'
+Jul 04, 2018 11:21:51 PM javafx.scene.CssStyleHelper calculateValue
+WARNING: Caught 'java.lang.ClassCastException: javafx.scene.paint.Color cannot be cast to javafx.css.ParsedValue' while converting value for '-fx-pref-width' from inline style on JFXButton[id=btActivityProfile, styleClass=button jfx-button menu-button]'Activity Profile'
+Jul 04, 2018 11:48:17 PM javafx.scene.CssStyleHelper calculateValue
+WARNING: Caught 'java.lang.ClassCastException: javafx.scene.paint.Color cannot be cast to javafx.css.ParsedValue' while converting value for '-fx-pref-width' from inline style on JFXButton[id=btActivityProfile, styleClass=button jfx-button menu-button]'Activity Profile'
+Jul 04, 2018 11:48:17 PM javafx.scene.CssStyleHelper calculateValue
+WARNING: Caught 'java.lang.ClassCastException: javafx.scene.paint.Color cannot be cast to javafx.css.ParsedValue' while converting value for '-fx-pref-width' from inline style on JFXButton[id=btActivityProfile, styleClass=button jfx-button menu-button]'Activity Profile'
+Jul 06, 2018 9:39:03 AM javafx.scene.CssStyleHelper calculateValue
+WARNING: Caught 'java.lang.ClassCastException: javafx.scene.paint.Color cannot be cast to javafx.css.ParsedValue' while converting value for '-fx-pref-width' from inline style on JFXButton[id=btActivityProfile, styleClass=button jfx-button menu-button]'Activity Profile'
+Jul 06, 2018 9:39:03 AM javafx.scene.CssStyleHelper calculateValue
+WARNING: Caught 'java.lang.ClassCastException: javafx.scene.paint.Color cannot be cast to javafx.css.ParsedValue' while converting value for '-fx-pref-width' from inline style on JFXButton[id=btActivityProfile, styleClass=button jfx-button menu-button]'Activity Profile'
+Jul 06, 2018 9:39:04 AM javafx.scene.CssStyleHelper calculateValue
+WARNING: Caught 'java.lang.ClassCastException: javafx.scene.paint.Color cannot be cast to javafx.css.ParsedValue' while converting value for '-fx-pref-width' from inline style on JFXButton[id=btActivityProfile, styleClass=button jfx-button menu-button]'Activity Profile'
+Jul 06, 2018 9:39:04 AM javafx.scene.CssStyleHelper calculateValue
+WARNING: Caught 'java.lang.ClassCastException: javafx.scene.paint.Color cannot be cast to javafx.css.ParsedValue' while converting value for '-fx-pref-width' from inline style on JFXButton[id=btActivityProfile, styleClass=button jfx-button menu-button]'Activity Profile'
+Jul 06, 2018 7:13:45 PM javafx.scene.CssStyleHelper calculateValue
+WARNING: Caught 'java.lang.ClassCastException: javafx.scene.paint.Color cannot be cast to javafx.css.ParsedValue' while converting value for '-fx-pref-width' from inline style on JFXButton[id=btActivityProfile, styleClass=button jfx-button menu-button]'Activity Profile'
+Jul 06, 2018 7:13:45 PM javafx.scene.CssStyleHelper calculateValue
+WARNING: Caught 'java.lang.ClassCastException: javafx.scene.paint.Color cannot be cast to javafx.css.ParsedValue' while converting value for '-fx-pref-width' from inline style on JFXButton[id=btActivityProfile, styleClass=button jfx-button menu-button]'Activity Profile'
+Jul 06, 2018 7:46:38 PM javafx.scene.CssStyleHelper calculateValue
+WARNING: Caught 'java.lang.ClassCastException: javafx.scene.paint.Color cannot be cast to javafx.css.ParsedValue' while converting value for '-fx-pref-width' from inline style on JFXButton[id=btActivityProfile, styleClass=button jfx-button menu-button]'Activity Profile'
+Jul 06, 2018 7:46:38 PM javafx.scene.CssStyleHelper calculateValue
+WARNING: Caught 'java.lang.ClassCastException: javafx.scene.paint.Color cannot be cast to javafx.css.ParsedValue' while converting value for '-fx-pref-width' from inline style on JFXButton[id=btActivityProfile, styleClass=button jfx-button menu-button]'Activity Profile'
+Jul 06, 2018 7:47:04 PM javafx.scene.CssStyleHelper calculateValue
+WARNING: Caught 'java.lang.ClassCastException: javafx.scene.paint.Color cannot be cast to javafx.css.ParsedValue' while converting value for '-fx-pref-width' from inline style on JFXButton[id=btActivityProfile, styleClass=button jfx-button menu-button]'Activity Profile'
+Jul 06, 2018 7:47:04 PM javafx.scene.CssStyleHelper calculateValue
+WARNING: Caught 'java.lang.ClassCastException: javafx.scene.paint.Color cannot be cast to javafx.css.ParsedValue' while converting value for '-fx-pref-width' from inline style on JFXButton[id=btActivityProfile, styleClass=button jfx-button menu-button]'Activity Profile'
+Jul 06, 2018 7:47:05 PM javafx.scene.CssStyleHelper calculateValue
+WARNING: Caught 'java.lang.ClassCastException: javafx.scene.paint.Color cannot be cast to javafx.css.ParsedValue' while converting value for '-fx-pref-width' from inline style on JFXButton[id=btActivityProfile, styleClass=button jfx-button menu-button]'Activity Profile'
+Jul 06, 2018 7:47:12 PM javafx.scene.CssStyleHelper calculateValue
+WARNING: Caught 'java.lang.ClassCastException: javafx.scene.paint.Color cannot be cast to javafx.css.ParsedValue' while converting value for '-fx-pref-width' from inline style on JFXButton[id=btActivityProfile, styleClass=button jfx-button menu-button]'Activity Profile'
+Jul 06, 2018 7:47:12 PM javafx.scene.CssStyleHelper calculateValue
+WARNING: Caught 'java.lang.ClassCastException: javafx.scene.paint.Color cannot be cast to javafx.css.ParsedValue' while converting value for '-fx-pref-width' from inline style on JFXButton[id=btActivityProfile, styleClass=button jfx-button menu-button]'Activity Profile'
+Jul 06, 2018 7:48:06 PM javafx.scene.CssStyleHelper calculateValue
+WARNING: Caught 'java.lang.ClassCastException: javafx.scene.paint.Color cannot be cast to javafx.css.ParsedValue' while converting value for '-fx-pref-width' from inline style on JFXButton[id=btActivityProfile, styleClass=button jfx-button menu-button]'Activity Profile'
+Jul 06, 2018 7:48:06 PM javafx.scene.CssStyleHelper calculateValue
+WARNING: Caught 'java.lang.ClassCastException: javafx.scene.paint.Color cannot be cast to javafx.css.ParsedValue' while converting value for '-fx-pref-width' from inline style on JFXButton[id=btActivityProfile, styleClass=button jfx-button menu-button]'Activity Profile'

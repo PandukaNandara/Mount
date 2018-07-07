@@ -3,17 +3,39 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import de.jensd.fx.glyphs.icons525.Icons525View?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import java.net.URL?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="JoinedStudent" prefHeight="745.0" prefWidth="1022.0" styleClass="profile-frame" stylesheets="@../../../css/size.css" xmlns="http://javafx.com/javafx/8.0.141" fx:controller="lk.ijse.mountCalvary.controller.activity.profile.JoinedStudentController">
+
+<VBox fx:id="JoinedStudent" styleClass="profile-frame" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.mountCalvary.controller.activity.profile.JoinedStudentController">
    <children>
-      <Label layoutX="69.0" layoutY="35.0" prefHeight="40.0" prefWidth="209.0" text="Joined Student">
-         <font>
-            <Font name="Arial Bold" size="18.0" />
-         </font>
-      </Label>
-      <TableView fx:id="tblStudentList" layoutX="69.0" layoutY="163.0" prefHeight="550.0" prefWidth="1306.0">
+      <HBox VBox.vgrow="NEVER">
+         <children>
+            <Label maxWidth="1.7976931348623157E308" styleClass="title" text="Joined Student" HBox.hgrow="ALWAYS">
+               <font>
+                  <Font name="Arial Bold" size="18.0" />
+               </font>
+            </Label>
+            <JFXButton fx:id="btPrint" alignment="CENTER" buttonType="RAISED" maxWidth="134.0" minHeight="32.0" minWidth="100.0" onAction="#btPrint_onAction" prefHeight="33.0" prefWidth="134.0" ripplerFill="WHITE" style="-fx-background-color: #2196f3;" text="Print" textAlignment="CENTER" textFill="WHITE">
+               <graphic>
+                  <Icons525View fill="WHITE" glyphName="PRINTER" size="25" wrappingWidth="37.0" />
+               </graphic>
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </JFXButton>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER_RIGHT" styleClass="node-pane" VBox.vgrow="NEVER">
+         <children>
+            <JFXComboBox fx:id="cboxTimeRange" labelFloat="true" onAction="#cboxTimeRange_onAction" prefHeight="25.0" prefWidth="201.0" promptText="Time range" />
+         </children>
+      </HBox>
+      <TableView fx:id="tblStudentList" maxHeight="1.7976931348623157E308"  tableMenuButtonVisible="true" prefHeight="550.0" prefWidth="1306.0" VBox.vgrow="ALWAYS">
          <columns>
             <TableColumn fx:id="colStudent" prefWidth="601.5" text="Student" />
             <TableColumn fx:id="colClass" prefWidth="601.5" text="Class" />
@@ -23,11 +45,16 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <JFXButton fx:id="btPrint" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" layoutX="1312.0" layoutY="21.0" onAction="#btPrint_onAction" prefHeight="77.0" prefWidth="79.0" ripplerFill="WHITE" style="-fx-background-color: #2196f3;" text="Print" textAlignment="CENTER" textFill="WHITE">
-         <graphic>
-            <Icons525View fill="WHITE" glyphName="PRINTER" size="50" wrappingWidth="49.0" />
-         </graphic>
-      </JFXButton>
-      <JFXComboBox fx:id="cboxTimeRange" labelFloat="true" layoutX="1181.0" layoutY="126.0" onAction="#cboxTimeRange_onAction" prefHeight="25.0" prefWidth="194.0" promptText="Time range" />
    </children>
-</AnchorPane>
+   <stylesheets>
+      <URL value="@../../../css/frame.css" />
+      <URL value="@../../../css/combo-box.css" />
+      <URL value="@../../../css/table-view.css" />
+      <URL value="@../../../css/text-and-password-field.css" />
+      <URL value="@../../../css/date-picker.css" />
+      <URL value="@../../../css/radio-button.css" />
+      <URL value="@../../../css/text-area.css" />
+      <URL value="@../../../css/button.css" />
+      <URL value="@../../../css/label.css" />
+   </stylesheets>
+</VBox>

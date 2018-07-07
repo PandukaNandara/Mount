@@ -12,20 +12,17 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.*;
-import lk.ijse.mountCalvary.controller.AutoComplete;
-import lk.ijse.mountCalvary.controller.Common;
-import lk.ijse.mountCalvary.controller.GlobalBoolean;
-import lk.ijse.mountCalvary.controller.OptionPane;
-import lk.ijse.mountCalvary.controller.basic.ScreenLoader;
+import lk.ijse.mountCalvary.controller.*;
 import lk.ijse.mountCalvary.model.*;
 
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -33,7 +30,7 @@ import java.util.logging.Logger;
 public class StudentForCompetition_controller implements Initializable {
     ObservableList<RegistrationDTO> filteredRegistration;
     @FXML
-    private AnchorPane acStudentForCompetition;
+    private VBox acStudentForCompetition;
     @FXML
     private JFXButton btFinish;
     @FXML
@@ -91,7 +88,7 @@ public class StudentForCompetition_controller implements Initializable {
 
     private ObservableList<AgeGroupDTO> ageGroupDTOS;
     private AutoComplete<RegistrationDTO> autoCompleteStudentName;
-
+    private ScreenLoader screenLoader = ScreenLoader.getInstance();
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         GlobalBoolean.setLock(true);
@@ -253,7 +250,8 @@ public class StudentForCompetition_controller implements Initializable {
                         continue L1;
                     }
                 }
-                int age = LocalDate.now().getYear() - Common.dateToLocalDate(oneRegi.getDOB()).getYear();
+                int age = LocalDate.now().getYear() - Objects.requireNonNull(Common.dateToLocalDate(oneRegi.getDOB())).getYear();
+//                int age = LocalDate.now().getYear() - Common.dateToLocalDate(oneRegi.getDOB()).getYear();
                 if (oneRegi.isGender() == eventList.isGender() &&
                         age > ageGroup.getMin() && age < ageGroup.getMax()) {
                     oneRegi.setAge(age);
@@ -263,6 +261,7 @@ public class StudentForCompetition_controller implements Initializable {
             System.out.println(filter);
             return FXCollections.observableArrayList(filter);
         } catch (Exception e) {
+            Logger.getLogger(StudentForCompetition_controller.class.getName()).log(Level.SEVERE, null, e);
             e.printStackTrace();
             return null;
         }
@@ -282,7 +281,7 @@ public class StudentForCompetition_controller implements Initializable {
         boolean answer = OptionPane.askQuestion("Do you want to cancel?");
         if (answer) {
             try {
-                ScreenLoader.loadPanel("/lk/ijse/mountCalvary/view/basic/CompetitionMenu.fxml", this.acStudentForCompetition, this);
+                screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/basic/CompetitionMenu.fxml", this.acStudentForCompetition, this);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -335,7 +334,7 @@ public class StudentForCompetition_controller implements Initializable {
             if (participationBOImpl.addAllParticipation(FXCollections.observableArrayList(newParticipation))) {
                 OptionPane.showMessage("All participation are successfully processed");
                 try {
-                    lk.ijse.mountCalvary.controller.basic.ScreenLoader.loadPanel("/lk/ijse/mountCalvary/view/basic/CompetitionMenu.fxml", this.acStudentForCompetition, this);
+                    screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/basic/CompetitionMenu.fxml", this.acStudentForCompetition, this);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

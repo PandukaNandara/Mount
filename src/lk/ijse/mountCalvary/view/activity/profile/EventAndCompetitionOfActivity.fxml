@@ -4,28 +4,43 @@
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import de.jensd.fx.glyphs.icons525.Icons525View?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="EventAndCompetitionOfActivity" prefHeight="745.0" prefWidth="1022.0" styleClass="profile-frame" stylesheets="@../../../css/size.css" xmlns="http://javafx.com/javafx/8.0.141" fx:controller="lk.ijse.mountCalvary.controller.activity.profile.EventAndCompetitionOfActivityController">
-   <children>
-      <Label layoutX="57.0" layoutY="29.0" prefHeight="44.0" prefWidth="301.0" text="Event List">
-         <font>
-            <Font name="Arial Bold" size="18.0" />
-         </font>
-      </Label>
-      <JFXComboBox fx:id="cboxEvent" labelFloat="true" layoutX="57.0" layoutY="86.0" onAction="#cboxEvent_onAction" prefHeight="17.0" prefWidth="470.0" promptText="Event " />
-      <TableView fx:id="tblParticipation" layoutX="57.0" layoutY="358.0" prefHeight="385.0" prefWidth="1334.0">
-        <columns>
-          <TableColumn fx:id="colStudentName_tblParticipation" prefWidth="512.0" text="Student " />
-            <TableColumn fx:id="colAgeGroup_tblParticipation" prefWidth="512.0" text="Age group" />
-            <TableColumn fx:id="colResult_tblParticipation" prefWidth="564.0" text="Result" />
-            <TableColumn fx:id="colPerformance_tblParticipation" prefWidth="311.0" text="Performance" />
-        </columns>
-         <columnResizePolicy>
-            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-         </columnResizePolicy>
-      </TableView>
-      <TableView fx:id="tblCompetitionList" layoutX="57.0" layoutY="153.0" onMouseClicked="#tblCompetitionList_mouseClick" prefHeight="132.0" prefWidth="1334.0">
+<?import java.net.*?>
+<VBox xmlns:fx="http://javafx.com/fxml/1" fx:id="EventAndCompetitionOfActivity" styleClass="profile-frame"
+      xmlns="http://javafx.com/javafx/8.0.141"
+      fx:controller="lk.ijse.mountCalvary.controller.activity.profile.EventAndCompetitionOfActivityController">
+    <children>
+        <HBox>
+            <children>
+                <Label maxWidth="1.7976931348623157E308" styleClass="title" prefHeight="33.0" prefWidth="1226.0"
+                       text="Event List" HBox.hgrow="ALWAYS">
+                    <font>
+                        <Font name="Arial Bold" size="18.0"/>
+                    </font>
+                </Label>
+                <JFXButton fx:id="btPrint" alignment="CENTER" buttonType="RAISED" onAction="#btPrint_onAction"
+                           prefHeight="45.0" prefWidth="108.0" ripplerFill="WHITE"
+                           style="-fx-background-color: #2196f3;" text="Print" textAlignment="CENTER" textFill="WHITE">
+                    <graphic>
+                        <Icons525View fill="WHITE" glyphName="PRINTER" size="25" wrappingWidth="37.0"/>
+                    </graphic>
+                    <font>
+                        <Font name="System Bold" size="12.0"/>
+                    </font>
+                </JFXButton>
+            </children>
+        </HBox>
+        <JFXComboBox fx:id="cboxEvent" labelFloat="true" onAction="#cboxEvent_onAction" prefHeight="17.0"
+                     prefWidth="470.0" promptText="Event " VBox.vgrow="NEVER"/>
+        <Label prefHeight="44.0" prefWidth="301.0" text="Competition list" VBox.vgrow="NEVER">
+            <font>
+                <Font name="Arial" size="15.0"/>
+            </font>
+        </Label>
+        <TableView fx:id="tblCompetitionList" maxHeight="1.7976931348623157E308"
+                   onMouseClicked="#tblCompetitionList_mouseClick" prefHeight="132.0" prefWidth="1334.0"
+                   tableMenuButtonVisible="true" VBox.vgrow="ALWAYS">
          <columns>
             <TableColumn fx:id="colCompetition_tblCompetitionList" prefWidth="972.0" text="Competition" />
             <TableColumn fx:id="colDate_tblCompetitionList" prefWidth="340.0" text="Date" />
@@ -34,21 +49,39 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <Label layoutX="61.0" layoutY="307.0" prefHeight="29.0" prefWidth="294.0" text="Participation of the competition">
+        <Label prefHeight="29.0" prefWidth="294.0" text="Participation of the competition" VBox.vgrow="NEVER">
          <font>
             <Font name="Arial" size="15.0" />
          </font>
       </Label>
-      <Label layoutX="57.0" layoutY="109.0" prefHeight="44.0" prefWidth="301.0" text="Competition list">
-         <font>
-            <Font name="Arial" size="15.0" />
-         </font>
-      </Label>
-       <JFXButton fx:id="btPrint" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" layoutX="1312.0" layoutY="21.0" onAction="#btPrint_onAction" prefHeight="77.0" prefWidth="79.0" ripplerFill="WHITE" style="-fx-background-color: #2196f3;" text="Print" textAlignment="CENTER" textFill="WHITE">
-           <graphic>
-               <Icons525View fill="WHITE" glyphName="PRINTER" size="50" wrappingWidth="49.0" />
-           </graphic>
-       </JFXButton>
-      <JFXComboBox fx:id="cboxAgeGroup" labelFloat="true" layoutX="1053.0" layoutY="319.0" onAction="#cboxAgeGroup_onAction" prefHeight="29.0" prefWidth="337.0" promptText="Age group" />
+        <HBox alignment="CENTER_RIGHT" VBox.vgrow="NEVER">
+            <children>
+                <JFXComboBox fx:id="cboxAgeGroup" labelFloat="true" onAction="#cboxAgeGroup_onAction" prefHeight="29.0"
+                             prefWidth="337.0" promptText="Age group"/>
+            </children>
+        </HBox>
+        <TableView fx:id="tblParticipation" maxHeight="1.7976931348623157E308" prefHeight="385.0" prefWidth="1334.0"
+                   tableMenuButtonVisible="true" VBox.vgrow="ALWAYS">
+            <columns>
+                <TableColumn fx:id="colStudentName_tblParticipation" prefWidth="203.3125" text="Student "/>
+                <TableColumn fx:id="colAgeGroup_tblParticipation" prefWidth="197.9130859375" text="Age group"/>
+                <TableColumn fx:id="colResult_tblParticipation" prefWidth="352.196533203125" text="Result"/>
+                <TableColumn fx:id="colPerformance_tblParticipation" prefWidth="456.49609375" text="Performance"/>
+            </columns>
+            <columnResizePolicy>
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+            </columnResizePolicy>
+        </TableView>
    </children>
-</AnchorPane>
+    <stylesheets>
+        <URL value="@../../../css/frame.css"/>
+        <URL value="@../../../css/combo-box.css"/>
+        <URL value="@../../../css/table-view.css"/>
+        <URL value="@../../../css/text-and-password-field.css"/>
+        <URL value="@../../../css/date-picker.css"/>
+        <URL value="@../../../css/radio-button.css"/>
+        <URL value="@../../../css/text-area.css"/>
+        <URL value="@../../../css/button.css"/>
+        <URL value="@../../../css/label.css"/>
+    </stylesheets>
+</VBox>

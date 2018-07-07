@@ -2,49 +2,91 @@
 
 <?import com.jfoenix.controls.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="acNewCompetition" prefHeight="785.0" prefWidth="1235.0" style="-fx-background-color: white;" styleClass="main-frame" stylesheets="@../../css/size.css" xmlns="http://javafx.com/javafx/8.0.141" fx:controller="lk.ijse.mountCalvary.controller.competition.NewCompetition_controller">
+<?import java.net.*?>
+<VBox xmlns:fx="http://javafx.com/fxml/1" fx:id="acNewCompetition" styleClass="main-frame"
+      xmlns="http://javafx.com/javafx/8.0.141"
+      fx:controller="lk.ijse.mountCalvary.controller.competition.NewCompetition_controller">
    <children>
-      <JFXButton fx:id="btNext_newCompetition" layoutX="1261.0" layoutY="819.0" onAction="#btNext_newCompetition_onAction" prefHeight="33.0" prefWidth="124.0" style="-fx-background-color: #2196F3;" text="Submit" textFill="WHITE" />
-      <Label layoutX="85.0" layoutY="24.0" prefHeight="42.0" prefWidth="209.0" text="New Competition">
+       <Label prefHeight="42.0" prefWidth="209.0" styleClass="title" text="New Competition">
          <font>
             <Font name="Arial Bold" size="18.0" />
          </font>
       </Label>
-      <JFXTextField fx:id="txtCompetitionName" labelFloat="true" layoutX="83.0" layoutY="100.0" onAction="#txtCompetitionName_onAction" prefHeight="25.0" prefWidth="665.0" promptText="Competition Name" />
-      <JFXTextField fx:id="txtLocation" labelFloat="true" layoutX="85.0" layoutY="167.0" onAction="#txtLocation_onAction" prefHeight="25.0" prefWidth="665.0" promptText="Location" />
-      <JFXTextArea fx:id="txtaDesc" labelFloat="true" layoutX="85.0" layoutY="285.0" onDragDetected="#txtaDesc_onAction" prefHeight="136.0" prefWidth="665.0" promptText="Description" />
-      <Label layoutX="85.0" layoutY="434.0" prefHeight="42.0" prefWidth="209.0" text="Teacher in charge list">
+       <JFXTextField fx:id="txtCompetitionName" labelFloat="true" onAction="#txtCompetitionName_onAction"
+                     prefHeight="25.0" prefWidth="665.0" promptText="Competition Name"/>
+       <JFXTextField fx:id="txtLocation" labelFloat="true" onAction="#txtLocation_onAction" prefHeight="25.0"
+                     prefWidth="665.0" promptText="Location"/>
+       <HBox>
+           <children>
+               <JFXDatePicker fx:id="dtDate" onAction="#dtDate_onAction" prefHeight="25.0" prefWidth="209.0"
+                              promptText="Date"/>
+               <Region prefHeight="0.0" prefWidth="200.0" HBox.hgrow="ALWAYS"/>
+           </children>
+       </HBox>
+       <JFXTextArea fx:id="txtaDesc" labelFloat="true" onDragDetected="#txtaDesc_onAction" prefHeight="136.0"
+                    prefWidth="665.0" promptText="Description"/>
+       <Label prefHeight="42.0" prefWidth="209.0" styleClass="sub-title" text="Teacher in charge list">
          <font>
             <Font name="Arial" size="15.0" />
          </font>
       </Label>
-      <JFXComboBox fx:id="cboxTeacherInCharge" labelFloat="true" layoutX="85.0" layoutY="484.0" onAction="#cboxTeacherInCharge_onAction" prefHeight="25.0" prefWidth="519.0" promptText="Teacher in charge" />
-      <JFXButton fx:id="btAdd_teacherInCharge" layoutX="626.0" layoutY="480.0" onAction="#btAdd_teacherInCharge_onAction" prefHeight="33.0" prefWidth="124.0" style="-fx-background-color: #2196F3;" text="Add" textFill="WHITE" />
-      <TableView fx:id="tblTeacherInChargeList" layoutX="85.0" layoutY="528.0" prefHeight="256.0" prefWidth="1301.0">
-        <columns>
-          <TableColumn fx:id="colTeacherInCharge" prefWidth="75.0" text="Teacher in charge list" />
-        </columns>
-         <columnResizePolicy>
-            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-         </columnResizePolicy>
-      </TableView>
-      <JFXButton fx:id="btRemove_tblTeacherInChargeList" layoutX="1262.0" layoutY="501.0" onAction="#btRemove_tblTeacherInChargeList_onAction" prefHeight="25.0" prefWidth="124.0" text="Remove" textFill="#2196f3">
-         <font>
-            <Font name="System Bold" size="12.0" />
-         </font>
-      </JFXButton>
-      <JFXDatePicker fx:id="dtDate" layoutX="83.0" layoutY="228.0" onAction="#dtDate_onAction" prefHeight="25.0" prefWidth="209.0" promptText="Date" />
-      <JFXButton fx:id="btCancel" layoutX="1107.0" layoutY="819.0" onAction="#btCancel_onAction" prefHeight="33.0" prefWidth="124.0" text="Cancel" textFill="#2196f3">
-         <font>
-            <Font name="System Bold" size="12.0" />
-         </font>
-      </JFXButton>
-      <JFXButton fx:id="btAddAll" layoutX="775.0" layoutY="480.0" onAction="#btAddAll_onAction" prefHeight="33.0" prefWidth="124.0" text="Add all" textFill="#2196f3">
-         <font>
-            <Font name="System Bold" size="12.0" />
-         </font>
-      </JFXButton>
+       <HBox styleClass="node-pane">
+           <children>
+               <JFXComboBox fx:id="cboxTeacherInCharge" labelFloat="true" onAction="#cboxTeacherInCharge_onAction"
+                            prefHeight="25.0" prefWidth="519.0" promptText="Teacher in charge"/>
+               <JFXButton fx:id="btAdd_teacherInCharge" onAction="#btAdd_teacherInCharge_onAction" prefHeight="33.0"
+                          prefWidth="124.0" style="-fx-background-color: #2196F3;" text="Add" textFill="WHITE"/>
+               <JFXButton fx:id="btAddAll" onAction="#btAddAll_onAction" prefHeight="33.0" prefWidth="124.0"
+                          styleClass="cancel" text="Add all" textFill="#2196f3">
+                   <font>
+                       <Font name="System Bold" size="12.0"/>
+                   </font>
+               </JFXButton>
+           </children>
+       </HBox>
+       <VBox styleClass="table-pane" VBox.vgrow="ALWAYS">
+           <children>
+               <JFXButton fx:id="btRemove_tblTeacherInChargeList" onAction="#btRemove_tblTeacherInChargeList_onAction"
+                          prefHeight="25.0" prefWidth="124.0" styleClass="cancel" text="Remove" textFill="#2196f3">
+                   <font>
+                       <Font name="System Bold" size="12.0"/>
+                   </font>
+               </JFXButton>
+               <TableView fx:id="tblTeacherInChargeList" prefHeight="256.0" tableMenuButtonVisible="true"
+                          prefWidth="1301.0" VBox.vgrow="ALWAYS">
+                   <columns>
+                       <TableColumn fx:id="colTeacherInCharge" prefWidth="75.0" text="Teacher in charge list"/>
+                   </columns>
+                   <columnResizePolicy>
+                       <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                   </columnResizePolicy>
+               </TableView>
+           </children>
+       </VBox>
+       <HBox styleClass="button-pane">
+           <children>
+               <JFXButton fx:id="btCancel" onAction="#btCancel_onAction" prefHeight="33.0" prefWidth="124.0"
+                          styleClass="cancel" text="Cancel" textFill="#2196f3">
+                   <font>
+                       <Font name="System Bold" size="12.0"/>
+                   </font>
+               </JFXButton>
+               <JFXButton fx:id="btNext_newCompetition" onAction="#btNext_newCompetition_onAction" prefHeight="33.0"
+                          prefWidth="124.0" style="-fx-background-color: #2196F3;" text="Submit" textFill="WHITE"/>
+           </children>
+       </HBox>
    </children>
-</AnchorPane>
+    <stylesheets>
+        <URL value="@../../css/frame.css"/>
+        <URL value="@../../css/combo-box.css"/>
+        <URL value="@../../css/table-view.css"/>
+        <URL value="@../../css/text-and-password-field.css"/>
+        <URL value="@../../css/date-picker.css"/>
+        <URL value="@../../css/radio-button.css"/>
+        <URL value="@../../css/text-area.css"/>
+        <URL value="@../../css/button.css"/>
+        <URL value="@../../css/label.css"/>
+    </stylesheets>
+</VBox>

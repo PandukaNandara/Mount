@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.VBox;
 import lk.ijse.mountCalvary.controller.GlobalBoolean;
+import lk.ijse.mountCalvary.controller.ScreenLoader;
 
 import java.io.IOException;
 import java.net.URL;
@@ -33,6 +34,7 @@ public class MainMenu_controller implements Initializable {
 
     @FXML
     private JFXButton btSpecialReport;
+    private ScreenLoader screenLoader = ScreenLoader.getInstance();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -43,7 +45,7 @@ public class MainMenu_controller implements Initializable {
     void btActivity_onAction(ActionEvent event) {
         System.out.println("hello");
         try {
-            ScreenLoader.loadPanel("/lk/ijse/mountCalvary/view/basic/ActivityMenu.fxml", this.acMenu, this);
+            screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/basic/ActivityMenu.fxml", this.acMenu, this);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -52,7 +54,7 @@ public class MainMenu_controller implements Initializable {
     @FXML
     void btCompetition_onAction(ActionEvent event) {
         try {
-            ScreenLoader.loadPanel("/lk/ijse/mountCalvary/view/basic/CompetitionMenu.fxml", this.acMenu, this);
+            screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/basic/CompetitionMenu.fxml", this.acMenu, this);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -61,7 +63,7 @@ public class MainMenu_controller implements Initializable {
     @FXML
     void btStudent_onAction(ActionEvent event) {
         try {
-            ScreenLoader.loadPanel("/lk/ijse/mountCalvary/view/basic/StudentMenu.fxml", this.acMenu, this);
+            screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/basic/StudentMenu.fxml", this.acMenu, this);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -70,7 +72,7 @@ public class MainMenu_controller implements Initializable {
     @FXML
     void btTeacher_onAction(ActionEvent event) {
         try {
-            ScreenLoader.loadPanel("/lk/ijse/mountCalvary/view/basic/TeacherMenu.fxml", this.acMenu, this);
+            screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/basic/TeacherMenu.fxml", this.acMenu, this);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -79,15 +81,16 @@ public class MainMenu_controller implements Initializable {
     @FXML
     void btUpAttendance_onAction(ActionEvent event) {
         try {
-            ScreenLoader.loadPanel("/lk/ijse/mountCalvary/view/attendance/UpdateAttendance.fxml", this.acMenu, this);
+            screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/attendance/UpdateAttendance.fxml", this.acMenu, this);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
     @FXML
     private void btSpecialReport_onAction(ActionEvent actionEvent) {
         try {
-            ScreenLoader.loadPanel("/lk/ijse/mountCalvary/view/basic/SpecialReportMenu.fxml", this.acMenu, this);
+            screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/basic/SpecialReportMenu.fxml", this.acMenu, this);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -97,7 +100,7 @@ public class MainMenu_controller implements Initializable {
     @FXML
     private void btPayment_onAction(ActionEvent actionEvent) {
         try {
-            ScreenLoader.loadPanel("/lk/ijse/mountCalvary/view/payment/MakePayment.fxml",this.acMenu, this);
+            screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/payment/MakePayment.fxml", this.acMenu, this);
         } catch (IOException e) {
             e.printStackTrace();
         }

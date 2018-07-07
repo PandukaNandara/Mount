@@ -11,12 +11,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.ActivityBO;
 import lk.ijse.mountCalvary.business.custom.PaymentBO;
 import lk.ijse.mountCalvary.controller.*;
-import lk.ijse.mountCalvary.controller.basic.ScreenLoader;
 import lk.ijse.mountCalvary.model.ActivityDTO;
 import lk.ijse.mountCalvary.model.PaymentDTO;
 import lk.ijse.mountCalvary.model.RegistrationDTO;
@@ -33,7 +32,7 @@ import java.util.logging.Logger;
 public class MakePayment_controller implements Initializable {
 
     @FXML
-    private AnchorPane acUpdatePayment;
+    private VBox acUpdatePayment;
 
     @FXML
     private TableView<PaymentDTO> tblStudentPayment;
@@ -89,6 +88,7 @@ public class MakePayment_controller implements Initializable {
 
     private ObservableList<RegistrationDTO> registrationOfThisActivity;
     private RegistrationDTO selectedRegistrationDTO;
+    private ScreenLoader screenLoader = ScreenLoader.getInstance();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -165,7 +165,7 @@ public class MakePayment_controller implements Initializable {
         boolean answer = OptionPane.askWarning("Do you want to cancel?");
         if (answer) {
             try {
-                ScreenLoader.loadPanel("/lk/ijse/mountCalvary/view/basic/MainMenu.fxml", this.acUpdatePayment, this);
+                screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/basic/MainMenu.fxml", this.acUpdatePayment, this);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -216,7 +216,7 @@ public class MakePayment_controller implements Initializable {
             try {
                 if (paymentBOImpl.addAllPayment(newPayment)) {
                     OptionPane.showMessage("All Payment has successfully made.");
-                    ScreenLoader.loadPanel("/lk/ijse/mountCalvary/view/basic/MainMenu.fxml", this.acUpdatePayment, this);
+                    screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/basic/MainMenu.fxml", this.acUpdatePayment, this);
                 } else {
                     OptionPane.showWarning("Something's wrong we can't do your request.");
                 }

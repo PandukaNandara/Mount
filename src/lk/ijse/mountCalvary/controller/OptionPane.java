@@ -31,19 +31,16 @@ public class OptionPane {
     public static boolean askQuestion(String message) {
         Alert a = new Alert(Alert.AlertType.CONFIRMATION, message, ButtonType.YES, ButtonType.NO);
         setIconToTheAlert(a);
-        Optional<ButtonType> btSet = a.showAndWait();
-        if (btSet.get() == ButtonType.YES)
-            return true;
-        else if (btSet.get() == ButtonType.NO)
-            return false;
-        else
-            return false;
+        return returnButtonSetResult(a.showAndWait());
     }
 
     public static boolean askWarning(String message) {
         Alert a = new Alert(Alert.AlertType.WARNING, message, ButtonType.YES, ButtonType.NO);
         setIconToTheAlert(a);
-        Optional<ButtonType> btSet = a.showAndWait();
+        return returnButtonSetResult(a.showAndWait());
+    }
+
+    private static boolean returnButtonSetResult(Optional<ButtonType> btSet) {
         if (btSet.get() == ButtonType.YES)
             return true;
         else if (btSet.get() == ButtonType.NO)

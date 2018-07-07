@@ -4,9 +4,10 @@ import com.jfoenix.controls.JFXButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import lk.ijse.mountCalvary.controller.GlobalBoolean;
 import lk.ijse.mountCalvary.controller.Reporter;
+import lk.ijse.mountCalvary.controller.ScreenLoader;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -22,12 +23,12 @@ import java.util.ResourceBundle;
 
 public class SpecialReportMenu_controller implements Initializable {
     @FXML
-    private AnchorPane acSpecialReport;
+    private VBox acSpecialReport;
     @FXML
     private JFXButton btBack;
     @FXML
     private JFXButton btStudentNotFollowActivity;
-
+    private ScreenLoader screenLoader = ScreenLoader.getInstance();
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         GlobalBoolean.setLock(false);
@@ -36,7 +37,7 @@ public class SpecialReportMenu_controller implements Initializable {
     @FXML
     void btBack_onAction(ActionEvent event) {
         try {
-            ScreenLoader.loadPanel("/lk/ijse/mountCalvary/view/basic/MainMenu.fxml", this.acSpecialReport, this);
+            screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/basic/MainMenu.fxml", this.acSpecialReport, this);
         } catch (IOException e) {
             e.printStackTrace();
         }

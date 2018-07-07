@@ -5,6 +5,7 @@
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/resources" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/log" type="java-resource" />
     </content>
     <orderEntry type="jdk" jdkName="1.8.0_171" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
@@ -50,7 +51,9 @@
           <root url="jar://$MODULE_DIR$/Lib/fontawesomefx-fontawesome-4.7.0-5.jar!/" />
         </CLASSES>
         <JAVADOC />
-        <SOURCES />
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/Lib/fontawesomefx-fontawesome-4.7.0-5.jar!/" />
+        </SOURCES>
       </library>
     </orderEntry>
     <orderEntry type="module-library" exported="">
@@ -113,7 +116,9 @@
           <root url="jar://$MODULE_DIR$/Lib/jfoenix.jar!/" />
         </CLASSES>
         <JAVADOC />
-        <SOURCES />
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/Lib/jfoenix.jar!/" />
+        </SOURCES>
       </library>
     </orderEntry>
     <orderEntry type="module-library" exported="">

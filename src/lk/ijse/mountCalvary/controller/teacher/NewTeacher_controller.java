@@ -8,13 +8,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.TeacherBO;
 import lk.ijse.mountCalvary.controller.Common;
 import lk.ijse.mountCalvary.controller.GlobalBoolean;
 import lk.ijse.mountCalvary.controller.OptionPane;
-import lk.ijse.mountCalvary.controller.basic.ScreenLoader;
+import lk.ijse.mountCalvary.controller.ScreenLoader;
 import lk.ijse.mountCalvary.model.TeacherDTO;
 
 import java.io.IOException;
@@ -24,7 +24,7 @@ import java.util.ResourceBundle;
 public class NewTeacher_controller implements Initializable {
 
     @FXML
-    private AnchorPane acNewTeacher;
+    private VBox acNewTeacher;
 
     @FXML
     private JFXButton btCancel;
@@ -46,7 +46,11 @@ public class NewTeacher_controller implements Initializable {
 
     @FXML
     private JFXButton btAdd;
+
+
+    private ScreenLoader screenLoader = ScreenLoader.getInstance();
     private TeacherBO teacher;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         GlobalBoolean.setLock(true);
@@ -55,10 +59,11 @@ public class NewTeacher_controller implements Initializable {
         colTeacherName.setCellValueFactory(new PropertyValueFactory<>("tName"));
 
     }
+
     @FXML
     private void btCancel_onAction(ActionEvent actionEvent) {
         try {
-            ScreenLoader.loadPanel("/lk/ijse/mountCalvary/view/basic/MainMenu.fxml", this.acNewTeacher, this);
+            screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/basic/MainMenu.fxml", this.acNewTeacher, this);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -66,19 +71,19 @@ public class NewTeacher_controller implements Initializable {
 
     @FXML
     private void btSubmit_onAction(ActionEvent actionEvent) {
-        try{
-            if(tblTeacher.getItems().size() == 0) {
+        try {
+            if (tblTeacher.getItems().size() == 0) {
                 OptionPane.showError("Please add a teacher");
-            }else if(teacher.addAllTeacher(tblTeacher.getItems())){
+            } else if (teacher.addAllTeacher(tblTeacher.getItems())) {
                 OptionPane.showMessage("All teachers successfully added");
                 try {
-                    ScreenLoader.loadPanel("/lk/ijse/mountCalvary/view/basic/MainMenu.fxml", this.acNewTeacher, this);
+                    screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/basic/MainMenu.fxml", this.acNewTeacher, this);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
 
-        }catch(Exception e){
+        } catch (Exception e) {
             OptionPane.showError(e.getMessage());
         }
     }
@@ -91,10 +96,10 @@ public class NewTeacher_controller implements Initializable {
     @FXML
     private void btAdd_onAction(ActionEvent actionEvent) {
         String teacherName = txtTeacherName.getText().trim();
-        if(!(teacherName.matches("\\d" ) || teacherName.length() == 0)){
+        if (!(teacherName.matches("\\d") || teacherName.length() == 0)) {
             System.out.println(5 + teacherName + 5);
             tblTeacher.getItems().add(new TeacherDTO(teacherName));
-        }else {
+        } else {
             OptionPane.showError("The teacher name is incorrect");
         }
         txtTeacherName.selectAll();

@@ -8,7 +8,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.ParticipationBO;
 import lk.ijse.mountCalvary.controller.GlobalBoolean;
@@ -31,7 +31,7 @@ public class CompetitionForStudentController implements Initializable {
 
     private static JasperReport competitionReport;
     @FXML
-    protected AnchorPane competitionForStudent;
+    protected VBox competitionForStudent;
     @FXML
     protected TableView<ParticipationDTO> tblParticipation;
     @FXML
@@ -109,11 +109,11 @@ public class CompetitionForStudentController implements Initializable {
     void cboxCompetition_onAction(ActionEvent event) {
     }
 
-    public AnchorPane getCompetitionForStudent_controller() {
+    public VBox getCompetitionForStudent_controller() {
         return competitionForStudent;
     }
 
-    public void setCompetitionForStudent_controller(AnchorPane competitionForStudent_controller) {
+    public void setCompetitionForStudent_controller(VBox competitionForStudent_controller) {
         this.competitionForStudent = competitionForStudent_controller;
     }
 

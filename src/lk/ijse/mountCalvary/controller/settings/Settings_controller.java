@@ -4,7 +4,7 @@ import com.jfoenix.controls.JFXButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import lk.ijse.mountCalvary.controller.GlobalBoolean;
 import lk.ijse.mountCalvary.controller.OptionPane;
@@ -21,7 +21,7 @@ import java.util.logging.Logger;
 public class Settings_controller implements Initializable {
 
     @FXML
-    private AnchorPane acSettings;
+    private VBox acSettings;
 
     @FXML
     private JFXButton btBackup;

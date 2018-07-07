@@ -11,7 +11,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.ActivityBO;
@@ -19,7 +19,7 @@ import lk.ijse.mountCalvary.business.custom.EventBO;
 import lk.ijse.mountCalvary.controller.Common;
 import lk.ijse.mountCalvary.controller.GlobalBoolean;
 import lk.ijse.mountCalvary.controller.OptionPane;
-import lk.ijse.mountCalvary.controller.basic.ScreenLoader;
+import lk.ijse.mountCalvary.controller.ScreenLoader;
 import lk.ijse.mountCalvary.model.ActivityDTO;
 import lk.ijse.mountCalvary.model.EventDTO;
 
@@ -33,7 +33,7 @@ import java.util.logging.Logger;
 public class NewEventForActivity_controller implements Initializable {
 
     @FXML
-    private AnchorPane acNewEvntForActivity;
+    private VBox acNewEvntForActivity;
 
     @FXML
     private JFXButton btAdd;
@@ -81,6 +81,7 @@ public class NewEventForActivity_controller implements Initializable {
     private ArrayList<ActivityDTO> allActivity;
     private EventBO eventBOImpl;
 
+    private ScreenLoader screenLoader = ScreenLoader.getInstance();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -137,7 +138,7 @@ public class NewEventForActivity_controller implements Initializable {
         boolean answer = OptionPane.askQuestion("Do you want to cancel?");
         if (answer) {
             try {
-                ScreenLoader.loadPanel("/lk/ijse/mountCalvary/view/basic/StudentMenu.fxml", this.acNewEvntForActivity, this);
+                screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/basic/StudentMenu.fxml", this.acNewEvntForActivity, this);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -165,7 +166,7 @@ public class NewEventForActivity_controller implements Initializable {
                             if (window.equals("temp")) {
                                 thisWindow.close();
                             } else {
-                                ScreenLoader.loadPanel("/lk/ijse/mountCalvary/view/basic/ActivityMenu.fxml", this.acNewEvntForActivity, this);
+                                screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/basic/ActivityMenu.fxml", this.acNewEvntForActivity, this);
                             }
                         } catch (IOException e) {
                             e.printStackTrace();

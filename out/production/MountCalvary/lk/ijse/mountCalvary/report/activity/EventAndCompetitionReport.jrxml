@@ -63,7 +63,7 @@
 				<textElement textAlignment="Left">
 					<font size="16" isBold="true" isItalic="false"/>
 				</textElement>
-				<text><![CDATA[Mount Calvary High School - Hapugala]]></text>
+				<text><![CDATA[Mount Calvary High School - Galle]]></text>
 			</staticText>
 			<staticText>
 				<reportElement stretchType="ElementGroupHeight" x="120" y="61" width="280" height="20" uuid="a3c9fb42-b64f-4bb4-a54e-d64a6c734ec8"/>

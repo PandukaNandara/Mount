@@ -19,7 +19,7 @@ import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.LogInBO;
 import lk.ijse.mountCalvary.controller.GlobalBoolean;
 import lk.ijse.mountCalvary.controller.OptionPane;
-import lk.ijse.mountCalvary.controller.basic.ScreenLoader;
+import lk.ijse.mountCalvary.controller.ScreenLoader;
 import lk.ijse.mountCalvary.model.LogInDTO;
 
 import java.io.IOException;
@@ -39,7 +39,7 @@ public class LogIn_controller implements Initializable {
     private JFXPasswordField txtPassword;
     @FXML
     private JFXButton btLogIn;
-
+    private ScreenLoader screenLoader = ScreenLoader.getInstance();
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         GlobalBoolean.setLock(false);
@@ -63,8 +63,10 @@ public class LogIn_controller implements Initializable {
                     Scene sc = new Scene(root);
                     Stage window = (Stage) this.acLogIn.getScene().getWindow();
                     window.setTitle("Mount Calvary Extra curriculum activity management system");
+
                     window.setScene(sc);
                     window.centerOnScreen();
+                    window.setMaximized(true);
                     window.show();
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -93,7 +95,7 @@ public class LogIn_controller implements Initializable {
     @FXML
     private void btNewUser_onAction(ActionEvent actionEvent) {
         try {
-            ScreenLoader.loadPanel("/lk/ijse/mountCalvary/view/LogIn/NewUser.fxml", acLogIn, this);
+            screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/LogIn/NewUser.fxml", acLogIn, this);
         } catch (IOException e) {
             Logger.getLogger(NewUser_controller.class.getName()).log(Level.SEVERE, null, e);
         }

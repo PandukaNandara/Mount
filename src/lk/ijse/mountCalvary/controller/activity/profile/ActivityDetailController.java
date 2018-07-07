@@ -3,7 +3,7 @@ package lk.ijse.mountCalvary.controller.activity.profile;
 import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.TeacherBO;
 import lk.ijse.mountCalvary.controller.GlobalBoolean;
@@ -20,7 +20,7 @@ public class ActivityDetailController implements Initializable {
 
     ActivityProfileController activityProfileController;
     @FXML
-    private AnchorPane ActivityDetail;
+    private VBox ActivityDetail;
     @FXML
     private JFXTextField txtActivityName;
     @FXML
