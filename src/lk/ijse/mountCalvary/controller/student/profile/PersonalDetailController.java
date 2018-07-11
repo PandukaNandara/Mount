@@ -15,10 +15,7 @@ import javafx.scene.layout.VBox;
 import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.StudentBO;
 import lk.ijse.mountCalvary.business.custom.TelNoBO;
-import lk.ijse.mountCalvary.controller.Common;
-import lk.ijse.mountCalvary.controller.GlobalBoolean;
-import lk.ijse.mountCalvary.controller.OptionPane;
-import lk.ijse.mountCalvary.controller.Reporter;
+import lk.ijse.mountCalvary.controller.tool.*;
 import lk.ijse.mountCalvary.entity.Gender;
 import lk.ijse.mountCalvary.model.StudentDTO;
 import lk.ijse.mountCalvary.model.TelNoDTO;
@@ -85,7 +82,7 @@ public class PersonalDetailController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         GlobalBoolean.setLock(false);
-
+        ButtonFireForEnterSetter.setGlobalEventHandler(personalDetail);
         studentBOImpl = BOFactory.getInstance().getBO(BOFactory.BOType.STUDENT);
         colTelNo.setCellValueFactory(new PropertyValueFactory<>("telNo"));
 
@@ -136,7 +133,7 @@ public class PersonalDetailController implements Initializable {
             }
             txtaDescStudent.setText(i.getNote());
         } else {
-            OptionPane.showError("Please select corresponding student");
+            OptionPane.showErrorAtSide("Please select corresponding student");
         }
     }
 
@@ -169,7 +166,7 @@ public class PersonalDetailController implements Initializable {
 
             }
         } else {
-            OptionPane.showError("Please select a student to print.");
+            OptionPane.showErrorAtSide("Please select a student to print.");
         }
     }
 
@@ -196,7 +193,7 @@ public class PersonalDetailController implements Initializable {
 //                e.printStackTrace();
 //            }
 //        } else {
-//            Common.showError("Please select a student to print.");
+//            Common.showErrorAtSide("Please select a student to print.");
 //        }
 //    }
 

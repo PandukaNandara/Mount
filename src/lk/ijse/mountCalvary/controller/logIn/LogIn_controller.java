@@ -1,4 +1,4 @@
-package lk.ijse.mountCalvary.controller.LogIn;
+package lk.ijse.mountCalvary.controller.logIn;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
@@ -8,18 +8,18 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.LogInBO;
-import lk.ijse.mountCalvary.controller.GlobalBoolean;
-import lk.ijse.mountCalvary.controller.OptionPane;
-import lk.ijse.mountCalvary.controller.ScreenLoader;
+import lk.ijse.mountCalvary.controller.tool.ButtonFireForEnterSetter;
+import lk.ijse.mountCalvary.controller.tool.GlobalBoolean;
+import lk.ijse.mountCalvary.controller.tool.OptionPane;
+import lk.ijse.mountCalvary.controller.tool.ScreenLoader;
 import lk.ijse.mountCalvary.model.LogInDTO;
 
 import java.io.IOException;
@@ -32,7 +32,7 @@ public class LogIn_controller implements Initializable {
 
     private LogInBO logInBOImpl;
     @FXML
-    private AnchorPane acLogIn;
+    private VBox acLogIn;
     @FXML
     private JFXTextField txtUserName;
     @FXML
@@ -40,10 +40,11 @@ public class LogIn_controller implements Initializable {
     @FXML
     private JFXButton btLogIn;
     private ScreenLoader screenLoader = ScreenLoader.getInstance();
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         GlobalBoolean.setLock(false);
-
+        ButtonFireForEnterSetter.setGlobalEventHandler(acLogIn);
         txtUserName.setText("");
         txtPassword.setText("");
         logInBOImpl = BOFactory.getInstance().getBO(BOFactory.BOType.LOG_IN);
@@ -55,7 +56,7 @@ public class LogIn_controller implements Initializable {
     }
 
     @FXML
-    void btLogIn_onAction(ActionEvent event){
+    void btLogIn_onAction(ActionEvent event) {
         try {
             if (logInBOImpl.isValidPassword(new LogInDTO(txtUserName.getText(), txtPassword.getText()))) {
                 try {
@@ -63,21 +64,20 @@ public class LogIn_controller implements Initializable {
                     Scene sc = new Scene(root);
                     Stage window = (Stage) this.acLogIn.getScene().getWindow();
                     window.setTitle("Mount Calvary Extra curriculum activity management system");
-
                     window.setScene(sc);
                     window.centerOnScreen();
-                    window.setMaximized(true);
+                    window.setResizable(true);
+//                    window.setMaximized(true);
                     window.show();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             } else {
-                Alert a = new Alert(Alert.AlertType.ERROR, "Invalid user name or password.", ButtonType.OK);
-                a.showAndWait();
+                OptionPane.showErrorWherever("Invalid user name or password.", Pos.TOP_CENTER, (Stage) acLogIn.getScene().getWindow());
             }
-        }catch (NullPointerException e){
-            OptionPane.showError("This user is no longer available.");
-        }catch (Exception e) {
+        } catch (NullPointerException e) {
+            OptionPane.showErrorAtSide("This user is no longer available.");
+        } catch (Exception e) {
             Logger.getLogger(NewUser_controller.class.getName()).log(Level.SEVERE, null, e);
         }
     }
@@ -94,10 +94,6 @@ public class LogIn_controller implements Initializable {
 
     @FXML
     private void btNewUser_onAction(ActionEvent actionEvent) {
-        try {
-            screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/LogIn/NewUser.fxml", acLogIn, this);
-        } catch (IOException e) {
-            Logger.getLogger(NewUser_controller.class.getName()).log(Level.SEVERE, null, e);
-        }
+        screenLoader.loadPanel("/lk/ijse/mountCalvary/view/logIn/NewUser.fxml", acLogIn, this);
     }
 }

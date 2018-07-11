@@ -1,4 +1,4 @@
-package lk.ijse.mountCalvary.controller;
+package lk.ijse.mountCalvary.controller.tool;
 
 import com.jfoenix.controls.JFXProgressBar;
 import javafx.concurrent.Task;

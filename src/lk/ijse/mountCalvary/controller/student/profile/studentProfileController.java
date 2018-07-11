@@ -10,10 +10,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.StudentBO;
-import lk.ijse.mountCalvary.controller.AutoComplete;
-import lk.ijse.mountCalvary.controller.Common;
-import lk.ijse.mountCalvary.controller.GlobalBoolean;
-import lk.ijse.mountCalvary.controller.OptionPane;
+import lk.ijse.mountCalvary.controller.tool.*;
 import lk.ijse.mountCalvary.model.StudentDTO;
 
 import java.net.URL;
@@ -59,7 +56,7 @@ public class studentProfileController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         GlobalBoolean.setLock(false);
-
+        ButtonFireForEnterSetter.setGlobalEventHandler(studentProfile_controller);
         studentBOImpl = BOFactory.getInstance().getBO(BOFactory.BOType.STUDENT);
         try {
             loadStudentDetail();
@@ -84,7 +81,7 @@ public class studentProfileController implements Initializable {
     private void btSearch_onAction(ActionEvent actionEvent) {
         StudentDTO i = autoCompleteStudent.getSelectedItemByName();
         if (i == null) {
-            OptionPane.showError("Please select the student");
+            OptionPane.showErrorAtSide("Please select the student");
         } else {
             txtStudentID.setText("" + i.getSID());
             showDataOnTabs(i);
@@ -116,11 +113,11 @@ public class studentProfileController implements Initializable {
                 txtStudentName.setText(studentDTO.getsName());
                 showDataOnTabs(studentDTO);
             } else {
-                OptionPane.showError("the student ID is not existed.");
+                OptionPane.showErrorAtSide("the student ID is not existed.");
             }
 
         } else {
-            OptionPane.showError("The Student ID is invalid.");
+            OptionPane.showErrorAtSide("The Student ID is invalid.");
         }
 
     }

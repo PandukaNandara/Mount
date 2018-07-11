@@ -93,4 +93,24 @@ public class PaymentDAOImpl implements PaymentDAO {
         rst.next();
         return rst.getInt(1) - 1;
     }
+
+    @Override
+    public ArrayList<Payment> getPaymentForThisActivityAndStudent(int RID) throws Exception {
+        ResultSet rst = CrudUtil.executeQuery("SELECT *\n" +
+                "From Payment\n" +
+                "where RID = ?\n" +
+                "order by Month and year", RID);
+        ArrayList<Payment> payList = new ArrayList<>();
+        while (rst.next()) {
+            payList.add(new Payment(
+                    rst.getInt("PAYID"),
+                    rst.getInt("RID"),
+                    new BigDecimal(rst.getDouble("fee")),
+                    rst.getInt("month"),
+                    rst.getInt("year")
+            ));
+        }
+        return payList;
+    }
+
 }

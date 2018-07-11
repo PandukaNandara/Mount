@@ -4,9 +4,9 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import lk.ijse.mountCalvary.controller.OptionPane;
+import lk.ijse.mountCalvary.controller.tool.ApplicationIcons;
+import lk.ijse.mountCalvary.controller.tool.OptionPane;
 
 import javax.swing.*;
 import java.io.IOException;
@@ -19,7 +19,6 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         launch(args);
-
     }
 
     @Override
@@ -31,17 +30,21 @@ public class Main extends Application {
                 fileHandler.setFormatter(new SimpleFormatter());
                 errorLogger.addHandler(fileHandler);
             } catch (IOException e) {
-                OptionPane.showError("The log file has been deleted.");
+                OptionPane.showErrorAtSide("The log file has been deleted.");
                 e.printStackTrace();
             }
 
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 
-            Parent root = FXMLLoader.load(getClass().getResource("/lk/ijse/mountCalvary/view/LogIn/LogIn.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/lk/ijse/mountCalvary/view/logIn/LogIn.fxml"));
+//            Parent root = FXMLLoader.load(getClass().getResource("/lk/ijse/mountCalvary/view/activity/profile/ActivityProfile.fxml"));
             primaryStage.setTitle("Log in");
+
             primaryStage.setScene(new Scene(root));
             primaryStage.centerOnScreen();
-            primaryStage.getIcons().add(new Image("/lk/ijse/mountCalvary/assets/defaultIcon.png"));
+            primaryStage.setResizable(false);
+
+            primaryStage.getIcons().add(ApplicationIcons.getDefaultIcon());
 //            primaryStage.setResizable(false);
 
             primaryStage.show();

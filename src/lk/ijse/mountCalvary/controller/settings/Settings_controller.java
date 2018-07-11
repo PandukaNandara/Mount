@@ -6,8 +6,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
-import lk.ijse.mountCalvary.controller.GlobalBoolean;
-import lk.ijse.mountCalvary.controller.OptionPane;
+import lk.ijse.mountCalvary.controller.tool.ButtonFireForEnterSetter;
+import lk.ijse.mountCalvary.controller.tool.GlobalBoolean;
+import lk.ijse.mountCalvary.controller.tool.OptionPane;
 import lk.ijse.mountCalvary.db.DBConnection;
 
 import java.io.File;
@@ -32,6 +33,7 @@ public class Settings_controller implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         GlobalBoolean.setLock(false);
+        ButtonFireForEnterSetter.setGlobalEventHandler(acSettings);
     }
 
     @FXML
@@ -61,14 +63,14 @@ public class Settings_controller implements Initializable {
                 if (writeBackup) {
 
 
-                    OptionPane.showMessage("Successfully backup file is created.");
+                    OptionPane.showDoneAtSide("Backup file is Successfully created.");
                 } else {
-                    OptionPane.showMessage("Something's wrong. we can't do your request.");
+                    OptionPane.showWarningAtSide("Something's wrong. we can't do your request.");
                 }
             }
 
         } catch (Exception e) {
-            OptionPane.showMessage("Something's wrong. we can't do your request.");
+            OptionPane.showWarningAtSide("Something's wrong. we can't do your request.");
             Logger.getLogger(Settings_controller.class.getName()).log(Level.SEVERE, null, e);
         }
     }

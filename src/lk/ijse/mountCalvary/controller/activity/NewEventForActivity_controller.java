@@ -16,14 +16,13 @@ import javafx.stage.Stage;
 import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.ActivityBO;
 import lk.ijse.mountCalvary.business.custom.EventBO;
-import lk.ijse.mountCalvary.controller.Common;
-import lk.ijse.mountCalvary.controller.GlobalBoolean;
-import lk.ijse.mountCalvary.controller.OptionPane;
-import lk.ijse.mountCalvary.controller.ScreenLoader;
+import lk.ijse.mountCalvary.controller.tool.Common;
+import lk.ijse.mountCalvary.controller.tool.GlobalBoolean;
+import lk.ijse.mountCalvary.controller.tool.OptionPane;
+import lk.ijse.mountCalvary.controller.tool.ScreenLoader;
 import lk.ijse.mountCalvary.model.ActivityDTO;
 import lk.ijse.mountCalvary.model.EventDTO;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -114,9 +113,9 @@ public class NewEventForActivity_controller implements Initializable {
         boolean male = rbxMale.isSelected();
         boolean female = rbxFemale.isSelected();
         if (event_name.length() < 2) {
-            OptionPane.showError("Please enter the event name ");
+            OptionPane.showErrorAtSide("Please enter the event name ");
         } else if (!(male || female)) {
-            OptionPane.showError("Please select the gender of the event ");
+            OptionPane.showErrorAtSide("Please select the gender of the event ");
         } else {
             if (cboxActivityName.getSelectionModel().getSelectedItem() != null) {
                 int AID = cboxActivityName.getSelectionModel().getSelectedItem().getAID();
@@ -128,7 +127,7 @@ public class NewEventForActivity_controller implements Initializable {
                     tblNewEvent.getItems().add(new EventDTO(event_name, EventDTO.FEMALE, AID));
                 }
             } else {
-                OptionPane.showError("Please select the activity");
+                OptionPane.showErrorAtSide("Please select the activity");
             }
         }
     }
@@ -137,11 +136,7 @@ public class NewEventForActivity_controller implements Initializable {
     void btCancel_onAction(ActionEvent event) {
         boolean answer = OptionPane.askQuestion("Do you want to cancel?");
         if (answer) {
-            try {
-                screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/basic/StudentMenu.fxml", this.acNewEvntForActivity, this);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/basic/StudentMenu.fxml", this.acNewEvntForActivity, this);
         }
     }
 
@@ -158,32 +153,30 @@ public class NewEventForActivity_controller implements Initializable {
             if (eventList.size() != 0) {
                 try {
                     if (eventBOImpl.addAllEvent(eventList)) {
-                        OptionPane.showMessage("Events has successfully added");
-                        try {
-                            Stage thisWindow = (Stage) (this.acNewEvntForActivity.getScene().getWindow());
-                            String window = thisWindow.getClass().getName();
-                            System.out.println(window);
-                            if (window.equals("temp")) {
-                                thisWindow.close();
-                            } else {
-                                screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/basic/ActivityMenu.fxml", this.acNewEvntForActivity, this);
-                            }
-                        } catch (IOException e) {
-                            e.printStackTrace();
+                        OptionPane.showDoneAtSide("Events has successfully added");
+                        //What the hell I did here???
+
+                        Stage thisWindow = (Stage) (this.acNewEvntForActivity.getScene().getWindow());
+                        String window = thisWindow.getClass().getName();
+                        System.out.println(window);
+                        if (window.equals("temp")) {
+                            thisWindow.close();
+                        } else {
+                            screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/basic/ActivityMenu.fxml", this.acNewEvntForActivity, this);
                         }
                     } else {
-                        OptionPane.showError("Something's wrong we can't do your request");
+                        OptionPane.showErrorAtSide("Something's wrong we can't do your request");
                     }
                 } catch (Exception e) {
                     Logger.getLogger(NewEventForActivity_controller.class.getName()).log(Level.SEVERE, null, e);
-                    OptionPane.showError("Something's wrong we can't do your request");
+                    OptionPane.showErrorAtSide("Something's wrong we can't do your request");
 
                 }
             } else {
-                OptionPane.showError("Please add some event");
+                OptionPane.showErrorAtSide("Please add some event");
             }
         } else {
-            OptionPane.showError("Please select the activity");
+            OptionPane.showErrorAtSide("Please select the activity");
         }
     }
 

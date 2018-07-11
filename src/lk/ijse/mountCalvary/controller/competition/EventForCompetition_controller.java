@@ -16,13 +16,12 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.*;
-import lk.ijse.mountCalvary.controller.Common;
-import lk.ijse.mountCalvary.controller.GlobalBoolean;
-import lk.ijse.mountCalvary.controller.OptionPane;
-import lk.ijse.mountCalvary.controller.ScreenLoader;
+import lk.ijse.mountCalvary.controller.tool.Common;
+import lk.ijse.mountCalvary.controller.tool.GlobalBoolean;
+import lk.ijse.mountCalvary.controller.tool.OptionPane;
+import lk.ijse.mountCalvary.controller.tool.ScreenLoader;
 import lk.ijse.mountCalvary.model.*;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -150,9 +149,9 @@ public class EventForCompetition_controller implements Initializable {
 
         ObservableList<EventListDTO> eventListDTOS = tblEventList.getItems();
         if (eventDTO == null) {
-            OptionPane.showError("Please select an event from event table of the activity");
+            OptionPane.showErrorAtSide("Please select an event from event table of the activity");
         } else if (ageGroupDTO == null) {
-            OptionPane.showError("Please select the age group");
+            OptionPane.showErrorAtSide("Please select the age group");
         } else {
             CompetitionDTO competitionDTO = cboxCompetition.getSelectionModel().getSelectedItem();
             EventListDTO adding = new EventListDTO(eventDTO, competitionDTO, ageGroupDTO);
@@ -167,7 +166,7 @@ public class EventForCompetition_controller implements Initializable {
                 i++;
             }
             if (isAdded) {
-                OptionPane.showError("This event has been already added for this age group");
+                OptionPane.showErrorAtSide("This event has been already added for this age group");
                 tblEventList.scrollTo(i);
                 tblEventList.getSelectionModel().select(i);
             } else {
@@ -193,10 +192,10 @@ public class EventForCompetition_controller implements Initializable {
             if (selectedItem.isNewEventList()) {
                 Common.removeItemFromTable(tblEventList);
             } else {
-                OptionPane.showError("This event has already added. You cannot remove it.");
+                OptionPane.showErrorAtSide("This event has already added. You cannot remove it.");
             }
         } else {
-            OptionPane.showError("Please select an event to remove.");
+            OptionPane.showErrorAtSide("Please select an event to remove.");
         }
     }
 
@@ -256,13 +255,13 @@ public class EventForCompetition_controller implements Initializable {
 
                 } catch (Exception e) {
                     Logger.getLogger(EventForCompetition_controller.class.getName()).log(Level.SEVERE, null, e);
-                    OptionPane.showError("Something's wrong we can't do your request now");
+                    OptionPane.showErrorAtSide("Something's wrong we can't do your request now");
 
 
                 }
             }
         } else {
-            OptionPane.showError("Please select the competition");
+            OptionPane.showErrorAtSide("Please select the competition");
         }
     }
 
@@ -288,11 +287,7 @@ public class EventForCompetition_controller implements Initializable {
     private void btCancel(ActionEvent actionEvent) {
         boolean answer = OptionPane.askQuestion("Do you want to cancel?");
         if (answer) {
-            try {
-                screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/basic/CompetitionMenu.fxml", this.acEventForCompetition, this);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/basic/CompetitionMenu.fxml", this.acEventForCompetition, this);
         }
     }
 
@@ -309,7 +304,7 @@ public class EventForCompetition_controller implements Initializable {
 //            stage.setScene(new Scene(p));
 //            stage.showAndWait();
 
-            screenLoader.loadNewWindow("/lk/ijse/mountCalvary/view/activity/NewEventForActivity.fxml", this);
+//            screenLoader.loadNewWindow("/lk/ijse/mountCalvary/view/activity/NewEventForActivity.fxml", this);
 
             loadActivity();
         } catch (Exception e) {

@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXToggleButton?>
 <?import de.jensd.fx.glyphs.icons525.Icons525View?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.*?>
 <?import java.net.*?>
 <VBox xmlns:fx="http://javafx.com/fxml/1" fx:id="attendanceAndActivityOfStudent" styleClass="profile-frame"
       xmlns="http://javafx.com/javafx/8.0.141"
       fx:controller="lk.ijse.mountCalvary.controller.student.profile.AttendanceAndActivityOfStudentController">
     <children>
-        <HBox VBox.vgrow="NEVER">
+        <HBox styleClass="node-pane" VBox.vgrow="NEVER">
             <children>
                 <Label maxWidth="1.7976931348623157E308" prefHeight="36.0" prefWidth="309.0" styleClass="title"
                        text="Attendance and activity of student" HBox.hgrow="ALWAYS">
@@ -59,6 +59,12 @@
                              prefWidth="295.0" promptText="Activity"/>
                 <Region maxHeight="1.7976931348623157E308" prefHeight="0.0" prefWidth="200.0" styleClass="region"
                         HBox.hgrow="ALWAYS"/>
+                <JFXToggleButton fx:id="btInverse" minHeight="-Infinity" onAction="#btInverse_onAction"
+                                 prefHeight="33.0" prefWidth="195.0" text="Inverse" textFill="WHITE" visible="false">
+                    <font>
+                        <Font name="System Bold" size="12.0"/>
+                    </font>
+                </JFXToggleButton>
                 <JFXComboBox fx:id="cboxTimeRange" labelFloat="true" onAction="#cboxTimeRange_onAction"
                              prefHeight="29.0" prefWidth="302.0" promptText="Time range"/>
             </children>
@@ -66,8 +72,8 @@
         <TableView fx:id="tblAttendantSheet" maxHeight="1.7976931348623157E308" prefHeight="429.0" prefWidth="1343.0"
                    tableMenuButtonVisible="true" VBox.vgrow="ALWAYS">
             <columns>
-                <TableColumn fx:id="colDate_tblAttendantSheet" prefWidth="295.0" text="Date"/>
                 <TableColumn fx:id="colActivity_tblAttendantSheet" prefWidth="524.0" text="Activity "/>
+                <TableColumn fx:id="colDate_tblAttendantSheet" prefWidth="295.0" text="Date"/>
                 <TableColumn fx:id="colTeacherInCharge_tblAttendantSheet" prefWidth="295.0" text="Teacher in charge"/>
             </columns>
             <columnResizePolicy>

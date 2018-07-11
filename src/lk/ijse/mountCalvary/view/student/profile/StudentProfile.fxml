@@ -4,9 +4,7 @@
 <?import com.jfoenix.controls.JFXTabPane?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.layout.*?>
 <?import java.net.*?>
 <BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="bpStudentProfile" styleClass="profile-main-frame"
             stylesheets="@../../../css/frame.css" xmlns="http://javafx.com/javafx/8.0.141"
@@ -14,16 +12,14 @@
     <top>
         <HBox styleClass="top-profile-frame">
             <children>
-                <Label maxWidth="1.7976931348623157E308" prefHeight="27.0" prefWidth="0.0" styleClass="super-title"
+                <Label maxWidth="-Infinity" minWidth="-Infinity" prefHeight="27.0" styleClass="super-title"
                        text="Student Profile" HBox.hgrow="ALWAYS">
-                    <font>
-                        <Font size="22.0" />
-                    </font>
                 </Label>
+                <Region prefHeight="20.0" prefWidth="0.0" HBox.hgrow="ALWAYS"/>
                 <JFXTextField fx:id="txtStudentID" labelFloat="true" onAction="#btStudentID_onAction" prefHeight="25.0"
-                              prefWidth="139.0" promptText="Student ID" unFocusColor="BLACK"/>
+                              prefWidth="143.0" promptText="Student ID" unFocusColor="BLACK"/>
                 <JFXTextField fx:id="txtStudentName" labelFloat="true" onAction="#txtStudentName_onAction"
-                              prefHeight="25.0" prefWidth="363.0" promptText="Student name" unFocusColor="BLACK"/>
+                              prefHeight="25.0" prefWidth="392.0" promptText="Student name" unFocusColor="BLACK"/>
                 <JFXButton fx:id="btSearch" onAction="#btSearch_onAction" prefHeight="34.0" prefWidth="116.0"
                            style="-fx-background-color: #2196F3;" text="Search" textFill="WHITE"/>
             </children>

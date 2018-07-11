@@ -114,8 +114,9 @@ public class AttendantSheetDTO {
         return studentName;
     }
 
-    public void setStudentName(String studentName) {
+    public AttendantSheetDTO setStudentName(String studentName) {
         this.studentName = studentName;
+        return this;
     }
 
     public String getActivityName() {

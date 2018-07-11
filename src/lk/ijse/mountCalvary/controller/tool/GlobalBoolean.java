@@ -1,4 +1,4 @@
-package lk.ijse.mountCalvary.controller;
+package lk.ijse.mountCalvary.controller.tool;
 
 public class GlobalBoolean {
 

@@ -10,13 +10,12 @@ import javafx.scene.layout.VBox;
 import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.ActivityBO;
 import lk.ijse.mountCalvary.business.custom.TeacherBO;
-import lk.ijse.mountCalvary.controller.GlobalBoolean;
-import lk.ijse.mountCalvary.controller.OptionPane;
-import lk.ijse.mountCalvary.controller.ScreenLoader;
+import lk.ijse.mountCalvary.controller.tool.GlobalBoolean;
+import lk.ijse.mountCalvary.controller.tool.OptionPane;
+import lk.ijse.mountCalvary.controller.tool.ScreenLoader;
 import lk.ijse.mountCalvary.model.ActivityDTO;
 import lk.ijse.mountCalvary.model.TeacherDTO;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -76,11 +75,7 @@ public class UpdateActivity_controller implements Initializable {
 
     @FXML
     void btCancel_onAction(ActionEvent event) {
-        try {
-            screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/basic/ActivityMenu.fxml", this.acUpdateActivity, this);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/basic/ActivityMenu.fxml", this.acUpdateActivity, this);
     }
 
     @FXML
@@ -90,21 +85,17 @@ public class UpdateActivity_controller implements Initializable {
 
     @FXML
     void btUpdate_onAction(ActionEvent event) {
+        ActivityDTO upAct = cboxActivity.getSelectionModel().getSelectedItem();
+        upAct.setTID(cboxTeacherInCharge.getSelectionModel().getSelectedItem().getTID());
         try {
-            ActivityDTO upAct = cboxActivity.getSelectionModel().getSelectedItem();
-            upAct.setTID(cboxTeacherInCharge.getSelectionModel().getSelectedItem().getTID());
-            try {
-                if (activityBOImpl.updateTeacherOfActivity(upAct)) {
-                    OptionPane.showMessage("Activity has Successfully updated");
-                }
-            } catch (Exception e) {
-                Logger.getLogger(UpdateActivity_controller.class.getName()).log(Level.SEVERE, null, e);
-
+            if (activityBOImpl.updateTeacherOfActivity(upAct)) {
+                OptionPane.showDoneAtSide("Activity has Successfully updated");
             }
-            screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/basic/ActivityMenu.fxml", this.acUpdateActivity, this);
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            Logger.getLogger(UpdateActivity_controller.class.getName()).log(Level.SEVERE, null, e);
+
         }
+        screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/basic/ActivityMenu.fxml", this.acUpdateActivity, this);
     }
 
     @FXML

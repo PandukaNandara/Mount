@@ -16,16 +16,15 @@ import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.ActivityBO;
 import lk.ijse.mountCalvary.business.custom.AttendantSheetBO;
 import lk.ijse.mountCalvary.business.custom.TeacherBO;
-import lk.ijse.mountCalvary.controller.Common;
-import lk.ijse.mountCalvary.controller.GlobalBoolean;
-import lk.ijse.mountCalvary.controller.OptionPane;
-import lk.ijse.mountCalvary.controller.ScreenLoader;
+import lk.ijse.mountCalvary.controller.tool.Common;
+import lk.ijse.mountCalvary.controller.tool.GlobalBoolean;
+import lk.ijse.mountCalvary.controller.tool.OptionPane;
+import lk.ijse.mountCalvary.controller.tool.ScreenLoader;
 import lk.ijse.mountCalvary.model.ActivityDTO;
 import lk.ijse.mountCalvary.model.AttendantSheetDTO;
 import lk.ijse.mountCalvary.model.RegistrationDTO;
 import lk.ijse.mountCalvary.model.TeacherDTO;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
@@ -133,12 +132,12 @@ public class UpdateAttendance_controller implements Initializable {
         ObservableList<RegistrationDTO> selectedItems = tblStudentList.getSelectionModel().getSelectedItems();
         TeacherDTO selectedTeacher = cboxTeacherInCharge.getSelectionModel().getSelectedItem();
         if (day == null) {
-            OptionPane.showError("Please enter the date");
+            OptionPane.showErrorAtSide("Please enter the date");
         } else if (selectedItems.size() == 0) {
-            OptionPane.showError("Please select students");
+            OptionPane.showErrorAtSide("Please select students");
 
         } else if (selectedTeacher == null) {
-            OptionPane.showError("Please select the teacher in charge");
+            OptionPane.showErrorAtSide("Please select the teacher in charge");
         } else {
             for (RegistrationDTO oneReg : selectedItems) {
                 tblAttendance.getItems().add(new AttendantSheetDTO(
@@ -157,11 +156,7 @@ public class UpdateAttendance_controller implements Initializable {
     void btCancel_onAction(ActionEvent event) {
         boolean answer = OptionPane.askWarning("Do you want to cancel?");
         if (answer) {
-            try {
-                screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/basic/MainMenu.fxml", this.acUpdateAttendance, this);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/basic/MainMenu.fxml", this.acUpdateAttendance, this);
         }
     }
 
@@ -173,7 +168,7 @@ public class UpdateAttendance_controller implements Initializable {
             removeItem.getRegistrationDTO().getActivity().getRegistrationDTOS().add(removeItem.getRegistrationDTO());
             tblStudentList.getItems().add(removeItem.getRegistrationDTO());
         } else {
-            OptionPane.showError("Please select an Student to remove");
+            OptionPane.showErrorAtSide("Please select an Student to remove");
         }
     }
 
@@ -181,17 +176,13 @@ public class UpdateAttendance_controller implements Initializable {
     void btUpdate_onAction(ActionEvent event) {
         ObservableList<AttendantSheetDTO> attendantSheetDTOS = tblAttendance.getItems();
         if (attendantSheetDTOS.size() == 0) {
-            OptionPane.showError("Please add some attendant detail");
+            OptionPane.showErrorAtSide("Please add some attendant detail");
         } else {
             if (OptionPane.askQuestion("Do you want to update attendance?")) {
                 try {
                     if (attendantSheetBOImpl.saveAllAttendantSheet(attendantSheetDTOS)) {
-                        OptionPane.showMessage("Attendant sheet successfully updated");
-                        try {
-                            screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/basic/MainMenu.fxml", this.acUpdateAttendance, this);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
+                        OptionPane.showDoneAtSide("Attendant sheet successfully updated");
+                        screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/basic/MainMenu.fxml", this.acUpdateAttendance, this);
                     }
                 } catch (Exception e) {
                     Logger.getLogger(UpdateAttendance_controller.class.getName()).log(Level.SEVERE, null, e);

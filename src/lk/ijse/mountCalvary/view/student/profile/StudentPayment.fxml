@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.*?>
-<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import de.jensd.fx.glyphs.icons525.Icons525View?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
@@ -18,15 +17,12 @@
                   <Font name="System Bold" size="18.0"/>
                </font>
             </Label>
-            <JFXButton fx:id="btInverse" maxWidth="-Infinity" minWidth="-Infinity" onAction="#btInverse_onAction"
-                       prefHeight="33.0" prefWidth="101.0" text="Inverse" textFill="WHITE">
-               <graphic>
-                  <FontAwesomeIconView fill="WHITE" glyphName="EXCHANGE" size="25"/>
-               </graphic>
+             <JFXToggleButton fx:id="btInverse" minHeight="-Infinity" visible="false" onAction="#btInverse_onAction"
+                              prefHeight="33.0" prefWidth="195.0" text="Inverse" textFill="WHITE">
                <font>
-                  <Font name="System Bold" size="12.0"/>
+                   <Font name="System Bold" size="12.0"/>
                </font>
-            </JFXButton>
+             </JFXToggleButton>
             <JFXButton fx:id="btPrint" alignment="CENTER" buttonType="RAISED" maxWidth="156.0"
                        onAction="#btPrint_onAction" prefHeight="32.0" prefWidth="156.0" ripplerFill="WHITE"
                        style="-fx-background-color: #2196f3;" text="Print" textAlignment="CENTER" textFill="WHITE">

@@ -1,6 +1,21 @@
-package lk.ijse.mountCalvary.controller;
+package lk.ijse.mountCalvary.controller.tool;
 
 public class Month {
+    public static int ALL = -1;
+    public static int NONE = 0;
+    public static int JANUARY = 1;
+    public static int FEBRUARY = 2;
+    public static int MARCH = 3;
+    public static int APRIL = 4;
+    public static int MAY = 5;
+    public static int JUNE = 6;
+    public static int JULY = 7;
+    public static int AUGUST = 8;
+    public static int SEPTEMBER = 9;
+    public static int OCTOBER = 10;
+    public static int NOVEMBER = 11;
+    public static int DECEMBER = 12;
+
     static Month[] months;
     private int value;
 
@@ -8,11 +23,11 @@ public class Month {
         this.value = value;
     }
 
-    public static Month[] getAllMonth(){
-        if(months == null){
+    public static Month[] getAllMonth() {
+        if (months == null) {
             final Month[] month_local = new Month[12];
-            for (int i = 1; i <= 12; i++){
-                month_local[i-1] = new Month(i);
+            for (int i = 1; i <= 12; i++) {
+                month_local[i - 1] = new Month(i);
             }
             months = month_local;
         }
@@ -56,9 +71,19 @@ public class Month {
                 return "December";
             case -1:
                 return "All";
+            case 0:
+                return "-";
             default:
                 return "ERROR";
 
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Month month = (Month) o;
+        return value == month.value;
     }
 }

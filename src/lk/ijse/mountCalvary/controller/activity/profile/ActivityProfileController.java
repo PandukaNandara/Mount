@@ -10,8 +10,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.ActivityBO;
-import lk.ijse.mountCalvary.controller.GlobalBoolean;
-import lk.ijse.mountCalvary.controller.OptionPane;
+import lk.ijse.mountCalvary.controller.tool.ButtonFireForEnterSetter;
+import lk.ijse.mountCalvary.controller.tool.GlobalBoolean;
+import lk.ijse.mountCalvary.controller.tool.OptionPane;
 import lk.ijse.mountCalvary.model.ActivityDTO;
 
 import java.net.URL;
@@ -63,7 +64,7 @@ public class ActivityProfileController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         GlobalBoolean.setLock(false);
-
+        ButtonFireForEnterSetter.setGlobalEventHandler(bpActivityProfileTop);
         activityBOImpl = BOFactory.getInstance().getBO(BOFactory.BOType.ACTIVITY);
 
         try {
@@ -124,7 +125,7 @@ public class ActivityProfileController implements Initializable {
         if (activityDTO != null) {
             showDataOnTabs(activityDTO);
         } else {
-            OptionPane.showError("Please select an activity");
+            OptionPane.showErrorAtSide("Please select an activity");
         }
     }
 

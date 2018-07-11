@@ -1,65 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXTextField?>
-<?import java.net.URL?>
+<?import com.jfoenix.controls.*?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-
-<VBox fx:id="acNewTeacher" styleClass="main-frame" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.mountCalvary.controller.teacher.NewTeacher_controller">
+<?import java.net.*?>
+<VBox xmlns:fx="http://javafx.com/fxml/1" fx:id="acNewTeacher" styleClass="main-frame"
+      xmlns="http://javafx.com/javafx/8.0.141"
+      fx:controller="lk.ijse.mountCalvary.controller.teacher.NewTeacher_controller">
    <children>
-      <Label prefHeight="42.0" prefWidth="209.0" text="New Teacher ">
+       <Label prefHeight="42.0" prefWidth="209.0" text="New Teacher ">
          <font>
             <Font name="Arial Bold" size="18.0" />
          </font>
       </Label>
-      <HBox styleClass="node-pane">
-         <children>
-            <JFXTextField fx:id="txtTeacherName" labelFloat="true" onAction="#txtTeacherName_onAction" prefHeight="25.0" prefWidth="546.0" promptText="Teacher Name" />
-            <JFXButton fx:id="btAdd" onAction="#btAdd_onAction" prefHeight="33.0" prefWidth="124.0" style="-fx-background-color: #2196F3;" text="Add" textFill="WHITE" />
-         </children>
-      </HBox>
-      <VBox styleClass="table-pane" VBox.vgrow="ALWAYS">
-         <children>
-            <JFXButton fx:id="btRemove" onAction="#btRemove_tblTeacher_onAction" prefHeight="18.0" prefWidth="124.0" styleClass="cancel" text="Remove" textFill="#2196f3">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-            </JFXButton>
-            <TableView fx:id="tblTeacher" prefHeight="644.0" prefWidth="1266.0" VBox.vgrow="ALWAYS">
-              <columns>
-                <TableColumn fx:id="colTeacherName" prefWidth="832.0" text="Teacher name" />
-              </columns>
-               <columnResizePolicy>
-                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-               </columnResizePolicy>
-            </TableView>
-         </children>
-      </VBox>
-      <HBox styleClass="button-pane">
-         <children>
-            <JFXButton fx:id="btCancel" onAction="#btCancel_onAction" prefHeight="33.0" prefWidth="124.0" styleClass="cancel" text="Cancel" textFill="#2196f3">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-            </JFXButton>
-            <JFXButton fx:id="btSubmit" onAction="#btSubmit_onAction" prefHeight="33.0" prefWidth="124.0" style="-fx-background-color: #2196F3;" text="Submit" textFill="WHITE" />
-         </children>
-      </HBox>
+       <HBox styleClass="node-pane">
+           <children>
+               <JFXTextField fx:id="txtTeacherName" labelFloat="true" onAction="#txtTeacherName_onAction"
+                             prefHeight="25.0" prefWidth="546.0" promptText="Teacher Name"/>
+               <JFXButton fx:id="btAdd" onAction="#btAdd_onAction" prefHeight="33.0" prefWidth="124.0"
+                          style="-fx-background-color: #2196F3;" text="Add" textFill="WHITE"/>
+           </children>
+       </HBox>
+       <VBox styleClass="table-pane" VBox.vgrow="ALWAYS">
+           <children>
+               <JFXButton fx:id="btRemove" onAction="#btRemove_tblTeacher_onAction" prefHeight="18.0" prefWidth="124.0"
+                          styleClass="cancel" text="Remove" textFill="#2196f3">
+                   <font>
+                       <Font name="System Bold" size="12.0"/>
+                   </font>
+               </JFXButton>
+               <TableView fx:id="tblTeacher" prefHeight="644.0" prefWidth="1266.0" VBox.vgrow="ALWAYS">
+                   <columns>
+                       <TableColumn fx:id="colTeacherName" prefWidth="832.0" text="Teacher name"/>
+                   </columns>
+                   <columnResizePolicy>
+                       <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                   </columnResizePolicy>
+               </TableView>
+           </children>
+       </VBox>
+       <HBox styleClass="button-pane">
+           <children>
+               <JFXButton fx:id="btCancel" onAction="#btCancel_onAction" prefHeight="33.0" prefWidth="124.0"
+                          styleClass="cancel" text="Cancel" textFill="#2196f3">
+                   <font>
+                       <Font name="System Bold" size="12.0"/>
+                   </font>
+               </JFXButton>
+               <JFXButton fx:id="btSubmit" onAction="#btSubmit_onAction" prefHeight="33.0" prefWidth="124.0"
+                          style="-fx-background-color: #2196F3;" text="Submit" textFill="WHITE"/>
+           </children>
+       </HBox>
    </children>
-   <stylesheets>
-      <URL value="@../../css/frame.css" />
-      <URL value="@../../css/combo-box.css" />
-      <URL value="@../../css/table-view.css" />
-      <URL value="@../../css/text-and-password-field.css" />
-      <URL value="@../../css/date-picker.css" />
-      <URL value="@../../css/radio-button.css" />
-      <URL value="@../../css/text-area.css" />
-      <URL value="@../../css/button.css" />
-      <URL value="@../../css/label.css" />
-   </stylesheets>
+    <stylesheets>
+        <URL value="@../../css/frame.css"/>
+        <URL value="@../../css/combo-box.css"/>
+        <URL value="@../../css/table-view.css"/>
+        <URL value="@../../css/text-and-password-field.css"/>
+        <URL value="@../../css/date-picker.css"/>
+        <URL value="@../../css/radio-button.css"/>
+        <URL value="@../../css/text-area.css"/>
+        <URL value="@../../css/button.css"/>
+        <URL value="@../../css/label.css"/>
+    </stylesheets>
 </VBox>

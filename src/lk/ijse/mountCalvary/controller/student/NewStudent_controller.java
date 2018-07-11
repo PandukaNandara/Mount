@@ -13,24 +13,23 @@ import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.ActivityBO;
 import lk.ijse.mountCalvary.business.custom.StudentBO;
 import lk.ijse.mountCalvary.business.custom.TelNoBO;
-import lk.ijse.mountCalvary.controller.Common;
-import lk.ijse.mountCalvary.controller.GlobalBoolean;
-import lk.ijse.mountCalvary.controller.OptionPane;
-import lk.ijse.mountCalvary.controller.ScreenLoader;
+import lk.ijse.mountCalvary.controller.tool.Common;
+import lk.ijse.mountCalvary.controller.tool.GlobalBoolean;
+import lk.ijse.mountCalvary.controller.tool.OptionPane;
+import lk.ijse.mountCalvary.controller.tool.ScreenLoader;
 import lk.ijse.mountCalvary.model.ActivityDTO;
 import lk.ijse.mountCalvary.model.RegistrationDTO;
 import lk.ijse.mountCalvary.model.StudentDTO;
 import lk.ijse.mountCalvary.model.TelNoDTO;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.Date;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static lk.ijse.mountCalvary.controller.Common.isInteger;
-import static lk.ijse.mountCalvary.controller.OptionPane.showError;
+import static lk.ijse.mountCalvary.controller.tool.Common.isInteger;
+import static lk.ijse.mountCalvary.controller.tool.OptionPane.showErrorAtSide;
 
 public class NewStudent_controller implements Initializable {
 
@@ -164,16 +163,16 @@ public class NewStudent_controller implements Initializable {
         ActivityDTO selectedItem = cboxActivityName.getSelectionModel().getSelectedItem();
         Date date;
         if (selectedItem == null) {
-            OptionPane.showError("Please select an activityBOImpl");
+            OptionPane.showErrorAtSide("Please select an activityBOImpl");
         } else if (Common.getDate(dtJoinedDate) == null) {
-            OptionPane.showError("Please select the joined date");
+            OptionPane.showErrorAtSide("Please select the joined date");
         } else {
             date = Common.getDate(dtJoinedDate);
             if (checkStudentID()) {
                 int id = getStudentID();
                 tblActivity.getItems().add(new RegistrationDTO(id, selectedItem, date));
             } else
-                OptionPane.showError("Please enter Student ID");
+                OptionPane.showErrorAtSide("Please enter Student ID");
         }
     }
 
@@ -184,11 +183,11 @@ public class NewStudent_controller implements Initializable {
 
         if (!(tel.length() == 10 && tel.matches("[0][0-9]{9}"))) {
 
-            OptionPane.showError("Please enter a valid phone number");
+            OptionPane.showErrorAtSide("Please enter a valid phone number");
 
         } else if (!checkStudentID()) {
 
-            OptionPane.showError("Please enter the studentBOImpl ID");
+            OptionPane.showErrorAtSide("Please enter the studentBOImpl ID");
 
         } else {
             int stNum = getStudentID();
@@ -238,38 +237,30 @@ public class NewStudent_controller implements Initializable {
                                     Alert a = new Alert(Alert.AlertType.INFORMATION, text, ButtonType.OK);
                                     a.showAndWait();
                                 } catch (Exception e) {
-                                    showError(e.getMessage());
+                                    showErrorAtSide(e.getMessage());
                                 }
                                 if (OptionPane.askQuestion("Do you want to add more studentBOImpl?")) {
-                                    try {
-                                        screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/student/NewStudent.fxml", this.acNewStudent, this);
-                                    } catch (IOException e) {
-                                        e.printStackTrace();
-                                    }
+                                    screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/student/NewStudent.fxml", this.acNewStudent, this);
                                 } else {
-                                    try {
-                                        screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/basic/StudentMenu.fxml", this.acNewStudent, this);
-                                    } catch (IOException e) {
-                                        e.printStackTrace();
-                                    }
+                                    screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/basic/StudentMenu.fxml", this.acNewStudent, this);
                                 }
                             } else {
-                                showError("Please enter the parent details");
+                                showErrorAtSide("Please enter the parent details");
                             }
                         } else {
-                            showError("Please enter the birth day");
+                            showErrorAtSide("Please enter the birth day");
                         }
                     } else {
-                        showError("Please enter the house");
+                        showErrorAtSide("Please enter the house");
                     }
                 } else {
-                    showError("Please select the Grade and the class");
+                    showErrorAtSide("Please select the Grade and the class");
                 }
             } else {
-                showError("Please enter Student name");
+                showErrorAtSide("Please enter Student name");
             }
         } else {
-            showError("Please enter the studentBOImpl ID");
+            showErrorAtSide("Please enter the studentBOImpl ID");
         }
 
     }
@@ -384,7 +375,7 @@ public class NewStudent_controller implements Initializable {
             }
             txtStudentName.requestFocus();
         } else {
-            OptionPane.showError("Please input valid studentBOImpl ID as number");
+            OptionPane.showErrorAtSide("Please input valid studentBOImpl ID as number");
         }
     }
 
@@ -416,11 +407,7 @@ public class NewStudent_controller implements Initializable {
     private void btCancel_onAction(ActionEvent actionEvent) {
         boolean answer = OptionPane.askQuestion("Do you want to cancel?");
         if (answer) {
-            try {
-                screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/basic/StudentMenu.fxml", this.acNewStudent, this);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/basic/StudentMenu.fxml", this.acNewStudent, this);
         }
     }
 }

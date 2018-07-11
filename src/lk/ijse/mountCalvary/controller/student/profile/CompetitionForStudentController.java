@@ -11,9 +11,10 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.ParticipationBO;
-import lk.ijse.mountCalvary.controller.GlobalBoolean;
-import lk.ijse.mountCalvary.controller.OptionPane;
-import lk.ijse.mountCalvary.controller.Reporter;
+import lk.ijse.mountCalvary.controller.tool.ButtonFireForEnterSetter;
+import lk.ijse.mountCalvary.controller.tool.GlobalBoolean;
+import lk.ijse.mountCalvary.controller.tool.OptionPane;
+import lk.ijse.mountCalvary.controller.tool.Reporter;
 import lk.ijse.mountCalvary.model.ParticipationDTO;
 import lk.ijse.mountCalvary.model.StudentDTO;
 import net.sf.jasperreports.engine.*;
@@ -58,7 +59,7 @@ public class CompetitionForStudentController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         GlobalBoolean.setLock(false);
-
+        ButtonFireForEnterSetter.setGlobalEventHandler(competitionForStudent);
         colActivity.setCellValueFactory(new PropertyValueFactory<>("activityName"));
         colCompetition.setCellValueFactory(new PropertyValueFactory<>("competitionName"));
         colDate.setCellValueFactory(new PropertyValueFactory<>("date"));
@@ -96,7 +97,7 @@ public class CompetitionForStudentController implements Initializable {
 
             }
         } else {
-            OptionPane.showError("Please select a student to print.");
+            OptionPane.showErrorAtSide("Please select a student to print.");
         }
     }
 

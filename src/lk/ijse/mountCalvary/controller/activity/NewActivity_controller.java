@@ -13,11 +13,10 @@ import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.ActivityBO;
 import lk.ijse.mountCalvary.business.custom.StudentBO;
 import lk.ijse.mountCalvary.business.custom.TeacherBO;
-import lk.ijse.mountCalvary.controller.*;
+import lk.ijse.mountCalvary.controller.tool.*;
 import lk.ijse.mountCalvary.entity.Gender;
 import lk.ijse.mountCalvary.model.*;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
@@ -118,7 +117,7 @@ public class NewActivity_controller implements Initializable {
             selectedStudent = studentAuto.getSelectedItemByName();
             txtStudentID.setText(String.valueOf(selectedStudent.getSID()));
         } catch (NullPointerException e) {
-            OptionPane.showError("Invalid student name or name is not existed");
+            OptionPane.showErrorAtSide("Invalid student name or name is not existed");
         } catch (Exception e) {
             Logger.getLogger(NewActivity_controller.class.getName()).log(Level.SEVERE, null, e);
         }
@@ -135,9 +134,9 @@ public class NewActivity_controller implements Initializable {
         boolean male = rbtMale.isSelected();
         boolean female = rbtFemale.isSelected();
         if (event_name.length() < 2) {
-            OptionPane.showError("Please enter the event name ");
+            OptionPane.showErrorAtSide("Please enter the event name ");
         } else if (!(male || female)) {
-            OptionPane.showError("Please select the gender of the event.");
+            OptionPane.showErrorAtSide("Please select the gender of the event.");
         } else {
             if (male) {
                 tblEvent.getItems().add(new EventDTO(event_name, EventDTO.MALE));
@@ -153,13 +152,13 @@ public class NewActivity_controller implements Initializable {
     void btAdd_Student_onAction(ActionEvent event) {
         Date joinDate = Common.localDateToDate(dtJoinedDate.getValue());
         if (joinDate == null) {
-            OptionPane.showError("Please enter the joined date");
+            OptionPane.showErrorAtSide("Please enter the joined date");
         } else if (txtStudentName.getText().length() < 1) {
-            OptionPane.showError("Please enter the student name");
+            OptionPane.showErrorAtSide("Please enter the student name");
         } else {
             selectedStudent = studentAuto.getSelectedItemByName();
             if (selectedStudent == null) {
-                OptionPane.showError("This student is not a valid student.");
+                OptionPane.showErrorAtSide("This student is not a valid student.");
                 txtStudentName.selectAll();
                 txtStudentName.requestFocus();
             } else {
@@ -183,11 +182,7 @@ public class NewActivity_controller implements Initializable {
     void btCancel_onAction(ActionEvent event) {
         boolean answer = OptionPane.askWarning("Do you want to cancel?");
         if (answer) {
-            try {
-                screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/basic/StudentMenu.fxml", this.acNewActivity, this);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/basic/StudentMenu.fxml", this.acNewActivity, this);
         }
     }
 
@@ -217,12 +212,8 @@ public class NewActivity_controller implements Initializable {
                             evenList.add(new EventDTO("Default " + aName + " event", Gender.FEMALE));
                     }
                     if (activityBOImpl.addActivityWithStudentAndEvent(new ActivityDTO(aName, teachInCharge.getTID(), regList, evenList))) {
-                        OptionPane.showMessage("Activity has successfully added");
-                        try {
-                            screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/basic/StudentMenu.fxml", this.acNewActivity, this);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
+                        OptionPane.showDoneAtSide("Activity has successfully added");
+                        screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/basic/StudentMenu.fxml", this.acNewActivity, this);
                     } else {
                         OptionPane.showWarning("Something's wrong we can't do your request");
                     }
@@ -231,10 +222,10 @@ public class NewActivity_controller implements Initializable {
                     OptionPane.showWarning("Something's wrong we can't do your request");
                 }
             } else {
-                OptionPane.showError("Please select the teacher in charge");
+                OptionPane.showErrorAtSide("Please select the teacher in charge");
             }
         } else {
-            OptionPane.showError("The Activity name is incorrect");
+            OptionPane.showErrorAtSide("The Activity name is incorrect");
         }
     }
 
@@ -247,10 +238,10 @@ public class NewActivity_controller implements Initializable {
                 txtStudentName.setText(selectedStudent.getsName());
                 dtJoinedDate.requestFocus();
             } else {
-                OptionPane.showError("No suitable student for this student ID.");
+                OptionPane.showErrorAtSide("No suitable student for this student ID.");
             }
         } else {
-            OptionPane.showError("Student ID is invalid.");
+            OptionPane.showErrorAtSide("Student ID is invalid.");
             txtStudentID.selectAll();
         }
 

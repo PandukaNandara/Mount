@@ -10,12 +10,12 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.CompetitionBO;
-import lk.ijse.mountCalvary.controller.GlobalBoolean;
-import lk.ijse.mountCalvary.controller.OptionPane;
-import lk.ijse.mountCalvary.controller.ScreenLoader;
+import lk.ijse.mountCalvary.controller.tool.ButtonFireForEnterSetter;
+import lk.ijse.mountCalvary.controller.tool.GlobalBoolean;
+import lk.ijse.mountCalvary.controller.tool.OptionPane;
+import lk.ijse.mountCalvary.controller.tool.ScreenLoader;
 import lk.ijse.mountCalvary.model.CompetitionDTO;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -62,7 +62,7 @@ public class CompetitionProfileController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         GlobalBoolean.setLock(false);
-
+        ButtonFireForEnterSetter.setGlobalEventHandler(competitionDetail);
         competitionBOImpl = BOFactory.getInstance().getBO(BOFactory.BOType.COMPETITION);
 
         competitionDetailController.init(this);
@@ -86,7 +86,7 @@ public class CompetitionProfileController implements Initializable {
         if(competitionDTO != null){
             showOnTabs(competitionDTO);
         }else {
-            OptionPane.showError("Please select a competition.");
+            OptionPane.showErrorAtSide("Please select a competition.");
         }
     }
 
@@ -102,20 +102,12 @@ public class CompetitionProfileController implements Initializable {
 
     @FXML
     void btCompetitionDetails_onAction(ActionEvent event) {
-        try {
-            screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/competition/profile/CompetitionDetail.fxml", this.acCompetitionRoot, this);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/competition/profile/CompetitionDetail.fxml", this.acCompetitionRoot, this);
     }
 
     @FXML
     void btEventDetail_onAction(ActionEvent event) {
-        try {
-            screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/competition/profile/EventAndActivity.fxml", this.acCompetitionRoot, this);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/competition/profile/EventAndActivity.fxml", this.acCompetitionRoot, this);
     }
 //
 //    @FXML

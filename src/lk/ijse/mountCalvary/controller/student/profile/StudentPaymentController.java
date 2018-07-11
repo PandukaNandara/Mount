@@ -2,19 +2,21 @@ package lk.ijse.mountCalvary.controller.student.profile;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXToggleButton;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.PaymentBO;
 import lk.ijse.mountCalvary.business.custom.RegistrationBO;
-import lk.ijse.mountCalvary.controller.*;
+import lk.ijse.mountCalvary.controller.tool.*;
 import lk.ijse.mountCalvary.model.ActivityDTO;
 import lk.ijse.mountCalvary.model.PaymentDTO;
 import lk.ijse.mountCalvary.model.StudentDTO;
@@ -63,11 +65,15 @@ public class StudentPaymentController implements Initializable {
     private ObservableList<ActivityDTO> activityListForThisStudent;
     private StudentDTO selectedStudent;
     @FXML
-    private JFXButton btInverse;
+    private JFXToggleButton btInverse;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         GlobalBoolean.setLock(false);
+        ButtonFireForEnterSetter.setGlobalEventHandler(acStudentPayment);
+
+        btInverse.setTooltip(new Tooltip(MessageReader.getInstance().getMessage(1)));
+        btInverse.setDisable(true);
 
         colActivity_tblStudentPayment.setCellValueFactory(new PropertyValueFactory<>("activityName"));
         colMonth_tblStudentPayment.setCellValueFactory(new PropertyValueFactory<>("month"));
@@ -98,6 +104,7 @@ public class StudentPaymentController implements Initializable {
 
     protected void insertStudentID(StudentDTO studentDTO) {
         try {
+
             selectedStudent = studentDTO;
             paymentDetailOfThisStudent = null;
             paymentDetailOfThisStudent = paymentBOImpl.getPaymentDetailOfThisStudent(studentDTO.getSID());
@@ -128,6 +135,16 @@ public class StudentPaymentController implements Initializable {
             int year = cboxYear.getSelectionModel().getSelectedItem();
             int month = cboxMonth.getSelectionModel().getSelectedItem().getValue();
             int AID = cboxActivity.getSelectionModel().getSelectedItem().getAID();
+
+            if (month == Month.ALL) {
+                btInverse.setDisable(true);
+                btInverse.setSelected(false);
+            } else {
+                btInverse.setDisable(false);
+            }
+            boolean isInverseSelected = btInverse.isSelected();
+
+
             for (PaymentDTO onePayment : paymentDetailOfThisStudent) {
                 if ((AID == -1 || AID == onePayment.getAID()) &&
                         (month == -1 || month == onePayment.getMonth().getValue()) &&
@@ -136,57 +153,57 @@ public class StudentPaymentController implements Initializable {
                     paymentDTOS.add(onePayment);
             }
             tblStudentPayment.getItems().setAll(paymentDTOS);
+
+            if (isInverseSelected) {
+                inverseFilter();
+            }
+
         } catch (NullPointerException ignored) {
         }
     }
 
-    @FXML
-    private void btInverse_onAction(ActionEvent actionEvent) {
+    private void inverseFilter() {
+        boolean isSelected = btInverse.isSelected();
+        if (isSelected) try {
+            ArrayList<PaymentDTO> inverseFilter = new ArrayList<>();
+            //ok
+            ObservableList<PaymentDTO> present = tblStudentPayment.getItems();
 
+            //ok
+            ObservableList<ActivityDTO> activities = registrationBOImpl.
+                    getActivityListForThisStudent(selectedStudent.getSID());
+
+
+            for (int i = 0; i < activities.size(); i++) {
+                boolean shouldRemove = false;
+                for (int j = 0; j < present.size(); j++) {
+                    if (activities.get(i).getAID() == present.get(j).getAID()) {
+                        present.remove(j--);
+                        shouldRemove = true;
+                    }
+                }
+                if (shouldRemove)
+                    activities.remove(i--);
+                else {
+                    PaymentDTO paymentDTO = new PaymentDTO();
+
+                    paymentDTO.setAID(activities.get(i).getAID());
+                    paymentDTO.setActivityName(activities.get(i).getaName());
+                    inverseFilter.add(paymentDTO);
+                }
+
+            }
+
+        } catch (Exception e) {
+            Logger.getLogger(StudentPaymentController.class.getName()).log(Level.SEVERE, null, e);
+        }
+        else
+            filterPayment();
     }
 
-    @FXML
-    void cboxMonth_onAction(ActionEvent event) {
-        filterPayment();
-
-    }
 
     @FXML
     private void btPrint_onAction(ActionEvent actionEvent) {
-//        if(selectedStudent != null){
-//
-//            try {
-//                if(jasperReport == null){
-//                    InputStream reportFile = getClass().getResourceAsStream("/lk/ijse/mountCalvary/report/StudentPayment.jrxml");
-//                    jasperReport = JasperCompileManager.compileReport(reportFile);
-//                }
-//                HashMap map = new HashMap();
-//                if(cboxActivity.getSelectionModel().getSelectedItem().getAID() == -1){
-//                    map.put("seeActivity", true);
-//                }
-//                if(cboxMonth.getSelectionModel().getSelectedItem().getValue() == -1){
-//                    map.put("seeMonth", true);
-//                }
-//
-//                map.put("ActivityName", cboxActivity.getSelectionModel().getSelectedItem().getaName());
-//                map.put("year", cboxYear.getSelectionModel().getSelectedItem());
-//                map.put("month", cboxMonth.getSelectionModel().getSelectedItem().toString());
-//                map.put("studentName", selectedStudent.getsName());
-//
-//                JRBeanCollectionDataSource pay = new JRBeanCollectionDataSource(tblStudentPayment.getItems());
-//                map.put("payments", pay);
-//
-//                JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, map, new JREmptyDataSource());
-//                System.out.println("This is it");
-//                Reporter.showReport(jasperPrint, "Student payment");
-//
-//            } catch (Exception e) {
-//        Logger.getLogger(StudentPaymentController.class.getName()).log(Level.SEVERE, null, e);
-//                e.printStackTrace();
-//            }
-//        }else {
-//            Common.showError("Please select a student to print.");
-//        }
         if (selectedStudent != null) {
             try {
 //                Progress progress = new Progress(acStudentPayment,"Loading report", "Now loading");
@@ -231,8 +248,18 @@ public class StudentPaymentController implements Initializable {
 
             }
         } else {
-            OptionPane.showError("Please select a student to print.");
+            OptionPane.showErrorAtSide("Please select a student to print.");
         }
+    }
+
+    @FXML
+    private void btInverse_onAction(ActionEvent actionEvent) {
+        inverseFilter();
+    }
+
+    @FXML
+    void cboxMonth_onAction(ActionEvent event) {
+        filterPayment();
     }
 
 }

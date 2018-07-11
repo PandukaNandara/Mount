@@ -5,10 +5,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.VBox;
-import lk.ijse.mountCalvary.controller.GlobalBoolean;
-import lk.ijse.mountCalvary.controller.ScreenLoader;
+import lk.ijse.mountCalvary.controller.tool.ButtonFireForEnterSetter;
+import lk.ijse.mountCalvary.controller.tool.GlobalBoolean;
+import lk.ijse.mountCalvary.controller.tool.ScreenLoader;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -39,61 +39,38 @@ public class ActivityMenu_controller implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         GlobalBoolean.setLock(false);
+        ButtonFireForEnterSetter.setGlobalEventHandler(acActivityMenu);
     }
 
     @FXML
     void btBack_onAction(ActionEvent event) {
-        try {
-            screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/basic/MainMenu.fxml", acActivityMenu, this);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/basic/MainMenu.fxml", acActivityMenu, this);
     }
 
     @FXML
     void btUpdateActivity_onAction(ActionEvent event) {
-        try {
-            screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/activity/UpdateActivity.fxml", acActivityMenu, this);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/activity/UpdateActivity.fxml", acActivityMenu, this);
     }
 
     @FXML
     private void btAddStudent_onAction(ActionEvent actionEvent) {
-        try {
-            screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/activity/AddStudentForActivity.fxml", acActivityMenu, this);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/activity/AddStudentForActivity.fxml", acActivityMenu, this);
     }
 
     @FXML
     private void btNewEvent_onAction(ActionEvent actionEvent) {
-        try {
-            screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/activity/NewEventForActivity.fxml", acActivityMenu, this);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/activity/NewEventForActivity.fxml", acActivityMenu, this);
     }
 
     @FXML
     private void btNewActivity_onAction(ActionEvent actionEvent) {
-        try {
-            screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/activity/NewActivity.fxml", acActivityMenu, this);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/activity/NewActivity.fxml", acActivityMenu, this);
 
     }
 
     @FXML
     private void btActivityProfile_onAction(ActionEvent actionEvent) {
-        try {
-            screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/activity/profile/ActivityProfile.fxml", acActivityMenu, this);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/activity/profile/ActivityProfile.fxml", acActivityMenu, this);
     }
 }
 

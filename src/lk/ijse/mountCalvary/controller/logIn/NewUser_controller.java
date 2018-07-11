@@ -1,4 +1,4 @@
-package lk.ijse.mountCalvary.controller.LogIn;
+package lk.ijse.mountCalvary.controller.logIn;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
@@ -6,15 +6,15 @@ import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.LogInBO;
-import lk.ijse.mountCalvary.controller.GlobalBoolean;
-import lk.ijse.mountCalvary.controller.OptionPane;
-import lk.ijse.mountCalvary.controller.ScreenLoader;
+import lk.ijse.mountCalvary.controller.tool.ButtonFireForEnterSetter;
+import lk.ijse.mountCalvary.controller.tool.GlobalBoolean;
+import lk.ijse.mountCalvary.controller.tool.OptionPane;
+import lk.ijse.mountCalvary.controller.tool.ScreenLoader;
 import lk.ijse.mountCalvary.model.LogInDTO;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -23,7 +23,7 @@ import java.util.logging.Logger;
 public class NewUser_controller implements Initializable {
 
     @FXML
-    private AnchorPane acNewUser;
+    private VBox acNewUser;
 
     @FXML
     private JFXTextField txtUserName;
@@ -39,35 +39,38 @@ public class NewUser_controller implements Initializable {
 
     private LogInBO logInBOImpl;
     private ScreenLoader screenLoader = ScreenLoader.getInstance();
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         GlobalBoolean.setLock(false);
+        ButtonFireForEnterSetter.setGlobalEventHandler(acNewUser);
+
         logInBOImpl = BOFactory.getInstance().getBO(BOFactory.BOType.LOG_IN);
     }
 
     @FXML
     void btSignUp_onAction(ActionEvent event) {
         try {
-            if (!logInBOImpl.isNewOne(txtUserName.getText())){
-                OptionPane.showError("This user name is already existed.");
+            if (!logInBOImpl.isNewOne(txtUserName.getText())) {
+                OptionPane.showErrorAtSide("This user name is already existed.");
                 return;
-            }else if (!checkPasswordAreSame()) {
-                OptionPane.showError("Passwords are mismatched.");
+            } else if (!checkPasswordAreSame()) {
+                OptionPane.showErrorAtSide("Passwords are mismatched.");
                 txtPassword.requestFocus();
                 txtRepeatPassword.selectAll();
                 txtPassword.selectAll();
                 return;
             }
-            if(logInBOImpl.add(new LogInDTO(txtUserName.getText(), txtPassword.getText()))){
+            if (logInBOImpl.add(new LogInDTO(txtUserName.getText(), txtPassword.getText()))) {
                 OptionPane.showMessage(
-                  String.format("A new user has successfully added. %n" +
-                          "User name :   %s %n" +
-                          "Password  :   %s %n ", txtUserName.getText(), txtPassword.getText())
+                        String.format("A new user has successfully added. %n" +
+                                "User name :   %s %n" +
+                                "Password  :   %s %n ", txtUserName.getText(), txtPassword.getText())
                 );
-            }else {
+            } else {
                 OptionPane.showWarning("Something's wrong. We can't do your request.");
             }
-            screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/LogIn/LogIn.fxml", acNewUser, this);
+            screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/logIn/LogIn.fxml", acNewUser, this);
         } catch (Exception e) {
             Logger.getLogger(NewUser_controller.class.getName()).log(Level.SEVERE, null, e);
         }
@@ -95,7 +98,7 @@ public class NewUser_controller implements Initializable {
             if (newOne) {
                 txtPassword.requestFocus();
             } else {
-                OptionPane.showError("This user name is already existed.");
+                OptionPane.showErrorAtSide("This user name is already existed.");
             }
         } catch (Exception e) {
             Logger.getLogger(NewUser_controller.class.getName()).log(Level.SEVERE, null, e);
@@ -105,10 +108,6 @@ public class NewUser_controller implements Initializable {
 
     @FXML
     private void btCancel_onAction(ActionEvent actionEvent) {
-        try {
-            screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/LogIn/LogIn.fxml", acNewUser, this);
-        } catch (IOException e) {
-            Logger.getLogger(NewUser_controller.class.getName()).log(Level.SEVERE, null, e);
-        }
+        screenLoader.loadPanel("/lk/ijse/mountCalvary/view/logIn/LogIn.fxml", acNewUser, this);
     }
 }

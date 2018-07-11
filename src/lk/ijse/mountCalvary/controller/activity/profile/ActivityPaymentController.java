@@ -3,18 +3,20 @@ package lk.ijse.mountCalvary.controller.activity.profile;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.controls.JFXToggleButton;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.ActivityBO;
 import lk.ijse.mountCalvary.business.custom.PaymentBO;
-import lk.ijse.mountCalvary.controller.*;
+import lk.ijse.mountCalvary.controller.tool.*;
 import lk.ijse.mountCalvary.model.ActivityDTO;
 import lk.ijse.mountCalvary.model.PaymentDTO;
 import lk.ijse.mountCalvary.model.RegistrationDTO;
@@ -55,6 +57,9 @@ public class ActivityPaymentController implements Initializable {
     @FXML
     private JFXTextField txtStudent;
 
+    @FXML
+    private JFXToggleButton btInverse;
+
     private ObservableList<PaymentDTO> paymentDetailOfThisActivity;
     private AutoComplete<RegistrationDTO> autoComplete;
     private PaymentBO paymentBOImpl;
@@ -65,7 +70,12 @@ public class ActivityPaymentController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
         GlobalBoolean.setLock(false);
+        ButtonFireForEnterSetter.setGlobalEventHandler(acActivityPayment);
+
+        btInverse.setTooltip(new Tooltip(MessageReader.getInstance().getMessage(0)));
+        btInverse.setDisable(true);
 
         colStudent_tblActivityPayment.setCellValueFactory(new PropertyValueFactory<>("studentName"));
         colFee_tblActivityPayment.setCellValueFactory(new PropertyValueFactory<>("fee"));
@@ -84,56 +94,18 @@ public class ActivityPaymentController implements Initializable {
 
         cboxYear.getItems().setAll(Common.loadYear());
         cboxYear.getSelectionModel().select(new Integer(LocalDate.now().getYear()));
+
+        txtStudent.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if (oldValue)
+                filterData();
+        });
+
+
     }
 
     public void init(ActivityProfileController activityProfileController) {
         this.activityProfileController = activityProfileController;
 
-    }
-
-    @FXML
-    private void txtStudentName_onAction(ActionEvent actionEvent) {
-        filterData();
-    }
-
-    private void filterData() {
-        try {
-            ArrayList<PaymentDTO> paymentDTOS = new ArrayList<>();
-            int rid;
-            try {
-                rid = autoComplete.getSelectedItemByName().getRID();
-            } catch (NullPointerException e) {
-                rid = -1;
-            }
-            int year = cboxYear.getSelectionModel().getSelectedItem();
-            int month = cboxMonth.getSelectionModel().getSelectedItem().getValue();
-
-            for (PaymentDTO onePayment : paymentDetailOfThisActivity) {
-                if ((rid == -1 || rid == onePayment.getRID()) &&
-                        (month == -1 || month == onePayment.getMonth().getValue()) &&
-                        (year == onePayment.getYear())
-                        )
-                    paymentDTOS.add(onePayment);
-            }
-            tblActivityPayment.getItems().setAll(paymentDTOS);
-        } catch (NullPointerException ignored) {
-        }
-    }
-
-    public void insertActivity(ActivityDTO activityDTO) {
-        try {
-            selectedActivity = activityDTO;
-            allRegistration = activityBOImpl.getRegistrationOfThisActivity(activityDTO.getAID());
-
-            paymentDetailOfThisActivity = paymentBOImpl.getPaymentDetailOfThisActivity(activityDTO.getAID());
-
-            autoComplete.changeSuggestion(allRegistration);
-            tblActivityPayment.getItems().setAll(paymentDetailOfThisActivity);
-
-        } catch (Exception e) {
-            Logger.getLogger(ActivityPaymentController.class.getName()).log(Level.SEVERE, null, e);
-
-        }
     }
 
     @FXML
@@ -169,13 +141,130 @@ public class ActivityPaymentController implements Initializable {
 
             }
         } else {
-            OptionPane.showError("Please select a student to print.");
+            OptionPane.showErrorAtSide("Please select a student to print.");
+        }
+    }
+
+    private void filterData() {
+        Month thisMonth = cboxMonth.getSelectionModel().getSelectedItem();
+
+        //This is for disable or enable the inverse button();
+
+        if (thisMonth.getValue() == Month.ALL) {
+            btInverse.setDisable(true);
+            btInverse.setSelected(false);
+        } else {
+            btInverse.setDisable(false);
+        }
+        boolean isInverseSelected = btInverse.isSelected();
+
+        try {
+            ArrayList<PaymentDTO> paymentDTOS = new ArrayList<>();
+            int rid;
+            try {
+                rid = autoComplete.getSelectedItemByName().getRID();
+            } catch (NullPointerException e) {
+                rid = -1;
+
+            }
+            int year = cboxYear.getSelectionModel().getSelectedItem();
+            int month = cboxMonth.getSelectionModel().getSelectedItem().getValue();
+
+            for (PaymentDTO onePayment : paymentDetailOfThisActivity) {
+                if ((rid == -1 || rid == onePayment.getRID()) &&
+                        (month == Month.ALL || month == onePayment.getMonth().getValue()) &&
+                        (year == onePayment.getYear())
+                        )
+                    paymentDTOS.add(onePayment);
+
+            }
+            tblActivityPayment.getItems().setAll(paymentDTOS);
+            if (isInverseSelected) {
+
+                inverseFilter();
+            }
+
+
+        } catch (NullPointerException ignored) {
+            ignored.printStackTrace();
+        }
+//        if (btInverse.isSelected())
+//            inverseFilter();
+    }
+
+    public void insertActivity(ActivityDTO activityDTO) {
+        try {
+            selectedActivity = activityDTO;
+            allRegistration = activityBOImpl.getRegistrationOfThisActivity(activityDTO.getAID());
+
+            paymentDetailOfThisActivity = paymentBOImpl.getPaymentDetailOfThisActivity(activityDTO.getAID());
+
+            autoComplete.changeSuggestion(allRegistration);
+            tblActivityPayment.getItems().setAll(paymentDetailOfThisActivity);
+
+        } catch (Exception e) {
+            Logger.getLogger(ActivityPaymentController.class.getName()).log(Level.SEVERE, null, e);
+        }
+    }
+
+    /**
+     * We are going to get inverse data from the tblActivityPayment
+     * first we check whether the toggle button is select or not.
+     * Then we iterate all registration for this activity and secondly
+     * we iterate present paymentDTO that shown in tblAttendantSheet.
+     */
+    private void inverseFilter() {
+        boolean isSelected = btInverse.isSelected();
+        if (isSelected) try {
+            txtStudent.clear();
+            txtStudent.setDisable(true);
+            //ok
+            ArrayList<PaymentDTO> inverseFilter = new ArrayList<>();
+            //ok
+            ObservableList<PaymentDTO> present = tblActivityPayment.getItems();
+
+            //ok
+            ObservableList<RegistrationDTO> registrations = activityBOImpl.
+                    getRegistrationOfThisActivity(selectedActivity.getAID());
+
+
+            for (int i = 0; i < registrations.size(); i++) {
+                boolean shouldRemove = false;
+                for (int j = 0; j < present.size(); j++) {
+                    if (registrations.get(i).getRID() == present.get(j).getRID()) {
+                        present.remove(j--);
+                        shouldRemove = true;
+                    }
+                }
+                if (shouldRemove)
+                    registrations.remove(i--);
+                else {
+                    PaymentDTO paymentDTO = new PaymentDTO();
+
+                    paymentDTO.setRID(registrations.get(i).getRID());
+                    paymentDTO.setStudentName(registrations.get(i).getStudentName());
+                    inverseFilter.add(paymentDTO);
+                }
+
+            }
+
+            tblActivityPayment.getItems().setAll(inverseFilter);
+        } catch (Exception e) {
+            Logger.getLogger(ActivityPaymentController.class.getName()).log(Level.SEVERE, null, e);
+        }
+        else {
+            txtStudent.setDisable(false);
+            filterData();
         }
     }
 
     @FXML
-    void cboxActivity_onAction(ActionEvent event) {
+    private void btInverse_onAction(ActionEvent actionEvent) {
+        inverseFilter();
+    }
 
+    @FXML
+    void cboxActivity_onAction(ActionEvent event) {
     }
 
     @FXML
@@ -185,6 +274,11 @@ public class ActivityPaymentController implements Initializable {
 
     @FXML
     void cboxYear_onAction(ActionEvent event) {
+        filterData();
+    }
+
+    @FXML
+    private void txtStudentName_onAction(ActionEvent actionEvent) {
         filterData();
     }
 

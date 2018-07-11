@@ -1,6 +1,6 @@
 package lk.ijse.mountCalvary.model;
 
-import lk.ijse.mountCalvary.controller.Month;
+import lk.ijse.mountCalvary.controller.tool.Month;
 
 import java.math.BigDecimal;
 
@@ -9,8 +9,8 @@ public class PaymentDTO {
     private int RID;
     private int AID;
     private int SID;
-    private BigDecimal fee;
-    private Month month;
+    private BigDecimal fee = new BigDecimal(0);
+    private Month month = new Month(Month.NONE);
     private String month_name;
     private int year;
     private RegistrationDTO registrationDTO;
@@ -27,6 +27,10 @@ public class PaymentDTO {
     }
 
     public PaymentDTO() {
+    }
+
+    public PaymentDTO(String studentName) {
+        this.studentName = studentName;
     }
 
     public PaymentDTO(int RID, BigDecimal fee, Month month, int year) {

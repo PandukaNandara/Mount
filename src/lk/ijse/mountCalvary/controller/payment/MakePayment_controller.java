@@ -15,12 +15,12 @@ import javafx.scene.layout.VBox;
 import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.ActivityBO;
 import lk.ijse.mountCalvary.business.custom.PaymentBO;
-import lk.ijse.mountCalvary.controller.*;
+import lk.ijse.mountCalvary.controller.activity.profile.ActivityPaymentController;
+import lk.ijse.mountCalvary.controller.tool.*;
 import lk.ijse.mountCalvary.model.ActivityDTO;
 import lk.ijse.mountCalvary.model.PaymentDTO;
 import lk.ijse.mountCalvary.model.RegistrationDTO;
 
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.URL;
 import java.time.LocalDate;
@@ -51,6 +51,18 @@ public class MakePayment_controller implements Initializable {
 
     @FXML
     private TableColumn<PaymentDTO, BigDecimal> colFee_tblStudentPayment;
+
+    @FXML
+    private TableView<PaymentDTO> tblPastStudentPayment;
+
+    @FXML
+    private TableColumn<PaymentDTO, Integer> colPastYear_tblPastStudentPayment;
+
+    @FXML
+    private TableColumn<PaymentDTO, Month> colPastMonth_tblPastStudentPayment;
+
+    @FXML
+    private JFXButton btActivityPaymentHistory;
 
     @FXML
     private JFXComboBox<ActivityDTO> cboxActivity;
@@ -100,12 +112,15 @@ public class MakePayment_controller implements Initializable {
         colMonth_tblStudentPayment.setCellValueFactory(new PropertyValueFactory<>("month"));
         colYear_tblStudentPayment.setCellValueFactory(new PropertyValueFactory<>("year"));
 
+        colPastYear_tblPastStudentPayment.setCellValueFactory(new PropertyValueFactory<>("year"));
+        colPastMonth_tblPastStudentPayment.setCellValueFactory(new PropertyValueFactory<>("month"));
+
         activityBOImpl = BOFactory.getInstance().getBO(BOFactory.BOType.ACTIVITY);
         paymentBOImpl = BOFactory.getInstance().getBO(BOFactory.BOType.PAYMENT);
 
         //paymentBOImpl = BOFactory.getInstance().getBO()
         auto = new AutoComplete<>(txtStudentName);
-        auto.setAutoCompletionsAction(event1 -> searchStudent());
+        auto.setAutoCompletionsAction(event1 -> searchStudentAndShowPastDetails());
         cboxMonth.getItems().setAll(Month.getAllMonth());
 
         cboxYear.getItems().setAll(Common.loadYear());
@@ -154,7 +169,7 @@ public class MakePayment_controller implements Initializable {
                 txtStudentID.requestFocus();
             }
         } catch (NumberFormatException e) {
-            OptionPane.showError("The fee value is incorrect");
+            OptionPane.showErrorAtSide("The fee value is incorrect");
             txtFee.requestFocus();
             txtFee.selectAll();
         }
@@ -164,11 +179,7 @@ public class MakePayment_controller implements Initializable {
     void btCancel_onAction(ActionEvent event) {
         boolean answer = OptionPane.askWarning("Do you want to cancel?");
         if (answer) {
-            try {
-                screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/basic/MainMenu.fxml", this.acUpdatePayment, this);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/basic/MainMenu.fxml", this.acUpdatePayment, this);
         }
     }
 
@@ -198,32 +209,43 @@ public class MakePayment_controller implements Initializable {
 
     @FXML
     void btRemove_tblStudentPayment_onAction(ActionEvent event) {
-        if (tblStudentPayment.getSelectionModel().getSelectedItem().isNewOne()) {
-            if (Common.removeItemFromTable(tblStudentPayment) == null)
-                OptionPane.showError("Please select an item from the table");
-        } else {
-            OptionPane.showError("This payment record is already added.");
+        try {
+            if (tblStudentPayment.getSelectionModel().getSelectedItem().isNewOne()) {
+                if (Common.removeItemFromTable(tblStudentPayment) == null)
+                    OptionPane.showErrorAtSide("Please select an item from the table");
+            } else {
+                OptionPane.showErrorAtSide("This payment record is already added.");
+            }
+        } catch (NullPointerException ignored) {
         }
     }
 
     @FXML
     void btSubmit_onAction(ActionEvent event) {
-        if (OptionPane.askQuestion("Do you want to make all payment?")) {
+
+        int count = 0;
+        for (PaymentDTO onePayment : tblStudentPayment.getItems())
+            if (onePayment.isNewOne())
+                count++;
+        if (count == 0)
+            OptionPane.showErrorAtSide("Please add some new data.");
+
+        else if (OptionPane.askQuestion("Do you want to make all payment?")) {
             ObservableList<PaymentDTO> newPayment = FXCollections.observableArrayList();
             for (PaymentDTO onePayment : tblStudentPayment.getItems())
                 if (onePayment.isNewOne())
                     newPayment.add(onePayment);
             try {
                 if (paymentBOImpl.addAllPayment(newPayment)) {
-                    OptionPane.showMessage("All Payment has successfully made.");
+                    OptionPane.showDoneAtSide("All Payment has successfully made.");
                     screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/basic/MainMenu.fxml", this.acUpdatePayment, this);
                 } else {
-                    OptionPane.showWarning("Something's wrong we can't do your request.");
+                    OptionPane.showWarningAtSide("Something's wrong we can't do your request.");
                 }
 
             } catch (Exception e) {
+                OptionPane.showWarning("Something's wrong we can't do your request.");
                 Logger.getLogger(MakePayment_controller.class.getName()).log(Level.SEVERE, null, e);
-                OptionPane.showWarning(e.toString());
 
             }
         }
@@ -241,26 +263,14 @@ public class MakePayment_controller implements Initializable {
             Logger.getLogger(MakePayment_controller.class.getName()).log(Level.SEVERE, null, e);
 
         }
-//
-//        ObservableList<RegistrationDTO> regList = select.getRegistrationDTOS();
-//        auto.changeSuggestion(regList);
-//        auto.setAutoCompletionsAction(event1 -> {
-//            StudentDTO studentDTO = Common.searchStudent(txtStudentName.getText().trim(), cboxActivity.getSelectionModel().getSelectedItem().getStudentDTOS());
-//            RegistrationDTO registrationDTO = Common.searchRegistration(txtStudentName.getText().trim(), cboxActivity.getSelectionModel().getSelectedItem().getRegistrationDTOS());
-//            txtStudnetID.setText(registrationDTO.getSID() + "");
-//        });
-//        cboxActivity.setDisable(true);
     }
 
-    private void searchStudent() {
+    private void searchStudentAndShowPastDetails() {
         selectedRegistrationDTO = auto.getSelectedItemByName();
-        if (checkStudentIsCorrect())
+        if (checkStudentIsCorrect()) {
             txtFee.requestFocus();
-    }
+        }
 
-    @FXML
-    void cboxMonth_onAction(ActionEvent event) {
-        reloadTable();
     }
 
     @FXML
@@ -271,21 +281,29 @@ public class MakePayment_controller implements Initializable {
         } else if (Common.isInteger(studentID)) {
             int SID = Integer.parseInt(studentID);
 
+
             selectedRegistrationDTO = auto.searchByID(SID);
             if (checkStudentIsCorrect())
                 txtFee.requestFocus();
         } else {
-            OptionPane.showError("The Student ID is invalid.");
+            OptionPane.showErrorAtSide("The Student ID is invalid.");
         }
     }
 
     private boolean checkStudentIsCorrect() {
         if (selectedRegistrationDTO != null) {
             txtStudentName.setText(selectedRegistrationDTO.getStudentName());
-            txtStudentID.setText(selectedRegistrationDTO.getSID() + "");
+            txtStudentID.setText(String.valueOf(selectedRegistrationDTO.getSID()));
+            try {
+                tblPastStudentPayment.getItems().setAll(paymentBOImpl.getPaymentForThisActivityAndStudent(selectedRegistrationDTO.getRID()));
+            } catch (Exception e) {
+                Logger.getLogger(MakePayment_controller.class.getName()).log(Level.SEVERE, null, e);
+            }
+
             return true;
         } else {
-            OptionPane.showError("the student ID is not existed.");
+            tblPastStudentPayment.getItems().clear();
+            OptionPane.showErrorAtSide("the student ID is not existed.");
             return false;
         }
     }
@@ -295,6 +313,29 @@ public class MakePayment_controller implements Initializable {
         txtStudentName.setText("");
         if (withFee)
             txtFee.setText("");
+    }
+
+    @FXML
+    private void btActivityPaymentHistory_onAction(ActionEvent actionEvent) {
+        if (cboxActivity.getSelectionModel().getSelectedItem() == null)
+            OptionPane.showErrorAtSide("Please select an activity");
+        else {
+            ActivityPaymentController controller = (ActivityPaymentController) ScreenLoader.getInstance().loadNewWindow(
+                    "/lk/ijse/mountCalvary/view/activity/profile/ActivityPayment.fxml",
+                    acUpdatePayment,
+                    String.format("Past payment details - %s", cboxActivity.getSelectionModel().getSelectedItem().getaName()));
+
+            controller.insertActivity(new ActivityDTO(cboxActivity.getSelectionModel().getSelectedItem().getAID(), ""));
+        }
+
+    }
+
+    @FXML
+    void cboxMonth_onAction(ActionEvent event) {
+        try {
+            reloadTable();
+        } catch (NullPointerException ignored) {
+        }
     }
 
     @FXML
@@ -309,7 +350,7 @@ public class MakePayment_controller implements Initializable {
 
     @FXML
     void txtStudentName_onAction(ActionEvent event) {
-        searchStudent();
+        searchStudentAndShowPastDetails();
     }
 
 }

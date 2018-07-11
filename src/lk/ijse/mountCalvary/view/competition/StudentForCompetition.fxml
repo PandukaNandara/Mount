@@ -56,7 +56,7 @@
        </HBox>
        <HBox styleClass="node-pane">
            <children>
-               <JFXTextField fx:id="txtStudentID" editable="false" labelFloat="true" onAction="#txtStudent_onAction"
+               <JFXTextField fx:id="txtStudentID" editable="false" labelFloat="true" onAction="#txtStudentID_onAction"
                              prefHeight="25.0" prefWidth="124.0" promptText="Student ID" HBox.hgrow="ALWAYS"/>
                <JFXTextField fx:id="txtAge" editable="false" labelFloat="true" onAction="#txtAge_onAction"
                              prefHeight="25.0" prefWidth="178.0" promptText="Age " HBox.hgrow="ALWAYS"/>

@@ -1,90 +1,95 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXComboBox?>
-<?import java.net.URL?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Region?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
-
-<VBox fx:id="acEventForCompetition" styleClass="main-frame" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.mountCalvary.controller.competition.EventForCompetition_controller">
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import java.net.*?>
+<VBox xmlns:fx="http://javafx.com/fxml/1" fx:id="acEventForCompetition" styleClass="main-frame"
+      xmlns="http://javafx.com/javafx/8.0.141"
+      fx:controller="lk.ijse.mountCalvary.controller.competition.EventForCompetition_controller">
    <children>
-      <Label fx:id="lblHead" prefHeight="42.0" prefWidth="298.0" styleClass="title" text="New Event for Competition">
+       <Label fx:id="lblHead" prefHeight="42.0" prefWidth="298.0" styleClass="title" text="New Event for Competition">
          <font>
             <Font name="Arial Bold" size="18.0" />
          </font>
       </Label>
-      <JFXComboBox fx:id="cboxCompetition" labelFloat="true" onAction="#cboxCompetition_onAction" prefHeight="25.0" prefWidth="600.0" promptText="Competition" />
-      <Label prefHeight="42.0" prefWidth="209.0" styleClass="sub-title" text="Add new event ">
+       <JFXComboBox fx:id="cboxCompetition" labelFloat="true" onAction="#cboxCompetition_onAction" prefHeight="25.0"
+                    prefWidth="600.0" promptText="Competition"/>
+       <Label prefHeight="42.0" prefWidth="209.0" styleClass="sub-title" text="Add new event ">
          <font>
             <Font name="Arial" size="15.0" />
          </font>
       </Label>
-      <JFXComboBox fx:id="cboxActivity" labelFloat="true" onAction="#cboxActivity_onAction" prefHeight="25.0" prefWidth="600.0" promptText="Activity Name" />
-      <TableView fx:id="tblEventListOfActivity" prefHeight="164.0" tableMenuButtonVisible="true" prefWidth="1314.0" VBox.vgrow="ALWAYS">
+       <JFXComboBox fx:id="cboxActivity" labelFloat="true" onAction="#cboxActivity_onAction" prefHeight="25.0"
+                    prefWidth="600.0" promptText="Activity Name"/>
+       <TableView fx:id="tblEventListOfActivity" prefHeight="164.0" tableMenuButtonVisible="true" prefWidth="1314.0"
+                  VBox.vgrow="ALWAYS">
          <columns>
-            <TableColumn fx:id="colEvent_tblEventListOfActivity" prefWidth="75.0" text="Event " />
-            <TableColumn fx:id="colGender_tblEventListOfActivity" prefWidth="75.0" text="Gender" />
+             <TableColumn fx:id="colEvent_tblEventListOfActivity" prefWidth="75.0" text="Event "/>
+             <TableColumn fx:id="colGender_tblEventListOfActivity" prefWidth="75.0" text="Gender"/>
          </columns>
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <HBox styleClass="node-pane" VBox.vgrow="ALWAYS">
-         <children>
-            <JFXComboBox fx:id="cboxAgeGroup" labelFloat="true" onAction="#colAgeGroup_onAction" prefHeight="25.0" prefWidth="776.0" promptText="Age group" HBox.hgrow="ALWAYS" />
-            <JFXButton fx:id="btAddEvent_EventForActivity" onAction="#btAddEvent_EventForActivity_onAction" prefHeight="33.0" prefWidth="124.0" style="-fx-background-color: #2196F3;" text="Add" textFill="WHITE" />
-            <Region prefHeight="32.0" prefWidth="1307.0" HBox.hgrow="ALWAYS" />
-         </children>
-      </HBox>
-      <Label prefHeight="42.0" prefWidth="209.0" styleClass="sub-title" text="Event list">
-         <font>
-            <Font name="Arial" size="15.0" />
-         </font>
-      </Label>
-      <VBox styleClass="table-pane" VBox.vgrow="ALWAYS">
-         <children>
-            <JFXButton fx:id="btRemove_tblEventList" onAction="#btRemove_tblEventList_onAction" prefHeight="25.0" prefWidth="124.0" styleClass="cancel" text="Remove" textFill="#2196f3">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-            </JFXButton>
-            <TableView fx:id="tblEventList" prefHeight="266.0" prefWidth="1314.0" VBox.vgrow="ALWAYS">
-               <columns>
-                  <TableColumn fx:id="colEvent_tblEventList" prefWidth="75.0" text="Event" />
-                  <TableColumn fx:id="colGender_tblEventList" prefWidth="75.0" text="Gender" />
-                  <TableColumn fx:id="colAgeGroup_tblEventList" prefWidth="75.0" text="Age group" />
-               </columns>
-               <columnResizePolicy>
-                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-               </columnResizePolicy>
-            </TableView>
-         </children>
-      </VBox>
-      <HBox styleClass="button-pane">
-         <children>
-            <JFXButton fx:id="btCancel" onAction="#btCancel" prefHeight="33.0" prefWidth="124.0" styleClass="cancel" text="Cancel" textFill="#2196f3">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-            </JFXButton>
-            <JFXButton fx:id="btSubmit" onAction="#btSubmit_onAction" prefHeight="33.0" prefWidth="124.0" style="-fx-background-color: #2196F3;" text="Submit" textFill="WHITE" />
-         </children>
-      </HBox>
+       <HBox styleClass="node-pane" VBox.vgrow="ALWAYS">
+           <children>
+               <JFXComboBox fx:id="cboxAgeGroup" labelFloat="true" onAction="#colAgeGroup_onAction" prefHeight="25.0"
+                            prefWidth="776.0" promptText="Age group" HBox.hgrow="ALWAYS"/>
+               <JFXButton fx:id="btAddEvent_EventForActivity" onAction="#btAddEvent_EventForActivity_onAction"
+                          prefHeight="33.0" prefWidth="124.0" style="-fx-background-color: #2196F3;" text="Add"
+                          textFill="WHITE"/>
+               <Region prefHeight="32.0" prefWidth="1307.0" HBox.hgrow="ALWAYS"/>
+           </children>
+       </HBox>
+       <Label prefHeight="42.0" prefWidth="209.0" styleClass="sub-title" text="Event list">
+           <font>
+               <Font name="Arial" size="15.0"/>
+           </font>
+       </Label>
+       <VBox styleClass="table-pane" VBox.vgrow="ALWAYS">
+           <children>
+               <JFXButton fx:id="btRemove_tblEventList" onAction="#btRemove_tblEventList_onAction" prefHeight="25.0"
+                          prefWidth="124.0" styleClass="cancel" text="Remove" textFill="#2196f3">
+                   <font>
+                       <Font name="System Bold" size="12.0"/>
+                   </font>
+               </JFXButton>
+               <TableView fx:id="tblEventList" prefHeight="266.0" prefWidth="1314.0" VBox.vgrow="ALWAYS">
+                   <columns>
+                       <TableColumn fx:id="colEvent_tblEventList" prefWidth="75.0" text="Event"/>
+                       <TableColumn fx:id="colGender_tblEventList" prefWidth="75.0" text="Gender"/>
+                       <TableColumn fx:id="colAgeGroup_tblEventList" prefWidth="75.0" text="Age group"/>
+                   </columns>
+                   <columnResizePolicy>
+                       <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                   </columnResizePolicy>
+               </TableView>
+           </children>
+       </VBox>
+       <HBox styleClass="button-pane">
+           <children>
+               <JFXButton fx:id="btCancel" onAction="#btCancel" prefHeight="33.0" prefWidth="124.0" styleClass="cancel"
+                          text="Cancel" textFill="#2196f3">
+                   <font>
+                       <Font name="System Bold" size="12.0"/>
+                   </font>
+               </JFXButton>
+               <JFXButton fx:id="btSubmit" onAction="#btSubmit_onAction" prefHeight="33.0" prefWidth="124.0"
+                          style="-fx-background-color: #2196F3;" text="Submit" textFill="WHITE"/>
+           </children>
+       </HBox>
    </children>
-   <stylesheets>
-      <URL value="@../../css/frame.css" />
-      <URL value="@../../css/combo-box.css" />
-      <URL value="@../../css/table-view.css" />
-      <URL value="@../../css/text-and-password-field.css" />
-      <URL value="@../../css/date-picker.css" />
-      <URL value="@../../css/radio-button.css" />
-      <URL value="@../../css/text-area.css" />
-      <URL value="@../../css/button.css" />
-      <URL value="@../../css/label.css" />
-   </stylesheets>
+    <stylesheets>
+        <URL value="@../../css/frame.css"/>
+        <URL value="@../../css/combo-box.css"/>
+        <URL value="@../../css/table-view.css"/>
+        <URL value="@../../css/text-and-password-field.css"/>
+        <URL value="@../../css/date-picker.css"/>
+        <URL value="@../../css/radio-button.css"/>
+        <URL value="@../../css/text-area.css"/>
+        <URL value="@../../css/button.css"/>
+        <URL value="@../../css/label.css"/>
+    </stylesheets>
 </VBox>

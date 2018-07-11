@@ -12,19 +12,18 @@ import javafx.scene.layout.VBox;
 import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.StudentBO;
 import lk.ijse.mountCalvary.business.custom.TelNoBO;
-import lk.ijse.mountCalvary.controller.*;
+import lk.ijse.mountCalvary.controller.tool.*;
 import lk.ijse.mountCalvary.model.StudentDTO;
 import lk.ijse.mountCalvary.model.TelNoDTO;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.Date;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static lk.ijse.mountCalvary.controller.Common.isInteger;
-import static lk.ijse.mountCalvary.controller.OptionPane.showError;
+import static lk.ijse.mountCalvary.controller.tool.Common.isInteger;
+import static lk.ijse.mountCalvary.controller.tool.OptionPane.showErrorAtSide;
 
 public class UpdateStudent_controller implements Initializable {
 
@@ -122,7 +121,7 @@ public class UpdateStudent_controller implements Initializable {
         StudentDTO i = autoCompleteStudent.getSelectedItemByName();
 
         if (i == null) {
-            OptionPane.showError("Please select the student");
+            OptionPane.showErrorAtSide("Please select the student");
         } else {
             try {
                 StudentDTO studentDTO = studentBO.getStudent(i.getSID());
@@ -140,7 +139,7 @@ public class UpdateStudent_controller implements Initializable {
             //StudentDTO i = StudentBOImpl.searchStudent(Integer.parseInt(txtStudentID.getText()), allStudent);
             StudentDTO i = autoCompleteStudent.searchByID(txtStudentID.getText());
             if (i == null) {
-                OptionPane.showError("There is no student who has student id " + txtStudentID.getId());
+                OptionPane.showErrorAtSide("There is no student who has student id " + txtStudentID.getId());
             } else {
                 try {
                     StudentDTO studentDTO = studentBO.getStudent(i.getSID());
@@ -151,7 +150,7 @@ public class UpdateStudent_controller implements Initializable {
                 }
             }
         } else {
-            OptionPane.showError("Please input valid student ID as number");
+            OptionPane.showErrorAtSide("Please input valid student ID as number");
         }
 
     }
@@ -196,11 +195,11 @@ public class UpdateStudent_controller implements Initializable {
         String tel = txtNewTelNo.getText().trim();
         if (!(tel.length() == 10 && tel.matches("[0][0-9]{9}"))) {
 
-            OptionPane.showError("Please enter a valid phone number");
+            OptionPane.showErrorAtSide("Please enter a valid phone number");
 
         } else if (!checkStudentID()) {
 
-            OptionPane.showError("Please enter the student ID");
+            OptionPane.showErrorAtSide("Please enter the student ID");
 
         } else {
             int newNumber = Integer.parseInt(tel);
@@ -211,7 +210,7 @@ public class UpdateStudent_controller implements Initializable {
                 txtNewTelNo.setText("");
             } catch (Exception e) {
                 Logger.getLogger(UpdateStudent_controller.class.getName()).log(Level.SEVERE, null, e);
-                showError("Please select the old telephone number");
+                showErrorAtSide("Please select the old telephone number");
             }
 
         }
@@ -255,32 +254,28 @@ public class UpdateStudent_controller implements Initializable {
                                     a.showAndWait();
                                 } catch (Exception e) {
                                     Logger.getLogger(UpdateStudent_controller.class.getName()).log(Level.SEVERE, null, e);
-                                    showError("Something's wrong we can't do your request.");
+                                    showErrorAtSide("Something's wrong we can't do your request.");
                                 }
 
-                                try {
-                                    screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/basic/StudentMenu.fxml", this.acUpdateStudent, this);
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                }
+                                screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/basic/StudentMenu.fxml", this.acUpdateStudent, this);
 
                             } else {
-                                showError("Please enter the parent details");
+                                showErrorAtSide("Please enter the parent details");
                             }
                         } else {
-                            showError("Please enter the birth day");
+                            showErrorAtSide("Please enter the birth day");
                         }
                     } else {
-                        showError("Please enter the house");
+                        showErrorAtSide("Please enter the house");
                     }
                 } else {
-                    showError("Please select the Grade and the class");
+                    showErrorAtSide("Please select the Grade and the class");
                 }
             } else {
-                showError("Please enter Student name");
+                showErrorAtSide("Please enter Student name");
             }
         } else {
-            showError("Please enter the student ID");
+            showErrorAtSide("Please enter the student ID");
         }
     }
 
@@ -305,11 +300,7 @@ public class UpdateStudent_controller implements Initializable {
     void btCancel_onAction(ActionEvent event) {
         boolean answer = OptionPane.askQuestion("Do you want to cancel?");
         if (answer) {
-            try {
-                screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/basic/StudentMenu.fxml", this.acUpdateStudent, this);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/basic/StudentMenu.fxml", this.acUpdateStudent, this);
         }
     }
 

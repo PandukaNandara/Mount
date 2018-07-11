@@ -20,6 +20,11 @@
     -fx-def-color: #2196F3;
 }
 
+.jfx-tab-pane .headers-region .tab:hover {
+    -fx-cursor: hand;
+    -fx-background-color: derive(-fx-def-color, 10%);
+}
+
 .jfx-tab-pane .tab-header-background {
     -fx-background-color: -fx-def-color;
 }

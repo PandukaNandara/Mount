@@ -1,6 +1,8 @@
 package lk.ijse.mountCalvary.controller.student.profile;
 
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXToggleButton;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -12,10 +14,7 @@ import javafx.scene.layout.VBox;
 import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.AttendantSheetBO;
 import lk.ijse.mountCalvary.business.custom.RegistrationBO;
-import lk.ijse.mountCalvary.controller.DateRange;
-import lk.ijse.mountCalvary.controller.GlobalBoolean;
-import lk.ijse.mountCalvary.controller.OptionPane;
-import lk.ijse.mountCalvary.controller.Reporter;
+import lk.ijse.mountCalvary.controller.tool.*;
 import lk.ijse.mountCalvary.model.ActivityDTO;
 import lk.ijse.mountCalvary.model.AttendantSheetDTO;
 import lk.ijse.mountCalvary.model.RegistrationDTO;
@@ -53,6 +52,11 @@ public class AttendanceAndActivityOfStudentController implements Initializable {
     private studentProfileController studentProfileController;
     @FXML
     private JFXComboBox<ActivityDTO> cboxActivity;
+    @FXML
+    private JFXToggleButton btInverse;
+    @FXML
+    private JFXButton btPrint;
+
     private ObservableList<RegistrationDTO> registrationDTOS;
     private RegistrationBO registrationBOImpl;
     private AttendantSheetBO attendantSheetBOImpl;
@@ -61,10 +65,11 @@ public class AttendanceAndActivityOfStudentController implements Initializable {
     private StudentDTO selectedStudent;
     private JasperReport activityOfStudentReport;
 
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         GlobalBoolean.setLock(false);
-
+        ButtonFireForEnterSetter.setGlobalEventHandler(attendanceAndActivityOfStudent);
         colJoinedDate_tblRegistration.setCellValueFactory(new PropertyValueFactory<>("joinedDate"));
         colActivity_tblRegistration.setCellValueFactory(new PropertyValueFactory<>("activityName"));
 
@@ -194,12 +199,16 @@ public class AttendanceAndActivityOfStudentController implements Initializable {
                 Reporter.showReport(activityPrint, "Attendance and activity of student");
 
             } else {
-                OptionPane.showError("Please select a student to print.");
+                OptionPane.showErrorAtSide("Please select a student to print.");
             }
         } catch (Exception e) {
             Logger.getLogger(AttendanceAndActivityOfStudentController.class.getName()).log(Level.SEVERE, null, e);
 
         }
 
+    }
+
+    @FXML
+    private void btInverse_onAction(ActionEvent actionEvent) {
     }
 }

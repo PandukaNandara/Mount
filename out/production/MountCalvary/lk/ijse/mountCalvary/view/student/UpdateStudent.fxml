@@ -1,66 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXComboBox?>
-<?import com.jfoenix.controls.JFXDatePicker?>
-<?import com.jfoenix.controls.JFXRadioButton?>
-<?import com.jfoenix.controls.JFXTextArea?>
-<?import com.jfoenix.controls.JFXTextField?>
-<?import java.net.URL?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.ToggleGroup?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Region?>
-<?import javafx.scene.layout.VBox?>
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-
-<VBox fx:id="acUpdateStudent" styleClass="main-frame" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.mountCalvary.controller.student.UpdateStudent_controller">
+<?import java.net.*?>
+<VBox xmlns:fx="http://javafx.com/fxml/1" fx:id="acUpdateStudent" styleClass="main-frame"
+      xmlns="http://javafx.com/javafx/8.0.141"
+      fx:controller="lk.ijse.mountCalvary.controller.student.UpdateStudent_controller">
    <children>
-      <Label prefHeight="36.0" prefWidth="309.0" styleClass="title" text="Update student">
+       <Label prefHeight="36.0" prefWidth="309.0" styleClass="title" text="Update student">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
-      <HBox maxHeight="-Infinity" prefWidth="1200.0" styleClass="node-pane" VBox.vgrow="ALWAYS">
-         <children>
-            <JFXTextField fx:id="txtStudentID" labelFloat="true" onAction="#txtStudentID_onAction" prefHeight="19.0" prefWidth="161.0" promptText="Student ID" HBox.hgrow="ALWAYS" />
-            <JFXTextField fx:id="txtStudentName" labelFloat="true" onAction="#txtStudentName" prefHeight="25.0" prefWidth="941.0" promptText="Student name" HBox.hgrow="ALWAYS" />
-            <JFXButton fx:id="btSearch" minHeight="26.0" onAction="#btSearch_onAction" prefHeight="26.0" prefWidth="109.0" style="-fx-background-color: #2196F3;" text="Search" textFill="WHITE" />
-         </children>
-      </HBox>
-      <HBox alignment="CENTER" maxHeight="-Infinity" styleClass="node-pane" VBox.vgrow="ALWAYS">
-         <children>
-            <JFXComboBox fx:id="cboxHouse" labelFloat="true" onAction="#cboxHouse_onAction" prefHeight="25.0" prefWidth="703.0" promptText="House" HBox.hgrow="ALWAYS" />
-            <HBox alignment="CENTER_LEFT" prefHeight="25.0" prefWidth="731.0" styleClass="node-pane">
-               <children>
-                  <Label prefHeight="17.0" prefWidth="51.0" text="Gender" />
-                  <JFXRadioButton fx:id="rbMale" prefHeight="17.0" prefWidth="81.0" selected="true" text="Male">
-                     <toggleGroup>
-                        <ToggleGroup fx:id="gender" />
-                     </toggleGroup>
-                  </JFXRadioButton>
-                  <JFXRadioButton fx:id="rbFemale" onAction="#rbFemale" text="Female" toggleGroup="$gender" />
-               </children>
-            </HBox>
-         </children>
-      </HBox>
-      <HBox maxHeight="-Infinity" styleClass="node-pane" VBox.vgrow="ALWAYS">
-         <children>
-            <JFXComboBox fx:id="cboxGrade" editable="true" labelFloat="true" onAction="#cboxGrade_onAction" prefHeight="25.0" prefWidth="228.0" promptText="Grade" HBox.hgrow="ALWAYS" />
-            <JFXComboBox fx:id="cboxClass" labelFloat="true" onAction="#cboxClass_onAction" prefHeight="25.0" prefWidth="449.0" promptText="Class" HBox.hgrow="ALWAYS" />
-            <JFXDatePicker fx:id="dtDOB" onAction="#dtDOB_onAction" prefHeight="25.0" prefWidth="491.0" promptText="Birth day" showWeekNumbers="true" />
-         </children>
-      </HBox>
-      <HBox maxHeight="-Infinity" styleClass="node-pane">
-         <children>
-            <JFXTextField fx:id="txtMotherName" labelFloat="true" onAction="#txtMotherName_onACtion" prefHeight="25.0" prefWidth="585.0" promptText="Mother's name" HBox.hgrow="ALWAYS" />
-            <JFXTextField fx:id="txtFatherName" labelFloat="true" onAction="#txtFatherName_onAction" prefHeight="25.0" prefWidth="584.0" promptText="Father's name" HBox.hgrow="ALWAYS" />
-         </children>
-      </HBox>
-      <JFXTextField fx:id="txtAddress" labelFloat="true" onAction="#txtAddress_onAction" prefHeight="25.0" prefWidth="1269.0" promptText="Address" />
-      <TableView fx:id="tblTelNo" editable="true" fixedCellSize="0.0" onMouseClicked="#tblTelNoClicked_onAction" tableMenuButtonVisible="true" prefHeight="94.0" prefWidth="1268.0" VBox.vgrow="ALWAYS">
+       <HBox maxHeight="-Infinity" prefWidth="1200.0" styleClass="node-pane" VBox.vgrow="ALWAYS">
+           <children>
+               <JFXTextField fx:id="txtStudentID" labelFloat="true" onAction="#txtStudentID_onAction" prefHeight="19.0"
+                             prefWidth="161.0" promptText="Student ID" HBox.hgrow="ALWAYS"/>
+               <JFXTextField fx:id="txtStudentName" labelFloat="true" onAction="#txtStudentName" prefHeight="25.0"
+                             prefWidth="941.0" promptText="Student name" HBox.hgrow="ALWAYS"/>
+               <JFXButton fx:id="btSearch" minHeight="26.0" onAction="#btSearch_onAction" prefHeight="26.0"
+                          prefWidth="109.0" style="-fx-background-color: #2196F3;" text="Search" textFill="WHITE"/>
+           </children>
+       </HBox>
+       <HBox alignment="CENTER" maxHeight="-Infinity" styleClass="node-pane" VBox.vgrow="ALWAYS">
+           <children>
+               <JFXComboBox fx:id="cboxHouse" labelFloat="true" onAction="#cboxHouse_onAction" prefHeight="25.0"
+                            prefWidth="703.0" promptText="House" HBox.hgrow="ALWAYS"/>
+               <HBox alignment="CENTER_LEFT" prefHeight="25.0" prefWidth="731.0" styleClass="node-pane">
+                   <children>
+                       <Label prefHeight="17.0" prefWidth="51.0" text="Gender"/>
+                       <JFXRadioButton fx:id="rbMale" prefHeight="17.0" prefWidth="81.0" selected="true" text="Male">
+                           <toggleGroup>
+                               <ToggleGroup fx:id="gender"/>
+                           </toggleGroup>
+                       </JFXRadioButton>
+                       <JFXRadioButton fx:id="rbFemale" onAction="#rbFemale" text="Female" toggleGroup="$gender"/>
+                   </children>
+               </HBox>
+           </children>
+       </HBox>
+       <HBox maxHeight="-Infinity" styleClass="node-pane" VBox.vgrow="ALWAYS">
+           <children>
+               <JFXComboBox fx:id="cboxGrade" editable="true" labelFloat="true" onAction="#cboxGrade_onAction"
+                            prefHeight="25.0" prefWidth="228.0" promptText="Grade" HBox.hgrow="ALWAYS"/>
+               <JFXComboBox fx:id="cboxClass" labelFloat="true" onAction="#cboxClass_onAction" prefHeight="25.0"
+                            prefWidth="449.0" promptText="Class" HBox.hgrow="ALWAYS"/>
+               <JFXDatePicker fx:id="dtDOB" onAction="#dtDOB_onAction" prefHeight="25.0" prefWidth="491.0"
+                              promptText="Birth day" showWeekNumbers="true"/>
+           </children>
+       </HBox>
+       <HBox maxHeight="-Infinity" styleClass="node-pane">
+           <children>
+               <JFXTextField fx:id="txtMotherName" labelFloat="true" onAction="#txtMotherName_onACtion"
+                             prefHeight="25.0" prefWidth="585.0" promptText="Mother's name" HBox.hgrow="ALWAYS"/>
+               <JFXTextField fx:id="txtFatherName" labelFloat="true" onAction="#txtFatherName_onAction"
+                             prefHeight="25.0" prefWidth="584.0" promptText="Father's name" HBox.hgrow="ALWAYS"/>
+           </children>
+       </HBox>
+       <JFXTextField fx:id="txtAddress" labelFloat="true" onAction="#txtAddress_onAction" prefHeight="25.0"
+                     prefWidth="1269.0" promptText="Address"/>
+       <TableView fx:id="tblTelNo" editable="true" fixedCellSize="0.0" onMouseClicked="#tblTelNoClicked_onAction"
+                  tableMenuButtonVisible="true" prefHeight="94.0" prefWidth="1268.0" VBox.vgrow="ALWAYS">
          <columns>
             <TableColumn fx:id="colTelNo_tblTelNo" prefWidth="820.0" text="Telephone Number" />
          </columns>
@@ -68,52 +70,60 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <HBox maxHeight="-Infinity" styleClass="node-pane" VBox.vgrow="ALWAYS">
-         <children>
-            <JFXTextField fx:id="txtNewTelNo" labelFloat="true" onAction="#txtNewTelNo_onAction" prefHeight="25.0" prefWidth="502.0" promptText="New Telephone number" HBox.hgrow="ALWAYS" />
-            <JFXButton fx:id="btUpdate_telNo" onAction="#btUpdate_telNo_onAction" prefHeight="33.0" prefWidth="124.0" style="-fx-background-color: #2196F3;" text="Update" textFill="WHITE" />
-            <Region prefHeight="32.0" prefWidth="634.0" />
-         </children>
-      </HBox>
-      <VBox styleClass="table-pane" VBox.vgrow="ALWAYS">
-         <children>
-            <JFXButton fx:id="btRemove_telNo" onAction="#btRemove_telNo_onAction" prefHeight="12.0" prefWidth="124.0" styleClass="cancel" text="Remove" textFill="#2196f3">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-            </JFXButton>
-            <TableView fx:id="tblUpdatedTelNo" editable="true" fixedCellSize="0.0" tableMenuButtonVisible="true" prefHeight="78.0" prefWidth="1268.0" VBox.vgrow="ALWAYS">
-               <columns>
-                  <TableColumn fx:id="colOdlTelNo_tblUpdatedTelNo" editable="false" prefWidth="820.0" text="Old Telephone Number" />
-                  <TableColumn fx:id="colNewTelNo_tblUpdatedTelNo" prefWidth="820.0" text="New Telephone Number" />
-               </columns>
-               <columnResizePolicy>
-                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-               </columnResizePolicy>
-            </TableView>
-         </children>
-      </VBox>
-      <JFXTextArea fx:id="txtaDesc" labelFloat="true" onDragDetected="#txtaDesc_onAction" prefHeight="95.0" prefWidth="1268.0" promptText="About this student" VBox.vgrow="ALWAYS" />
-      <HBox styleClass="button-pane">
-         <children>
-            <JFXButton fx:id="btCancel" onAction="#btCancel_onAction" prefHeight="25.0" prefWidth="124.0" styleClass="cancel" text="Cancel" textFill="#2196f3">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-            </JFXButton>
-            <JFXButton fx:id="btUpdateStudent" onAction="#btUpdateStudent_onAction" prefHeight="33.0" prefWidth="124.0" style="-fx-background-color: #2196F3;" text="Update" textFill="WHITE" />
-         </children>
-      </HBox>
+       <HBox maxHeight="-Infinity" styleClass="node-pane" VBox.vgrow="ALWAYS">
+           <children>
+               <JFXTextField fx:id="txtNewTelNo" labelFloat="true" onAction="#txtNewTelNo_onAction" prefHeight="25.0"
+                             prefWidth="502.0" promptText="New Telephone number" HBox.hgrow="ALWAYS"/>
+               <JFXButton fx:id="btUpdate_telNo" onAction="#btUpdate_telNo_onAction" prefHeight="33.0" prefWidth="124.0"
+                          style="-fx-background-color: #2196F3;" text="Update" textFill="WHITE"/>
+               <Region prefHeight="32.0" prefWidth="634.0"/>
+           </children>
+       </HBox>
+       <VBox styleClass="table-pane" VBox.vgrow="ALWAYS">
+           <children>
+               <JFXButton fx:id="btRemove_telNo" onAction="#btRemove_telNo_onAction" prefHeight="12.0" prefWidth="124.0"
+                          styleClass="cancel" text="Remove" textFill="#2196f3">
+                   <font>
+                       <Font name="System Bold" size="12.0"/>
+                   </font>
+               </JFXButton>
+               <TableView fx:id="tblUpdatedTelNo" editable="true" fixedCellSize="0.0" tableMenuButtonVisible="true"
+                          prefHeight="78.0" prefWidth="1268.0" VBox.vgrow="ALWAYS">
+                   <columns>
+                       <TableColumn fx:id="colOdlTelNo_tblUpdatedTelNo" editable="false" prefWidth="820.0"
+                                    text="Old Telephone Number"/>
+                       <TableColumn fx:id="colNewTelNo_tblUpdatedTelNo" prefWidth="820.0" text="New Telephone Number"/>
+                   </columns>
+                   <columnResizePolicy>
+                       <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                   </columnResizePolicy>
+               </TableView>
+           </children>
+       </VBox>
+       <JFXTextArea fx:id="txtaDesc" labelFloat="true" onDragDetected="#txtaDesc_onAction" prefHeight="95.0"
+                    prefWidth="1268.0" promptText="About this student" VBox.vgrow="ALWAYS"/>
+       <HBox styleClass="button-pane">
+           <children>
+               <JFXButton fx:id="btCancel" onAction="#btCancel_onAction" prefHeight="25.0" prefWidth="124.0"
+                          styleClass="cancel" text="Cancel" textFill="#2196f3">
+                   <font>
+                       <Font name="System Bold" size="12.0"/>
+                   </font>
+               </JFXButton>
+               <JFXButton fx:id="btUpdateStudent" onAction="#btUpdateStudent_onAction" prefHeight="33.0"
+                          prefWidth="124.0" style="-fx-background-color: #2196F3;" text="Update" textFill="WHITE"/>
+           </children>
+       </HBox>
    </children>
-   <stylesheets>
-      <URL value="@../../css/frame.css" />
-      <URL value="@../../css/combo-box.css" />
-      <URL value="@../../css/table-view.css" />
-      <URL value="@../../css/text-and-password-field.css" />
-      <URL value="@../../css/date-picker.css" />
-      <URL value="@../../css/radio-button.css" />
-      <URL value="@../../css/text-area.css" />
-      <URL value="@../../css/button.css" />
-      <URL value="@../../css/label.css" />
-   </stylesheets>
+    <stylesheets>
+        <URL value="@../../css/frame.css"/>
+        <URL value="@../../css/combo-box.css"/>
+        <URL value="@../../css/table-view.css"/>
+        <URL value="@../../css/text-and-password-field.css"/>
+        <URL value="@../../css/date-picker.css"/>
+        <URL value="@../../css/radio-button.css"/>
+        <URL value="@../../css/text-area.css"/>
+        <URL value="@../../css/button.css"/>
+        <URL value="@../../css/label.css"/>
+    </stylesheets>
 </VBox>

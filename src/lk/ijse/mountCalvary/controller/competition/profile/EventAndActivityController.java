@@ -13,9 +13,10 @@ import javafx.scene.layout.VBox;
 import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.EventListBO;
 import lk.ijse.mountCalvary.business.custom.ParticipationBO;
-import lk.ijse.mountCalvary.controller.GlobalBoolean;
-import lk.ijse.mountCalvary.controller.OptionPane;
-import lk.ijse.mountCalvary.controller.Reporter;
+import lk.ijse.mountCalvary.controller.tool.ButtonFireForEnterSetter;
+import lk.ijse.mountCalvary.controller.tool.GlobalBoolean;
+import lk.ijse.mountCalvary.controller.tool.OptionPane;
+import lk.ijse.mountCalvary.controller.tool.Reporter;
 import lk.ijse.mountCalvary.model.AgeGroupDTO;
 import lk.ijse.mountCalvary.model.CompetitionDTO;
 import lk.ijse.mountCalvary.model.EventListDTO;
@@ -64,6 +65,7 @@ public class EventAndActivityController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         GlobalBoolean.setLock(false);
+        ButtonFireForEnterSetter.setGlobalEventHandler(acEventForActivity);
 
         colActivity_tblEventInCompetition.setCellValueFactory(new PropertyValueFactory<>("activityName"));
         colAgeGroup_tblEventInCompetition.setCellValueFactory(new PropertyValueFactory<>("ageGroupDTO"));
@@ -103,6 +105,8 @@ public class EventAndActivityController implements Initializable {
             EventListDTO selectedEventList = tblEventInCompetition.getSelectionModel().getSelectedItem();
             ObservableList<ParticipationDTO> participationForThisEventList = participationBOImpl.getParticipationForThisEventList(selectedEventList.getELID());
             tblStudentList.getItems().setAll(participationForThisEventList);
+
+        } catch (NullPointerException ignored) {
         } catch (Exception e) {
             Logger.getLogger(EventAndActivityController.class.getName()).log(Level.SEVERE, null, e);
 
@@ -149,10 +153,10 @@ public class EventAndActivityController implements Initializable {
 
                 }
             } else {
-                OptionPane.showError("Please select an event from the Event list.");
+                OptionPane.showErrorAtSide("Please select an event from the Event list.");
             }
         } else {
-            OptionPane.showError("Please select a competition to print.");
+            OptionPane.showErrorAtSide("Please select a competition to print.");
         }
     }
 }

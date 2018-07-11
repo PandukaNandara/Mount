@@ -12,10 +12,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.ActivityBO;
-import lk.ijse.mountCalvary.controller.DateRange;
-import lk.ijse.mountCalvary.controller.GlobalBoolean;
-import lk.ijse.mountCalvary.controller.OptionPane;
-import lk.ijse.mountCalvary.controller.Reporter;
+import lk.ijse.mountCalvary.controller.tool.*;
 import lk.ijse.mountCalvary.model.ActivityDTO;
 import lk.ijse.mountCalvary.model.RegistrationDTO;
 import net.sf.jasperreports.engine.*;
@@ -56,7 +53,7 @@ public class JoinedStudentController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         GlobalBoolean.setLock(false);
-
+        ButtonFireForEnterSetter.setGlobalEventHandler(JoinedStudent);
         colStudent.setCellValueFactory(new PropertyValueFactory<>("studentName"));
         colJoinedDate.setCellValueFactory(new PropertyValueFactory<>("joinedDate"));
         colClass.setCellValueFactory(new PropertyValueFactory<>("studentClass"));
@@ -143,7 +140,7 @@ public class JoinedStudentController implements Initializable {
 
             }
         } else {
-            OptionPane.showError("Please select an activity to print.");
+            OptionPane.showErrorAtSide("Please select an activity to print.");
         }
     }
 }

@@ -381,7 +381,8 @@ public class QueryDAOImpl implements QueryDAO {
                 "where a.AID = ? and (r.RID = at.RID and\n" +
                 "       at.TID = t.TID and\n" +
                 "       s.SID = r.SID and\n" +
-                "       a.AID = r.AID)", AID);
+                "       a.AID = r.AID)" +
+                "order by date DESC ", AID);
         while (rst.next()) {
             attendaceList.add(new CustomEntity(
                             rst.getInt("ATID"),
@@ -440,8 +441,9 @@ public class QueryDAOImpl implements QueryDAO {
                 "  year\n" +
                 "from student s, registration r, payment py\n" +
                 "where\n" +
-                "      (r.SID = s.SID and\n" +
-                "       r.RID = py.RID) and AID = ? \n", AID);
+                "  (r.SID = s.SID and\n" +
+                "   r.RID = py.RID) and AID = ?\n" +
+                "order by PAYID DESC", AID);
         while (rst.next()) {
             paymentList.add(new CustomEntity(
                             rst.getInt("PAYID"),
@@ -573,6 +575,41 @@ public class QueryDAOImpl implements QueryDAO {
             );
         }
         return paymentDetail;
+    }
+
+    @Override
+    public ArrayList<CustomEntity> getMaximumDistinctPaymentDataForThisActivity(int aid, Integer year, int month) throws Exception {
+        ArrayList<CustomEntity> distinctPayment = new ArrayList<>();
+        ResultSet rst = CrudUtil.executeQuery("select\n" +
+                "  PAYID,\n" +
+                "  r.RID,\n" +
+                "  s.SID,\n" +
+                "  sName,\n" +
+                "  fee,\n" +
+                "  max(month),\n" +
+                "  year\n" +
+                "from student s, registration r, payment py\n" +
+                "where\n" +
+                "  (r.SID = s.SID and\n" +
+                "   r.RID = py.RID) and \n" +
+                "  AID = ? and \n" +
+                "  Year = ? and\n" +
+                "  month < ?\n" +
+                "  group by RID\n" +
+                "order by PAYID DESC", aid, month, year);
+        while (rst.next()) {
+            distinctPayment.add(new CustomEntity(
+                            rst.getInt("PAYID"),
+                            rst.getInt("RID"),
+                            rst.getInt("SID"),
+                            rst.getString("sName"),
+                            rst.getBigDecimal("fee"),
+                            rst.getInt("month"),
+                            rst.getInt("year")
+                    )
+            );
+        }
+        return distinctPayment;
     }
 
 }

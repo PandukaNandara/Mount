@@ -16,12 +16,11 @@ import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.ActivityBO;
 import lk.ijse.mountCalvary.business.custom.RegistrationBO;
 import lk.ijse.mountCalvary.business.custom.StudentBO;
-import lk.ijse.mountCalvary.controller.*;
+import lk.ijse.mountCalvary.controller.tool.*;
 import lk.ijse.mountCalvary.model.ActivityDTO;
 import lk.ijse.mountCalvary.model.RegistrationDTO;
 import lk.ijse.mountCalvary.model.StudentDTO;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
@@ -109,16 +108,16 @@ public class AddStudentForActivity_controller implements Initializable {
             if (firstTime) {
                 firstTime = false;
             } else {
-                OptionPane.showError("Please enter the joined date");
+                OptionPane.showErrorAtSide("Please enter the joined date");
             }
         } else if (txtStudentName.getText().length() < 1) {
-            OptionPane.showError("Please enter the student name");
+            OptionPane.showErrorAtSide("Please enter the student name");
         } else {
 
             StudentDTO selectedStudent = autoComplete.getSelectedItemByName();
 
             if (selectedStudent == null) {
-                OptionPane.showError("This student is already added to the activity or not a correct valid student.");
+                OptionPane.showErrorAtSide("This student is already added to the activity or not a correct valid student.");
                 txtStudentName.selectAll();
             } else {
                 allStudent.remove(selectedStudent);
@@ -144,7 +143,7 @@ public class AddStudentForActivity_controller implements Initializable {
             //autoComplete.changeSuggestion(allStudent);
 
         } catch (Exception e) {
-            OptionPane.showError("Please select a row");
+            OptionPane.showErrorAtSide("Please select a row");
         }
     }
 
@@ -153,11 +152,7 @@ public class AddStudentForActivity_controller implements Initializable {
         try {
             if (registrationBOImpl.addAllRegistration(tblStudentList.getItems())) {
                 OptionPane.showMessage("Registration successful");
-                try {
-                    screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/basic/ActivityMenu.fxml", this.acAddStudent, this);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/basic/ActivityMenu.fxml", this.acAddStudent, this);
             } else {
                 OptionPane.showWarning("Somethings wrong");
             }
@@ -189,7 +184,7 @@ public class AddStudentForActivity_controller implements Initializable {
     private void txtStudentName_onAction(ActionEvent actionEvent) {
         StudentDTO selectedItemByName = autoComplete.getSelectedItemByName();
         if(selectedItemByName == null){
-            OptionPane.showError("Please select a student");
+            OptionPane.showErrorAtSide("Please select a student");
         }
         btAdd.fire();
     }
@@ -198,11 +193,7 @@ public class AddStudentForActivity_controller implements Initializable {
     void btCancel_onAction(ActionEvent event) {
         boolean answer = OptionPane.askQuestion("Do you want to cancel?");
         if (answer) {
-            try {
-                screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/basic/StudentMenu.fxml", this.acAddStudent, this);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/basic/StudentMenu.fxml", this.acAddStudent, this);
         }
     }
 

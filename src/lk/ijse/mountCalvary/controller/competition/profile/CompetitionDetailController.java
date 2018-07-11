@@ -13,9 +13,10 @@ import javafx.scene.layout.VBox;
 import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.CompetitionBO;
 import lk.ijse.mountCalvary.business.custom.TeacherInChargeListBO;
-import lk.ijse.mountCalvary.controller.GlobalBoolean;
-import lk.ijse.mountCalvary.controller.OptionPane;
-import lk.ijse.mountCalvary.controller.Reporter;
+import lk.ijse.mountCalvary.controller.tool.ButtonFireForEnterSetter;
+import lk.ijse.mountCalvary.controller.tool.GlobalBoolean;
+import lk.ijse.mountCalvary.controller.tool.OptionPane;
+import lk.ijse.mountCalvary.controller.tool.Reporter;
 import lk.ijse.mountCalvary.model.CompetitionDTO;
 import lk.ijse.mountCalvary.model.TeacherInChargeListDTO;
 import net.sf.jasperreports.engine.*;
@@ -59,7 +60,7 @@ public class CompetitionDetailController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         GlobalBoolean.setLock(false);
-
+        ButtonFireForEnterSetter.setGlobalEventHandler(acCompetitionDetail);
         colTeacherInCharge.setCellValueFactory(new PropertyValueFactory<>("teacherName"));
 
         competitionBOImpl = BOFactory.getInstance().getBO(BOFactory.BOType.COMPETITION);
@@ -119,7 +120,7 @@ public class CompetitionDetailController implements Initializable {
 
             }
         } else {
-            OptionPane.showError("Please select a competition to print.");
+            OptionPane.showErrorAtSide("Please select a competition to print.");
         }
 
     }

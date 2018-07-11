@@ -15,9 +15,10 @@ import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.AgeGroupBO;
 import lk.ijse.mountCalvary.business.custom.EventBO;
 import lk.ijse.mountCalvary.business.custom.ParticipationBO;
-import lk.ijse.mountCalvary.controller.GlobalBoolean;
-import lk.ijse.mountCalvary.controller.OptionPane;
-import lk.ijse.mountCalvary.controller.Reporter;
+import lk.ijse.mountCalvary.controller.tool.ButtonFireForEnterSetter;
+import lk.ijse.mountCalvary.controller.tool.GlobalBoolean;
+import lk.ijse.mountCalvary.controller.tool.OptionPane;
+import lk.ijse.mountCalvary.controller.tool.Reporter;
 import lk.ijse.mountCalvary.model.*;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
@@ -70,6 +71,7 @@ public class EventAndCompetitionOfActivityController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         GlobalBoolean.setLock(false);
+        ButtonFireForEnterSetter.setGlobalEventHandler(EventAndCompetitionOfActivity);
 
         colCompetition_tblCompetitionList.setCellValueFactory(new PropertyValueFactory<>("comName"));
         colDate_tblCompetitionList.setCellValueFactory(new PropertyValueFactory<>("date"));
@@ -174,11 +176,11 @@ public class EventAndCompetitionOfActivityController implements Initializable {
         ObservableList<ParticipationDTO> participationDTOS = tblParticipation.getItems();
 
         if (selectedActivity == null) {
-            OptionPane.showError("Please select an activity to print.");
+            OptionPane.showErrorAtSide("Please select an activity to print.");
         } else if (eventDTO == null) {
-            OptionPane.showError("Please select an event.");
+            OptionPane.showErrorAtSide("Please select an event.");
         } else if (competitionDTO == null) {
-            OptionPane.showError("Please select a competition from the competition table.");
+            OptionPane.showErrorAtSide("Please select a competition from the competition table.");
         } else if (participationDTOS.size() == 0) {
             boolean ask = OptionPane.askWarning("There's no participation for this event in this competition. Do you wish to continue?");
             if (ask) {

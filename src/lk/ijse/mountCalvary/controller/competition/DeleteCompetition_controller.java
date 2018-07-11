@@ -15,15 +15,14 @@ import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.CompetitionBO;
 import lk.ijse.mountCalvary.business.custom.EventListBO;
 import lk.ijse.mountCalvary.business.custom.ParticipationBO;
-import lk.ijse.mountCalvary.controller.GlobalBoolean;
-import lk.ijse.mountCalvary.controller.OptionPane;
-import lk.ijse.mountCalvary.controller.ScreenLoader;
+import lk.ijse.mountCalvary.controller.tool.GlobalBoolean;
+import lk.ijse.mountCalvary.controller.tool.OptionPane;
+import lk.ijse.mountCalvary.controller.tool.ScreenLoader;
 import lk.ijse.mountCalvary.model.AgeGroupDTO;
 import lk.ijse.mountCalvary.model.CompetitionDTO;
 import lk.ijse.mountCalvary.model.EventListDTO;
 import lk.ijse.mountCalvary.model.ParticipationDTO;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -92,11 +91,7 @@ public class DeleteCompetition_controller implements Initializable {
 
     @FXML
     void btCancel_onAction(ActionEvent event) {
-        try {
-            screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/basic/CompetitionMenu.fxml", this.acDeleteCompetition, this);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/basic/CompetitionMenu.fxml", this.acDeleteCompetition, this);
     }
 
     @FXML
@@ -105,7 +100,7 @@ public class DeleteCompetition_controller implements Initializable {
             CompetitionDTO selectedCompetition = cboxCompetition.getSelectionModel().getSelectedItem();
 
             if (selectedCompetition == null) {
-                OptionPane.showError("Please select a competition.");
+                OptionPane.showErrorAtSide("Please select a competition.");
             } else {
                 int CID = selectedCompetition.getCID();
                 int eventListCount = eventListBOImpl.getEventListForThisCompetition(CID).size();
@@ -120,7 +115,8 @@ public class DeleteCompetition_controller implements Initializable {
                 boolean yes = OptionPane.askWarning(message + " Do you want to delete this competition? If you delete, all records will be deleted.");
                 if (yes) {
                     if (competitionBOImpl.deleteCompetition(CID)) {
-                        OptionPane.showMessage("Competition has successfully deleted");
+                        OptionPane.showDoneAtSide("Competition has successfully deleted");
+                        screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/basic/CompetitionMenu.fxml", this.acDeleteCompetition, this);
                     } else {
                         OptionPane.showWarning("Something's wrong we can't do your request now.");
                     }
@@ -130,11 +126,7 @@ public class DeleteCompetition_controller implements Initializable {
             Logger.getLogger(DeleteCompetition_controller.class.getName()).log(Level.SEVERE, null, e);
 
         }
-        try {
-            screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/basic/CompetitionMenu.fxml", this.acDeleteCompetition, this);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
     }
 
     @FXML

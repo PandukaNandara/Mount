@@ -3,6 +3,7 @@ package lk.ijse.mountCalvary.controller.activity.profile;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.controls.JFXToggleButton;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -14,7 +15,7 @@ import javafx.scene.layout.VBox;
 import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.ActivityBO;
 import lk.ijse.mountCalvary.business.custom.AttendantSheetBO;
-import lk.ijse.mountCalvary.controller.*;
+import lk.ijse.mountCalvary.controller.tool.*;
 import lk.ijse.mountCalvary.model.ActivityDTO;
 import lk.ijse.mountCalvary.model.AttendantSheetDTO;
 import lk.ijse.mountCalvary.model.RegistrationDTO;
@@ -47,24 +48,24 @@ public class AttendantSheetController implements Initializable {
     private JFXComboBox<String> cboxTimeRange;
     @FXML
     private JFXTextField txtStudent;
+    @FXML
+    private JFXButton btPrint;
+    @FXML
+    private JFXToggleButton btInverse;
 
     private ActivityProfileController activityProfileController;
     private AttendantSheetBO attendantSheetBOImpl;
     private ActivityBO activityBOImpl;
     private ArrayList<ActivityDTO> allActivity;
-
     private AutoComplete<RegistrationDTO> autoComplete;
-
     private ObservableList<RegistrationDTO> allRegistration;
     private ObservableList<AttendantSheetDTO> attendanceSheet;
-    @FXML
-    private JFXButton btPrint;
     private ActivityDTO selectedActivity;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         GlobalBoolean.setLock(false);
-
+        ButtonFireForEnterSetter.setGlobalEventHandler(attendantSheet);
         colDate.setCellValueFactory(new PropertyValueFactory<>("date"));
         colStudentName.setCellValueFactory(new PropertyValueFactory<>("studentName"));
         colTeacherInCharge.setCellValueFactory(new PropertyValueFactory<>("teacherName"));
@@ -74,7 +75,7 @@ public class AttendantSheetController implements Initializable {
         autoComplete = new AutoComplete<>(txtStudent);
         autoComplete.setAutoCompletionsAction(event -> filterData());
 
-
+        btInverse.setDisable(true);
     }
 
     public void init(ActivityProfileController activityProfileController) {
@@ -89,6 +90,14 @@ public class AttendantSheetController implements Initializable {
 
     private void filterData() {
         int timeRange = cboxTimeRange.getSelectionModel().getSelectedIndex();
+
+        //This is for disable or enable the inverse button();
+        if (timeRange == DateRange.ALL) {
+            btInverse.setDisable(true);
+        } else {
+            btInverse.setDisable(false);
+        }
+        btInverse.setSelected(false);
         int reg;
         try {
             reg = autoComplete.getSelectedItemByName().getRID();
@@ -137,6 +146,7 @@ public class AttendantSheetController implements Initializable {
             tblAttendantSheet.getItems().setAll(attendanceSheet);
             cboxTimeRange.getSelectionModel().select(DateRange.ALL);
             autoComplete.changeSuggestion(allRegistration);
+
         } catch (Exception e) {
             Logger.getLogger(AttendantSheetController.class.getName()).log(Level.SEVERE, null, e);
 
@@ -152,7 +162,7 @@ public class AttendantSheetController implements Initializable {
     private void btPrint_onAction(ActionEvent actionEvent) {
         if (selectedActivity != null) {
             try {
-                Progress.showMessage(attendantSheet,"Loading report", "Now loading");
+                Progress.showMessage(attendantSheet, "Loading report", "Now loading");
 
                 String studentName = txtStudent.getText();
                 if (attendanceOfStudentReport == null) {
@@ -179,8 +189,45 @@ public class AttendantSheetController implements Initializable {
 
             }
         } else {
-            OptionPane.showError("Please select an activity to print.");
+            OptionPane.showErrorAtSide("Please select an activity to print.");
         }
 
+    }
+
+    /**
+     * We are going to get inverse data from the tblAttendantSheet
+     * first we check whether the toggle button is select or not.
+     * Then we iterate all registration for this activity and secondly
+     * we iterate present attendantSheetDTO that shown in tblAttendantSheet.
+     */
+    @FXML
+    private void btInverse_onAction(ActionEvent actionEvent) {
+
+        boolean isSelected = btInverse.isSelected();
+        if (isSelected) try {
+            ArrayList<AttendantSheetDTO> inverseFilter = new ArrayList<>();
+            ObservableList<AttendantSheetDTO> present = tblAttendantSheet.getItems();
+            ObservableList<RegistrationDTO> registrations = activityBOImpl.
+                    getRegistrationOfThisActivity(selectedActivity.getAID());
+            for (int i = 0; i < registrations.size(); i++) {
+                boolean shouldRemove = false;
+                for (int j = 0; j < present.size(); j++) {
+                    if (registrations.get(i).getRID() == present.get(j).getRID()) {
+                        present.remove(j--);
+                        shouldRemove = true;
+                    }
+                }
+                if (shouldRemove)
+                    registrations.remove(i--);
+                else
+                    inverseFilter.add(new AttendantSheetDTO().setStudentName(registrations.get(i).getStudentName()));
+            }
+            tblAttendantSheet.getItems().setAll(inverseFilter);
+        } catch (Exception e) {
+            Logger.getLogger(AttendantSheetController.class.getName()).log(Level.SEVERE, null, e);
+        }
+        else {
+            filterData();
+        }
     }
 }

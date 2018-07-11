@@ -12,6 +12,9 @@
     -fx-profile-frame-pref-width: 1280px;
     -fx-profile-frame-pref-height: 720px;
 
+    -fx-log-in-pref-width: 416px;
+    -fx-log-in-pref-height: 592px;
+
 }
 
 .root {
@@ -118,6 +121,11 @@
 .menu-button-pane {
     -fx-spacing: 40;
 
+}
+
+.log-in {
+    -fx-pref-width: -fx-log-in-pref-width;
+    -fx-pref-height: -fx-log-in-pref-height;
 }
 
 .region {

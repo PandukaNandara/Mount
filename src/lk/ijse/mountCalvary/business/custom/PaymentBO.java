@@ -5,6 +5,7 @@ import lk.ijse.mountCalvary.business.SuperBO;
 import lk.ijse.mountCalvary.model.PaymentDTO;
 
 public interface PaymentBO extends SuperBO {
+
     boolean addAllPayment(ObservableList<PaymentDTO> allPayment) throws Exception;
 
     ObservableList<PaymentDTO> getPaymentDetailOfThisStudent(int sid) throws Exception;
@@ -13,4 +14,7 @@ public interface PaymentBO extends SuperBO {
 
     ObservableList<PaymentDTO> getPaymentDetailForThisMonthAndYearAndActivity(int aid, int year, int month) throws Exception;
 
+    ObservableList<PaymentDTO> getMaximumDistinctPaymentDataForThisActivity(int aid, Integer year, int month) throws Exception;
+
+    ObservableList<PaymentDTO> getPaymentForThisActivityAndStudent(int RID) throws Exception;
 }

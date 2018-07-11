@@ -1,4 +1,4 @@
-package lk.ijse.mountCalvary.controller;
+package lk.ijse.mountCalvary.controller.tool;
 
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -7,7 +7,6 @@ import net.sf.jasperreports.view.JasperViewer;
 
 import javax.swing.*;
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class Reporter {
@@ -26,7 +25,7 @@ public class Reporter {
         return fileChooser.showSaveDialog(stage);
     }
 
-    public static void showReport(JasperPrint jasperPrint, String title) throws IOException {
+    public static void showReport(JasperPrint jasperPrint, String title) {
         JasperViewer jv = new JasperViewer(jasperPrint, false);
 
         ImageIcon img = new ImageIcon("/lk/ijse/mountCalvary/assets/print.ico");
@@ -40,7 +39,8 @@ public class Reporter {
         jv.setVisible(true);
 
     }
-    private static enum FileType {
+
+    private enum FileType {
         PDF, DOCX, HTML
     }
 }

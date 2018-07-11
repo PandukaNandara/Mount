@@ -16,15 +16,14 @@ import javafx.scene.layout.VBox;
 import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.CompetitionBO;
 import lk.ijse.mountCalvary.business.custom.TeacherBO;
-import lk.ijse.mountCalvary.controller.Common;
-import lk.ijse.mountCalvary.controller.GlobalBoolean;
-import lk.ijse.mountCalvary.controller.OptionPane;
-import lk.ijse.mountCalvary.controller.ScreenLoader;
+import lk.ijse.mountCalvary.controller.tool.Common;
+import lk.ijse.mountCalvary.controller.tool.GlobalBoolean;
+import lk.ijse.mountCalvary.controller.tool.OptionPane;
+import lk.ijse.mountCalvary.controller.tool.ScreenLoader;
 import lk.ijse.mountCalvary.model.CompetitionDTO;
 import lk.ijse.mountCalvary.model.TeacherDTO;
 import lk.ijse.mountCalvary.model.TeacherInChargeListDTO;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
@@ -86,7 +85,7 @@ public class NewCompetition_controller implements Initializable {
     void btAdd_teacherInCharge_onAction(ActionEvent event) {
         TeacherDTO selectTeacher = (TeacherDTO) cboxTeacherInCharge.getSelectionModel().getSelectedItem();
         if (selectTeacher == null) {
-            OptionPane.showError("Please select a teacher from the list");
+            OptionPane.showErrorAtSide("Please select a teacher from the list");
         } else {
             tblTeacherInChargeList.getItems().add(selectTeacher);
             cboxTeacherInCharge.getItems().remove(selectTeacher);
@@ -106,15 +105,15 @@ public class NewCompetition_controller implements Initializable {
         }
         CompetitionDTO competitionDTO = new CompetitionDTO(compName, location, date, desc, FXCollections.observableArrayList(teacherInChargeList));
         if (compName.length() < 2) {
-            OptionPane.showError("Please enter the Competition name");
+            OptionPane.showErrorAtSide("Please enter the Competition name");
         } else if (location.length() < 2) {
-            OptionPane.showError("Please enter the location of the competition where it is held.");
+            OptionPane.showErrorAtSide("Please enter the location of the competition where it is held.");
         } else if (teacherList.size() == 0) {
-            OptionPane.showError("Please add teacher for the competition");
+            OptionPane.showErrorAtSide("Please add teacher for the competition");
         } else if (date == null) {
-            OptionPane.showError("Please select the date that the competition was held.");
+            OptionPane.showErrorAtSide("Please select the date that the competition was held.");
         } else if (txtaDesc.getText().length() > 700) {
-            OptionPane.showError("Competition description can contain only 700 characters. You have entered " + txtaDesc.getText().length() + " characters (with spaces).");
+            OptionPane.showErrorAtSide("Competition description can contain only 700 characters. You have entered " + txtaDesc.getText().length() + " characters (with spaces).");
             try {
                 txtaDesc.selectRange(700, txtaDesc.getText().length());
             } catch (Exception e) {
@@ -160,30 +159,20 @@ public class NewCompetition_controller implements Initializable {
                         EventForCompetition_controller fooController = fxmlLoader.getController();
                         this.acNewCompetition.getChildren().setAll(p);
                         fooController.setSelectedItem(0);
-//                        Parent root = screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/competition/EventForCompetition.fxml", this.acNewCompetition, this);
-//                        System.out.println("Pass ____");
-//                        FXMLLoader fxmlLoader = new FXMLLoader();
-//                        Pane p = fxmlLoader.load(getClass().getResource("/lk/ijse/mountCalvary/view/competition/EventForCompetition.fxml").openStream());
-//                        EventForCompetition_controller fooController = (EventForCompetition_controller) fxmlLoader.getController();
-//                        fooController.setLblHead("Pass");
                     } catch (Exception e) {
                         Logger.getLogger(NewCompetition_controller.class.getName()).log(Level.SEVERE, null, e);
                         screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/competition/StudentForCompetition.fxml", this.acNewCompetition, this);
 
                     }
                 } else {
-                    try {
-                        screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/basic/CompetitionMenu.fxml", this.acNewCompetition, this);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/basic/CompetitionMenu.fxml", this.acNewCompetition, this);
                 }
             } else {
-                OptionPane.showError("Something's wrong we can't do your request now");
+                OptionPane.showErrorAtSide("Something's wrong we can't do your request now");
             }
         } catch (Exception e) {
             Logger.getLogger(NewCompetition_controller.class.getName()).log(Level.SEVERE, null, e);
-            OptionPane.showError("Something's wrong we can't do your request now");
+            OptionPane.showErrorAtSide("Something's wrong we can't do your request now");
 
         }
     }
@@ -192,7 +181,7 @@ public class NewCompetition_controller implements Initializable {
     void btRemove_tblTeacherInChargeList_onAction(ActionEvent event) {
         TeacherDTO selectTeacher = (TeacherDTO) Common.removeItemFromTable(tblTeacherInChargeList);
         if (selectTeacher == null) {
-            OptionPane.showError("Please select the teacher to remove");
+            OptionPane.showErrorAtSide("Please select the teacher to remove");
         } else {
             cboxTeacherInCharge.getItems().add(selectTeacher);
         }
@@ -222,11 +211,7 @@ public class NewCompetition_controller implements Initializable {
     private void btCancel_onAction(ActionEvent actionEvent) {
         boolean answer = OptionPane.askWarning("Do you want to cancel?");
         if (answer) {
-            try {
-                screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/basic/StudentMenu.fxml", this.acNewCompetition, this);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/basic/StudentMenu.fxml", this.acNewCompetition, this);
         }
     }
 

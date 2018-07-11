@@ -15,10 +15,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.*;
-import lk.ijse.mountCalvary.controller.*;
+import lk.ijse.mountCalvary.controller.tool.*;
 import lk.ijse.mountCalvary.model.*;
 
-import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -197,9 +196,9 @@ public class StudentForCompetition_controller implements Initializable {
         String result = cboxResult.getValue();
         String studentName = txtStudentName.getText();
         if (studentName.length() < 1) {
-            OptionPane.showError("Please select the student");
+            OptionPane.showErrorAtSide("Please select the student");
         } else if (result.length() == 0) {
-            OptionPane.showError("Please enter the result of the student");
+            OptionPane.showErrorAtSide("Please enter the result of the student");
         } else {
             EventListDTO selectedItem = tblEventInCompetition.getSelectionModel().getSelectedItem();
             String eventName = selectedItem.getEventName() + " - " + selectedItem.getActivityName() + " - " + selectedItem.getGenderType();
@@ -280,11 +279,7 @@ public class StudentForCompetition_controller implements Initializable {
     void btCancel(ActionEvent event) {
         boolean answer = OptionPane.askQuestion("Do you want to cancel?");
         if (answer) {
-            try {
-                screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/basic/CompetitionMenu.fxml", this.acStudentForCompetition, this);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/basic/CompetitionMenu.fxml", this.acStudentForCompetition, this);
         }
     }
 
@@ -298,7 +293,7 @@ public class StudentForCompetition_controller implements Initializable {
         try {
             if (reg == null) {
 
-                OptionPane.showError("Please insert the corresponding student or select a event of the competition.");
+                OptionPane.showErrorAtSide("Please insert the corresponding student or select a event of the competition.");
 
                 txtAge.setText("");
                 txtStudentID.setText("");
@@ -332,18 +327,14 @@ public class StudentForCompetition_controller implements Initializable {
         }
         try {
             if (participationBOImpl.addAllParticipation(FXCollections.observableArrayList(newParticipation))) {
-                OptionPane.showMessage("All participation are successfully processed");
-                try {
-                    screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/basic/CompetitionMenu.fxml", this.acStudentForCompetition, this);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                OptionPane.showDoneAtSide("All participation are successfully processed");
+                screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/basic/CompetitionMenu.fxml", this.acStudentForCompetition, this);
             } else {
                 OptionPane.showWarning("Something's wrong we can't do your request");
             }
         } catch (Exception e) {
             Logger.getLogger(StudentForCompetition_controller.class.getName()).log(Level.SEVERE, null, e);
-            OptionPane.showError("Something's wrong we can't do your request \n Error code  \n" + e.getMessage());
+            OptionPane.showErrorAtSide("Something's wrong we can't do your request \n Error code  \n" + e.getMessage());
         }
 
     }
@@ -352,7 +343,7 @@ public class StudentForCompetition_controller implements Initializable {
     void btRemove_tblStudentList_onAction(ActionEvent event) {
         ParticipationDTO selectedItem = tblStudentList.getSelectionModel().getSelectedItem();
         if (selectedItem == null) {
-            OptionPane.showError("Please select some participation");
+            OptionPane.showErrorAtSide("Please select some participation");
         } else if (selectedItem.isNewOne()) {
             Common.removeItemFromTable(tblStudentList);
 
@@ -362,7 +353,7 @@ public class StudentForCompetition_controller implements Initializable {
             autoCompleteStudentName.changeSuggestion(filteredRegistration);
 
         } else {
-            OptionPane.showError("This participation is already added. You cannot remove it.");
+            OptionPane.showErrorAtSide("This participation is already added. You cannot remove it.");
         }
     }
 
@@ -373,12 +364,12 @@ public class StudentForCompetition_controller implements Initializable {
                 showRegistrationDetail(autoCompleteStudentName.searchByID(txtStudentID.getText()));
             } catch (NullPointerException e) {
                 if(autoCompleteStudentName.isResultSetEmpty())
-                    OptionPane.showError("Please select competition.");
+                    OptionPane.showErrorAtSide("Please select competition.");
                 else
-                    OptionPane.showError("Please insert the corresponding student ID for the event that you have selected in event list.");
+                    OptionPane.showErrorAtSide("Please insert the corresponding student ID for the event that you have selected in event list.");
             }
         } else {
-            OptionPane.showError("Please enter a valid student ID.");
+            OptionPane.showErrorAtSide("Please enter a valid student ID.");
             txtStudentName.clear();
             txtStudentID.selectAll();
             txtAge.clear();

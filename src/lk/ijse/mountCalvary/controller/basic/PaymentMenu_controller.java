@@ -5,10 +5,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.AnchorPane;
-import lk.ijse.mountCalvary.controller.GlobalBoolean;
-import lk.ijse.mountCalvary.controller.ScreenLoader;
+import lk.ijse.mountCalvary.controller.tool.ButtonFireForEnterSetter;
+import lk.ijse.mountCalvary.controller.tool.GlobalBoolean;
+import lk.ijse.mountCalvary.controller.tool.ScreenLoader;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -31,39 +31,24 @@ public class PaymentMenu_controller implements Initializable {
     private ScreenLoader screenLoader = ScreenLoader.getInstance();
     @FXML
     void btActivityPayment_onAction(ActionEvent event) {
-        try {
-            GlobalBoolean.setLock(false);
-            screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/activity/profile/ActivityPayment.fxml", this.acPaymentMenu, this);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        GlobalBoolean.setLock(false);
+        ButtonFireForEnterSetter.setGlobalEventHandler(acPaymentMenu);
+        screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/activity/profile/ActivityPayment.fxml", this.acPaymentMenu, this);
     }
 
     @FXML
     void btBack_onAction(ActionEvent event) {
-        try {
-            screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/basic/MainMenu.fxml", this.acPaymentMenu, this);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/basic/MainMenu.fxml", this.acPaymentMenu, this);
     }
 
     @FXML
     void btStudentPayment_onAction(ActionEvent event) {
-        try {
-            screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/student/profile/StudentPayment.fxml", this.acPaymentMenu, this);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/student/profile/StudentPayment.fxml", this.acPaymentMenu, this);
     }
 
     @FXML
     void btUpdatePayment_onAction(ActionEvent event) {
-        try {
-            screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/payment/MakePayment.fxml", this.acPaymentMenu, this);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/payment/MakePayment.fxml", this.acPaymentMenu, this);
     }
 
     @Override

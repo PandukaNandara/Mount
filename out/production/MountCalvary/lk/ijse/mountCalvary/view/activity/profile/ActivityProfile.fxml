@@ -8,19 +8,17 @@
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.layout.Region?>
 
 <BorderPane fx:id="ActivityProfile" styleClass="profile-main-frame" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.mountCalvary.controller.activity.profile.ActivityProfileController">
    <top>
       <HBox fx:id="bpActivityProfileTop" styleClass="top-profile-frame">
          <children>
-            <Label maxWidth="1.7976931348623157E308" minWidth="0.0" styleClass="super-title" text="Activity Profile" HBox.hgrow="ALWAYS">
-               <font>
-                  <Font size="22.0" />
-               </font>
+            <Label maxWidth="-Infinity" minWidth="-Infinity" styleClass="super-title" text="Activity Profile" HBox.hgrow="ALWAYS">
             </Label>
-            <JFXComboBox fx:id="cboxActivity" labelFloat="true" onAction="#cboxActivity_onAction" prefHeight="25.0" prefWidth="429.0" promptText="Activity" />
-            <JFXButton fx:id="btSearch" onAction="#btSearch_onAction" prefHeight="34.0" prefWidth="116.0" style="-fx-background-color: #2196F3;" text="Search" textFill="WHITE" />
+            <Region prefHeight="20.0" prefWidth="0.0" HBox.hgrow="ALWAYS" />
+            <JFXComboBox fx:id="cboxActivity" labelFloat="true" onAction="#cboxActivity_onAction" prefHeight="25.0" prefWidth="353.0" promptText="Activity" />
+            <JFXButton fx:id="btSearch" maxHeight="-Infinity" onAction="#btSearch_onAction" prefHeight="34.0" prefWidth="116.0" style="-fx-background-color: #2196F3;" text="Search" textFill="WHITE" />
          </children>
       </HBox>
    </top>

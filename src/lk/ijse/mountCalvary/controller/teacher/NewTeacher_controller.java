@@ -11,13 +11,12 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.TeacherBO;
-import lk.ijse.mountCalvary.controller.Common;
-import lk.ijse.mountCalvary.controller.GlobalBoolean;
-import lk.ijse.mountCalvary.controller.OptionPane;
-import lk.ijse.mountCalvary.controller.ScreenLoader;
+import lk.ijse.mountCalvary.controller.tool.Common;
+import lk.ijse.mountCalvary.controller.tool.GlobalBoolean;
+import lk.ijse.mountCalvary.controller.tool.OptionPane;
+import lk.ijse.mountCalvary.controller.tool.ScreenLoader;
 import lk.ijse.mountCalvary.model.TeacherDTO;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -62,29 +61,21 @@ public class NewTeacher_controller implements Initializable {
 
     @FXML
     private void btCancel_onAction(ActionEvent actionEvent) {
-        try {
-            screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/basic/MainMenu.fxml", this.acNewTeacher, this);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/basic/MainMenu.fxml", this.acNewTeacher, this);
     }
 
     @FXML
     private void btSubmit_onAction(ActionEvent actionEvent) {
         try {
             if (tblTeacher.getItems().size() == 0) {
-                OptionPane.showError("Please add a teacher");
+                OptionPane.showErrorAtSide("Please add a teacher");
             } else if (teacher.addAllTeacher(tblTeacher.getItems())) {
                 OptionPane.showMessage("All teachers successfully added");
-                try {
-                    screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/basic/MainMenu.fxml", this.acNewTeacher, this);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/basic/MainMenu.fxml", this.acNewTeacher, this);
             }
 
         } catch (Exception e) {
-            OptionPane.showError(e.getMessage());
+            OptionPane.showErrorAtSide(e.getMessage());
         }
     }
 
@@ -100,7 +91,7 @@ public class NewTeacher_controller implements Initializable {
             System.out.println(5 + teacherName + 5);
             tblTeacher.getItems().add(new TeacherDTO(teacherName));
         } else {
-            OptionPane.showError("The teacher name is incorrect");
+            OptionPane.showErrorAtSide("The teacher name is incorrect");
         }
         txtTeacherName.selectAll();
         txtTeacherName.requestFocus();

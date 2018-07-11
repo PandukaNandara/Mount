@@ -8,22 +8,20 @@
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.layout.Region?>
 
 <BorderPane fx:id="bpStudentProfile" styleClass="profile-main-frame" stylesheets="@../../../css/frame.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.mountCalvary.controller.student.profile.studentProfileController">
     <top>
-      <HBox styleClass="top-profile-frame">
-         <children>
-                <Label maxWidth="1.7976931348623157E308" prefHeight="27.0" prefWidth="0.0" styleClass="super-title" text="Student Profile" HBox.hgrow="ALWAYS">
-                    <font>
-                        <Font size="22.0" />
-                    </font>
+        <HBox styleClass="top-profile-frame">
+            <children>
+                <Label maxWidth="-Infinity" minWidth="-Infinity" prefHeight="27.0" styleClass="super-title" text="Student Profile" HBox.hgrow="ALWAYS">
                 </Label>
-                <JFXTextField fx:id="txtStudentID" labelFloat="true" onAction="#btStudentID_onAction" prefHeight="25.0" prefWidth="139.0" promptText="Student ID" unFocusColor="BLACK" />
-                <JFXTextField fx:id="txtStudentName" labelFloat="true" onAction="#txtStudentName_onAction" prefHeight="25.0" prefWidth="363.0" promptText="Student name" unFocusColor="BLACK" />
+            <Region prefHeight="20.0" prefWidth="0.0" HBox.hgrow="ALWAYS" />
+                <JFXTextField fx:id="txtStudentID" labelFloat="true" onAction="#btStudentID_onAction" prefHeight="25.0" prefWidth="143.0" promptText="Student ID" unFocusColor="BLACK" />
+                <JFXTextField fx:id="txtStudentName" labelFloat="true" onAction="#txtStudentName_onAction" prefHeight="25.0" prefWidth="392.0" promptText="Student name" unFocusColor="BLACK" />
                 <JFXButton fx:id="btSearch" onAction="#btSearch_onAction" prefHeight="34.0" prefWidth="116.0" style="-fx-background-color: #2196F3;" text="Search" textFill="WHITE" />
-         </children>
-      </HBox>
+            </children>
+        </HBox>
     </top>
    <center>
       <JFXTabPane BorderPane.alignment="CENTER">
@@ -36,7 +34,7 @@
          <Tab closable="false" text="Competition and achievement">
              <fx:include fx:id="competitionForStudent" source="CompetitionForStudent.fxml" />
          </Tab>
-         <Tab closable="false" text="Payment">
+          <Tab closable="false" text="Payment">
              <fx:include fx:id="studentPayment" source="StudentPayment.fxml" />
          </Tab>
       </JFXTabPane>
