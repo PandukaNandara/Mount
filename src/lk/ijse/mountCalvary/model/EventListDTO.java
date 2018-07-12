@@ -2,13 +2,13 @@ package lk.ijse.mountCalvary.model;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import lk.ijse.mountCalvary.entity.EventInterface;
 import lk.ijse.mountCalvary.entity.EventList;
-import lk.ijse.mountCalvary.entity.Gender;
 import lk.ijse.mountCalvary.entity.Participation;
 
 import java.util.ArrayList;
 
-public class EventListDTO {
+public class EventListDTO implements EventInterface {
     private int ELID;
     private int CID;
     private int EID;
@@ -19,7 +19,7 @@ public class EventListDTO {
     private boolean isNewEventList;
     private String eventName;
     private String genderType = "???";
-    private boolean gender;
+    private int gender;
 
     private int AID;
     private String activityName = "?";
@@ -31,24 +31,13 @@ public class EventListDTO {
     }
 
     public EventListDTO(EventList eventList) {
-       // System.out.println("Pass");
-        ELID = eventList.getELID();
-        CID = eventList.getCID();
-        GID = eventList.getGID();
-        EID = eventList.getEID();
-
+        this(eventList.getELID(), eventList.getCID(), eventList.getEID(), eventList.getGID());
         eventDTO = new EventDTO(eventList.getEvent());
         eventName = eventDTO.getEventName();
         activityName = eventDTO.getActivityName();
-        if (eventDTO.isGender() == Gender.MALE) {
-            gender = Gender.MALE;
-            genderType = "Male";
-        } else {
-            gender = Gender.FEMALE;
-            genderType = "Female";
-        }
+        setGender(eventDTO.getGender());
         ArrayList<ParticipationDTO> participationDTOS = new ArrayList<>();
-        if(eventList.getParticipations() != null) {
+        if (eventList.getParticipations() != null) {
             for (Participation participation : eventList.getParticipations()) {
                 ParticipationDTO participationDTO = new ParticipationDTO(participation);
                 participationDTO.setEventName(eventName);
@@ -59,38 +48,23 @@ public class EventListDTO {
     }
 
     public EventListDTO(EventDTO eventDTO, CompetitionDTO competitionDTO, AgeGroupDTO ageGroupDTO) {
+        setEventDTO(eventDTO);
         this.eventDTO = eventDTO;
         this.competitionDTO = competitionDTO;
         this.ageGroupDTO = ageGroupDTO;
         this.CID = competitionDTO.getCID();
-        this.EID = eventDTO.getEID();
         this.GID = ageGroupDTO.getGID();
         activityName = eventDTO.getActivityName();
-        if (eventDTO.isGender() == Gender.MALE) {
-            gender = Gender.MALE;
-            genderType = "Male";
-        } else {
-            gender = Gender.FEMALE;
-            genderType = "Female";
-        }
+        setGender(eventDTO.getGender());
     }
 
     public EventListDTO(int ELID, EventDTO eventDTO, CompetitionDTO competitionDTO, AgeGroupDTO ageGroupDTO) {
-        this.ELID = ELID;
+        this(ELID, competitionDTO.getCID(), eventDTO.getEID(), ageGroupDTO.getGID());
         this.eventDTO = eventDTO;
         this.competitionDTO = competitionDTO;
         this.ageGroupDTO = ageGroupDTO;
-        this.CID = competitionDTO.getCID();
-        this.EID = eventDTO.getEID();
-        this.GID = ageGroupDTO.getGID();
         activityName = eventDTO.getActivityName();
-        if (eventDTO.isGender() == Gender.MALE) {
-            gender = Gender.MALE;
-            genderType = "Male";
-        } else {
-            gender = Gender.FEMALE;
-            genderType = "Female";
-        }
+        setGender(eventDTO.getGender());
     }
 
     public EventListDTO(int CID, int EID, int GID) {
@@ -105,13 +79,7 @@ public class EventListDTO {
         this.EID = eventDTO.getEID();
         this.eventDTO = eventDTO;
         activityName = eventDTO.getActivityName();
-        if (eventDTO.isGender() == Gender.MALE) {
-            gender = Gender.MALE;
-            genderType = "Male";
-        } else {
-            gender = Gender.FEMALE;
-            genderType = "Female";
-        }
+        setGender(eventDTO.getGender());
     }
 
     public EventListDTO(int ELID, int CID, int GID, EventDTO eventDTO, CompetitionDTO competitionDTO) {
@@ -123,13 +91,8 @@ public class EventListDTO {
         this.EID = eventDTO.getEID();
         activityName = eventDTO.getActivityName();
         this.CID = competitionDTO.getCID();
-        if (eventDTO.isGender() == Gender.MALE) {
-            gender = Gender.MALE;
-            genderType = "Male";
-        } else {
-            gender = Gender.FEMALE;
-            genderType = "Female";
-        }
+        setGender(eventDTO.getGender());
+
     }
 
     public EventListDTO(int ELID, int CID, int EID, int GID) {
@@ -137,6 +100,128 @@ public class EventListDTO {
         this.CID = CID;
         this.EID = EID;
         this.GID = GID;
+    }
+
+
+    public AgeGroupDTO getAgeGroupDTO() {
+        this.GID = ageGroupDTO.getGID();
+        return ageGroupDTO;
+    }
+
+    public void setAgeGroupDTO(AgeGroupDTO ageGroupDTO) {
+        this.ageGroupDTO = ageGroupDTO;
+    }
+
+    public EventDTO getEventDTO() {
+        return eventDTO;
+    }
+
+    public void setEventDTO(EventDTO eventDTO) {
+        this.eventDTO = eventDTO;
+        this.EID = eventDTO.getEID();
+        this.activityName = eventDTO.getActivityName();
+        this.EID = eventDTO.getEID();
+        setGender(eventDTO.getGender());
+        this.AID = eventDTO.getAID();
+    }
+
+    public CompetitionDTO getCompetitionDTO() {
+        return competitionDTO;
+    }
+
+    public void setCompetitionDTO(CompetitionDTO competitionDTO) {
+        this.CID = competitionDTO.getCID();
+        this.competitionDTO = competitionDTO;
+    }
+
+    public String getGenderType() {
+        return genderType;
+    }
+
+    public void setGenderType(String genderType) {
+        this.genderType = genderType;
+    }
+
+    public boolean isNewEventList() {
+        return isNewEventList;
+    }
+
+    public void setNewEventList(boolean newEventList) {
+        isNewEventList = newEventList;
+
+    }
+
+    public ObservableList<ParticipationDTO> getParticipationDTOS() {
+        return participationDTOS;
+    }
+
+    public void setParticipationDTOS(ArrayList<Participation> participations) {
+        ArrayList<ParticipationDTO> participationDTOS = new ArrayList<>();
+        for (Participation oneParticipation : participations)
+            participationDTOS.add(new ParticipationDTO(oneParticipation));
+        this.participationDTOS = FXCollections.observableArrayList(participationDTOS);
+    }
+
+    public void setParticipationDTOS(ObservableList<ParticipationDTO> participationDTOS) {
+        this.participationDTOS = participationDTOS;
+    }
+
+    public String getActivityName() {
+        return activityName;
+    }
+
+    public void setActivityName(String activityName) {
+        this.activityName = activityName;
+    }
+
+    public String getEventName() {
+        return eventName;
+    }
+
+    public void setEventName(String eventName) {
+        this.eventName = eventName;
+    }
+
+    public int getAID() {
+        return AID;
+    }
+
+    public void setAID(int AID) {
+        this.AID = AID;
+    }
+
+    public int getGender() {
+        return gender;
+    }
+
+    public void setGender(int gender) {
+        this.gender = gender;
+        switch (gender) {
+            case MALE:
+                this.genderType = "Male";
+                break;
+            case FEMALE:
+                this.genderType = "Female";
+                break;
+            case MIXED:
+                this.genderType = "Mixed";
+                break;
+        }
+    }
+
+    @Override
+    public boolean isMaleEvent() {
+        return gender == MALE;
+    }
+
+    @Override
+    public boolean isFemaleEvent() {
+        return gender == FEMALE;
+    }
+
+    @Override
+    public boolean isMixedEvent() {
+        return gender == MIXED;
     }
 
     public int getELID() {
@@ -171,15 +256,6 @@ public class EventListDTO {
         this.GID = GID;
     }
 
-    public AgeGroupDTO getAgeGroupDTO() {
-        this.GID = ageGroupDTO.getGID();
-        return ageGroupDTO;
-    }
-
-    public void setAgeGroupDTO(AgeGroupDTO ageGroupDTO) {
-        this.ageGroupDTO = ageGroupDTO;
-    }
-
     @Override
     public String toString() {
         return "EventListDTO{" +
@@ -194,87 +270,4 @@ public class EventListDTO {
                 '}';
     }
 
-    public EventDTO getEventDTO() {
-        return eventDTO;
-    }
-
-    public void setEventDTO(EventDTO eventDTO) {
-        this.eventDTO = eventDTO;
-        this.activityName = eventDTO.getActivityName();
-        this.EID = eventDTO.getEID();
-        this.AID = eventDTO.getAID();
-    }
-
-    public CompetitionDTO getCompetitionDTO() {
-        return competitionDTO;
-    }
-
-    public void setCompetitionDTO(CompetitionDTO competitionDTO) {
-        this.CID = competitionDTO.getCID();
-        this.competitionDTO = competitionDTO;
-    }
-
-    public String getGenderType() {
-        return genderType;
-    }
-
-    public void setGenderType(String genderType) {
-        this.genderType = genderType;
-    }
-
-    public boolean isNewEventList() {
-        return isNewEventList;
-    }
-
-    public void setNewEventList(boolean newEventList) {
-        isNewEventList = newEventList;
-
-    }
-
-    public ObservableList<ParticipationDTO> getParticipationDTOS() {
-        return participationDTOS;
-    }
-
-    public void setParticipationDTOS(ObservableList<ParticipationDTO> participationDTOS) {
-        this.participationDTOS = participationDTOS;
-    }
-
-    public void setParticipationDTOS(ArrayList<Participation> participations) {
-        ArrayList<ParticipationDTO> participationDTOS = new ArrayList<>();
-        for(Participation oneParticipation : participations)
-            participationDTOS.add(new ParticipationDTO(oneParticipation));
-        this.participationDTOS = FXCollections.observableArrayList(participationDTOS);
-    }
-
-    public String getActivityName() {
-        return activityName;
-    }
-
-    public void setActivityName(String activityName) {
-        this.activityName = activityName;
-    }
-
-    public String getEventName() {
-        return eventName;
-    }
-
-    public void setEventName(String eventName) {
-        this.eventName = eventName;
-    }
-
-    public int getAID() {
-        return AID;
-    }
-
-    public void setAID(int AID) {
-        this.AID = AID;
-    }
-
-    public boolean isGender() {
-        return gender;
-    }
-
-    public void setGender(boolean gender) {
-        this.gender = gender;
-    }
 }

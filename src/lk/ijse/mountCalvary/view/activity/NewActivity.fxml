@@ -47,7 +47,7 @@
                         <Font name="System Bold" size="12.0"/>
                     </font>
                 </JFXButton>
-                <TableView fx:id="tblStudentList" prefHeight="213.0" tableMenuButtonVisible="true" prefWidth="1250.0"
+                <TableView fx:id="tblStudentList" prefHeight="213.0" prefWidth="1250.0" tableMenuButtonVisible="true"
                            VBox.vgrow="ALWAYS">
                     <columns>
                         <TableColumn fx:id="colStudentName" prefWidth="785.0" text="Student Name"/>
@@ -72,10 +72,9 @@
         <HBox alignment="CENTER_LEFT" prefHeight="33.0" prefWidth="657.0" VBox.vgrow="ALWAYS">
             <children>
                 <Label prefHeight="17.0" prefWidth="136.0" text="Event Gender" HBox.hgrow="ALWAYS"/>
-                <JFXRadioButton fx:id="rbtMale" onAction="#rbtMale_onAction" prefHeight="17.0" prefWidth="157.0"
-                                selected="true" text="Male" HBox.hgrow="ALWAYS"/>
-                <JFXRadioButton fx:id="rbtFemale" onAction="#rbtFemale_onAction" prefHeight="17.0" prefWidth="238.0"
-                                selected="true" text="Female" HBox.hgrow="ALWAYS"/>
+                <JFXCheckBox fx:id="ckxMale" prefWidth="146.0" selected="true" text="Male"/>
+                <JFXCheckBox fx:id="ckxFemale" selected="true" text="Female"/>
+                <JFXCheckBox fx:id="ckxMix" selected="true" text="Mix"/>
                 <JFXButton fx:id="btAdd_Event" onAction="#btAdd_Event_onAction" prefHeight="33.0" prefWidth="124.0"
                            style="-fx-background-color: #2196F3;" text="Add" textFill="WHITE"/>
             </children>
@@ -120,6 +119,7 @@
         <URL value="@../../css/text-and-password-field.css"/>
         <URL value="@../../css/date-picker.css"/>
         <URL value="@../../css/radio-button.css"/>
+        <URL value="@../../css/check-box.css"/>
         <URL value="@../../css/text-area.css"/>
         <URL value="@../../css/label.css"/>
     </stylesheets>

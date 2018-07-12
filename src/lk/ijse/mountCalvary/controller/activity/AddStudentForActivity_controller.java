@@ -78,7 +78,7 @@ public class AddStudentForActivity_controller implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         GlobalBoolean.setLock(true);
-
+        ButtonFireForEnterSetter.setGlobalEventHandler(acAddStudent);
         activityBOImpl = BOFactory.getInstance().getBO(BOFactory.BOType.ACTIVITY);
         registrationBOImpl = BOFactory.getInstance().getBO(BOFactory.BOType.REGISTRATION);
         studentBOImpl = BOFactory.getInstance().getBO(BOFactory.BOType.STUDENT);

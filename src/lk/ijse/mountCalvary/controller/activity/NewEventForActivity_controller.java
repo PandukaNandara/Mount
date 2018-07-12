@@ -1,8 +1,8 @@
 package lk.ijse.mountCalvary.controller.activity;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXRadioButton;
 import com.jfoenix.controls.JFXTextField;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -12,14 +12,10 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.ActivityBO;
 import lk.ijse.mountCalvary.business.custom.EventBO;
-import lk.ijse.mountCalvary.controller.tool.Common;
-import lk.ijse.mountCalvary.controller.tool.GlobalBoolean;
-import lk.ijse.mountCalvary.controller.tool.OptionPane;
-import lk.ijse.mountCalvary.controller.tool.ScreenLoader;
+import lk.ijse.mountCalvary.controller.tool.*;
 import lk.ijse.mountCalvary.model.ActivityDTO;
 import lk.ijse.mountCalvary.model.EventDTO;
 
@@ -47,12 +43,6 @@ public class NewEventForActivity_controller implements Initializable {
     private JFXTextField txtEventName;
 
     @FXML
-    private JFXRadioButton rbxMale;
-
-    @FXML
-    private JFXRadioButton rbxFemale;
-
-    @FXML
     private JFXComboBox<ActivityDTO> cboxActivityName;
 
     @FXML
@@ -75,6 +65,12 @@ public class NewEventForActivity_controller implements Initializable {
 
     @FXML
     private TableColumn<EventDTO, String> colOldEventGender_tblOldEvent;
+    @FXML
+    private JFXCheckBox cbxMale;
+    @FXML
+    private JFXCheckBox cbxFemale;
+    @FXML
+    private JFXCheckBox cbxMix;
 
     private ActivityBO activityBOImpl;
     private ArrayList<ActivityDTO> allActivity;
@@ -85,7 +81,7 @@ public class NewEventForActivity_controller implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         GlobalBoolean.setLock(true);
-
+        ButtonFireForEnterSetter.setGlobalEventHandler(acNewEvntForActivity);
         colOldEventName_tblOldEvent.setCellValueFactory(new PropertyValueFactory<>("eventName"));
         colOldEventGender_tblOldEvent.setCellValueFactory(new PropertyValueFactory<>("genderType"));
 
@@ -110,22 +106,25 @@ public class NewEventForActivity_controller implements Initializable {
     @FXML
     void btAdd_onAction(ActionEvent event) {
         String event_name = txtEventName.getText();
-        boolean male = rbxMale.isSelected();
-        boolean female = rbxFemale.isSelected();
+
+        boolean male = cbxMale.isSelected();
+        boolean female = cbxFemale.isSelected();
+        boolean mix = cbxMix.isSelected();
+
         if (event_name.length() < 2) {
             OptionPane.showErrorAtSide("Please enter the event name ");
-        } else if (!(male || female)) {
-            OptionPane.showErrorAtSide("Please select the gender of the event ");
+        } else if (!(male || female || mix)) {
+            OptionPane.showErrorAtSide("Please select a gender gender");
         } else {
             if (cboxActivityName.getSelectionModel().getSelectedItem() != null) {
                 int AID = cboxActivityName.getSelectionModel().getSelectedItem().getAID();
 
-                if (male) {
-                    tblNewEvent.getItems().add(new EventDTO(event_name, EventDTO.MALE, AID));
-                }
-                if (female) {
-                    tblNewEvent.getItems().add(new EventDTO(event_name, EventDTO.FEMALE, AID));
-                }
+                if (male) tblNewEvent.getItems().add(new EventDTO(event_name, EventDTO.MALE, AID));
+
+                if (female) tblNewEvent.getItems().add(new EventDTO(event_name, EventDTO.FEMALE, AID));
+
+                if (mix) tblNewEvent.getItems().add(new EventDTO(event_name, EventDTO.MIXED, AID));
+
             } else {
                 OptionPane.showErrorAtSide("Please select the activity");
             }
@@ -155,22 +154,23 @@ public class NewEventForActivity_controller implements Initializable {
                     if (eventBOImpl.addAllEvent(eventList)) {
                         OptionPane.showDoneAtSide("Events has successfully added");
                         //What the hell I did here???
+//
+//                        Stage thisWindow = (Stage) (this.acNewEvntForActivity.getScene().getWindow());
+//                        String window = thisWindow.getClass().getName();
+//                        System.out.println(window);
+//                        if (window.equals("temp")) {
+//                            thisWindow.close();
+//                        } else {
+//
+//                        }
+                        screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/basic/ActivityMenu.fxml", this.acNewEvntForActivity, this);
 
-                        Stage thisWindow = (Stage) (this.acNewEvntForActivity.getScene().getWindow());
-                        String window = thisWindow.getClass().getName();
-                        System.out.println(window);
-                        if (window.equals("temp")) {
-                            thisWindow.close();
-                        } else {
-                            screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/basic/ActivityMenu.fxml", this.acNewEvntForActivity, this);
-                        }
                     } else {
                         OptionPane.showErrorAtSide("Something's wrong we can't do your request");
                     }
                 } catch (Exception e) {
                     Logger.getLogger(NewEventForActivity_controller.class.getName()).log(Level.SEVERE, null, e);
                     OptionPane.showErrorAtSide("Something's wrong we can't do your request");
-
                 }
             } else {
                 OptionPane.showErrorAtSide("Please add some event");

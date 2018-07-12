@@ -13,10 +13,7 @@ import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.ActivityBO;
 import lk.ijse.mountCalvary.business.custom.StudentBO;
 import lk.ijse.mountCalvary.business.custom.TelNoBO;
-import lk.ijse.mountCalvary.controller.tool.Common;
-import lk.ijse.mountCalvary.controller.tool.GlobalBoolean;
-import lk.ijse.mountCalvary.controller.tool.OptionPane;
-import lk.ijse.mountCalvary.controller.tool.ScreenLoader;
+import lk.ijse.mountCalvary.controller.tool.*;
 import lk.ijse.mountCalvary.model.ActivityDTO;
 import lk.ijse.mountCalvary.model.RegistrationDTO;
 import lk.ijse.mountCalvary.model.StudentDTO;
@@ -117,6 +114,9 @@ public class NewStudent_controller implements Initializable {
     @FXML
     private JFXComboBox<String> cboxHouse;
 
+    @FXML
+    private JFXTextField txtCountryCallingCode;
+
     private ActivityBO activityBOImpl;
     private TelNoBO telNoBOImpl;
     private StudentBO studentBOImpl;
@@ -125,6 +125,7 @@ public class NewStudent_controller implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         GlobalBoolean.setLock(true);
+        ButtonFireForEnterSetter.setGlobalEventHandler(acNewStudent);
         colTelNo_tblTelNo.setCellValueFactory(new PropertyValueFactory<>("telNoBOImpl"));
         colActivity.setCellValueFactory(new PropertyValueFactory<>("activityBOImpl"));
         colJoinedDate.setCellValueFactory(new PropertyValueFactory<>("joinedDate"));
@@ -198,6 +199,10 @@ public class NewStudent_controller implements Initializable {
     }
 
     @FXML
+    private void txtCountryCallingCode_onAction(ActionEvent actionEvent) {
+    }
+
+    @FXML
     void btFinish_activityForStudent_onAction(ActionEvent event) {
         addStudent();
     }
@@ -228,7 +233,20 @@ public class NewStudent_controller implements Initializable {
                                 ObservableList<TelNoDTO> allTelNum = tblTelNo.getItems();
                                 ObservableList<RegistrationDTO> allInitialActivity = tblActivity.getItems();
                                 try {
-                                    boolean b = studentBOImpl.addStudent(new StudentDTO(stId, stName, gender, DOB, grade_class, fatherName, motherName, note, house, address, allTelNum, allInitialActivity));
+                                    boolean b = studentBOImpl.addStudentWithActivity(new StudentDTO(
+                                            stId,
+                                            stName,
+                                            gender,
+                                            DOB,
+                                            grade_class,
+                                            fatherName,
+                                            motherName,
+                                            note,
+                                            house,
+                                            address,
+                                            allTelNum,
+                                            allInitialActivity)
+                                    );
                                     String text;
                                     if (b)
                                         text = "Student has successfully added";
@@ -410,4 +428,5 @@ public class NewStudent_controller implements Initializable {
             screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/basic/StudentMenu.fxml", this.acNewStudent, this);
         }
     }
+
 }

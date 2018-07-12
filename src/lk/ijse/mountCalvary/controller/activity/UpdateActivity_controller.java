@@ -10,6 +10,7 @@ import javafx.scene.layout.VBox;
 import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.ActivityBO;
 import lk.ijse.mountCalvary.business.custom.TeacherBO;
+import lk.ijse.mountCalvary.controller.tool.ButtonFireForEnterSetter;
 import lk.ijse.mountCalvary.controller.tool.GlobalBoolean;
 import lk.ijse.mountCalvary.controller.tool.OptionPane;
 import lk.ijse.mountCalvary.controller.tool.ScreenLoader;
@@ -49,6 +50,7 @@ public class UpdateActivity_controller implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         GlobalBoolean.setLock(true);
+        ButtonFireForEnterSetter.setGlobalEventHandler(acUpdateActivity);
 
         teacherBOImpl = BOFactory.getInstance().getBO(BOFactory.BOType.TEACHER);
         activityBOImpl = BOFactory.getInstance().getBO(BOFactory.BOType.ACTIVITY);

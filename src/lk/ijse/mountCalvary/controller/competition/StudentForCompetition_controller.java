@@ -82,15 +82,18 @@ public class StudentForCompetition_controller implements Initializable {
     private CompetitionBO competitionBOImpl;
     private ActivityBO activityBOImpl;
     private AgeGroupBO ageGroupBOImpl;
-    private ParticipationBO participationBOImpl;
     private EventListBO eventListBOImpl;
 
     private ObservableList<AgeGroupDTO> ageGroupDTOS;
     private AutoComplete<RegistrationDTO> autoCompleteStudentName;
+    private ParticipationBO participationBOImpl;
+
     private ScreenLoader screenLoader = ScreenLoader.getInstance();
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         GlobalBoolean.setLock(true);
+        ButtonFireForEnterSetter.setGlobalEventHandler(acStudentForCompetition);
+
 
         colActivity_tblEventInCompetition.setCellValueFactory(new PropertyValueFactory<>("activityName"));
         colAgeGroup_tblEventInCompetition.setCellValueFactory(new PropertyValueFactory<>("ageGroupDTO"));
@@ -242,6 +245,7 @@ public class StudentForCompetition_controller implements Initializable {
             AgeGroupDTO ageGroup = ageGroupDTOS.get(eventList.getGID() - 1);
             ObservableList<RegistrationDTO> registrationDTOS = activityBOImpl.getRegistrationOfThisActivity(eventList.getAID());
             ArrayList<RegistrationDTO> filter = new ArrayList<>();
+
             L1:
             for (RegistrationDTO oneRegi : registrationDTOS) {
                 for (ParticipationDTO oneParticipationDTO : participationDTOS) {
@@ -251,8 +255,10 @@ public class StudentForCompetition_controller implements Initializable {
                 }
                 int age = LocalDate.now().getYear() - Objects.requireNonNull(Common.dateToLocalDate(oneRegi.getDOB())).getYear();
 //                int age = LocalDate.now().getYear() - Common.dateToLocalDate(oneRegi.getDOB()).getYear();
-                if (oneRegi.isGender() == eventList.isGender() &&
-                        age > ageGroup.getMin() && age < ageGroup.getMax()) {
+                //Later
+
+                if ((oneRegi.isDeserveForEvent(eventList.getGender()) &&
+                        age > ageGroup.getMin() && age < ageGroup.getMax())) {
                     oneRegi.setAge(age);
                     filter.add(oneRegi);
                 }

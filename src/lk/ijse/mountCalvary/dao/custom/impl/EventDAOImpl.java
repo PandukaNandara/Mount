@@ -13,7 +13,7 @@ public class EventDAOImpl implements EventDAO {
         return CrudUtil.executeUpdate("INSERT INTO EVENT VALUES (?, ?, ?, ?)",
                 evt.getEID(),
                 evt.geteName(),
-                evt.isGender(),
+                evt.getGender(),
                 evt.getAID()
         ) > 0;
     }
@@ -22,7 +22,7 @@ public class EventDAOImpl implements EventDAO {
     public boolean saveWithoutPKey(Event evt) throws Exception {
         return CrudUtil.executeUpdate("INSERT INTO EVENT(eName, gender, AID) VALUES (?, ?, ?)",
                 evt.geteName(),
-                evt.isGender(),
+                evt.getGender(),
                 evt.getAID()
         ) > 0;
     }
@@ -35,7 +35,7 @@ public class EventDAOImpl implements EventDAO {
             events.add(new Event(
                             rst.getInt("EID"),
                             rst.getString("eName"),
-                            rst.getBoolean("gender"),
+                    rst.getInt("gender"),
                             rst.getInt("AID")
                     )
             );
@@ -48,7 +48,7 @@ public class EventDAOImpl implements EventDAO {
         return CrudUtil.executeUpdate("UPDATE Event set EID = ?, eName = ?, gender = ?, AID = ? where EID = ?",
                 evt.getEID(),
                 evt.geteName(),
-                evt.isGender(),
+                evt.getGender(),
                 evt.getAID(),
                 evt.getEID()
         ) > 0;
@@ -66,7 +66,7 @@ public class EventDAOImpl implements EventDAO {
             return new Event(
                     rst.getInt("EID"),
                     rst.getString("eName"),
-                    rst.getBoolean("gender"),
+                    rst.getInt("gender"),
                     rst.getInt("AID")
             );
         } else {
@@ -82,7 +82,7 @@ public class EventDAOImpl implements EventDAO {
             evtList.add(new Event(
                     rst.getInt("EID"),
                     rst.getString("eName"),
-                    rst.getBoolean("gender"),
+                    rst.getInt("gender"),
                     rst.getInt("AID")
             ));
         }

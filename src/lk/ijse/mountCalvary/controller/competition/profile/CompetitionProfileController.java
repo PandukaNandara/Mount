@@ -62,7 +62,7 @@ public class CompetitionProfileController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         GlobalBoolean.setLock(false);
-        ButtonFireForEnterSetter.setGlobalEventHandler(competitionDetail);
+        ButtonFireForEnterSetter.setGlobalEventHandler(bpCompetitionProfile);
         competitionBOImpl = BOFactory.getInstance().getBO(BOFactory.BOType.COMPETITION);
 
         competitionDetailController.init(this);

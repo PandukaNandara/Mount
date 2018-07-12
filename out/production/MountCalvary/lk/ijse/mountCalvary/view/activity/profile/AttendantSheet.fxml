@@ -23,7 +23,9 @@
                 </Label>
                 <JFXToggleButton fx:id="btInverse" minHeight="-Infinity" onAction="#btInverse_onAction"
                                  prefHeight="33.0" prefWidth="195.0" text="Inverse" textFill="WHITE">
-                    <tooltip><Tooltip text="Inverse will be based on time range." /></tooltip>
+                    <tooltip>
+                        <Tooltip text="Inverse will be based on time range."/>
+                    </tooltip>
                     <font>
                         <Font name="System Bold" size="12.0"/>
                     </font>

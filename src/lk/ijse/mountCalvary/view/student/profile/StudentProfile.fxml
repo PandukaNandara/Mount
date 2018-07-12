@@ -8,7 +8,7 @@
 <?import java.net.*?>
 <BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="bpStudentProfile" styleClass="profile-main-frame"
             stylesheets="@../../../css/frame.css" xmlns="http://javafx.com/javafx/8.0.141"
-            fx:controller="lk.ijse.mountCalvary.controller.student.profile.studentProfileController">
+            fx:controller="lk.ijse.mountCalvary.controller.student.profile.StudentProfileController">
     <top>
         <HBox styleClass="top-profile-frame">
             <children>

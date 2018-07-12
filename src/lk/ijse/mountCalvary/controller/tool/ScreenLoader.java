@@ -65,6 +65,26 @@ public class ScreenLoader {
 //        where.getChildren().setAll(root);
     }
 
+    public Object loadOnCenterOfBorderPaneAndCallController(String url, Pane where, Initializable controller) {
+        try {
+            FadeTransition t = new FadeTransition(Duration.millis(200), where);
+            t.setFromValue(0.0);
+            t.setToValue(5.0);
+            t.play();
+            FXMLLoader fxmlLoader = new FXMLLoader(controller.getClass().getResource(url));
+            Parent root = fxmlLoader.load();
+            borderPane.setCenter(root);
+            System.out.println(root);
+            return fxmlLoader.getController();
+
+        } catch (Exception e) {
+            Logger.getLogger(ScreenLoader.class.getName()).log(Level.SEVERE, null, e);
+            return null;
+        }
+//       System.out.println("Pass");
+//        where.getChildren().setAll(root);
+    }
+
     public void loadPanel(String url, Pane where, Initializable controller) {
         try {
             FadeTransition t = new FadeTransition(Duration.millis(200), where);
@@ -106,14 +126,8 @@ public class ScreenLoader {
 
     public Object loadNewWindow(String url, Pane where, String title) {
         try {
-//            Stage window = new Stage();
-//            Parent root = FXMLLoader.load(controller.getClass().getResource(url));
-//            Scene sc = new Scene(root);
-//            window.setScene(sc);
-//            window.show();
-            FXMLLoader fxmlLoader = new FXMLLoader();
-
-            Pane p = fxmlLoader.load(getClass().getResourceAsStream(url));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(url));
+            Pane p = fxmlLoader.load();
 
             p.getStylesheets().setAll(where.getStylesheets());
             Stage window = new Stage();

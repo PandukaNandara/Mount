@@ -22,7 +22,6 @@ public class DBConnection {
         properties.load(fileReader);
 
         String ip = properties.getProperty("ip");
-        System.out.println(ip);
         dbDetails.put("ip", ip);
         String port = properties.getProperty("port");
         dbDetails.put("port", port);

@@ -89,7 +89,7 @@ public class UpdateStudent_controller implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         GlobalBoolean.setLock(true);
-
+        ButtonFireForEnterSetter.setGlobalEventHandler(acUpdateStudent);
 
         colTelNo_tblTelNo.setCellValueFactory(new PropertyValueFactory<>("telNo"));
         colOdlTelNo_tblUpdatedTelNo.setCellValueFactory(new PropertyValueFactory<>("telNo"));
@@ -368,9 +368,9 @@ public class UpdateStudent_controller implements Initializable {
     private void tblTelNoClicked_onAction(MouseEvent event) {
         try {
             TelNoDTO selectedItem = tblTelNo.getSelectionModel().getSelectedItem();
-            txtNewTelNo.setText(selectedItem.getTelNo() + "");
+            txtNewTelNo.setText(String.valueOf(selectedItem.getTelNo()));
         } catch (Exception x) {
-            System.out.println(x);
+
         }
 
     }

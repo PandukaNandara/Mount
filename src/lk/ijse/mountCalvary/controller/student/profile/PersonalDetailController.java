@@ -66,7 +66,7 @@ public class PersonalDetailController implements Initializable {
     private JFXTextField txtClass;
     private ArrayList<StudentDTO> allStudentDetail;
 
-    private studentProfileController studentProfileController;
+    private StudentProfileController studentProfileController;
     private StudentDTO selectedStudent;
     //    @FXML
 //    private JFXButton btSaveAs;
@@ -90,7 +90,7 @@ public class PersonalDetailController implements Initializable {
 
     }
 
-    public void init(studentProfileController studentProfileController) {
+    public void init(StudentProfileController studentProfileController) {
         this.studentProfileController = studentProfileController;
     }
 

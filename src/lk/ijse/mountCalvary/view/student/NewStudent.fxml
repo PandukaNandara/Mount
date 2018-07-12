@@ -64,6 +64,9 @@
                       prefWidth="1269.0" promptText="Address" VBox.vgrow="ALWAYS"/>
         <HBox styleClass="node-pane">
             <children>
+                <JFXTextField fx:id="txtCountryCallingCode" labelFloat="true" layoutX="10.0" layoutY="14.0"
+                              onAction="#txtCountryCallingCode_onAction" prefHeight="25.0" prefWidth="118.0"
+                              promptText="Country Calling Code" text="+94"/>
                 <JFXTextField fx:id="txtTelNo" labelFloat="true" onAction="#txtTelNo_onAction" prefHeight="25.0"
                               prefWidth="502.0" promptText="Telephone number" HBox.hgrow="ALWAYS"/>
                 <JFXButton fx:id="btAddTelNo" onAction="#btAddTelNo_onAction" prefHeight="33.0" prefWidth="124.0"

@@ -49,7 +49,7 @@ public class AttendanceAndActivityOfStudentController implements Initializable {
     private TableColumn<AttendantSheetDTO, String> colTeacherInCharge_tblAttendantSheet;
     @FXML
     private JFXComboBox<String> cboxTimeRange;
-    private studentProfileController studentProfileController;
+    private StudentProfileController studentProfileController;
     @FXML
     private JFXComboBox<ActivityDTO> cboxActivity;
     @FXML
@@ -127,7 +127,7 @@ public class AttendanceAndActivityOfStudentController implements Initializable {
         }
     }
 
-    public void init(studentProfileController studentProfileController) {
+    public void init(StudentProfileController studentProfileController) {
         this.studentProfileController = studentProfileController;
     }
 

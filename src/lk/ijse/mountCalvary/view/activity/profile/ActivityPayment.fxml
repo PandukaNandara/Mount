@@ -5,6 +5,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
+<?import java.net.*?>
 <VBox xmlns:fx="http://javafx.com/fxml/1" fx:id="acActivityPayment" styleClass="profile-frame"
       xmlns="http://javafx.com/javafx/8.0.141"
       fx:controller="lk.ijse.mountCalvary.controller.activity.profile.ActivityPaymentController">
@@ -59,6 +60,14 @@
         </TableView>
     </children>
     <stylesheets>
-
+        <URL value="@../../../css/frame.css"/>
+        <URL value="@../../../css/combo-box.css"/>
+        <URL value="@../../../css/table-view.css"/>
+        <URL value="@../../../css/text-and-password-field.css"/>
+        <URL value="@../../../css/date-picker.css"/>
+        <URL value="@../../../css/radio-button.css"/>
+        <URL value="@../../../css/text-area.css"/>
+        <URL value="@../../../css/button.css"/>
+        <URL value="@../../../css/label.css"/>
     </stylesheets>
 </VBox>

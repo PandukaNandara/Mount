@@ -36,7 +36,7 @@ public class EventBOImpl implements EventBO {
         conn.setAutoCommit(false);
         try {
             for (EventDTO oneEvent : eventList) {
-                if (!eventDAOImpl.saveWithoutPKey(new Event(oneEvent.getEventName(), oneEvent.isGender(), oneEvent.getAID()))) {
+                if (!eventDAOImpl.saveWithoutPKey(new Event(oneEvent.getEventName(), oneEvent.getGender(), oneEvent.getAID()))) {
                     return false;
                 }
             }
@@ -55,7 +55,7 @@ public class EventBOImpl implements EventBO {
         ArrayList<Event> allEvent = eventDAOImpl.getAll();
         for (int i = 0; i < allEvent.size(); i++) {
             Event oneEvent = allEvent.get(i);
-            allEventDTO.add(new EventDTO(oneEvent.getEID(), oneEvent.geteName(), oneEvent.isGender(), oneEvent.getAID()));
+            allEventDTO.add(new EventDTO(oneEvent.getEID(), oneEvent.geteName(), oneEvent.getGender(), oneEvent.getAID()));
             for (ActivityDTO oneActivity : allActivity) {
                 if (allEventDTO.get(i).getAID() == oneActivity.getAID()) {
                     allEventDTO.get(i).setActivityDTO(oneActivity);
@@ -72,7 +72,7 @@ public class EventBOImpl implements EventBO {
         ArrayList<Event> allEvent = eventDAOImpl.getEventsForThisActivity(AID);
 
         for (Event oneEvent : allEvent) {
-            allEventDTO.add(new EventDTO(oneEvent.getEID(), oneEvent.geteName(), oneEvent.isGender(), oneEvent.getAID()));
+            allEventDTO.add(new EventDTO(oneEvent.getEID(), oneEvent.geteName(), oneEvent.getGender(), oneEvent.getAID()));
         }
         return FXCollections.observableArrayList(allEventDTO);
     }
@@ -82,7 +82,7 @@ public class EventBOImpl implements EventBO {
         ArrayList<CustomEntity> competitionForThisEvent = queryDAOImpl.getCompetitionForThisEvent(EID);
         ArrayList<CompetitionDTO> allCompetition = new ArrayList<>();
         for (CustomEntity oneCompetition : competitionForThisEvent) {
-            allCompetition.add(new CompetitionDTO(oneCompetition.getCID(), oneCompetition.getcName()));
+            allCompetition.add(new CompetitionDTO(oneCompetition.getCID(), oneCompetition.getcName(), oneCompetition.getDate()));
         }
         return FXCollections.observableArrayList(allCompetition);
     }

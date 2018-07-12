@@ -105,7 +105,7 @@ public class MakePayment_controller implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         GlobalBoolean.setLock(true);
-
+        ButtonFireForEnterSetter.setGlobalEventHandler(acUpdatePayment);
         colActivity_tblStudentPayment.setCellValueFactory(new PropertyValueFactory<>("activityName"));
         colStudent_tblStudentPayment.setCellValueFactory(new PropertyValueFactory<>("studentName"));
         colFee_tblStudentPayment.setCellValueFactory(new PropertyValueFactory<>("fee"));

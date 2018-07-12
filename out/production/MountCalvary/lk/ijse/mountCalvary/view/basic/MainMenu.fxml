@@ -1,104 +1,124 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.*?>
 <?import de.jensd.fx.glyphs.emojione.EmojiOneView?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import de.jensd.fx.glyphs.octicons.OctIconView?>
-<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
-<?import javafx.scene.layout.TilePane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
-
-<VBox fx:id="acMenu" prefHeight="709.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.mountCalvary.controller.basic.MainMenu_controller">
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import java.net.*?>
+<VBox xmlns:fx="http://javafx.com/fxml/1" fx:id="acMenu" prefHeight="709.0" xmlns="http://javafx.com/javafx/8.0.141"
+      fx:controller="lk.ijse.mountCalvary.controller.basic.MainMenu_controller">
     <children>
-        <Label alignment="BOTTOM_CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="94.0" prefWidth="0.0" text="U  N  I  T  Y" VBox.vgrow="ALWAYS">
+        <Label alignment="BOTTOM_CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity"
+               minWidth="-Infinity" prefHeight="94.0" prefWidth="0.0" text="U  N  I  T  Y" VBox.vgrow="ALWAYS">
             <font>
-                <Font name="Arial" size="48.0" />
+                <Font name="Arial" size="48.0"/>
             </font>
         </Label>
-        <Separator maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefHeight="23.0" prefWidth="0.0" VBox.vgrow="ALWAYS">
+        <Separator maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefHeight="23.0" prefWidth="0.0"
+                   VBox.vgrow="ALWAYS">
             <VBox.margin>
-                <Insets left="20.0" right="20.0" />
+                <Insets left="20.0" right="20.0"/>
             </VBox.margin>
         </Separator>
-        <Label alignment="CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="43.0" prefWidth="0.0" text="Mount Calvary High School" VBox.vgrow="ALWAYS">
+        <Label alignment="CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity"
+               minWidth="-Infinity" prefHeight="43.0" prefWidth="0.0" text="Mount Calvary High School"
+               VBox.vgrow="ALWAYS">
             <font>
-                <Font name="Arial" size="24.0" />
+                <Font name="Arial" size="24.0"/>
             </font>
         </Label>
-        <Label alignment="CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="43.0" prefWidth="0.0" text="Extra curriculum management system" VBox.vgrow="ALWAYS">
+        <Label alignment="CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity"
+               minWidth="-Infinity" prefHeight="43.0" prefWidth="0.0" text="Extra curriculum management system"
+               VBox.vgrow="ALWAYS">
             <font>
-                <Font name="Arial" size="18.0" />
+                <Font name="Arial" size="18.0"/>
             </font>
         </Label>
         <TilePane alignment="CENTER" hgap="20.0" prefHeight="275.0" prefWidth="1200.0" vgap="20.0">
          <children>
-             <JFXButton fx:id="btTeacher" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#btTeacher_onAction" prefHeight="185.0" prefWidth="249.0" styleClass="main-menu-button" text="TEACHER" textFill="WHITE">
+             <JFXButton fx:id="btTeacher" contentDisplay="TOP" maxHeight="1.7976931348623157E308"
+                        maxWidth="1.7976931348623157E308" onAction="#btTeacher_onAction" prefHeight="185.0"
+                        prefWidth="249.0" styleClass="main-menu-button" text="TEACHER" textFill="WHITE">
                  <font>
-                     <Font size="27.0" />
+                     <Font size="27.0"/>
                  </font>
                  <graphic>
-                     <EmojiOneView fill="WHITE" glyphName="MORTAR_BOARD" size="80" />
+                     <EmojiOneView fill="WHITE" glyphName="MORTAR_BOARD" size="80"/>
                  </graphic>
              </JFXButton>
-             <JFXButton fx:id="btCompetition" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#btCompetition_onAction" prefHeight="185.0" prefWidth="249.0" styleClass="main-menu-button" text="COMPETITION" textFill="WHITE">
+             <JFXButton fx:id="btCompetition" contentDisplay="TOP" maxHeight="1.7976931348623157E308"
+                        maxWidth="1.7976931348623157E308" onAction="#btCompetition_onAction" prefHeight="185.0"
+                        prefWidth="249.0" styleClass="main-menu-button" text="COMPETITION" textFill="WHITE">
                  <font>
-                     <Font size="27.0" />
+                     <Font size="27.0"/>
                  </font>
                  <graphic>
-                     <EmojiOneView fill="WHITE" glyphName="BASKETBALL_PLAYER" size="80" />
+                     <EmojiOneView fill="WHITE" glyphName="BASKETBALL_PLAYER" size="80"/>
                  </graphic>
              </JFXButton>
-             <JFXButton fx:id="btStudent" alignment="CENTER" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#btStudent_onAction" prefHeight="185.0" prefWidth="249.0" styleClass="main-menu-button" text="STUDENT" textFill="WHITE">
+             <JFXButton fx:id="btStudent" alignment="CENTER" contentDisplay="TOP" maxHeight="1.7976931348623157E308"
+                        maxWidth="1.7976931348623157E308" onAction="#btStudent_onAction" prefHeight="185.0"
+                        prefWidth="249.0" styleClass="main-menu-button" text="STUDENT" textFill="WHITE">
                  <font>
-                     <Font size="27.0" />
+                     <Font size="27.0"/>
                  </font>
                  <graphic>
-                     <FontAwesomeIconView fill="WHITE" glyphName="USER" size="80" styleClass="main-menu-button" wrappingWidth="60.0" />
+                     <FontAwesomeIconView fill="WHITE" glyphName="USER" size="80" styleClass="main-menu-button"
+                                          wrappingWidth="60.0"/>
                  </graphic>
              </JFXButton>
-             <JFXButton fx:id="btActivity" alignment="CENTER" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#btActivity_onAction" prefHeight="185.0" prefWidth="249.0" styleClass="main-menu-button" text="ACTIVITY" textFill="WHITE">
+             <JFXButton fx:id="btActivity" alignment="CENTER" contentDisplay="TOP" maxHeight="1.7976931348623157E308"
+                        maxWidth="1.7976931348623157E308" onAction="#btActivity_onAction" prefHeight="185.0"
+                        prefWidth="249.0" styleClass="main-menu-button" text="ACTIVITY" textFill="WHITE">
                  <font>
-                     <Font size="27.0" />
+                     <Font size="27.0"/>
                  </font>
                  <graphic>
-                     <FontAwesomeIconView fill="WHITE" glyphName="SOCCER_BALL_ALT" size="80" wrappingWidth="82.0" />
+                     <FontAwesomeIconView fill="WHITE" glyphName="SOCCER_BALL_ALT" size="80" wrappingWidth="82.0"/>
                  </graphic>
              </JFXButton>
-             <JFXButton fx:id="btUpAttendance" alignment="CENTER" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#btUpAttendance_onAction" prefHeight="185.0" prefWidth="249.0" styleClass="main-menu-button" text="Attendance" textFill="WHITE">
+             <JFXButton fx:id="btUpAttendance" alignment="CENTER" contentDisplay="TOP"
+                        maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                        onAction="#btUpAttendance_onAction" prefHeight="185.0" prefWidth="249.0"
+                        styleClass="main-menu-button" text="Attendance" textFill="WHITE">
                  <font>
-                     <Font size="27.0" />
+                     <Font size="27.0"/>
                  </font>
                  <graphic>
-                     <OctIconView fill="WHITE" glyphName="REPO" size="50" text="" wrappingWidth="38.0" />
+                     <OctIconView fill="WHITE" glyphName="REPO" size="50" text="" wrappingWidth="38.0"/>
                  </graphic>
              </JFXButton>
-             <JFXButton fx:id="btPayment" alignment="CENTER" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#btPayment_onAction" prefHeight="185.0" prefWidth="249.0" styleClass="main-menu-button" text="Payment" textFill="WHITE">
+             <JFXButton fx:id="btPayment" alignment="CENTER" contentDisplay="TOP" maxHeight="1.7976931348623157E308"
+                        maxWidth="1.7976931348623157E308" onAction="#btPayment_onAction" prefHeight="185.0"
+                        prefWidth="249.0" styleClass="main-menu-button" text="Payment" textFill="WHITE">
                  <font>
-                     <Font size="27.0" />
+                     <Font size="27.0"/>
                  </font>
                  <graphic>
-                     <FontAwesomeIconView fill="WHITE" glyphName="MONEY" size="50" text="" wrappingWidth="54.57143020629883" />
+                     <FontAwesomeIconView fill="WHITE" glyphName="MONEY" size="50" text=""
+                                          wrappingWidth="54.57143020629883"/>
                  </graphic>
              </JFXButton>
          </children>
          <VBox.margin>
-             <Insets bottom="40.0" left="40.0" right="40.0" top="40.0" />
+             <Insets bottom="40.0" left="40.0" right="40.0" top="40.0"/>
          </VBox.margin>
         </TilePane>
     </children>
     <stylesheets>
-        <URL value="@../../css/frame.css" />
-        <URL value="@../../css/combo-box.css" />
-        <URL value="@../../css/table-view.css" />
-        <URL value="@../../css/text-and-password-field.css" />
-        <URL value="@../../css/date-picker.css" />
-        <URL value="@../../css/radio-button.css" />
-        <URL value="@../../css/text-area.css" />
-        <URL value="@../../css/label.css" />
-        <URL value="@../../css/button.css" />
+        <URL value="@../../css/frame.css"/>
+        <URL value="@../../css/combo-box.css"/>
+        <URL value="@../../css/table-view.css"/>
+        <URL value="@../../css/text-and-password-field.css"/>
+        <URL value="@../../css/date-picker.css"/>
+        <URL value="@../../css/radio-button.css"/>
+        <URL value="@../../css/text-area.css"/>
+        <URL value="@../../css/label.css"/>
+        <URL value="@../../css/button.css"/>
     </stylesheets>
 </VBox>

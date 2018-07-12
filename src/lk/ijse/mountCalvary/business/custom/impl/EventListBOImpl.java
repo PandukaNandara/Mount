@@ -48,12 +48,18 @@ public class EventListBOImpl implements EventListBO {
         ArrayList<EventList> eventLists = queryDAOImpl.getEventListForThisCompetition(CID);
         ArrayList<EventListDTO> eventListDTOS = new ArrayList<>();
         for (EventList oneEventList : eventLists) {
+
             EventListDTO eventListDTO = new EventListDTO(oneEventList);
+
             EventDTO eventDTO = new EventDTO(oneEventList.getEvent());
             eventDTO.setActivityName(oneEventList.getEvent().getaName());
+
             eventDTO.setAID(oneEventList.getEvent().getAID());
+
             eventListDTO.setEventDTO(eventDTO);
+
             eventListDTO.setAgeGroupDTO(new AgeGroupDTO(oneEventList.getAgeGroup()));
+
             eventListDTOS.add(eventListDTO);
         }
         return FXCollections.observableArrayList(eventListDTOS);

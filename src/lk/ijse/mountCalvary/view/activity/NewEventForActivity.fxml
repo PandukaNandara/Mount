@@ -21,7 +21,7 @@
              <Font name="Arial" size="16.0"/>
          </font>
        </Label>
-       <TableView fx:id="tblOldEvent" prefHeight="186.0" tableMenuButtonVisible="true" prefWidth="1275.0"
+       <TableView fx:id="tblOldEvent" prefHeight="186.0" prefWidth="1275.0" tableMenuButtonVisible="true"
                   VBox.vgrow="ALWAYS">
          <columns>
             <TableColumn fx:id="colOldEventName_tblOldEvent" prefWidth="484.0" text="Event Name" />
@@ -41,8 +41,9 @@
        <HBox alignment="CENTER_LEFT" styleClass="node-pane">
            <children>
                <Label prefHeight="25.0" prefWidth="136.0" text="Event Gender"/>
-               <JFXRadioButton fx:id="rbxMale" prefHeight="17.0" prefWidth="145.0" selected="true" text="Male"/>
-               <JFXRadioButton fx:id="rbxFemale" prefHeight="17.0" prefWidth="150.0" selected="true" text="Female"/>
+               <JFXCheckBox fx:id="cbxMale" text="Male"/>
+               <JFXCheckBox fx:id="cbxFemale" text="Female"/>
+               <JFXCheckBox fx:id="cbxMix" text="Mix"/>
                <JFXButton fx:id="btAdd" onAction="#btAdd_onAction" prefHeight="33.0" prefWidth="124.0"
                           style="-fx-background-color: #2196F3;" text="Add" textFill="WHITE"/>
            </children>
@@ -55,7 +56,7 @@
                        <Font name="System Bold" size="12.0"/>
                    </font>
                </JFXButton>
-               <TableView fx:id="tblNewEvent" prefHeight="258.0" tableMenuButtonVisible="true" prefWidth="1284.0"
+               <TableView fx:id="tblNewEvent" prefHeight="258.0" prefWidth="1284.0" tableMenuButtonVisible="true"
                           VBox.vgrow="ALWAYS">
                    <columns>
                        <TableColumn fx:id="colNewEventName_tblNewEvent" prefWidth="484.0" text="Event Name"/>
@@ -88,6 +89,7 @@
         <URL value="@../../css/text-and-password-field.css"/>
         <URL value="@../../css/date-picker.css"/>
         <URL value="@../../css/radio-button.css"/>
+        <URL value="@../../css/check-box.css"/>
         <URL value="@../../css/text-area.css"/>
         <URL value="@../../css/label.css"/>
     </stylesheets>

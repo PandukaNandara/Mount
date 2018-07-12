@@ -39,6 +39,8 @@ public class CustomEntity {
     private int TINCID;
 
     private Date DOB;
+
+    //This gender is user to represent student gender
     private boolean gender;
 
     private int PAYID;

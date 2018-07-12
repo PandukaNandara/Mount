@@ -113,16 +113,22 @@ public class Progress implements Runnable {
         switch (value) {
             case EMPTY:
                 progressBar.setProgress(0);
+                break;
             case QUARTER:
                 progressBar.setProgress(0.2);
+                break;
             case HALF:
                 progressBar.setProgress(0.5);
+                break;
             case THREE_QUARTER:
                 progressBar.setProgress(0.75);
+                break;
             case FULL:
                 progressBar.setProgress(1);
+                break;
             default:
                 progressBar.setProgress(0);
+                break;
         }
     }
 

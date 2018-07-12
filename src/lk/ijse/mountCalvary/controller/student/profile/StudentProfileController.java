@@ -18,12 +18,11 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class studentProfileController implements Initializable {
+public class StudentProfileController implements Initializable {
 
     @FXML
     private BorderPane bpStudentProfile;
-    @FXML
-    private VBox studentProfile_controller;
+
     @FXML
     private JFXButton btSearch;
     @FXML
@@ -56,14 +55,14 @@ public class studentProfileController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         GlobalBoolean.setLock(false);
-        ButtonFireForEnterSetter.setGlobalEventHandler(studentProfile_controller);
+        ButtonFireForEnterSetter.setGlobalEventHandler(bpStudentProfile);
         studentBOImpl = BOFactory.getInstance().getBO(BOFactory.BOType.STUDENT);
         try {
             loadStudentDetail();
             autoCompleteStudent = new AutoComplete<>(txtStudentName, allStudentDetail);
             autoCompleteStudent.setAutoCompletionsAction(event -> btSearch.fire());
         } catch (Exception e) {
-            Logger.getLogger(studentProfileController.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(StudentProfileController.class.getName()).log(Level.SEVERE, null, e);
         }
         personalDetailController.init(this);
         attendanceAndActivityOfStudentController.init(this);
@@ -74,7 +73,6 @@ public class studentProfileController implements Initializable {
 
     private void loadStudentDetail() throws Exception {
         allStudentDetail = studentBOImpl.getAllStudentNameAndNumber();
-        System.out.println(allStudentDetail);
     }
 
     @FXML

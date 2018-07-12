@@ -58,7 +58,7 @@ public class StudentPaymentController implements Initializable {
     private JFXButton btPrint;
     @FXML
     private VBox acStudentPayment;
-    private studentProfileController studentProfileController;
+    private StudentProfileController studentProfileController;
     private ObservableList<PaymentDTO> paymentDetailOfThisStudent;
     private PaymentBO paymentBOImpl;
     private RegistrationBO registrationBOImpl;
@@ -93,7 +93,7 @@ public class StudentPaymentController implements Initializable {
 
     }
 
-    public void init(studentProfileController studentProfileController) {
+    public void init(StudentProfileController studentProfileController) {
         this.studentProfileController = studentProfileController;
     }
 

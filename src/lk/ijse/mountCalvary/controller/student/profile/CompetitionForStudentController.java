@@ -52,7 +52,7 @@ public class CompetitionForStudentController implements Initializable {
     protected JFXComboBox<?> cboxActivity;
     @FXML
     protected TableColumn<ParticipationDTO, String> colPerformance;
-    private studentProfileController studentProfileController;
+    private StudentProfileController studentProfileController;
     private ParticipationBO participationBOImpl;
     private StudentDTO selectedStudent;
 
@@ -118,7 +118,7 @@ public class CompetitionForStudentController implements Initializable {
         this.competitionForStudent = competitionForStudent_controller;
     }
 
-    public void init(studentProfileController studentProfileController) {
+    public void init(StudentProfileController studentProfileController) {
         this.studentProfileController = studentProfileController;
     }
 

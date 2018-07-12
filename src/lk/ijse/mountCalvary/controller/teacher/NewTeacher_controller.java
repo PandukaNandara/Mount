@@ -11,10 +11,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.TeacherBO;
-import lk.ijse.mountCalvary.controller.tool.Common;
-import lk.ijse.mountCalvary.controller.tool.GlobalBoolean;
-import lk.ijse.mountCalvary.controller.tool.OptionPane;
-import lk.ijse.mountCalvary.controller.tool.ScreenLoader;
+import lk.ijse.mountCalvary.controller.tool.*;
 import lk.ijse.mountCalvary.model.TeacherDTO;
 
 import java.net.URL;
@@ -53,7 +50,7 @@ public class NewTeacher_controller implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         GlobalBoolean.setLock(true);
-
+        ButtonFireForEnterSetter.setGlobalEventHandler(acNewTeacher);
         teacher = BOFactory.getInstance().getBO(BOFactory.BOType.TEACHER);
         colTeacherName.setCellValueFactory(new PropertyValueFactory<>("tName"));
 

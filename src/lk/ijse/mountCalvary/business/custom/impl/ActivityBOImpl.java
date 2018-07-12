@@ -56,10 +56,9 @@ public class ActivityBOImpl implements ActivityBO {
             Activity oneAct = allActivity.get(i);
             allActivityWithEvent.add(i, new ActivityDTO(oneAct.getAID(), oneAct.getaName(), oneAct.getTID()));
             ArrayList<EventDTO> eventForActivity = new ArrayList<>();
-            for (int j = 0; j < allEvent.size(); j++) {
-                Event oneEvent = allEvent.get(j);
+            for (Event oneEvent : allEvent) {
                 if (allActivityWithEvent.get(i).getAID() == oneEvent.getAID()) {
-                    eventForActivity.add(new EventDTO(oneEvent.getEID(), oneEvent.geteName(), oneEvent.isGender(), allActivityWithEvent.get(i)));
+                    eventForActivity.add(new EventDTO(oneEvent.getEID(), oneEvent.geteName(), oneEvent.getGender(), allActivityWithEvent.get(i)));
                 }
             }
             allActivityWithEvent.get(i).setEventDTOS(FXCollections.observableArrayList(eventForActivity));
@@ -77,20 +76,15 @@ public class ActivityBOImpl implements ActivityBO {
                 int AID = activityImpl.getIncrementIndex();
                 ObservableList<EventDTO> allEvent = activity.getEventDTOS();
 
-                for (EventDTO oneEvent : allEvent) {
-                    if (!eventImpl.saveWithoutPKey(new Event(oneEvent.getEventName(), oneEvent.isGender(), AID))) {
+                for (EventDTO oneEvent : allEvent)
+                    if (!eventImpl.saveWithoutPKey(new Event(oneEvent.getEventName(), oneEvent.getGender(), AID)))
                         return false;
-                    }
-                }
                 ObservableList<RegistrationDTO> allReg = activity.getRegistrationDTOS();
-                for (RegistrationDTO oneReg : allReg) {
-                    if (!registrationImpl.saveWithoutPKey(new Registration(oneReg.getSID(), AID, oneReg.getJoinedDate()))) {
+                for (RegistrationDTO oneReg : allReg)
+                    if (!registrationImpl.saveWithoutPKey(new Registration(oneReg.getSID(), AID, oneReg.getJoinedDate())))
                         return false;
-                    }
-                }
-            } else {
+            } else
                 return false;
-            }
             conn.commit();
             return true;
         } finally {

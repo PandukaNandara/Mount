@@ -2,7 +2,7 @@ package lk.ijse.mountCalvary.entity;
 
 import java.util.Date;
 
-public class Student implements Gender{
+public class Student implements Gender {
     private int SID;
     private String sName;
     private Date DOB;

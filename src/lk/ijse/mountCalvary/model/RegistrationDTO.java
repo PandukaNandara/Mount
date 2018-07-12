@@ -1,8 +1,11 @@
 package lk.ijse.mountCalvary.model;
 
+import lk.ijse.mountCalvary.entity.EventInterface;
+import lk.ijse.mountCalvary.entity.Gender;
+
 import java.util.Date;
 
-public class RegistrationDTO implements SearchProvider{
+public class RegistrationDTO implements Gender, SearchProvider {
     private int RID;
     private int SID;
     private int AID;
@@ -93,6 +96,12 @@ public class RegistrationDTO implements SearchProvider{
         this.AID = AID;
         setJoinedDate(joinedDate);
     }
+
+    public boolean isDeserveForEvent(int eventType) {
+        return (gender == MALE)
+                ? (eventType == EventInterface.MALE || eventType == EventInterface.MIXED)
+                : (eventType == EventInterface.FEMALE || eventType == EventInterface.MIXED);
+    }
     public String getStudentName() {
         return studentName;
     }
@@ -133,17 +142,6 @@ public class RegistrationDTO implements SearchProvider{
         this.joinedDate = joinedDate;
         joinedDate_string = joinedDate.toString();
     }
-
-//    @Override
-//    public String toString() {
-//        return "Registration{" +
-//                "RID=" + RID +
-//                ", SID=" + SID +
-//                ", AID=" + AID +
-//                ", joinedDate=" + joinedDate +
-//                '}';
-//    }
-
 
     @Override
     public String toString() {

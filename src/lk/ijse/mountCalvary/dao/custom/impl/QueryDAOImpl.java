@@ -38,7 +38,7 @@ public class QueryDAOImpl implements QueryDAO {
     @Override
     public ArrayList<CustomEntity> getRegistrationOfThisActivity(int AID) throws Exception {
         ArrayList<CustomEntity> customEntities = new ArrayList<>();
-        ResultSet rst = CrudUtil.executeQuery("select RID, s.SID, sName, gender, DOB, joined_date, class\n" +
+        ResultSet rst = CrudUtil.executeQuery("select RID, s.SID, sName, s.gender, DOB, joined_date, class\n" +
                 "from registration r, student s\n" +
                 "where AID = ? and r.SID = s.SID order by class", AID);
         while (rst.next()) {
@@ -71,7 +71,7 @@ public class QueryDAOImpl implements QueryDAO {
 
             ResultSet rst = CrudUtil.executeQuery("select distinct ELID," +
                     " CID, el.EID," +
-                    " eName, gender," +
+                    " eName, e.gender," +
                     " e.AID, aName," +
                     " el.GID, " +
                     "group_name, " +
@@ -89,7 +89,7 @@ public class QueryDAOImpl implements QueryDAO {
                 eventList.setEvent(new Event(
                                 rst.getInt("EID"),
                                 rst.getString("eName"),
-                                rst.getBoolean("gender"),
+                        rst.getInt("gender"),
                                 rst.getInt("AID"),
                                 rst.getString("aName")
                         )
@@ -119,7 +119,7 @@ public class QueryDAOImpl implements QueryDAO {
         ResultSet rst = CrudUtil.executeQuery("select " +
                 "distinct ELID," +
                 " CID, el.EID," +
-                " eName, gender, " +
+                " eName, e.gender, " +
                 "e.AID," +
                 " aName," +
                 " el.GID," +
@@ -139,7 +139,7 @@ public class QueryDAOImpl implements QueryDAO {
             eventList.setEvent(new Event(
                             rst.getInt("EID"),
                             rst.getString("eName"),
-                            rst.getBoolean("gender"),
+                    rst.getInt("gender"),
                             rst.getInt("AID"),
                             rst.getString("aName")
                     )
@@ -165,7 +165,7 @@ public class QueryDAOImpl implements QueryDAO {
             for (EventList oneEventList : eventLists) {
                 int ELID = oneEventList.getELID();
 
-                ResultSet rst = CrudUtil.executeQuery("select PID, r.RID, el.ELID, result, performance, s.SID, sName, DOB, e.AID, e.eName, a.aName, s.gender, el.EID\n" +
+                ResultSet rst = CrudUtil.executeQuery("select PID, r.RID, el.ELID, result, performance, s.SID, sName, DOB, e.AID, e.eName, a.aName, e.gender, el.EID\n" +
                         "from participation p, event_list el ,student s, registration r, Event e, activity a\n" +
                         "where (p.RID = r.RID and\n" +
                         "       s.SID = r.SID and\n" +
@@ -187,7 +187,12 @@ public class QueryDAOImpl implements QueryDAO {
                             rst.getString("sName"),
                             rst.getDate("DOB"),
                             rst.getInt("AID"),
-                            rst.getString("eName") + " - " + rst.getString("aName") + " - " + (rst.getBoolean("gender") == Gender.MALE ? "Male" : "Female")
+                            String.format("%s - %s - %s",
+                                    rst.getString("eName"),
+                                    rst.getString("aName"),
+                                    rst.getInt("gender") == EventInterface.MALE ?
+                                            "Male" : rst.getInt("gender") == EventInterface.FEMALE ?
+                                            "Female" : "Mixed")
                     ));
 
                 }
@@ -201,7 +206,19 @@ public class QueryDAOImpl implements QueryDAO {
     public ArrayList<Participation> getParticipationForThisEventList(int ELID) throws Exception {
 
         ArrayList<Participation> participations = new ArrayList<>();
-        ResultSet rst = CrudUtil.executeQuery("select PID, r.RID, el.ELID, result, performance, s.SID, sName, DOB, e.AID, e.eName, a.aName, s.gender, el.EID\n" +
+        ResultSet rst = CrudUtil.executeQuery("select PID, " +
+                "r.RID, " +
+                "el.ELID," +
+                "result, " +
+                "performance, " +
+                "s.SID," +
+                " sName," +
+                " DOB, " +
+                "e.AID," +
+                " e.eName," +
+                " a.aName," +
+                " e.gender," +
+                " el.EID\n" +
                 "from participation p, event_list el ,student s, registration r, Event e, activity a\n" +
                 "where (p.RID = r.RID and\n" +
                 "       s.SID = r.SID and\n" +
@@ -222,7 +239,12 @@ public class QueryDAOImpl implements QueryDAO {
                     rst.getString("sName"),
                     rst.getDate("DOB"),
                     rst.getInt("AID"),
-                    rst.getString("eName") + " - " + rst.getString("aName") + " - " + (rst.getBoolean("gender") == Gender.MALE ? "Male" : "Female")
+                    String.format("%s - %s - %s",
+                            rst.getString("eName"),
+                            rst.getString("aName"),
+                            rst.getInt("gender") == EventInterface.MALE ?
+                                    "Male" : rst.getInt("gender") == EventInterface.FEMALE ?
+                                    "Female" : "Mixed")
             ));
         }
         return participations;
@@ -232,8 +254,23 @@ public class QueryDAOImpl implements QueryDAO {
     public ArrayList<Participation> getParticipationForThisCompetition(int CID) throws Exception {
 
         ArrayList<Participation> participations = new ArrayList<>();
-        ResultSet rst = CrudUtil.executeQuery("select PID, r.RID, el.ELID, result, performance, s.SID, sName, DOB, e.AID, e.eName, a.aName, s.gender, el.EID, c.CID, group_name\n" +
-                "from participation p, event_list el ,student s, registration r, Event e, activity a, competition c, age_group ag\n" +
+        ResultSet rst = CrudUtil.executeQuery("select\n" +
+                "  PID,\n" +
+                "  r.RID,\n" +
+                "  el.ELID,\n" +
+                "  result,\n" +
+                "  performance,\n" +
+                "  s.SID,\n" +
+                "  sName,\n" +
+                "  DOB,\n" +
+                "  e.AID,\n" +
+                "  e.eName,\n" +
+                "  a.aName,\n" +
+                "  e.gender,\n" +
+                "  el.EID,\n" +
+                "  c.CID,\n" +
+                "  group_name\n" +
+                "from participation p, event_list el, student s, registration r, Event e, activity a, competition c, age_group ag\n" +
                 "where (p.RID = r.RID and\n" +
                 "       s.SID = r.SID and\n" +
                 "       r.AID = e.AID and\n" +
@@ -255,10 +292,12 @@ public class QueryDAOImpl implements QueryDAO {
                     rst.getString("sName"),
                     rst.getDate("DOB"),
                     rst.getInt("AID"),
-                    rst.getString("eName") + " - " +
-                            rst.getString("aName") + " - " +
-                            (rst.getBoolean("gender") == Gender.MALE ? "Male" : "Female") + " - " +
-                            rst.getString("group_name")
+                    String.format("%s - %s - %s",
+                            rst.getString("eName"),
+                            rst.getString("aName"),
+                            rst.getInt("gender") == EventInterface.MALE ?
+                                    "Male" : rst.getInt("gender") == EventInterface.FEMALE ?
+                                    "Female" : "Mixed")
             ));
         }
         return participations;

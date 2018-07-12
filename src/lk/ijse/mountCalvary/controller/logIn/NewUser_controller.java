@@ -39,6 +39,8 @@ public class NewUser_controller implements Initializable {
 
     private LogInBO logInBOImpl;
     private ScreenLoader screenLoader = ScreenLoader.getInstance();
+    @FXML
+    private JFXButton btCancel;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

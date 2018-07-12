@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public interface StudentBO extends SuperBO {
 
-    boolean addStudent(StudentDTO st) throws Exception;
+    boolean addStudentWithActivity(StudentDTO st) throws Exception;
 
     ArrayList<StudentDTO> getAll() throws Exception;
 

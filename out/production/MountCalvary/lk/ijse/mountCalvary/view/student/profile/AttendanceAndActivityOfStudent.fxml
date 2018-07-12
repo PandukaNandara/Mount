@@ -4,86 +4,93 @@
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXToggleButton?>
 <?import de.jensd.fx.glyphs.icons525.Icons525View?>
-<?import java.net.URL?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Region?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
-
-<VBox fx:id="attendanceAndActivityOfStudent" styleClass="profile-frame" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.mountCalvary.controller.student.profile.AttendanceAndActivityOfStudentController">
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import java.net.*?>
+<VBox xmlns:fx="http://javafx.com/fxml/1" fx:id="attendanceAndActivityOfStudent" styleClass="profile-frame"
+      xmlns="http://javafx.com/javafx/8.0.141"
+      fx:controller="lk.ijse.mountCalvary.controller.student.profile.AttendanceAndActivityOfStudentController">
     <children>
         <HBox styleClass="node-pane" VBox.vgrow="NEVER">
             <children>
-                <Label maxWidth="1.7976931348623157E308" prefHeight="36.0" prefWidth="309.0" styleClass="title" text="Attendance and activity of student" HBox.hgrow="ALWAYS">
+                <Label maxWidth="1.7976931348623157E308" prefHeight="36.0" prefWidth="309.0" styleClass="title"
+                       text="Attendance and activity of student" HBox.hgrow="ALWAYS">
                     <font>
-                        <Font name="System Bold" size="18.0" />
+                        <Font name="System Bold" size="18.0"/>
                     </font>
                 </Label>
-                <JFXButton fx:id="btPrint" alignment="CENTER" buttonType="RAISED" onAction="#btPrint_onAction" prefHeight="45.0" prefWidth="108.0" ripplerFill="WHITE" style="-fx-background-color: #2196f3;" text="Print" textAlignment="CENTER" textFill="WHITE">
+                <JFXButton fx:id="btPrint" alignment="CENTER" buttonType="RAISED" onAction="#btPrint_onAction"
+                           prefHeight="45.0" prefWidth="108.0" ripplerFill="WHITE"
+                           style="-fx-background-color: #2196f3;" text="Print" textAlignment="CENTER" textFill="WHITE">
                     <graphic>
-                        <Icons525View fill="WHITE" glyphName="PRINTER" size="25" wrappingWidth="37.0" />
+                        <Icons525View fill="WHITE" glyphName="PRINTER" size="25" wrappingWidth="37.0"/>
                     </graphic>
                     <font>
-                        <Font name="System Bold" size="12.0" />
+                        <Font name="System Bold" size="12.0"/>
                     </font>
                 </JFXButton>
             </children>
         </HBox>
         <Label prefHeight="36.0" prefWidth="309.0" styleClass="sub-title" text="Activity" VBox.vgrow="NEVER">
             <font>
-                <Font size="15.0" />
+                <Font size="15.0"/>
             </font>
         </Label>
-        <TableView fx:id="tblRegistration" maxHeight="1.7976931348623157E308" prefHeight="175.0" prefWidth="1200.0" tableMenuButtonVisible="true" VBox.vgrow="NEVER">
+        <TableView fx:id="tblRegistration" maxHeight="1.7976931348623157E308" prefHeight="175.0" prefWidth="1200.0"
+                   tableMenuButtonVisible="true" VBox.vgrow="NEVER">
             <columns>
-                <TableColumn fx:id="colActivity_tblRegistration" prefWidth="740.0" text="Activity " />
-                <TableColumn fx:id="colJoinedDate_tblRegistration" prefWidth="458.0" text="Joined date" />
+                <TableColumn fx:id="colActivity_tblRegistration" prefWidth="740.0" text="Activity "/>
+                <TableColumn fx:id="colJoinedDate_tblRegistration" prefWidth="458.0" text="Joined date"/>
             </columns>
             <columnResizePolicy>
-                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
             </columnResizePolicy>
         </TableView>
-        <Label maxHeight="-Infinity" prefHeight="36.0" prefWidth="309.0" styleClass="sub-title" text="Attendance " VBox.vgrow="NEVER">
+        <Label maxHeight="-Infinity" prefHeight="36.0" prefWidth="309.0" styleClass="sub-title" text="Attendance "
+               VBox.vgrow="NEVER">
             <font>
-                <Font size="15.0" />
+                <Font size="15.0"/>
             </font>
         </Label>
         <HBox styleClass="node-pane" VBox.vgrow="NEVER">
             <children>
-                <JFXComboBox fx:id="cboxActivity" labelFloat="true" onAction="#cboxActivity_onAction" prefHeight="25.0" prefWidth="295.0" promptText="Activity" />
-                <Region maxHeight="1.7976931348623157E308" prefHeight="0.0" prefWidth="200.0" styleClass="region" HBox.hgrow="ALWAYS" />
-            <JFXToggleButton fx:id="btInverse" minHeight="-Infinity" onAction="#btInverse_onAction" prefHeight="33.0" prefWidth="195.0" text="Inverse" textFill="WHITE" visible="false">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-            </JFXToggleButton>
-                <JFXComboBox fx:id="cboxTimeRange" labelFloat="true" onAction="#cboxTimeRange_onAction" prefHeight="29.0" prefWidth="302.0" promptText="Time range" />
+                <JFXComboBox fx:id="cboxActivity" labelFloat="true" onAction="#cboxActivity_onAction" prefHeight="25.0"
+                             prefWidth="295.0" promptText="Activity"/>
+                <Region maxHeight="1.7976931348623157E308" prefHeight="0.0" prefWidth="200.0" styleClass="region"
+                        HBox.hgrow="ALWAYS"/>
+                <JFXToggleButton fx:id="btInverse" minHeight="-Infinity" onAction="#btInverse_onAction"
+                                 prefHeight="33.0" prefWidth="195.0" text="Inverse" textFill="WHITE" visible="false">
+                    <font>
+                        <Font name="System Bold" size="12.0"/>
+                    </font>
+                </JFXToggleButton>
+                <JFXComboBox fx:id="cboxTimeRange" labelFloat="true" onAction="#cboxTimeRange_onAction"
+                             prefHeight="29.0" prefWidth="302.0" promptText="Time range"/>
             </children>
         </HBox>
-        <TableView fx:id="tblAttendantSheet" maxHeight="1.7976931348623157E308" prefHeight="429.0" prefWidth="1343.0" tableMenuButtonVisible="true" VBox.vgrow="ALWAYS">
+        <TableView fx:id="tblAttendantSheet" maxHeight="1.7976931348623157E308" prefHeight="429.0" prefWidth="1343.0"
+                   tableMenuButtonVisible="true" VBox.vgrow="ALWAYS">
             <columns>
-                <TableColumn fx:id="colActivity_tblAttendantSheet" prefWidth="524.0" text="Activity " />
-                <TableColumn fx:id="colDate_tblAttendantSheet" prefWidth="295.0" text="Date" />
-                <TableColumn fx:id="colTeacherInCharge_tblAttendantSheet" prefWidth="295.0" text="Teacher in charge" />
+                <TableColumn fx:id="colActivity_tblAttendantSheet" prefWidth="524.0" text="Activity "/>
+                <TableColumn fx:id="colDate_tblAttendantSheet" prefWidth="295.0" text="Date"/>
+                <TableColumn fx:id="colTeacherInCharge_tblAttendantSheet" prefWidth="295.0" text="Teacher in charge"/>
             </columns>
             <columnResizePolicy>
-                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
             </columnResizePolicy>
         </TableView>
     </children>
     <stylesheets>
-        <URL value="@../../../css/frame.css" />
-        <URL value="@../../../css/combo-box.css" />
-        <URL value="@../../../css/table-view.css" />
-        <URL value="@../../../css/text-and-password-field.css" />
-        <URL value="@../../../css/date-picker.css" />
-        <URL value="@../../../css/radio-button.css" />
-        <URL value="@../../../css/text-area.css" />
-        <URL value="@../../../css/button.css" />
-        <URL value="@../../../css/label.css" />
+        <URL value="@../../../css/frame.css"/>
+        <URL value="@../../../css/combo-box.css"/>
+        <URL value="@../../../css/table-view.css"/>
+        <URL value="@../../../css/text-and-password-field.css"/>
+        <URL value="@../../../css/date-picker.css"/>
+        <URL value="@../../../css/radio-button.css"/>
+        <URL value="@../../../css/text-area.css"/>
+        <URL value="@../../../css/button.css"/>
+        <URL value="@../../../css/label.css"/>
     </stylesheets>
 
 </VBox>

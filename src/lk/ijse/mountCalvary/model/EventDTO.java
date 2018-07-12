@@ -1,14 +1,14 @@
 package lk.ijse.mountCalvary.model;
 
 import lk.ijse.mountCalvary.entity.Event;
-import lk.ijse.mountCalvary.entity.Gender;
+import lk.ijse.mountCalvary.entity.EventInterface;
 
 import java.util.ArrayList;
 
-public class EventDTO implements Gender {
+public class EventDTO implements EventInterface {
     private int EID;
     private String eventName;
-    private boolean gender;
+    private int gender;
     private int AID;
     private String genderType;
     private ActivityDTO activityDTO;
@@ -22,55 +22,28 @@ public class EventDTO implements Gender {
         AID = event.getAID();
         EID = event.getEID();
         eventName = event.geteName();
-        gender = event.isGender();
-
-        if (gender)
-            genderType = "Male";
-        else
-            genderType = "Female";
+        setGender(event.getGender());
     }
 
-    public EventDTO(String eventName, boolean gender) {
+    public EventDTO(String eventName, int gender) {
         this.eventName = eventName;
-        this.gender = gender;
-        if (gender)
-            genderType = "Male";
-        else
-            genderType = "Female";
-        System.out.println(toString());
+        setGender(gender);
     }
 
-    public EventDTO(String eventName, boolean gender, int AID) {
-        this.eventName = eventName;
-        this.gender = gender;
+    public EventDTO(String eventName, int gender, int AID) {
+        this(eventName, gender);
         this.AID = AID;
-        if (gender)
-            genderType = "Male";
-        else
-            genderType = "Female";
     }
 
-    public EventDTO(int EID, String eventName, boolean gender, ActivityDTO activityDTO) {
+    public EventDTO(int EID, String eventName, int gender, ActivityDTO activityDTO) {
+        this(eventName, gender, activityDTO.getAID());
         this.EID = EID;
-        this.eventName = eventName;
-        this.gender = gender;
-        this.AID = activityDTO.getAID();
         this.activityDTO = activityDTO;
-        if (gender)
-            genderType = "Male";
-        else
-            genderType = "Female";
     }
 
-    public EventDTO(int EID, String eventName, boolean gender, int AID) {
+    public EventDTO(int EID, String eventName, int gender, int AID) {
+        this(eventName, gender, AID);
         this.EID = EID;
-        this.eventName = eventName;
-        this.gender = gender;
-        this.AID = AID;
-        if (gender)
-            genderType = "Male";
-        else
-            genderType = "Female";
     }
 
     public int getEID() {
@@ -89,12 +62,38 @@ public class EventDTO implements Gender {
         this.eventName = eventName;
     }
 
-    public boolean isGender() {
+    public int getGender() {
         return gender;
     }
 
-    public void setGender(boolean gender) {
+    public void setGender(int gender) {
         this.gender = gender;
+        switch (gender) {
+            case MALE:
+                genderType = "Male";
+                break;
+            case FEMALE:
+                genderType = "Female";
+                break;
+            case MIXED:
+                genderType = "Mixed";
+                break;
+        }
+    }
+
+    @Override
+    public boolean isMaleEvent() {
+        return gender == MALE;
+    }
+
+    @Override
+    public boolean isFemaleEvent() {
+        return gender == FEMALE;
+    }
+
+    @Override
+    public boolean isMixedEvent() {
+        return gender == MIXED;
     }
 
     public int getAID() {

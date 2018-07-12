@@ -40,6 +40,8 @@ public class LogIn_controller implements Initializable {
     @FXML
     private JFXButton btLogIn;
     private ScreenLoader screenLoader = ScreenLoader.getInstance();
+    @FXML
+    private JFXButton btNewUser;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

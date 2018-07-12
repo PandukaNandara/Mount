@@ -37,7 +37,7 @@ public class StudentBOImpl implements StudentBO {
     }
 
     @Override
-    public boolean addStudent(StudentDTO st) throws Exception {
+    public boolean addStudentWithActivity(StudentDTO st) throws Exception {
         Connection conn = DBConnection.getInstance().getConnection();
         try {
             conn.setAutoCommit(false);
@@ -168,4 +168,4 @@ public class StudentBOImpl implements StudentBO {
         return FXCollections.observableArrayList(registrationDTOS);
     }
 }
-//System.out.println("TEMP" + st.getSID() +" "+ st.getStudentName() +" "+ st.isGender() +" "+ st.getDOB() +" "+ st.getsClass() +" "+ st.getFatherName() +" "+ st.getMotherName() +" "+ st.getNote() +" "+ st.getHouse() +" "+ st.getAddress());
+//System.out.println("TEMP" + st.getSID() +" "+ st.getStudentName() +" "+ st.getGender() +" "+ st.getDOB() +" "+ st.getsClass() +" "+ st.getFatherName() +" "+ st.getMotherName() +" "+ st.getNote() +" "+ st.getHouse() +" "+ st.getAddress());

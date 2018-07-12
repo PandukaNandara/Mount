@@ -12,14 +12,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.*;
-import lk.ijse.mountCalvary.controller.tool.Common;
-import lk.ijse.mountCalvary.controller.tool.GlobalBoolean;
-import lk.ijse.mountCalvary.controller.tool.OptionPane;
-import lk.ijse.mountCalvary.controller.tool.ScreenLoader;
+import lk.ijse.mountCalvary.controller.tool.*;
 import lk.ijse.mountCalvary.model.*;
 
 import java.net.URL;
@@ -89,9 +85,11 @@ public class EventForCompetition_controller implements Initializable {
     private EventListBO eventListBOImpl;
     private EventBO eventBOImpl;
     private ScreenLoader screenLoader = ScreenLoader.getInstance();
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         GlobalBoolean.setLock(true);
+        ButtonFireForEnterSetter.setGlobalEventHandler(acEventForCompetition);
         //columns of event of activity
         colEvent_tblEventListOfActivity.setCellValueFactory(new PropertyValueFactory<>("eventName"));
         colGender_tblEventListOfActivity.setCellValueFactory(new PropertyValueFactory<>("genderType"));
@@ -250,7 +248,8 @@ public class EventForCompetition_controller implements Initializable {
                             screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/basic/CompetitionMenu.fxml", this.acEventForCompetition, this);
                         }
                     } else {
-                        throw new Exception();
+                        OptionPane.showErrorAtSide("Something's wrong we can't do your request now");
+
                     }
 
                 } catch (Exception e) {
@@ -267,14 +266,11 @@ public class EventForCompetition_controller implements Initializable {
 
     private void goAhead() {
         try {
+
             FXMLLoader fxmlLoader = new FXMLLoader();
 
-            Pane p = fxmlLoader.load(getClass().getResource("/lk/ijse/mountCalvary/view/competition/StudentForCompetition.fxml").openStream());
-
-            StudentForCompetition_controller fooController = fxmlLoader.getController();
-
-            this.acEventForCompetition.getChildren().setAll(p);
-
+            StudentForCompetition_controller fooController = (StudentForCompetition_controller) screenLoader.loadOnCenterOfBorderPaneAndCallController(
+                    "/lk/ijse/mountCalvary/view/competition/StudentForCompetition.fxml", acEventForCompetition, this);
             fooController.setSelectedItem(cboxCompetition.getSelectionModel().getSelectedIndex());
 
         } catch (Exception e) {

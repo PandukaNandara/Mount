@@ -14,7 +14,7 @@ import lk.ijse.mountCalvary.business.custom.ActivityBO;
 import lk.ijse.mountCalvary.business.custom.StudentBO;
 import lk.ijse.mountCalvary.business.custom.TeacherBO;
 import lk.ijse.mountCalvary.controller.tool.*;
-import lk.ijse.mountCalvary.entity.Gender;
+import lk.ijse.mountCalvary.entity.EventInterface;
 import lk.ijse.mountCalvary.model.*;
 
 import java.net.URL;
@@ -55,10 +55,6 @@ public class NewActivity_controller implements Initializable {
     @FXML
     private JFXTextField txtEventName;
     @FXML
-    private JFXRadioButton rbtMale;
-    @FXML
-    private JFXRadioButton rbtFemale;
-    @FXML
     private JFXButton btAdd_Student;
     @FXML
     private JFXButton btFinish;
@@ -84,11 +80,19 @@ public class NewActivity_controller implements Initializable {
     private StudentDTO selectedStudent;
 
     private ScreenLoader screenLoader = ScreenLoader.getInstance();
+    @FXML
+    private JFXCheckBox ckxMale;
+    @FXML
+    private JFXCheckBox ckxFemale;
+    @FXML
+    private JFXCheckBox ckxMix;
+
+    private boolean shouldShowEventTip = true;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         GlobalBoolean.setLock(true);
-
+        ButtonFireForEnterSetter.setGlobalEventHandler(acNewActivity);
         studentBOImpl = BOFactory.getInstance().getBO(BOFactory.BOType.STUDENT);
         activityBOImpl = BOFactory.getInstance().getBO(BOFactory.BOType.ACTIVITY);
 
@@ -100,6 +104,12 @@ public class NewActivity_controller implements Initializable {
 
         colEventName.setCellValueFactory(new PropertyValueFactory<>("eventName"));
         colGender.setCellValueFactory(new PropertyValueFactory<>("genderType"));
+
+        txtEventName.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue && shouldShowEventTip)
+                OptionPane.showMessage("Default event for Male, Female and Mix will be automatically added.");
+            shouldShowEventTip = false;
+        });
         try {
             allStudent = studentBOImpl.getAllStudentNameAndNumber();
             allTeacher = teacherBOImpl.getAllTeacher();
@@ -131,18 +141,22 @@ public class NewActivity_controller implements Initializable {
     @FXML
     void btAdd_Event_onAction(ActionEvent event) {
         String event_name = txtEventName.getText();
-        boolean male = rbtMale.isSelected();
-        boolean female = rbtFemale.isSelected();
+        boolean male = ckxMale.isSelected();
+        boolean female = ckxFemale.isSelected();
+        boolean mix = ckxMix.isSelected();
         if (event_name.length() < 2) {
             OptionPane.showErrorAtSide("Please enter the event name ");
-        } else if (!(male || female)) {
-            OptionPane.showErrorAtSide("Please select the gender of the event.");
+        } else if (!(male || female || mix)) {
+            OptionPane.showErrorAtSide("Please select the gender type for the event.");
         } else {
             if (male) {
                 tblEvent.getItems().add(new EventDTO(event_name, EventDTO.MALE));
             }
             if (female) {
                 tblEvent.getItems().add(new EventDTO(event_name, EventDTO.FEMALE));
+            }
+            if (mix) {
+                tblEvent.getItems().add(new EventDTO(event_name, EventDTO.MIXED));
             }
             System.out.println(tblEvent.getItems().toString());
         }
@@ -205,12 +219,13 @@ public class NewActivity_controller implements Initializable {
                 ObservableList<EventDTO> evenList = tblEvent.getItems();
                 //   System.out.println(regList.toString());
                 try {
-                    if (evenList.size() == 0) {
-                        if (rbtMale.isSelected())
-                            evenList.add(new EventDTO("Default " + aName + " event", Gender.MALE));
-                        if (rbtFemale.isSelected())
-                            evenList.add(new EventDTO("Default " + aName + " event", Gender.FEMALE));
-                    }
+                    if (shouldShowEventTip)
+                        OptionPane.showMessage("Default event for Male, Female and Mix will be automatically added.");
+
+                    evenList.add(new EventDTO("Default " + aName + " event", EventInterface.MALE));
+                    evenList.add(new EventDTO("Default " + aName + " event", EventInterface.FEMALE));
+                    evenList.add(new EventDTO("Default " + aName + " event", EventInterface.FEMALE));
+
                     if (activityBOImpl.addActivityWithStudentAndEvent(new ActivityDTO(aName, teachInCharge.getTID(), regList, evenList))) {
                         OptionPane.showDoneAtSide("Activity has successfully added");
                         screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/basic/StudentMenu.fxml", this.acNewActivity, this);
@@ -264,19 +279,13 @@ public class NewActivity_controller implements Initializable {
     }
 
     @FXML
-    void rbtFemale_onAction(ActionEvent event) {
-    }
-
-    @FXML
-    void rbtMale_onAction(ActionEvent event) {
-    }
-
-    @FXML
     void rbxNonPhysicalActivity_onAction(ActionEvent event) {
     }
 
     @FXML
     void txtActivityName_onAction(ActionEvent event) {
+        cboxTeacher.requestFocus();
+        cboxTeacher.show();
     }
 
 

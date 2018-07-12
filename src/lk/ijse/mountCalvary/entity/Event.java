@@ -1,9 +1,9 @@
 package lk.ijse.mountCalvary.entity;
 
-public class Event implements Gender{
+public class Event implements EventInterface {
     private int EID;
     private String eName;
-    private boolean gender;
+    private int gender;
     private int AID;
 
     /// For Query DAO
@@ -12,25 +12,42 @@ public class Event implements Gender{
     public Event() {
     }
 
-    public Event(String eName, boolean gender, int AID) {
+    public Event(String eName, int gender, int AID) {
         this.eName = eName;
         this.gender = gender;
         this.AID = AID;
     }
 
-    public Event(int EID, String eName, boolean gender, int AID) {
+    public Event(int EID, String eName, int gender, int AID) {
         this.EID = EID;
         this.eName = eName;
         this.gender = gender;
         this.AID = AID;
     }
-    public Event(int EID, String eName, boolean gender, int AID, String aName) {
+
+    public Event(int EID, String eName, int gender, int AID, String aName) {
         this.EID = EID;
         this.eName = eName;
         this.gender = gender;
         this.AID = AID;
         this.aName = aName;
     }
+
+    @Override
+    public boolean isMaleEvent() {
+        return gender == MALE;
+    }
+
+    @Override
+    public boolean isFemaleEvent() {
+        return gender == FEMALE;
+    }
+
+    @Override
+    public boolean isMixedEvent() {
+        return gender == MIXED;
+    }
+
     public int getEID() {
         return EID;
     }
@@ -47,11 +64,12 @@ public class Event implements Gender{
         this.eName = eName;
     }
 
-    public boolean isGender() {
+    public int getGender() {
         return gender;
     }
 
-    public void setGender(boolean gender) {
+
+    public void setGender(int gender) {
         this.gender = gender;
     }
 

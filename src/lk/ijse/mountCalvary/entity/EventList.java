@@ -23,10 +23,8 @@ public class EventList {
     }
 
     public EventList(int ELID, int CID, int EID, int GID) {
+        this(CID, EID, GID);
         this.ELID = ELID;
-        this.CID = CID;
-        this.EID = EID;
-        this.GID = GID;
     }
 
     public int getELID() {
