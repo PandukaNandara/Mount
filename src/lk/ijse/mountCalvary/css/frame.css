@@ -26,6 +26,15 @@
     /*-fx-background-color: transparent;*/
 }
 
+.normal-pane {
+    -fx-pref-width: -fx-main-frame-pref-width;
+    -fx-pref-height: -fx-main-frame-pref-height;
+    -fx-padding: 40;
+    -fx-spacing: 0;
+    -fx-background-color: transparent;
+    /*-fx-background-color: transparent;*/
+}
+
 .parent {
     -fx-pref-width: -fx-parent-pref-width;
     -fx-pref-height: -fx-parent-frame-pref-height;
@@ -68,6 +77,8 @@
     -fx-spacing: 20;
     -fx-background-color: white;
 }
+
+/*sub-main-frame is used for sub menu*/
 
 .sub-main-frame {
     -fx-pref-width: -fx-main-frame-pref-width;

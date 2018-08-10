@@ -11,7 +11,7 @@ import lk.ijse.mountCalvary.model.TeacherInChargeListDTO;
 
 import java.util.ArrayList;
 
-public class TeacherInChargeListBOImpl implements TeacherInChargeListBO {
+public final class TeacherInChargeListBOImpl implements TeacherInChargeListBO {
 
     TeacherInChargeListDAO teacherInChargeListDAOImpl;
     QueryDAO queryDAOImpl;
@@ -25,7 +25,7 @@ public class TeacherInChargeListBOImpl implements TeacherInChargeListBO {
     public ObservableList<TeacherInChargeListDTO> getTeacherInChargeListForThisCompetition(int CID) throws Exception {
         ArrayList<TeacherInChargeListDTO> teacherInChargeListDTOS = new ArrayList<>();
         ArrayList<CustomEntity> teacherInChargeListForThisCompetition = queryDAOImpl.getTeacherInChargeListForThisCompetition(CID);
-        for(CustomEntity oneTeacher : teacherInChargeListForThisCompetition){
+        for (CustomEntity oneTeacher : teacherInChargeListForThisCompetition) {
             teacherInChargeListDTOS.add(new TeacherInChargeListDTO(oneTeacher.getTINCID(), oneTeacher.getTID(), oneTeacher.gettName()));
         }
         return FXCollections.observableArrayList(teacherInChargeListDTOS);

@@ -17,6 +17,7 @@ public class RegistrationDAOImpl implements RegistrationDAO {
                 reg.getJoinedDate()
         ) > 0;
     }
+
     @Override
     public boolean saveWithoutPKey(Registration reg) throws Exception {
         return CrudUtil.executeUpdate("INSERT INTO Registration(SID, AID, Joined_date) VALUES (?, ?, ?)",
@@ -45,14 +46,14 @@ public class RegistrationDAOImpl implements RegistrationDAO {
     @Override
     public Registration search(Integer id) throws Exception {
         ResultSet rst = CrudUtil.executeQuery("SELECT * From Registration where RID = ?", id);
-        if(rst.next()) {
+        if (rst.next()) {
             return new Registration(
                     rst.getInt("RID"),
                     rst.getInt("SID"),
                     rst.getInt("AID"),
                     rst.getDate("Joined_date")
             );
-        }else{
+        } else {
             return null;
         }
     }
@@ -61,7 +62,7 @@ public class RegistrationDAOImpl implements RegistrationDAO {
     public ArrayList<Registration> getAll() throws Exception {
         ResultSet rst = CrudUtil.executeQuery("SELECT * From Registration");
         ArrayList<Registration> regId = new ArrayList<>();
-        while(rst.next()) {
+        while (rst.next()) {
             regId.add(new Registration(
                     rst.getInt("RID"),
                     rst.getInt("SID"),
@@ -74,7 +75,7 @@ public class RegistrationDAOImpl implements RegistrationDAO {
 
     @Override
     public Integer lastIndex() throws Exception {
-        ResultSet rst =CrudUtil.executeQuery("SELECT max(RID) From Registration");
+        ResultSet rst = CrudUtil.executeQuery("SELECT max(RID) From Registration");
         return rst.getInt(1);
     }
 
@@ -86,5 +87,16 @@ public class RegistrationDAOImpl implements RegistrationDAO {
                 "AND table_schema = DATABASE( ) ;");
         rst.next();
         return rst.getInt(1) - 1;
+    }
+
+    @Override
+    public ArrayList<Integer> getDistinctYears() throws Exception {
+        ResultSet rst = CrudUtil.executeQuery("select distinct (year(joined_date))\n" +
+                "from registration;");
+        ArrayList<Integer> years = new ArrayList<>();
+        while (rst.next()) {
+            years.add(rst.getInt(1));
+        }
+        return years;
     }
 }

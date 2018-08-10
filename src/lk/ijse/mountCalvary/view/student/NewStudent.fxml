@@ -9,17 +9,19 @@
       stylesheets="@../../css/frame.css" xmlns="http://javafx.com/javafx/8.0.141"
       fx:controller="lk.ijse.mountCalvary.controller.student.NewStudent_controller">
     <children>
-        <Label prefHeight="36.0" prefWidth="309.0" styleClass="title" text="Personal Details">
+        <Label prefHeight="36.0" prefWidth="309.0" styleClass="title" text="New Student">
             <font>
                 <Font name="System Bold" size="18.0"/>
             </font>
         </Label>
         <HBox styleClass="node-pane" VBox.vgrow="ALWAYS">
             <children>
+                <JFXTextField fx:id="txtStudentBCID" labelFloat="true" onAction="#txtStudentBCID_onAction"
+                              prefHeight="19.0" prefWidth="161.0" promptText="Birth certificate number"/>
                 <JFXTextField fx:id="txtStudentID" labelFloat="true" onAction="#txtStudentID_onAction" prefHeight="19.0"
                               prefWidth="161.0" promptText="Student ID" HBox.hgrow="ALWAYS"/>
                 <JFXTextField fx:id="txtStudentName" labelFloat="true" onAction="#txtStudentName" prefHeight="25.0"
-                              prefWidth="1086.0" promptText="Student name" HBox.hgrow="ALWAYS"/>
+                              prefWidth="876.0" promptText="Student name" HBox.hgrow="ALWAYS"/>
             </children>
         </HBox>
         <HBox alignment="CENTER_LEFT" styleClass="node-pane" VBox.vgrow="ALWAYS">
@@ -35,8 +37,10 @@
                                 <ToggleGroup fx:id="gender"/>
                             </toggleGroup>
                         </JFXRadioButton>
-                        <JFXRadioButton fx:id="rbFemale" onAction="#rbFemale" prefHeight="17.0" text="Female"
-                                        toggleGroup="$gender" HBox.hgrow="ALWAYS"/>
+                        <JFXRadioButton fx:id="rbFemale" prefHeight="17.0" text="Female" toggleGroup="$gender"
+                                        HBox.hgrow="ALWAYS"/>
+                        <JFXCheckBox fx:id="cbxQuit" onAction="#bcxQuit_onAction" prefHeight="18.0" prefWidth="228.0"
+                                     text="Set as left student"/>
                     </children>
                 </HBox>
             </children>
@@ -64,9 +68,6 @@
                       prefWidth="1269.0" promptText="Address" VBox.vgrow="ALWAYS"/>
         <HBox styleClass="node-pane">
             <children>
-                <JFXTextField fx:id="txtCountryCallingCode" labelFloat="true" layoutX="10.0" layoutY="14.0"
-                              onAction="#txtCountryCallingCode_onAction" prefHeight="25.0" prefWidth="118.0"
-                              promptText="Country Calling Code" text="+94"/>
                 <JFXTextField fx:id="txtTelNo" labelFloat="true" onAction="#txtTelNo_onAction" prefHeight="25.0"
                               prefWidth="502.0" promptText="Telephone number" HBox.hgrow="ALWAYS"/>
                 <JFXButton fx:id="btAddTelNo" onAction="#btAddTelNo_onAction" prefHeight="33.0" prefWidth="124.0"
@@ -104,7 +105,7 @@
                 <JFXComboBox fx:id="cboxActivityName" labelFloat="true" onAction="#cboxActivityName_onAction"
                              prefHeight="25.0" prefWidth="531.0" promptText="Activity name" HBox.hgrow="ALWAYS"/>
                 <JFXDatePicker fx:id="dtJoinedDate" onAction="#dtJoinedDate_onAction" prefHeight="25.0"
-                               prefWidth="558.0" promptText="Joined date" HBox.hgrow="ALWAYS"/>
+                               prefWidth="558.0" promptText="Joined date"/>
                 <JFXButton fx:id="btAddActivity" onAction="#btAddActivity_onAction" prefHeight="33.0" prefWidth="148.0"
                            style="-fx-background-color: #2196F3;" text="Add" textFill="WHITE"/>
             </children>
@@ -153,5 +154,6 @@
         <URL value="@../../css/text-area.css"/>
         <URL value="@../../css/button.css"/>
         <URL value="@../../css/label.css"/>
+        <URL value="@../../css/check-box.css"/>
     </stylesheets>
 </VBox>

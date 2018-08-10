@@ -4,17 +4,18 @@ public class TeacherInChargeList {
     private int TINCID;
     private int CID;
     private int TID;
+
     public TeacherInChargeList() {
     }
+
     public TeacherInChargeList(int CID, int TID) {
         this.CID = CID;
         this.TID = TID;
     }
 
     public TeacherInChargeList(int tincid, int CID, int TID) {
+        this(CID, TID);
         TINCID = tincid;
-        this.CID = CID;
-        this.TID = TID;
     }
 
     public int getTINCID() {

@@ -11,7 +11,7 @@
     <children>
         <Label prefHeight="42.0" prefWidth="209.0" styleClass="title" text="Update attendance">
             <font>
-                <Font name="Arial Bold" size="18.0" />
+                <Font name="Arial Bold" size="18.0"/>
             </font>
         </Label>
         <JFXComboBox fx:id="cboxActivity" labelFloat="true" onAction="#cboxActivity_onAction" prefHeight="25.0"
@@ -27,11 +27,11 @@
         <TableView fx:id="tblStudentList" accessibleText="Hey" prefHeight="232.0" prefWidth="1287.0"
                    tableMenuButtonVisible="true" VBox.vgrow="ALWAYS">
             <columns>
-                <TableColumn fx:id="colStudentList" prefWidth="75.0" text="Student " />
+                <TableColumn fx:id="colStudentList" prefWidth="75.0" text="Student "/>
                 <TableColumn fx:id="colClass" prefWidth="75.0" text="Class"/>
             </columns>
             <columnResizePolicy>
-                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
             </columnResizePolicy>
         </TableView>
         <JFXButton fx:id="btAddAll" onAction="#btAddAll_onAction" prefHeight="33.0" prefWidth="124.0"

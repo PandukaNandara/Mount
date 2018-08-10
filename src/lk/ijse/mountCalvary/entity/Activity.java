@@ -14,9 +14,8 @@ public class Activity {
     }
 
     public Activity(int AID, String aName, int TID) {
+        this(aName, TID);
         this.AID = AID;
-        this.aName = aName;
-        this.TID = TID;
     }
 
     public int getAID() {

@@ -38,7 +38,7 @@ public class TelNoDAOImpl implements TelNoDAO {
 
     @Override
     public boolean delete(Integer id) throws Exception {
-        return CrudUtil.executeUpdate("DELETE from telephone_no where TELID = ?",id) > 0;
+        return CrudUtil.executeUpdate("DELETE from telephone_no where TELID = ?", id) > 0;
     }
 
     @Override
@@ -47,7 +47,7 @@ public class TelNoDAOImpl implements TelNoDAO {
         if (rst.next()) {
             return new TelNo(
                     rst.getInt("TELID"),
-                    rst.getInt("tel_no"),
+                    rst.getString("tel_no"),
                     rst.getInt("SID")
             );
         } else {
@@ -62,7 +62,7 @@ public class TelNoDAOImpl implements TelNoDAO {
         while (rst.next()) {
             allTelNo.add(new TelNo(
                     rst.getInt("TELID"),
-                    rst.getInt("tel_no"),
+                    rst.getString("tel_no"),
                     rst.getInt("SID")
             ));
         }
@@ -78,12 +78,13 @@ public class TelNoDAOImpl implements TelNoDAO {
         while (rst.next()) {
             allTelNo.add(new TelNo(
                     rst.getInt("TELID"),
-                    rst.getInt("tel_no"),
+                    rst.getString("tel_no"),
                     rst.getInt("SID")
             ));
         }
         return allTelNo;
     }
+
     @Override
     public Integer lastIndex() throws Exception {
         return CrudUtil.executeQuery("SELECT max(TELID) From telephone_no").getInt(1);
@@ -96,6 +97,6 @@ public class TelNoDAOImpl implements TelNoDAO {
                 "WHERE table_name = 'telephone_no'\n" +
                 "AND table_schema = DATABASE( ) ;");
         rst.next();
-        return rst.getInt(0);
+        return rst.getInt(1) - 1;
     }
 }

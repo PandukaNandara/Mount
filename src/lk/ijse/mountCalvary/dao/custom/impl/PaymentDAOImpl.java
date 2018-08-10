@@ -19,6 +19,7 @@ public class PaymentDAOImpl implements PaymentDAO {
                 pay.getYear()
         ) > 0;
     }
+
     @Override
     public boolean saveWithoutPKey(Payment pay) throws Exception {
         return CrudUtil.executeUpdate("INSERT INTO Payment(RID, fee, month, year) VALUES (?, ?, ?, ?)",
@@ -50,7 +51,7 @@ public class PaymentDAOImpl implements PaymentDAO {
     public Payment search(Integer id) throws Exception {
         ResultSet rst = CrudUtil.executeQuery("SELECT * From Payment where PAYID = ?");
 
-        if(rst.next()) {
+        if (rst.next()) {
             return new Payment(
                     rst.getInt("PAYID"),
                     rst.getInt("RID"),
@@ -58,7 +59,7 @@ public class PaymentDAOImpl implements PaymentDAO {
                     rst.getInt("month"),
                     rst.getInt("year")
             );
-        }else{
+        } else {
             return null;
         }
     }
@@ -67,7 +68,7 @@ public class PaymentDAOImpl implements PaymentDAO {
     public ArrayList<Payment> getAll() throws Exception {
         ResultSet rst = CrudUtil.executeQuery("SELECT * From Payment");
         ArrayList<Payment> payList = new ArrayList<>();
-        while(rst.next()) {
+        while (rst.next()) {
             payList.add(new Payment(
                     rst.getInt("PAYID"),
                     rst.getInt("RID"),
@@ -113,4 +114,15 @@ public class PaymentDAOImpl implements PaymentDAO {
         return payList;
     }
 
+    @Override
+    public ArrayList<Integer> getDistinctYears() throws Exception {
+        ResultSet rst = CrudUtil.executeQuery(
+                "select distinct (Year)\n" +
+                        "from payment;");
+        ArrayList<Integer> years = new ArrayList<>();
+        while (rst.next()) {
+            years.add(rst.getInt(1));
+        }
+        return years;
+    }
 }

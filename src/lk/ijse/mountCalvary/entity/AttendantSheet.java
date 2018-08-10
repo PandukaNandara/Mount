@@ -16,14 +16,11 @@ public class AttendantSheet {
         this.RID = RID;
         this.date = date;
         this.TID = TID;
-        System.out.println(toString());
     }
 
     public AttendantSheet(int atid, int RID, Date date, int TID) {
+        this(RID, date, TID);
         ATID = atid;
-        this.RID = RID;
-        this.date = date;
-        this.TID = TID;
     }
 
     public int getRID() {

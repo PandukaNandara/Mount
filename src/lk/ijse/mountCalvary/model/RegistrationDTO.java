@@ -22,6 +22,8 @@ public class RegistrationDTO implements Gender, SearchProvider {
     private String activityName;
     private boolean gender;
 
+    private boolean newOne;
+
     public RegistrationDTO() {
     }
 
@@ -46,6 +48,7 @@ public class RegistrationDTO implements Gender, SearchProvider {
         this.SID = SID;
         this.studentName = studentName;
     }
+
     public RegistrationDTO(int RID, int SID, String studentName, Date joinedDate) {
         this.RID = RID;
         this.SID = SID;
@@ -63,17 +66,18 @@ public class RegistrationDTO implements Gender, SearchProvider {
         this.gender = gender;
     }
 
-    public RegistrationDTO(StudentDTO studentDTO , Date joinedDate) {
+    public RegistrationDTO(StudentDTO studentDTO, Date joinedDate) {
         this.joinedDate = joinedDate;
         this.studentDTO = studentDTO;
         setSID(studentDTO.getSID());
-        this.studentName =  studentDTO.getsName();
+        this.studentName = studentDTO.getSName();
     }
+
     public RegistrationDTO(StudentDTO studentDTO, int AID, Date joinedDate) {
         this.AID = AID;
         setJoinedDate(joinedDate);
         this.studentDTO = studentDTO;
-        this.studentName = studentDTO.getsName();
+        this.studentName = studentDTO.getSName();
         SID = studentDTO.getSID();
     }
 
@@ -102,6 +106,7 @@ public class RegistrationDTO implements Gender, SearchProvider {
                 ? (eventType == EventInterface.MALE || eventType == EventInterface.MIXED)
                 : (eventType == EventInterface.FEMALE || eventType == EventInterface.MIXED);
     }
+
     public String getStudentName() {
         return studentName;
     }
@@ -221,5 +226,13 @@ public class RegistrationDTO implements Gender, SearchProvider {
     @Override
     public String getName() {
         return studentName;
+    }
+
+    public boolean isNewOne() {
+        return newOne;
+    }
+
+    public void setNewOne(boolean newOne) {
+        this.newOne = newOne;
     }
 }

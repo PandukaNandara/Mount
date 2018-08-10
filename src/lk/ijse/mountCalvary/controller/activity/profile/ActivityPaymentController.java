@@ -16,6 +16,7 @@ import javafx.scene.layout.VBox;
 import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.ActivityBO;
 import lk.ijse.mountCalvary.business.custom.PaymentBO;
+import lk.ijse.mountCalvary.controller.SuperController;
 import lk.ijse.mountCalvary.controller.tool.*;
 import lk.ijse.mountCalvary.model.ActivityDTO;
 import lk.ijse.mountCalvary.model.PaymentDTO;
@@ -30,10 +31,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-public class ActivityPaymentController implements Initializable {
+public final class ActivityPaymentController extends SuperController implements Initializable {
 
     private static JasperReport paymentReport;
     @FXML
@@ -51,7 +50,7 @@ public class ActivityPaymentController implements Initializable {
     @FXML
     private JFXComboBox<Month> cboxMonth;
     @FXML
-    private JFXComboBox<Integer> cboxYear;
+    private JFXComboBox<Year> cboxYear;
     @FXML
     private JFXButton btPrint;
     @FXML
@@ -92,8 +91,8 @@ public class ActivityPaymentController implements Initializable {
         cboxMonth.getItems().add(0, new Month(-1));
         cboxMonth.getSelectionModel().select(0);
 
-        cboxYear.getItems().setAll(Common.loadYear());
-        cboxYear.getSelectionModel().select(new Integer(LocalDate.now().getYear()));
+        cboxYear.getItems().setAll(Year.getAllYear());
+        cboxYear.getSelectionModel().select(new Year(LocalDate.now().getYear()));
 
         txtStudent.focusedProperty().addListener((observable, oldValue, newValue) -> {
             if (oldValue)
@@ -137,8 +136,7 @@ public class ActivityPaymentController implements Initializable {
                 JasperPrint paymentPrint = JasperFillManager.fillReport(paymentReport, paymentMap, new JREmptyDataSource());
                 Reporter.showReport(paymentPrint, "Activity payment");
             } catch (Exception e) {
-                Logger.getLogger(ActivityPaymentController.class.getName()).log(Level.SEVERE, null, e);
-
+                callLogger(e);
             }
         } else {
             OptionPane.showErrorAtSide("Please select a student to print.");
@@ -147,9 +145,6 @@ public class ActivityPaymentController implements Initializable {
 
     private void filterData() {
         Month thisMonth = cboxMonth.getSelectionModel().getSelectedItem();
-
-        //This is for disable or enable the inverse button();
-
         if (thisMonth.getValue() == Month.ALL) {
             btInverse.setDisable(true);
             btInverse.setSelected(false);
@@ -167,7 +162,7 @@ public class ActivityPaymentController implements Initializable {
                 rid = -1;
 
             }
-            int year = cboxYear.getSelectionModel().getSelectedItem();
+            int year = cboxYear.getSelectionModel().getSelectedItem().getYear();
             int month = cboxMonth.getSelectionModel().getSelectedItem().getValue();
 
             for (PaymentDTO onePayment : paymentDetailOfThisActivity) {
@@ -180,16 +175,10 @@ public class ActivityPaymentController implements Initializable {
             }
             tblActivityPayment.getItems().setAll(paymentDTOS);
             if (isInverseSelected) {
-
                 inverseFilter();
             }
-
-
         } catch (NullPointerException ignored) {
-            ignored.printStackTrace();
         }
-//        if (btInverse.isSelected())
-//            inverseFilter();
     }
 
     public void insertActivity(ActivityDTO activityDTO) {
@@ -201,9 +190,9 @@ public class ActivityPaymentController implements Initializable {
 
             autoComplete.changeSuggestion(allRegistration);
             tblActivityPayment.getItems().setAll(paymentDetailOfThisActivity);
-
+            Common.clearSortOrder(tblActivityPayment);
         } catch (Exception e) {
-            Logger.getLogger(ActivityPaymentController.class.getName()).log(Level.SEVERE, null, e);
+            callLogger(e);
         }
     }
 
@@ -250,7 +239,7 @@ public class ActivityPaymentController implements Initializable {
 
             tblActivityPayment.getItems().setAll(inverseFilter);
         } catch (Exception e) {
-            Logger.getLogger(ActivityPaymentController.class.getName()).log(Level.SEVERE, null, e);
+            callLogger(e);
         }
         else {
             txtStudent.setDisable(false);

@@ -15,7 +15,7 @@ import lk.ijse.mountCalvary.model.*;
 import java.sql.Connection;
 import java.util.ArrayList;
 
-public class CompetitionBOImpl implements CompetitionBO {
+public final class CompetitionBOImpl implements CompetitionBO {
 
     private CompetitionDAO competitionDAOImpl;
     private TeacherInChargeListDAO teacherInChargeListDAOImpl;

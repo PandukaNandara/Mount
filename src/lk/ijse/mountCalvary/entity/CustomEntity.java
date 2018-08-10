@@ -48,12 +48,33 @@ public class CustomEntity {
     private int month;
     private int year;
 
+    private String class_;
+    private PhysicalTest physicalTest;
+    private Term term;
+
+    //This for comp_contribution
+    private int CCID;
+    private String contribution;
+
     private Competition competition;
 
     private ArrayList<EventList> eventLists;
 
 
     public CustomEntity() {
+    }
+
+    public CustomEntity(int SID, String sName, String class_, PhysicalTest physicalTest) {
+        this.SID = SID;
+        this.sName = sName;
+        this.class_ = class_;
+        this.physicalTest = physicalTest;
+    }
+
+    public CustomEntity(Term term, String class_, PhysicalTest physicalTest) {
+        this.term = term;
+        this.class_ = class_;
+        this.physicalTest = physicalTest;
     }
 
     public CustomEntity(int SID, int RID, int AID, String aName) {
@@ -131,6 +152,14 @@ public class CustomEntity {
         this.gender = gender;
     }
 
+    public CustomEntity(int CCID, int SID, String sName, int CID, String contribution) {
+        this.SID = SID;
+        this.sName = sName;
+        this.CID = CID;
+        this.CCID = CCID;
+        this.contribution = contribution;
+    }
+
     public CustomEntity(Student student) {
         this.student = student;
     }
@@ -161,6 +190,13 @@ public class CustomEntity {
         setGID(gid);
         setGroup_name(group_name);
         setELID(elid);
+    }
+
+    public CustomEntity(int CCID, int SID, int CID, String cName, String contribution) {
+        this.CCID = CCID;
+        this.SID = SID;
+        this.cName = cName;
+        this.contribution = contribution;
     }
 
 
@@ -404,5 +440,45 @@ public class CustomEntity {
 
     public void setTINCID(int TINCID) {
         this.TINCID = TINCID;
+    }
+
+    public PhysicalTest getPhysicalTest() {
+        return physicalTest;
+    }
+
+    public void setPhysicalTest(PhysicalTest physicalTest) {
+        this.physicalTest = physicalTest;
+    }
+
+    public String getClass_() {
+        return class_;
+    }
+
+    public void setClass_(String class_) {
+        this.class_ = class_;
+    }
+
+    public Term getTerm() {
+        return term;
+    }
+
+    public void setTerm(Term term) {
+        this.term = term;
+    }
+
+    public int getCCID() {
+        return CCID;
+    }
+
+    public void setCCID(int CCID) {
+        this.CCID = CCID;
+    }
+
+    public String getContribution() {
+        return contribution;
+    }
+
+    public void setContribution(String contribution) {
+        this.contribution = contribution;
     }
 }

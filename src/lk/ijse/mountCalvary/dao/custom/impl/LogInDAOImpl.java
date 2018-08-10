@@ -44,30 +44,30 @@ public class LogInDAOImpl implements LogInDAO {
 
     @Override
     public LogIn search(Integer id) throws Exception {
-        ResultSet rst = CrudUtil.executeQuery("select * from LogIn where LogInId = ?",id);
-        if(rst.next()){
+        ResultSet rst = CrudUtil.executeQuery("select * from LogIn where LogInId = ?", id);
+        if (rst.next()) {
             return new LogIn(
                     rst.getInt("LogInID"),
                     rst.getString("userName"),
                     rst.getString("password"),
                     rst.getString("salt")
             );
-        }else{
+        } else {
             return null;
         }
     }
 
     @Override
     public LogIn search(String username) throws Exception {
-        ResultSet rst = CrudUtil.executeQuery("select * from LogIn where userName = ?",username);
-        if(rst.next()){
+        ResultSet rst = CrudUtil.executeQuery("select * from LogIn where userName = ?", username);
+        if (rst.next()) {
             return new LogIn(
                     rst.getInt("LogInID"),
                     rst.getString("userName"),
                     rst.getString("password"),
                     rst.getString("salt")
             );
-        }else{
+        } else {
             return null;
         }
     }
@@ -76,7 +76,7 @@ public class LogInDAOImpl implements LogInDAO {
     public ArrayList<LogIn> getAll() throws Exception {
         ResultSet rst = CrudUtil.executeQuery("select * from LogIn");
         ArrayList<LogIn> logInList = new ArrayList<>();
-        while(rst.next()){
+        while (rst.next()) {
             logInList.add(new LogIn(
                     rst.getInt("LogInID"),
                     rst.getString("userName"),
@@ -88,7 +88,7 @@ public class LogInDAOImpl implements LogInDAO {
     }
 
     @Override
-    public Integer lastIndex() throws Exception {
+    public Integer lastIndex() {
         return 0;
     }
 

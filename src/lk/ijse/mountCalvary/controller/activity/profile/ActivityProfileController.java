@@ -10,6 +10,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.ActivityBO;
+import lk.ijse.mountCalvary.controller.SuperController;
 import lk.ijse.mountCalvary.controller.tool.ButtonFireForEnterSetter;
 import lk.ijse.mountCalvary.controller.tool.GlobalBoolean;
 import lk.ijse.mountCalvary.controller.tool.OptionPane;
@@ -18,17 +19,11 @@ import lk.ijse.mountCalvary.model.ActivityDTO;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-public class ActivityProfileController implements Initializable {
+public final class ActivityProfileController extends SuperController implements Initializable {
 
     @FXML
     private BorderPane ActivityProfile;
-    //    @FXML
-//    private JFXButton btPrint;
-//    @FXML
-//    private JFXButton btExcel;
     @FXML
     private HBox bpActivityProfileTop;
     @FXML
@@ -60,26 +55,21 @@ public class ActivityProfileController implements Initializable {
     private ActivityBO activityBOImpl;
     private ArrayList<ActivityDTO> allActivity;
 
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         GlobalBoolean.setLock(false);
         ButtonFireForEnterSetter.setGlobalEventHandler(bpActivityProfileTop);
         activityBOImpl = BOFactory.getInstance().getBO(BOFactory.BOType.ACTIVITY);
-
         try {
             loadAllActivity();
         } catch (Exception e) {
-            Logger.getLogger(ActivityProfileController.class.getName()).log(Level.SEVERE, null, e);
-
+            callLogger(e);
         }
-
         activityDetailController.init(this);
         attendantSheetController.init(this);
         eventAndCompetitionOfActivityController.init(this);
         joinedStudentController.init(this);
         activityPaymentController.init(this);
-
     }
 
     private void loadAllActivity() throws Exception {
@@ -100,16 +90,6 @@ public class ActivityProfileController implements Initializable {
         activityPaymentController.insertActivity(activityDTO);
         eventAndCompetitionOfActivityController.insertActivity(activityDTO);
     }
-
-//    @FXML
-//    private void btPrint_onAction(ActionEvent actionEvent) {
-//
-//    }
-//
-//    @FXML
-//    private void btExcel_onAction(ActionEvent actionEvent) {
-//
-//    }
 
     @FXML
     private void txtActivityName_onAction(ActionEvent actionEvent) {

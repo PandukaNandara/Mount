@@ -39,16 +39,16 @@
         </HBox>
         <TableView fx:id="tblStudentList" maxHeight="1.7976931348623157E308" tableMenuButtonVisible="true"
                    prefHeight="550.0" prefWidth="1306.0" VBox.vgrow="ALWAYS">
-         <columns>
-            <TableColumn fx:id="colStudent" prefWidth="601.5" text="Student" />
-            <TableColumn fx:id="colClass" prefWidth="601.5" text="Class" />
-            <TableColumn fx:id="colJoinedDate" minWidth="0.0" prefWidth="301.0" text="Joined date" />
-         </columns>
-         <columnResizePolicy>
-            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-         </columnResizePolicy>
-      </TableView>
-   </children>
+            <columns>
+                <TableColumn fx:id="colStudent" prefWidth="601.5" text="Student"/>
+                <TableColumn fx:id="colClass" prefWidth="601.5" text="Class"/>
+                <TableColumn fx:id="colJoinedDate" minWidth="0.0" prefWidth="301.0" text="Joined date"/>
+            </columns>
+            <columnResizePolicy>
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+            </columnResizePolicy>
+        </TableView>
+    </children>
     <stylesheets>
         <URL value="@../../../css/frame.css"/>
         <URL value="@../../../css/combo-box.css"/>

@@ -6,20 +6,20 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
+import lk.ijse.mountCalvary.controller.SuperController;
 import lk.ijse.mountCalvary.controller.tool.ButtonFireForEnterSetter;
 import lk.ijse.mountCalvary.controller.tool.GlobalBoolean;
 import lk.ijse.mountCalvary.controller.tool.OptionPane;
 import lk.ijse.mountCalvary.db.DBConnection;
+import lk.ijse.mountCalvary.db.MSDBConnection;
 
 import java.io.File;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-public class Settings_controller implements Initializable {
+public final class Settings_controller extends SuperController implements Initializable {
 
     @FXML
     private VBox acSettings;
@@ -29,6 +29,8 @@ public class Settings_controller implements Initializable {
 
     @FXML
     private JFXButton btRestore;
+    @FXML
+    private JFXButton btImport;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -49,16 +51,16 @@ public class Settings_controller implements Initializable {
                     DBConnection.getDbDetails().get("db"),
                     new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
 
-            fileChooser.getExtensionFilters().setAll(new FileChooser.ExtensionFilter("SQL file (*.sql)", "*.sql"));
+            fileChooser.getExtensionFilters().setAll(
+                    new FileChooser.ExtensionFilter("SQL file (*.sql)", "*.sql"));
 
             fileChooser.setInitialFileName(fileName);
 
             File saveFile = fileChooser.showSaveDialog(acSettings.getScene().getWindow());
 
-            System.out.println(saveFile);
             if (saveFile != null) {
 
-                boolean writeBackup = BackpAndRestore.writeBackup(saveFile.getAbsolutePath());
+                boolean writeBackup = BackupAndRestore.writeBackup(saveFile.getAbsolutePath());
 
                 if (writeBackup) {
 
@@ -71,7 +73,7 @@ public class Settings_controller implements Initializable {
 
         } catch (Exception e) {
             OptionPane.showWarningAtSide("Something's wrong. we can't do your request.");
-            Logger.getLogger(Settings_controller.class.getName()).log(Level.SEVERE, null, e);
+            callLogger(e);
         }
     }
 
@@ -81,27 +83,48 @@ public class Settings_controller implements Initializable {
             if (!OptionPane.askQuestion("Are you sure want to restore your data? Your current data will be deleted."))
                 return;
             FileChooser fileChooser = new FileChooser();
-
             fileChooser.setTitle("Choose your location to save backup");
-
             fileChooser.getExtensionFilters().setAll(new FileChooser.ExtensionFilter("SQL file (*.sql)", "*.sql"));
-
             File openFile = fileChooser.showOpenDialog(acSettings.getScene().getWindow());
-
-            System.out.println(openFile);
             if (openFile != null) {
-                boolean restoreBackup = BackpAndRestore.restoreBackup(openFile.getAbsolutePath());
+                boolean restoreBackup = BackupAndRestore.restoreBackup(openFile.getAbsolutePath());
                 if (restoreBackup) {
                     OptionPane.showMessage("Successfully backup file is restored.");
                 } else {
                     OptionPane.showMessage("Something's wrong. we can't do your request.");
                 }
             }
-
         } catch (Exception e) {
             OptionPane.showMessage("Something's wrong. we can't do your request.");
-            Logger.getLogger(Settings_controller.class.getName()).log(Level.SEVERE, null, e);
+            callLogger(e);
         }
     }
 
+    @FXML
+    private void btImport_onAction(ActionEvent actionEvent) {
+        try {
+            FileChooser fileChooser = new FileChooser();
+
+            fileChooser.setTitle("Choose your location ");
+
+            fileChooser.getExtensionFilters().setAll(new FileChooser.ExtensionFilter("All file (*)", "*.*"));
+
+            String absolutePath = fileChooser.showOpenDialog(acSettings.getScene().getWindow()).getAbsolutePath();
+
+            MSDBConnection.getInstance().getConnection(absolutePath);
+
+//            if (openFile != null) {
+//                boolean restoreBackup = BackupAndRestore.restoreBackup(openFile.getAbsolutePath());
+//                if (restoreBackup) {
+//                    OptionPane.showMessage("Successfully backup file is restored.");
+//                } else {
+//                    OptionPane.showMessage("Something's wrong. we can't do your request.");
+//                }
+//            }
+
+        } catch (Exception e) {
+            OptionPane.showMessage("Something's wrong. we can't do your request.");
+            callLogger(e);
+        }
+    }
 }

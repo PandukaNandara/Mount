@@ -11,13 +11,14 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.TeacherBO;
+import lk.ijse.mountCalvary.controller.SuperController;
 import lk.ijse.mountCalvary.controller.tool.*;
 import lk.ijse.mountCalvary.model.TeacherDTO;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class NewTeacher_controller implements Initializable {
+public final class NewTeacher_controller extends SuperController implements Initializable {
 
     @FXML
     private VBox acNewTeacher;
@@ -85,7 +86,6 @@ public class NewTeacher_controller implements Initializable {
     private void btAdd_onAction(ActionEvent actionEvent) {
         String teacherName = txtTeacherName.getText().trim();
         if (!(teacherName.matches("\\d") || teacherName.length() == 0)) {
-            System.out.println(5 + teacherName + 5);
             tblTeacher.getItems().add(new TeacherDTO(teacherName));
         } else {
             OptionPane.showErrorAtSide("The teacher name is incorrect");

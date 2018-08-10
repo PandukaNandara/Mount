@@ -50,6 +50,7 @@
                 <TableView fx:id="tblStudentList" prefHeight="213.0" prefWidth="1250.0" tableMenuButtonVisible="true"
                            VBox.vgrow="ALWAYS">
                     <columns>
+                        <TableColumn fx:id="colSID" prefWidth="785.0" text="Student ID"/>
                         <TableColumn fx:id="colStudentName" prefWidth="785.0" text="Student Name"/>
                         <TableColumn fx:id="colJoinedDate" prefWidth="456.0" text="Joined date"/>
                     </columns>

@@ -9,5 +9,6 @@ package lk.ijse.mountCalvary.model;
  */
 public interface SearchProvider {
     int getID();
+
     String getName();
 }

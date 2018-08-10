@@ -14,7 +14,7 @@ import lk.ijse.mountCalvary.model.ParticipationDTO;
 import java.sql.Connection;
 import java.util.ArrayList;
 
-public class ParticipationBOImpl implements ParticipationBO {
+public final class ParticipationBOImpl implements ParticipationBO {
     private ParticipationDAO participationDAOImpl;
     private QueryDAO queryDAOImpl;
     private Connection conn;

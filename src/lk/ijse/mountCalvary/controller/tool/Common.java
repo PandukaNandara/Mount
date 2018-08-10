@@ -3,11 +3,12 @@ package lk.ijse.mountCalvary.controller.tool;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 
 import java.time.LocalDate;
 import java.util.Date;
 
-public class Common {
+public final class Common {
     public static Object removeItemFromTable(TableView table) {
         Object selectedItem = table.getSelectionModel().getSelectedItem();
         try {
@@ -17,11 +18,25 @@ public class Common {
         }
     }
 
-    public static boolean isInteger(String text) {
-        try{
+    public static void clearSortOrder(TableView... tables) {
+        for (TableView t : tables)
+            t.getSortOrder().clear();
+    }
 
+    public static void clearTextFields(TextField... textFields) {
+        for (TextField t : textFields)
+            t.clear();
+    }
+
+    public static void disableTextFields(boolean shouldDisable, TextField... textFields) {
+        for (TextField t : textFields)
+            t.setDisable(shouldDisable);
+    }
+
+    public static boolean isInteger(String text) {
+        try {
             return !text.equals("") && (text.matches("[0-9]*"));
-        }catch (Exception e){
+        } catch (Exception e) {
             return false;
         }
     }
@@ -52,19 +67,14 @@ public class Common {
         cboxGrade.getItems().addAll("1", "2", "3", "4", "5", "6", "7", "8", "9", "Left");
     }
 
-    public static void loadHouse(JFXComboBox cboxHouse) {
-        cboxHouse.getItems().addAll(
-                "Diamond",
-                "Opal",
-                "Sapphire",
-                "Crystal"
-        );
+    public static void loadGradeForFiler(JFXComboBox cboxGrade) {
+        cboxGrade.getItems().addAll("All", "1", "2", "3", "4", "5", "6", "7", "8", "9");
     }
 
-    public static Integer[] loadYear() {
-        final int year = LocalDate.now().getYear();
-        return new Integer[]{year - 3, year - 2, year - 1, year};
+    public static void loadClassForFiler(JFXComboBox cboxGrade) {
+        cboxGrade.getItems().addAll("All", "A", "B", "C", "D");
     }
+
 
     public static LocalDate dateToLocalDate(Date dt) {
         try {

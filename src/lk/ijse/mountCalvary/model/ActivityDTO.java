@@ -17,7 +17,6 @@ public class ActivityDTO {
     }
 
     public ActivityDTO(int AID, String aName, ObservableList<RegistrationDTO> registrationDTOS) {
-        System.out.println(toString());
         this.AID = AID;
         this.aName = aName;
         this.registrationDTOS = registrationDTOS;
@@ -105,7 +104,6 @@ public class ActivityDTO {
     }
 
     public void setStudentDTOS(ArrayList<StudentDTO> studentDTOS) {
-        //System.out.println(aName + " <=> " + studentDTOS.toString());
         this.studentDTOS = FXCollections.observableArrayList(studentDTOS);
     }
 }

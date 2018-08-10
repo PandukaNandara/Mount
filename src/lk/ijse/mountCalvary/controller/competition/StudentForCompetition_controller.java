@@ -15,6 +15,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.*;
+import lk.ijse.mountCalvary.controller.SuperController;
 import lk.ijse.mountCalvary.controller.tool.*;
 import lk.ijse.mountCalvary.model.*;
 
@@ -23,10 +24,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-public class StudentForCompetition_controller implements Initializable {
+public final class StudentForCompetition_controller extends SuperController implements Initializable {
     ObservableList<RegistrationDTO> filteredRegistration;
     @FXML
     private VBox acStudentForCompetition;
@@ -89,6 +88,7 @@ public class StudentForCompetition_controller implements Initializable {
     private ParticipationBO participationBOImpl;
 
     private ScreenLoader screenLoader = ScreenLoader.getInstance();
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         GlobalBoolean.setLock(true);
@@ -122,8 +122,7 @@ public class StudentForCompetition_controller implements Initializable {
 //            loadCompetitionWithParticipation();
 //            loadActivityWithStudent();
         } catch (Exception e) {
-            Logger.getLogger(StudentForCompetition_controller.class.getName()).log(Level.SEVERE, null, e);
-
+            callLogger(e);
         }
 //        txtStudentName.focusedProperty().addListener((observable, oldValue, newValue) -> {
 //            if (tblEventInCompetition.getSelectionModel().isEmpty()) {
@@ -169,8 +168,7 @@ public class StudentForCompetition_controller implements Initializable {
             ObservableList<ParticipationDTO> participationDTOS = participationBOImpl.getParticipationForThisCompetition(CID);
             tblStudentList.getItems().setAll(participationDTOS);
         } catch (Exception e) {
-            Logger.getLogger(StudentForCompetition_controller.class.getName()).log(Level.SEVERE, null, e);
-
+            callLogger(e);
         }
 
     }
@@ -233,9 +231,7 @@ public class StudentForCompetition_controller implements Initializable {
 
             autoCompleteStudentName.changeSuggestion(filteredRegistration);
         } catch (Exception e) {
-            Logger.getLogger(StudentForCompetition_controller.class.getName()).log(Level.SEVERE, null, e);
-
-
+            callLogger(e);
         }
     }
 
@@ -263,11 +259,9 @@ public class StudentForCompetition_controller implements Initializable {
                     filter.add(oneRegi);
                 }
             }
-            System.out.println(filter);
             return FXCollections.observableArrayList(filter);
         } catch (Exception e) {
-            Logger.getLogger(StudentForCompetition_controller.class.getName()).log(Level.SEVERE, null, e);
-            e.printStackTrace();
+            callLogger(e);
             return null;
         }
     }
@@ -301,15 +295,15 @@ public class StudentForCompetition_controller implements Initializable {
 
                 OptionPane.showErrorAtSide("Please insert the corresponding student or select a event of the competition.");
 
-                txtAge.setText("");
-                txtStudentID.setText("");
+                txtAge.clear();
+                txtStudentID.clear();
 
             } else {
                 showRegistrationDetail(reg);
 
             }
         } catch (Exception e) {
-            Logger.getLogger(StudentForCompetition_controller.class.getName()).log(Level.SEVERE, null, e);
+            callLogger(e);
         }
     }
 
@@ -339,7 +333,7 @@ public class StudentForCompetition_controller implements Initializable {
                 OptionPane.showWarning("Something's wrong we can't do your request");
             }
         } catch (Exception e) {
-            Logger.getLogger(StudentForCompetition_controller.class.getName()).log(Level.SEVERE, null, e);
+            callLogger(e);
             OptionPane.showErrorAtSide("Something's wrong we can't do your request \n Error code  \n" + e.getMessage());
         }
 
@@ -369,7 +363,7 @@ public class StudentForCompetition_controller implements Initializable {
             try {
                 showRegistrationDetail(autoCompleteStudentName.searchByID(txtStudentID.getText()));
             } catch (NullPointerException e) {
-                if(autoCompleteStudentName.isResultSetEmpty())
+                if (autoCompleteStudentName.isResultSetEmpty())
                     OptionPane.showErrorAtSide("Please select competition.");
                 else
                     OptionPane.showErrorAtSide("Please insert the corresponding student ID for the event that you have selected in event list.");
@@ -381,6 +375,7 @@ public class StudentForCompetition_controller implements Initializable {
             txtAge.clear();
         }
     }
+
     @FXML
     void btViewStudentList_onAction(ActionEvent event) {
 

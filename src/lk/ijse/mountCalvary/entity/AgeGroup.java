@@ -16,10 +16,8 @@ public class AgeGroup {
     }
 
     public AgeGroup(int GID, String groupName, int min, int max) {
+        this(groupName, max, min);
         this.GID = GID;
-        this.groupName = groupName;
-        this.max = max;
-        this.min = min;
     }
 
     public int getGID() {

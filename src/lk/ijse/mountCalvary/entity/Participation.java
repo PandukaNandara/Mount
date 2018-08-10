@@ -58,6 +58,7 @@ public class Participation {
         this.AID = AID;
         this.eventName = eventName;
     }
+
     public int getPID() {
         return PID;
     }

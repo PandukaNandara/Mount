@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.VBox;
+import lk.ijse.mountCalvary.controller.SuperController;
 import lk.ijse.mountCalvary.controller.tool.ButtonFireForEnterSetter;
 import lk.ijse.mountCalvary.controller.tool.GlobalBoolean;
 import lk.ijse.mountCalvary.controller.tool.ScreenLoader;
@@ -12,7 +13,7 @@ import lk.ijse.mountCalvary.controller.tool.ScreenLoader;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class MainMenu_controller implements Initializable {
+public final class MainMenu_controller extends SuperController implements Initializable {
 
     @FXML
     private VBox acMenu;
@@ -35,6 +36,11 @@ public class MainMenu_controller implements Initializable {
     @FXML
     private JFXButton btSpecialReport;
     private ScreenLoader screenLoader = ScreenLoader.getInstance();
+    @FXML
+    private JFXButton btPayment;
+    @FXML
+    private JFXButton btTest;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         GlobalBoolean.setLock(false);
@@ -44,7 +50,6 @@ public class MainMenu_controller implements Initializable {
 
     @FXML
     void btActivity_onAction(ActionEvent event) {
-        System.out.println("hello");
         screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/basic/ActivityMenu.fxml", this.acMenu, this);
     }
 
@@ -77,5 +82,10 @@ public class MainMenu_controller implements Initializable {
     @FXML
     private void btPayment_onAction(ActionEvent actionEvent) {
         screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/payment/MakePayment.fxml", this.acMenu, this);
+    }
+
+    @FXML
+    private void btTest_onAction(ActionEvent actionEvent) {
+        screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/basic/TestMenu.fxml", this.acMenu, this);
     }
 }

@@ -18,7 +18,7 @@ import lk.ijse.mountCalvary.model.StudentDTO;
 import java.sql.Connection;
 import java.util.ArrayList;
 
-public class ActivityBOImpl implements ActivityBO {
+public final class ActivityBOImpl implements ActivityBO {
     private ActivityDAO activityImpl;
     private EventDAO eventImpl;
     private StudentDAO studentDAOImpl;

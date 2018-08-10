@@ -9,7 +9,7 @@ import lk.ijse.mountCalvary.model.LogInDTO;
 
 import java.util.Random;
 
-public class LogInBOImpl implements LogInBO {
+public final class LogInBOImpl implements LogInBO {
     private LogInDAO logInDAOImpl;
 
     public LogInBOImpl() {

@@ -2,14 +2,14 @@ package lk.ijse.mountCalvary.model;
 
 public class TelNoDTO {
     private int telID;
-    private int telNo;
+    private String telNo;
     private int SID;
-    private int oldTelNo;
+    private String oldTelNo;
 
     public TelNoDTO() {
     }
 
-    public TelNoDTO(int telID, int telNo, int SID, int oldTelNo) {
+    public TelNoDTO(int telID, String telNo, int SID, String oldTelNo) {
         this.telID = telID;
         this.telNo = telNo;
         this.SID = SID;
@@ -17,22 +17,22 @@ public class TelNoDTO {
     }
 
 
-    public TelNoDTO(int telID, int telNo, int SID) {
+    public TelNoDTO(int telID, String telNo, int SID) {
         this.telID = telID;
         this.telNo = telNo;
         this.SID = SID;
     }
 
-    public TelNoDTO(int telNo, int SID) {
+    public TelNoDTO(String telNo, int SID) {
         this.telNo = telNo;
         this.SID = SID;
     }
 
-    public int getTelNo() {
+    public String getTelNo() {
         return telNo;
     }
 
-    public void setTelNo(int telNo) {
+    public void setTelNo(String telNo) {
         this.telNo = telNo;
     }
 
@@ -61,11 +61,11 @@ public class TelNoDTO {
                 '}';
     }
 
-    public int getOldTelNo() {
+    public String getOldTelNo() {
         return oldTelNo;
     }
 
-    public void setOldTelNo(int oldTelNo) {
+    public void setOldTelNo(String oldTelNo) {
         this.oldTelNo = oldTelNo;
     }
 }

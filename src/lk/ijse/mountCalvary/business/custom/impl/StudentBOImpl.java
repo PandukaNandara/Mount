@@ -4,10 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import lk.ijse.mountCalvary.business.custom.StudentBO;
 import lk.ijse.mountCalvary.dao.DAOFactory;
-import lk.ijse.mountCalvary.dao.custom.QueryDAO;
-import lk.ijse.mountCalvary.dao.custom.RegistrationDAO;
-import lk.ijse.mountCalvary.dao.custom.StudentDAO;
-import lk.ijse.mountCalvary.dao.custom.TelNoDAO;
+import lk.ijse.mountCalvary.dao.custom.*;
 import lk.ijse.mountCalvary.db.DBConnection;
 import lk.ijse.mountCalvary.entity.CustomEntity;
 import lk.ijse.mountCalvary.entity.Registration;
@@ -20,20 +17,20 @@ import lk.ijse.mountCalvary.model.TelNoDTO;
 import java.sql.Connection;
 import java.util.ArrayList;
 
-public class StudentBOImpl implements StudentBO {
+public final class StudentBOImpl implements StudentBO {
 
     private StudentDAO studentDAOImpl;
     private TelNoDAO telNoDAOImpl;
     private RegistrationDAO registrationDAOImpl;
     private QueryDAO queryDAOImpl;
+    private MSStudentDAO msStudentDAOImpl;
+
     public StudentBOImpl() {
         this.studentDAOImpl = DAOFactory.getInstance().getDAO(DAOFactory.DAOType.STUDENT);
-
         this.telNoDAOImpl = DAOFactory.getInstance().getDAO(DAOFactory.DAOType.TELEPHONE_NO);
-
         this.registrationDAOImpl = DAOFactory.getInstance().getDAO(DAOFactory.DAOType.REGISTRATION);
-
-        queryDAOImpl = DAOFactory.getInstance().getDAO(DAOFactory.DAOType.CUSTOM);
+        this.queryDAOImpl = DAOFactory.getInstance().getDAO(DAOFactory.DAOType.CUSTOM);
+        this.msStudentDAOImpl = DAOFactory.getInstance().getDAO(DAOFactory.DAOType.MS_STUDENT);
     }
 
     @Override
@@ -41,7 +38,7 @@ public class StudentBOImpl implements StudentBO {
         Connection conn = DBConnection.getInstance().getConnection();
         try {
             conn.setAutoCommit(false);
-            Student stEn = new Student(st.getSID(), st.getsName(), st.isGender(), st.getDOB(), st.getsClass(), st.getFatherName(), st.getMotherName(), st.getNote(), st.getHouse(), st.getAddress());
+            Student stEn = dtoToEntity(st);
             boolean result = studentDAOImpl.save(stEn);
             if (result) {
                 for (TelNoDTO telNo : st.getTelNoList()) {
@@ -53,7 +50,8 @@ public class StudentBOImpl implements StudentBO {
                 }
                 for (RegistrationDTO reg : st.getAllInitialActivity()) {
                     System.out.println(reg.toString());
-                    result = registrationDAOImpl.saveWithoutPKey(new Registration(reg.getSID(), reg.getActivity().getAID(), reg.getJoinedDate()));
+                    result = registrationDAOImpl.saveWithoutPKey(new Registration(reg.getSID(),
+                            reg.getActivity().getAID(), reg.getJoinedDate()));
                     if (!result) {
                         conn.rollback();
                         return false;
@@ -82,7 +80,7 @@ public class StudentBOImpl implements StudentBO {
                 if (oneNumber.getSID() == one.getSID())
                     telNo.add(new TelNoDTO(oneNumber.getTelID(), oneNumber.getTelNo(), oneNumber.getSID()));
             }
-            allDTO.add(new StudentDTO(one.getSID(), one.getsName(), one.isGender(), one.getDOB(), one.getsClass(), one.getFatherName(), one.getMotherName(), one.getNote(), one.getHouse(), one.getAddress(), FXCollections.observableArrayList(telNo)));
+            allDTO.add(entityToDTO(one, FXCollections.observableArrayList(telNo)));
         }
         return allDTO;
     }
@@ -103,13 +101,23 @@ public class StudentBOImpl implements StudentBO {
         return FXCollections.observableArrayList(allDTO);
     }
 
+    @Override
+    public ObservableList<StudentDTO> getAllStudentNameAndNumberButLeft() throws Exception {
+        ArrayList<Student> all = studentDAOImpl.getAllStudentNameAndNumberButLeft();
+        ArrayList<StudentDTO> allDTO = new ArrayList<>();
+
+        for (Student one : all) {
+            allDTO.add(new StudentDTO(one.getSID(), one.getsName()));
+        }
+        return FXCollections.observableArrayList(allDTO);
+    }
 
     @Override
     public boolean updateStudent(StudentDTO st) throws Exception {
         Connection conn = DBConnection.getInstance().getConnection();
         try {
             conn.setAutoCommit(false);
-            Student stEn = new Student(st.getSID(), st.getsName(), st.isGender(), st.getDOB(), st.getsClass(), st.getFatherName(), st.getMotherName(), st.getNote(), st.getHouse(), st.getAddress());
+            Student stEn = dtoToEntity(st);
             boolean result = studentDAOImpl.update(stEn);
             if (result) {
                 for (TelNoDTO telNo : st.getTelNoList()) {
@@ -142,6 +150,107 @@ public class StudentBOImpl implements StudentBO {
             telNo.add(new TelNoDTO(oneNumber.getTelID(), oneNumber.getTelNo(), oneNumber.getSID()));
         }
 
+        return entityToDTO(student);
+    }
+
+    @Override
+    public ObservableList<StudentDTO> getStudentNotDoThisActivity(int AID) throws Exception {
+        ArrayList<CustomEntity> nonRegistrations = queryDAOImpl.getAllStudentNotDoThisActivity(AID);
+        ArrayList<StudentDTO> registrationDTOS = new ArrayList<>();
+        for (CustomEntity oneStudent : nonRegistrations) {
+            registrationDTOS.add(new StudentDTO(oneStudent.getStudent().getSID(), oneStudent.getStudent().getsName()));
+        }
+        System.out.println(registrationDTOS);
+        return FXCollections.observableArrayList(registrationDTOS);
+    }
+
+    @Override
+    public boolean isUniqueBCID(int BCID) throws Exception {
+        return studentDAOImpl.isUniqueBCID(BCID);
+    }
+
+    @Override
+    public boolean isUniqueStudentID(int SID) throws Exception {
+        return studentDAOImpl.isUniqueStudentID(SID);
+    }
+
+    @Override
+    public ObservableList<String> getAllDistinctClasses() throws Exception {
+        return FXCollections.observableArrayList(studentDAOImpl.getAllDistinctClasses());
+    }
+
+    @Override
+    public ObservableList<StudentDTO> getStudentWhoIsNotInContributionListOfThisCompetition(int CID) throws Exception {
+        ArrayList<Student> studentList = queryDAOImpl.getStudentWhoIsNotInContributionListOfThisCompetition(CID);
+        ArrayList<StudentDTO> studentDTOS = new ArrayList<>();
+        for (Student one : studentList) {
+            studentDTOS.add(new StudentDTO(one.getSID(), one.getsName()));
+        }
+        return FXCollections.observableArrayList(studentDTOS);
+    }
+
+    @Override
+    public ObservableList<StudentDTO> getAllStudentFromExternalDB(final String dbPath,
+                                                                  String tableName, String SID,
+                                                                  String sName, String gender,
+                                                                  String DOB, String class_,
+                                                                  String fatherName, String motherName,
+                                                                  String note,
+                                                                  String sAddress, String quit, String BCID)
+            throws Exception {
+        String[] studentNameParms = sName.split("\\+");
+        String[] addressParms = sAddress.split("\\+");
+        ArrayList<Student> allStudentFromExternalDB = msStudentDAOImpl.getAllStudentFromExternalDB(dbPath,
+                tableName,
+                SID,
+                studentNameParms,
+                gender,
+                DOB,
+                class_,
+                fatherName,
+                motherName,
+                note,
+                addressParms,
+                quit,
+                BCID);
+        ObservableList<StudentDTO> allStudentDTO = FXCollections.observableArrayList();
+        for (Student student : allStudentFromExternalDB)
+            allStudentDTO.add(entityToDTO(student));
+        return allStudentDTO;
+    }
+
+    @Override
+    public boolean addUpdateStudentList(ObservableList<StudentDTO> items) throws Exception {
+        Connection conn = DBConnection.getInstance().getConnection();
+        try {
+            conn.setAutoCommit(false);
+
+            for (StudentDTO studentDTO : items) {
+                if (studentDAOImpl.isUniqueStudentID(studentDTO.getSID())) {
+                    if (!studentDAOImpl.save(dtoToEntity(studentDTO)))
+                        return false;
+                } else if (!studentDAOImpl.update(dtoToEntity(studentDTO)))
+                    return false;
+            }
+            conn.commit();
+            return true;
+        } finally {
+            conn.rollback();
+            conn.setAutoCommit(true);
+        }
+    }
+
+    @Override
+    public boolean isLeftStudent(int SID) throws Exception {
+        return studentDAOImpl.isLeftStudent(SID);
+    }
+
+    @Override
+    public boolean isLeftStudent(String name) throws Exception {
+        return studentDAOImpl.isLeftStudent(name);
+    }
+
+    private StudentDTO entityToDTO(Student student) {
         return new StudentDTO(
                 student.getSID(),
                 student.getsName(),
@@ -153,19 +262,31 @@ public class StudentBOImpl implements StudentBO {
                 student.getNote(),
                 student.getHouse(),
                 student.getAddress(),
-                FXCollections.observableArrayList(telNo)
+                student.isQuit(),
+                student.getBCID()
         );
     }
 
-    @Override
-    public ObservableList<StudentDTO> getStudentNotDoThisActivity(int AID) throws Exception {
-        ArrayList<CustomEntity> nonRegistrations = queryDAOImpl.getAllStudentNotDoThisActivity(AID);
-        ArrayList<StudentDTO> registrationDTOS = new ArrayList<>();
-        for(CustomEntity oneStudent : nonRegistrations){
-            registrationDTOS.add(new StudentDTO(oneStudent.getStudent().getSID(), oneStudent.getStudent().getsName()));
-        }
-        System.out.println(registrationDTOS);
-        return FXCollections.observableArrayList(registrationDTOS);
+    private Student dtoToEntity(StudentDTO student) {
+        return new Student(
+                student.getSID(),
+                student.getSName(),
+                student.isGender(),
+                student.getDOB(),
+                student.getSClass(),
+                student.getFatherName(),
+                student.getMotherName(),
+                student.getNote(),
+                student.getHouse(),
+                student.getAddress(),
+                student.isQuit(),
+                student.getBCID()
+        );
+    }
+
+    private StudentDTO entityToDTO(Student student, ObservableList<TelNoDTO> telNoDTOS) {
+        StudentDTO studentDTO = entityToDTO(student);
+        studentDTO.setTelNoList(telNoDTOS);
+        return studentDTO;
     }
 }
-//System.out.println("TEMP" + st.getSID() +" "+ st.getStudentName() +" "+ st.getGender() +" "+ st.getDOB() +" "+ st.getsClass() +" "+ st.getFatherName() +" "+ st.getMotherName() +" "+ st.getNote() +" "+ st.getHouse() +" "+ st.getAddress());

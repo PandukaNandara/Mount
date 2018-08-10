@@ -9,59 +9,59 @@
 <BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="ActivityProfile" styleClass="profile-main-frame"
             xmlns="http://javafx.com/javafx/8.0.141"
             fx:controller="lk.ijse.mountCalvary.controller.activity.profile.ActivityProfileController">
-   <top>
-      <HBox fx:id="bpActivityProfileTop" styleClass="top-profile-frame">
-         <children>
-             <Label maxWidth="-Infinity" minWidth="-Infinity" styleClass="super-title" text="Activity Profile"
-                    HBox.hgrow="ALWAYS">
-            </Label>
-             <Region prefHeight="20.0" prefWidth="0.0" HBox.hgrow="ALWAYS"/>
-             <JFXComboBox fx:id="cboxActivity" labelFloat="true" onAction="#cboxActivity_onAction" prefHeight="25.0"
-                          prefWidth="353.0" promptText="Activity"/>
-             <JFXButton fx:id="btSearch" maxHeight="-Infinity" onAction="#btSearch_onAction" prefHeight="34.0"
-                        prefWidth="116.0" style="-fx-background-color: #2196F3;" text="Search" textFill="WHITE"/>
-         </children>
-      </HBox>
-   </top>
-   <center>
-       <JFXTabPane minHeight="549.0" prefHeight="549.0" prefWidth="470.0" rotateGraphic="true"
-                   stylesheets="@../../../css/frame.css" BorderPane.alignment="CENTER">
-         <Tab closable="false" text="Activity Details">
-         <content>
-            <fx:include fx:id="activityDetail" source="ActivityDetail.fxml" />
-         </content>
+    <top>
+        <HBox fx:id="bpActivityProfileTop" styleClass="top-profile-frame">
+            <children>
+                <Label maxWidth="-Infinity" minWidth="-Infinity" styleClass="super-title" text="Activity Profile"
+                       HBox.hgrow="ALWAYS">
+                </Label>
+                <Region prefHeight="20.0" prefWidth="0.0" HBox.hgrow="ALWAYS"/>
+                <JFXComboBox fx:id="cboxActivity" labelFloat="true" onAction="#cboxActivity_onAction" prefHeight="25.0"
+                             prefWidth="353.0" promptText="Activity"/>
+                <JFXButton fx:id="btSearch" maxHeight="-Infinity" onAction="#btSearch_onAction" prefHeight="34.0"
+                           prefWidth="116.0" style="-fx-background-color: #2196F3;" text="Search" textFill="WHITE"/>
+            </children>
+        </HBox>
+    </top>
+    <center>
+        <JFXTabPane minHeight="549.0" prefHeight="549.0" prefWidth="470.0" rotateGraphic="true"
+                    stylesheets="@../../../css/frame.css" BorderPane.alignment="CENTER">
+            <Tab closable="false" text="Activity Details">
+                <content>
+                    <fx:include fx:id="activityDetail" source="ActivityDetail.fxml"/>
+                </content>
 
-      </Tab>
-         <Tab closable="false" text="Attendant Sheet">
-            <fx:include fx:id="attendantSheet" source="AttendantSheet.fxml" />
-         </Tab>
-         <Tab closable="false" text="Joined student">
-            <content>
-               <fx:include fx:id="joinedStudent" source="JoinedStudent.fxml" />
-            </content>
-         </Tab>
-         <Tab closable="false" text="Event and competition">
-            <content>
-               <fx:include fx:id="eventAndCompetitionOfActivity" source="EventAndCompetitionOfActivity.fxml" />
-            </content>
-         </Tab>
-         <Tab closable="false" text="Payment">
-            <content>
-               <fx:include fx:id="activityPayment" source="ActivityPayment.fxml" />
-            </content>
-         </Tab>
-      </JFXTabPane>
-   </center>
-   <stylesheets>
-       <URL value="@../../../css/frame.css"/>
-       <URL value="@../../../css/combo-box.css"/>
-       <URL value="@../../../css/table-view.css"/>
-       <URL value="@../../../css/text-and-password-field.css"/>
-       <URL value="@../../../css/date-picker.css"/>
-       <URL value="@../../../css/radio-button.css"/>
-       <URL value="@../../../css/text-area.css"/>
-       <URL value="@../../../css/button.css"/>
-       <URL value="@../../../css/label.css"/>
-       <URL value="@../../../css/tab-pane.css"/>
-   </stylesheets>
+            </Tab>
+            <Tab closable="false" text="Attendant Sheet">
+                <fx:include fx:id="attendantSheet" source="AttendantSheet.fxml"/>
+            </Tab>
+            <Tab closable="false" text="Joined student">
+                <content>
+                    <fx:include fx:id="joinedStudent" source="JoinedStudent.fxml"/>
+                </content>
+            </Tab>
+            <Tab closable="false" text="Event and competition">
+                <content>
+                    <fx:include fx:id="eventAndCompetitionOfActivity" source="EventAndCompetitionOfActivity.fxml"/>
+                </content>
+            </Tab>
+            <Tab closable="false" text="Payment">
+                <content>
+                    <fx:include fx:id="activityPayment" source="ActivityPayment.fxml"/>
+                </content>
+            </Tab>
+        </JFXTabPane>
+    </center>
+    <stylesheets>
+        <URL value="@../../../css/frame.css"/>
+        <URL value="@../../../css/combo-box.css"/>
+        <URL value="@../../../css/table-view.css"/>
+        <URL value="@../../../css/text-and-password-field.css"/>
+        <URL value="@../../../css/date-picker.css"/>
+        <URL value="@../../../css/radio-button.css"/>
+        <URL value="@../../../css/text-area.css"/>
+        <URL value="@../../../css/button.css"/>
+        <URL value="@../../../css/label.css"/>
+        <URL value="@../../../css/tab-pane.css"/>
+    </stylesheets>
 </BorderPane>

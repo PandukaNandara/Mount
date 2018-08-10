@@ -9,7 +9,6 @@ public class Registration {
     private Date joinedDate;
 
 
-
     public Registration() {
     }
 
@@ -21,10 +20,8 @@ public class Registration {
     }
 
     public Registration(int RID, int SID, int AID, Date joinedDate) {
+        this(SID, AID, joinedDate);
         this.RID = RID;
-        this.SID = SID;
-        this.AID = AID;
-        this.joinedDate = joinedDate;
     }
 
     public int getRID() {

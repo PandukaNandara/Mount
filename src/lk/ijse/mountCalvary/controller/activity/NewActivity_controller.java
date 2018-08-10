@@ -13,6 +13,7 @@ import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.ActivityBO;
 import lk.ijse.mountCalvary.business.custom.StudentBO;
 import lk.ijse.mountCalvary.business.custom.TeacherBO;
+import lk.ijse.mountCalvary.controller.SuperController;
 import lk.ijse.mountCalvary.controller.tool.*;
 import lk.ijse.mountCalvary.entity.EventInterface;
 import lk.ijse.mountCalvary.model.*;
@@ -21,10 +22,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-public class NewActivity_controller implements Initializable {
+public final class NewActivity_controller extends SuperController implements Initializable {
 
     @FXML
     private TableView<EventDTO> tblEvent;
@@ -46,6 +45,9 @@ public class NewActivity_controller implements Initializable {
     private TableColumn<RegistrationDTO, String> colStudentName;
     @FXML
     private TableColumn<RegistrationDTO, Date> colJoinedDate;
+    @FXML
+    private TableColumn<RegistrationDTO, Integer> colSID;
+
     @FXML
     private JFXButton btAdd_Event;
     @FXML
@@ -89,6 +91,7 @@ public class NewActivity_controller implements Initializable {
 
     private boolean shouldShowEventTip = true;
 
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         GlobalBoolean.setLock(true);
@@ -99,6 +102,7 @@ public class NewActivity_controller implements Initializable {
         teacherBOImpl = BOFactory.getInstance().getBO(BOFactory.BOType.TEACHER);
 
         //Table
+        colSID.setCellValueFactory(new PropertyValueFactory<>("SID"));
         colStudentName.setCellValueFactory(new PropertyValueFactory<>("studentDTO"));
         colJoinedDate.setCellValueFactory(new PropertyValueFactory<>("joinedDate"));
 
@@ -111,29 +115,29 @@ public class NewActivity_controller implements Initializable {
             shouldShowEventTip = false;
         });
         try {
-            allStudent = studentBOImpl.getAllStudentNameAndNumber();
-            allTeacher = teacherBOImpl.getAllTeacher();
+            loadAllStudent();
+            loadTeachers();
             studentAuto = new AutoComplete<>(txtStudentName, allStudent);
-            studentAuto.setAutoCompletionsAction(event -> setStudentID());
-
+            studentAuto.setAutoCompletionsAction(event -> searchStudentByName());
+            throw new Exception("This is test version");
         } catch (Exception e) {
-            Logger.getLogger(NewActivity_controller.class.getName()).log(Level.SEVERE, null, e);
+            callLogger(e);
         }
-        loadTeachers();
     }
 
-    private void setStudentID() {
+    private void searchStudentByName() {
         try {
             selectedStudent = studentAuto.getSelectedItemByName();
             txtStudentID.setText(String.valueOf(selectedStudent.getSID()));
         } catch (NullPointerException e) {
-            OptionPane.showErrorAtSide("Invalid student name or name is not existed");
+            OptionPane.showErrorAtSide("Invalid student name or not existed");
         } catch (Exception e) {
-            Logger.getLogger(NewActivity_controller.class.getName()).log(Level.SEVERE, null, e);
+            callLogger(e);
         }
     }
 
-    private void loadTeachers() {
+    private void loadTeachers() throws Exception {
+        allTeacher = teacherBOImpl.getAllTeacher();
         cboxTeacher.getItems().addAll(allTeacher);
     }
 
@@ -158,7 +162,6 @@ public class NewActivity_controller implements Initializable {
             if (mix) {
                 tblEvent.getItems().add(new EventDTO(event_name, EventDTO.MIXED));
             }
-            System.out.println(tblEvent.getItems().toString());
         }
     }
 
@@ -179,8 +182,8 @@ public class NewActivity_controller implements Initializable {
                 allStudent.remove(selectedStudent);
                 studentAuto.changeSuggestion(allStudent);
                 tblStudentList.getItems().add(new RegistrationDTO(selectedStudent, joinDate));
-                txtStudentName.setText("");
-                txtStudentID.setText("");
+                txtStudentName.clear();
+                txtStudentID.clear();
             }
         }
     }
@@ -196,7 +199,8 @@ public class NewActivity_controller implements Initializable {
     void btCancel_onAction(ActionEvent event) {
         boolean answer = OptionPane.askWarning("Do you want to cancel?");
         if (answer) {
-            screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/basic/StudentMenu.fxml", this.acNewActivity, this);
+            screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/basic/StudentMenu.fxml",
+                    this.acNewActivity, this);
         }
     }
 
@@ -217,7 +221,6 @@ public class NewActivity_controller implements Initializable {
             if (teachInCharge != null) {
                 ObservableList<RegistrationDTO> regList = tblStudentList.getItems();
                 ObservableList<EventDTO> evenList = tblEvent.getItems();
-                //   System.out.println(regList.toString());
                 try {
                     if (shouldShowEventTip)
                         OptionPane.showMessage("Default event for Male, Female and Mix will be automatically added.");
@@ -226,14 +229,18 @@ public class NewActivity_controller implements Initializable {
                     evenList.add(new EventDTO("Default " + aName + " event", EventInterface.FEMALE));
                     evenList.add(new EventDTO("Default " + aName + " event", EventInterface.FEMALE));
 
-                    if (activityBOImpl.addActivityWithStudentAndEvent(new ActivityDTO(aName, teachInCharge.getTID(), regList, evenList))) {
+                    if (activityBOImpl.addActivityWithStudentAndEvent(
+                            new ActivityDTO(aName, teachInCharge.getTID(), regList, evenList))) {
                         OptionPane.showDoneAtSide("Activity has successfully added");
-                        screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/basic/StudentMenu.fxml", this.acNewActivity, this);
+                        screenLoader.loadOnCenterOfBorderPane(
+                                "/lk/ijse/mountCalvary/view/basic/StudentMenu.fxml",
+                                this.acNewActivity,
+                                this);
                     } else {
                         OptionPane.showWarning("Something's wrong we can't do your request");
                     }
                 } catch (Exception e) {
-                    Logger.getLogger(NewActivity_controller.class.getName()).log(Level.SEVERE, null, e);
+                    callLogger(e);
                     OptionPane.showWarning("Something's wrong we can't do your request");
                 }
             } else {
@@ -250,10 +257,18 @@ public class NewActivity_controller implements Initializable {
             int id = Integer.parseInt(txtStudentID.getText());
             selectedStudent = studentAuto.searchByID(id);
             if (selectedStudent != null) {
-                txtStudentName.setText(selectedStudent.getsName());
+                txtStudentName.setText(selectedStudent.getSName());
                 dtJoinedDate.requestFocus();
             } else {
-                OptionPane.showErrorAtSide("No suitable student for this student ID.");
+                try {
+                    if (studentBOImpl.isLeftStudent(id)) {
+                        OptionPane.showWarningAtSide("This student has left.");
+                    } else {
+                        OptionPane.showErrorAtSide("No suitable student for this student ID.");
+                    }
+                } catch (Exception e) {
+                    callLogger(e);
+                }
             }
         } else {
             OptionPane.showErrorAtSide("Student ID is invalid.");
@@ -288,9 +303,13 @@ public class NewActivity_controller implements Initializable {
         cboxTeacher.show();
     }
 
-
     @FXML
     private void txtStudentName_onAction(ActionEvent actionEvent) {
         dtJoinedDate.requestFocus();
     }
+
+    private void loadAllStudent() throws Exception {
+        allStudent = studentBOImpl.getAllStudentNameAndNumberButLeft();
+    }
+
 }

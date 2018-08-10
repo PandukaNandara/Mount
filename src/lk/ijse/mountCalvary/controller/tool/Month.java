@@ -1,6 +1,6 @@
 package lk.ijse.mountCalvary.controller.tool;
 
-public class Month {
+public final class Month {
     public static int ALL = -1;
     public static int NONE = 0;
     public static int JANUARY = 1;
@@ -17,6 +17,7 @@ public class Month {
     public static int DECEMBER = 12;
 
     static Month[] months;
+
     private int value;
 
     public Month(int value) {

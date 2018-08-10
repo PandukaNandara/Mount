@@ -6,7 +6,7 @@ import java.time.temporal.WeekFields;
 import java.util.Date;
 import java.util.Locale;
 
-public class DateRange {
+public final class DateRange {
 
     public static final int ALL = 0;
     public static final int IN_THIS_WEEK = 1;

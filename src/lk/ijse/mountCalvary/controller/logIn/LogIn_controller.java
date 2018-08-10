@@ -16,6 +16,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.LogInBO;
+import lk.ijse.mountCalvary.controller.SuperController;
 import lk.ijse.mountCalvary.controller.tool.ButtonFireForEnterSetter;
 import lk.ijse.mountCalvary.controller.tool.GlobalBoolean;
 import lk.ijse.mountCalvary.controller.tool.OptionPane;
@@ -25,10 +26,8 @@ import lk.ijse.mountCalvary.model.LogInDTO;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-public class LogIn_controller implements Initializable {
+public final class LogIn_controller extends SuperController implements Initializable {
 
     private LogInBO logInBOImpl;
     @FXML
@@ -47,8 +46,8 @@ public class LogIn_controller implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         GlobalBoolean.setLock(false);
         ButtonFireForEnterSetter.setGlobalEventHandler(acLogIn);
-        txtUserName.setText("");
-        txtPassword.setText("");
+        txtUserName.clear();
+        txtPassword.clear();
         logInBOImpl = BOFactory.getInstance().getBO(BOFactory.BOType.LOG_IN);
 
         FadeTransition fade = new FadeTransition(Duration.seconds(2), acLogIn);
@@ -69,10 +68,10 @@ public class LogIn_controller implements Initializable {
                     window.setScene(sc);
                     window.centerOnScreen();
                     window.setResizable(true);
-//                    window.setMaximized(true);
+                    window.setMaximized(true);
                     window.show();
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    callLogger(e);
                 }
             } else {
                 OptionPane.showErrorWherever("Invalid user name or password.", Pos.TOP_CENTER, (Stage) acLogIn.getScene().getWindow());
@@ -80,7 +79,7 @@ public class LogIn_controller implements Initializable {
         } catch (NullPointerException e) {
             OptionPane.showErrorAtSide("This user is no longer available.");
         } catch (Exception e) {
-            Logger.getLogger(NewUser_controller.class.getName()).log(Level.SEVERE, null, e);
+            callLogger(e);
         }
     }
 

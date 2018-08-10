@@ -9,7 +9,7 @@ import javafx.scene.image.Image;
  * Date: 7/8/2018
  * Time: 11:41 PM
  */
-public class ApplicationIcons {
+public final class ApplicationIcons {
 
     private final static Image errorIcon = new Image("/lk/ijse/mountCalvary/assets/error.png");
     private final static Image defaultIcon = new Image("/lk/ijse/mountCalvary/assets/defaultIcon.png");

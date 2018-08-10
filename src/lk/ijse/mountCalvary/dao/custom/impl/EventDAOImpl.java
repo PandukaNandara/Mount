@@ -39,7 +39,7 @@ public class EventDAOImpl implements EventDAO {
                             rst.getInt("AID")
                     )
             );
-        }
+        }//
         return events;
     }
 

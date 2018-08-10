@@ -16,9 +16,34 @@ public interface StudentBO extends SuperBO {
 
     ObservableList<StudentDTO> getAllStudentNameAndNumber() throws Exception;
 
+    ObservableList<StudentDTO> getAllStudentNameAndNumberButLeft() throws Exception;
+
     boolean updateStudent(StudentDTO studentDTO) throws Exception;
 
     StudentDTO getStudent(int SID) throws Exception;
 
     ObservableList<StudentDTO> getStudentNotDoThisActivity(int AID) throws Exception;
+
+    boolean isUniqueBCID(int BCID) throws Exception;
+
+    boolean isUniqueStudentID(int SID) throws Exception;
+
+    ObservableList<String> getAllDistinctClasses() throws Exception;
+
+    ObservableList<StudentDTO> getStudentWhoIsNotInContributionListOfThisCompetition(int CID) throws Exception;
+
+    ObservableList<StudentDTO> getAllStudentFromExternalDB(String dbPath,
+                                                           String tableName, String SID,
+                                                           String sName, String gender,
+                                                           String DOB, String class_,
+                                                           String fatherName, String motherName,
+                                                           String note,
+                                                           String sAddress, String quit, String BCID)
+            throws Exception;
+
+    boolean addUpdateStudentList(ObservableList<StudentDTO> items) throws Exception;
+
+    boolean isLeftStudent(int SID) throws Exception;
+
+    boolean isLeftStudent(String name) throws Exception;
 }

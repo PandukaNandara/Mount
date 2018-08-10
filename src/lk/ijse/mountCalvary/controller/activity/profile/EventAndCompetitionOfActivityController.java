@@ -15,10 +15,8 @@ import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.AgeGroupBO;
 import lk.ijse.mountCalvary.business.custom.EventBO;
 import lk.ijse.mountCalvary.business.custom.ParticipationBO;
-import lk.ijse.mountCalvary.controller.tool.ButtonFireForEnterSetter;
-import lk.ijse.mountCalvary.controller.tool.GlobalBoolean;
-import lk.ijse.mountCalvary.controller.tool.OptionPane;
-import lk.ijse.mountCalvary.controller.tool.Reporter;
+import lk.ijse.mountCalvary.controller.SuperController;
+import lk.ijse.mountCalvary.controller.tool.*;
 import lk.ijse.mountCalvary.model.*;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
@@ -29,10 +27,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-public class EventAndCompetitionOfActivityController implements Initializable {
+public final class EventAndCompetitionOfActivityController extends SuperController implements Initializable {
 
     private static JasperReport eventAndCompetitionReport;
     @FXML
@@ -101,12 +97,12 @@ public class EventAndCompetitionOfActivityController implements Initializable {
             int aid = activityDTO.getAID();
             ObservableList<EventDTO> eventForThisActivity = eventBOImpl.getEventForThisActivity(aid);
             cboxEvent.getItems().setAll(eventForThisActivity);
-            tblCompetitionList.getItems().removeAll(tblCompetitionList.getItems());
-            tblParticipation.getItems().removeAll(tblParticipation.getItems());
+            tblCompetitionList.getItems().clear();
+            tblParticipation.getItems().clear();
+            Common.clearSortOrder(tblCompetitionList, tblParticipation);
             loadAgeGroup();
         } catch (Exception e) {
-            Logger.getLogger(EventAndCompetitionOfActivityController.class.getName()).log(Level.SEVERE, null, e);
-
+            callLogger(e);
         }
     }
 
@@ -121,8 +117,7 @@ public class EventAndCompetitionOfActivityController implements Initializable {
             } catch (NullPointerException ignored) {
             }
         } catch (Exception e) {
-            Logger.getLogger(EventAndCompetitionOfActivityController.class.getName()).log(Level.SEVERE, null, e);
-
+            callLogger(e);
         }
     }
 
@@ -132,8 +127,7 @@ public class EventAndCompetitionOfActivityController implements Initializable {
             filterStudentList();
         } catch (NullPointerException ignored) {
         } catch (Exception e) {
-            Logger.getLogger(EventAndCompetitionOfActivityController.class.getName()).log(Level.SEVERE, null, e);
-
+            callLogger(e);
         }
     }
 
@@ -159,8 +153,7 @@ public class EventAndCompetitionOfActivityController implements Initializable {
             //tblParticipation.getItems().setAll(participations);
         } catch (NullPointerException ignored) {
         } catch (Exception e) {
-            Logger.getLogger(EventAndCompetitionOfActivityController.class.getName()).log(Level.SEVERE, null, e);
-
+            callLogger(e);
         }
     }
 

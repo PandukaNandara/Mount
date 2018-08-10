@@ -9,68 +9,68 @@
 <VBox xmlns:fx="http://javafx.com/fxml/1" fx:id="acDeleteCompetition" styleClass="main-frame"
       xmlns="http://javafx.com/javafx/8.0.141"
       fx:controller="lk.ijse.mountCalvary.controller.competition.DeleteCompetition_controller">
-   <children>
-      <Label prefHeight="42.0" prefWidth="209.0" styleClass="title" text="Delete Competition">
-         <font>
-            <Font name="Arial Bold" size="18.0" />
-         </font>
-      </Label>
-      <HBox>
-         <children>
-            <JFXComboBox fx:id="cboxCompetition" labelFloat="true" onAction="#cboxCompetition_onAction"
-                         prefHeight="25.0" prefWidth="594.0" promptText="Competition name"/>
-         </children>
-      </HBox>
-      <TableView fx:id="tblEventInCompetition" onMouseClicked="#tblEventInCompetition_onClick" prefHeight="159.0"
-                 prefWidth="1293.0" tableMenuButtonVisible="true" VBox.vgrow="ALWAYS">
-         <columns>
-            <TableColumn fx:id="colActivity_tblEventInCompetition" prefWidth="75.0" text="Activity" />
-            <TableColumn fx:id="colEvent_tblEventInCompetition" prefWidth="75.0" text="Event" />
-            <TableColumn fx:id="colGender_tblEventInCompetition" prefWidth="75.0" text="Gender" />
-            <TableColumn fx:id="colAgeGroup_tblEventInCompetition" prefWidth="75.0" text="Age group" />
-         </columns>
-         <columnResizePolicy>
-            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-         </columnResizePolicy>
-      </TableView>
-      <Label prefHeight="42.0" prefWidth="209.0" styleClass="sub-title" text="Participated student">
-         <font>
-            <Font name="Arial" size="14.0"/>
-         </font>
-      </Label>
-      <TableView fx:id="tblStudentList" onMouseClicked="#tblStudentList_onClick" prefHeight="288.0" prefWidth="1295.0"
-                 tableMenuButtonVisible="true" VBox.vgrow="ALWAYS">
-         <columns>
-            <TableColumn fx:id="colStudent_tblStudentLIst" prefWidth="566.0" text="Student" />
-            <TableColumn fx:id="colResult_tblStudentLIst" prefWidth="566.0" text="Result" />
-            <TableColumn fx:id="colPerformance_tblStudentList" prefWidth="566.0" text="Performance" />
-         </columns>
-         <columnResizePolicy>
-            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-         </columnResizePolicy>
-      </TableView>
-      <HBox styleClass="button-pane">
-         <children>
-            <JFXButton fx:id="btCancel" onAction="#btCancel_onAction" prefHeight="33.0" prefWidth="124.0"
-                       styleClass="cancel" text="Cancel" textFill="#2196f3">
-               <font>
-                  <Font name="System Bold" size="12.0"/>
-               </font>
-            </JFXButton>
-            <JFXButton fx:id="btDelete" onAction="#btDelete_onAction" prefHeight="33.0" prefWidth="124.0"
-                       style="-fx-background-color: #2196F3;" text="Delete " textFill="WHITE"/>
-         </children>
-      </HBox>
-   </children>
-   <stylesheets>
-      <URL value="@../../css/frame.css"/>
-      <URL value="@../../css/combo-box.css"/>
-      <URL value="@../../css/table-view.css"/>
-      <URL value="@../../css/text-and-password-field.css"/>
-      <URL value="@../../css/date-picker.css"/>
-      <URL value="@../../css/radio-button.css"/>
-      <URL value="@../../css/text-area.css"/>
-      <URL value="@../../css/button.css"/>
-      <URL value="@../../css/label.css"/>
-   </stylesheets>
+    <children>
+        <Label prefHeight="42.0" prefWidth="209.0" styleClass="title" text="Delete Competition">
+            <font>
+                <Font name="Arial Bold" size="18.0"/>
+            </font>
+        </Label>
+        <HBox>
+            <children>
+                <JFXComboBox fx:id="cboxCompetition" labelFloat="true" onAction="#cboxCompetition_onAction"
+                             prefHeight="25.0" prefWidth="594.0" promptText="Competition name"/>
+            </children>
+        </HBox>
+        <TableView fx:id="tblEventInCompetition" onMouseClicked="#tblEventInCompetition_onClick" prefHeight="159.0"
+                   prefWidth="1293.0" tableMenuButtonVisible="true" VBox.vgrow="ALWAYS">
+            <columns>
+                <TableColumn fx:id="colActivity_tblEventInCompetition" prefWidth="75.0" text="Activity"/>
+                <TableColumn fx:id="colEvent_tblEventInCompetition" prefWidth="75.0" text="Event"/>
+                <TableColumn fx:id="colGender_tblEventInCompetition" prefWidth="75.0" text="Gender"/>
+                <TableColumn fx:id="colAgeGroup_tblEventInCompetition" prefWidth="75.0" text="Age group"/>
+            </columns>
+            <columnResizePolicy>
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+            </columnResizePolicy>
+        </TableView>
+        <Label prefHeight="42.0" prefWidth="209.0" styleClass="sub-title" text="Participated student">
+            <font>
+                <Font name="Arial" size="14.0"/>
+            </font>
+        </Label>
+        <TableView fx:id="tblStudentList" onMouseClicked="#tblStudentList_onClick" prefHeight="288.0" prefWidth="1295.0"
+                   tableMenuButtonVisible="true" VBox.vgrow="ALWAYS">
+            <columns>
+                <TableColumn fx:id="colStudent_tblStudentLIst" prefWidth="566.0" text="Student"/>
+                <TableColumn fx:id="colResult_tblStudentLIst" prefWidth="566.0" text="Result"/>
+                <TableColumn fx:id="colPerformance_tblStudentList" prefWidth="566.0" text="Performance"/>
+            </columns>
+            <columnResizePolicy>
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+            </columnResizePolicy>
+        </TableView>
+        <HBox styleClass="button-pane">
+            <children>
+                <JFXButton fx:id="btCancel" onAction="#btCancel_onAction" prefHeight="33.0" prefWidth="124.0"
+                           styleClass="cancel" text="Cancel" textFill="#2196f3">
+                    <font>
+                        <Font name="System Bold" size="12.0"/>
+                    </font>
+                </JFXButton>
+                <JFXButton fx:id="btDelete" onAction="#btDelete_onAction" prefHeight="33.0" prefWidth="124.0"
+                           style="-fx-background-color: #2196F3;" text="Delete " textFill="WHITE"/>
+            </children>
+        </HBox>
+    </children>
+    <stylesheets>
+        <URL value="@../../css/frame.css"/>
+        <URL value="@../../css/combo-box.css"/>
+        <URL value="@../../css/table-view.css"/>
+        <URL value="@../../css/text-and-password-field.css"/>
+        <URL value="@../../css/date-picker.css"/>
+        <URL value="@../../css/radio-button.css"/>
+        <URL value="@../../css/text-area.css"/>
+        <URL value="@../../css/button.css"/>
+        <URL value="@../../css/label.css"/>
+    </stylesheets>
 </VBox>

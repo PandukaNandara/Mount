@@ -8,10 +8,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
-public class DBConnection {
+public final class DBConnection {
     private static DBConnection dbConnection;
-    private Connection connection;
     private static Map<String, String> dbDetails;
+    private Connection connection;
 
     private DBConnection() throws Exception {
         dbDetails = new HashMap<>();
@@ -34,19 +34,28 @@ public class DBConnection {
 
         String jdbcURL = String.format("jdbc:mysql://%s:%s/%s", ip, port, db);
         connection = DriverManager.getConnection(jdbcURL, user, password);
+
+
     }
-    public static DBConnection getInstance() throws Exception{
-        if(dbConnection != null){
+
+    protected static void reloadServer() throws Exception {
+        dbConnection = new DBConnection();
+    }
+
+    public static DBConnection getInstance() throws Exception {
+        if (dbConnection != null) {
             return dbConnection;
-        }else{
+        } else {
             dbConnection = new DBConnection();
             return dbConnection;
         }
     }
-    public Connection getConnection(){
-        return connection;
-    }
-    public static Map<String, String> getDbDetails(){
+
+    public static Map<String, String> getDbDetails() {
         return dbDetails;
+    }
+
+    public Connection getConnection() {
+        return connection;
     }
 }

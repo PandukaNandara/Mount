@@ -9,4 +9,6 @@ public interface PaymentDAO extends CrudDAO<Payment, Integer> {
     boolean saveWithoutPKey(Payment pay) throws Exception;
 
     ArrayList<Payment> getPaymentForThisActivityAndStudent(int RID) throws Exception;
+
+    ArrayList<Integer> getDistinctYears() throws Exception;
 }

@@ -20,11 +20,8 @@ public class Payment {
     }
 
     public Payment(int PID, int RID, BigDecimal fee, int month, int year) {
+        this(RID, fee, month, year);
         this.PAYID = PID;
-        this.RID = RID;
-        this.fee = fee;
-        this.month = month;
-        this.year = year;
     }
 
     public int getPAYID() {

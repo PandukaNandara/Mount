@@ -6,6 +6,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.layout.VBox;
 import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.TeacherBO;
+import lk.ijse.mountCalvary.controller.SuperController;
 import lk.ijse.mountCalvary.controller.tool.ButtonFireForEnterSetter;
 import lk.ijse.mountCalvary.controller.tool.GlobalBoolean;
 import lk.ijse.mountCalvary.model.ActivityDTO;
@@ -14,10 +15,8 @@ import lk.ijse.mountCalvary.model.TeacherDTO;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-public class ActivityDetailController implements Initializable {
+public final class ActivityDetailController extends SuperController implements Initializable {
 
     ActivityProfileController activityProfileController;
     @FXML
@@ -41,12 +40,12 @@ public class ActivityDetailController implements Initializable {
         GlobalBoolean.setLock(false);
         ButtonFireForEnterSetter.setGlobalEventHandler(ActivityDetail);
         teacherBOImpl = BOFactory.getInstance().getBO(BOFactory.BOType.TEACHER);
+
         try {
             loadTeacher();
 
         } catch (Exception e) {
-            Logger.getLogger(ActivityDetailController.class.getName()).log(Level.SEVERE, null, e);
-
+            callLogger(e);
         }
     }
 
@@ -66,5 +65,6 @@ public class ActivityDetailController implements Initializable {
                 txtTeacherInCharge.setText(oneTeacher.getTName());
             }
         }
+
     }
 }

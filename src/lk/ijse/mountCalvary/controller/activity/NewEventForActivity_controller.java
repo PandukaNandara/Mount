@@ -15,6 +15,7 @@ import javafx.scene.layout.VBox;
 import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.ActivityBO;
 import lk.ijse.mountCalvary.business.custom.EventBO;
+import lk.ijse.mountCalvary.controller.SuperController;
 import lk.ijse.mountCalvary.controller.tool.*;
 import lk.ijse.mountCalvary.model.ActivityDTO;
 import lk.ijse.mountCalvary.model.EventDTO;
@@ -22,10 +23,8 @@ import lk.ijse.mountCalvary.model.EventDTO;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-public class NewEventForActivity_controller implements Initializable {
+public final class NewEventForActivity_controller extends SuperController implements Initializable {
 
     @FXML
     private VBox acNewEvntForActivity;
@@ -93,14 +92,13 @@ public class NewEventForActivity_controller implements Initializable {
         try {
             loadActivityWithOldEvent();
         } catch (Exception e) {
-            Logger.getLogger(NewEventForActivity_controller.class.getName()).log(Level.SEVERE, null, e);
-
+            callLogger(e);
         }
     }
 
     private void loadActivityWithOldEvent() throws Exception {
         allActivity = activityBOImpl.getAllActivityWithEvent();
-        cboxActivityName.getItems().addAll(allActivity);
+        cboxActivityName.getItems().setAll(allActivity);
     }
 
     @FXML
@@ -169,7 +167,7 @@ public class NewEventForActivity_controller implements Initializable {
                         OptionPane.showErrorAtSide("Something's wrong we can't do your request");
                     }
                 } catch (Exception e) {
-                    Logger.getLogger(NewEventForActivity_controller.class.getName()).log(Level.SEVERE, null, e);
+                    callLogger(e);
                     OptionPane.showErrorAtSide("Something's wrong we can't do your request");
                 }
             } else {

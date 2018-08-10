@@ -18,6 +18,7 @@
  */
 * {
     -fx-def-color: #2196F3;
+    /*-fx-background-color: #52c800;*/
 }
 
 .jfx-button:hover {
@@ -39,7 +40,7 @@
 }
 
 .normal-button {
-
+    -fx-background-color: -fx-def-color;
     -fx-pref-width: inherit;
     -fx-pref-height: inherit;
 
@@ -70,6 +71,7 @@
     -fx-background-color: transparent;
     -fx-background-radius: 10px;
     -fx-background-insets: 0px;
+    -fx-font-weight: bold;
 }
 
 .back.jfx-button {

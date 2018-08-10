@@ -1,8 +1,9 @@
-*{
+* {
     -fx-def-color: #2196F3;
     /*-fx-def-color: red;*/
     /*#2196F3*/
 }
+
 .parent {
     -fx-pref-width: 1600px;
     -fx-pref-height: 900px;
@@ -45,10 +46,10 @@
     /*-fx-min-height: 790px;*/
     /*-fx-background-color: white;*/
 }
+
 /*
 Button
  */
-
 
 .jfx-button:armed,
 .jfx-button:hover,
@@ -63,7 +64,7 @@ Button
 * Date Picker *
 **************/
 
-.jfx-date-picker{
+.jfx-date-picker {
     -jfx-default-color: -fx-def-color;
 }
 
@@ -76,12 +77,12 @@ Button
 .jfx-date-picker > .arrow-button,
 .jfx-date-picker:editable > .arrow-button,
 .jfx-date-picker:focused > .arrow-button,
-.jfx-date-picker:editable:focused > .arrow-button{
+.jfx-date-picker:editable:focused > .arrow-button {
     -fx-background-color: TRANSPARENT;
     -fx-padding: 1 8 1 8;
 }
 
-.jfx-date-picker > .arrow-button > .jfx-svg-glyph{
+.jfx-date-picker > .arrow-button > .jfx-svg-glyph {
     -fx-background-color: -jfx-default-color;
 }
 
@@ -95,6 +96,7 @@ Button
 .date-picker-popup > * > .spinner > .label {
     -fx-alignment: CENTER;
 }
+
 /*******************************
 * Tab Pane                     *
 *******************************/
@@ -123,7 +125,7 @@ Button
     -fx-shape: "m 1099,704 q 0,-52 -37,-91 L 410,-38 q -37,-37 -90,-37 -53,0 -90,37 l -76,75 q -37,39 -37,91 0,53 37,90 l 486,486 -486,485 q -37,39 -37,91 0,53 37,90 l 76,75 q 36,38 90,38 54,0 90,-38 l 652,-651 q 37,-37 37,-90 z"
 }
 
-.jfx-tab-pane .headers-region > .tab-selected-line{
+.jfx-tab-pane .headers-region > .tab-selected-line {
     -fx-pref-width: 1px !important;
     -fx-pref-height: 2px;
 }
@@ -137,7 +139,7 @@ Button
 }
 
 .jfx-tab-pane .headers-region .tab:closable {
-    -fx-border-color: rgba(255,255,255, .87);
+    -fx-border-color: rgba(255, 255, 255, .87);
     -fx-border-width: 0 2 0 0;
     -fx-border-style: dotted;
     -fx-border-insets: 8 0 8 0;
@@ -145,16 +147,15 @@ Button
 }
 
 .jfx-tab-pane .headers-region .tab .tab-container .tab-label {
-    -fx-text-fill: rgba(255,255,255, .87);
+    -fx-text-fill: rgba(255, 255, 255, .87);
     -fx-font-weight: BOLD;
     -fx-padding: 6 10 6 10;
     -fx-font-size: 16;
 }
-.jfx-tab-pane .headers-region .tab:closable .tab-container .tab-label{
+
+.jfx-tab-pane .headers-region .tab:closable .tab-container .tab-label {
     -fx-padding: 0 8 0 6;
 }
-
-
 
 .jfx-tab-pane .headers-region .tab:selected .tab-container .tab-label {
     -fx-text-fill: WHITE;
@@ -202,9 +203,10 @@ Button
 }
 
 .jfx-date-picker > .jfx-text-field,
-.jfx-time-picker > .jfx-text-field{
+.jfx-time-picker > .jfx-text-field {
     -jfx-focus-color: -jfx-default-color;
 }
+
 /************************
 * PasswordField         *
 ************************/
@@ -232,11 +234,12 @@ Button
 .jfx-password-field .error-icon {
     -fx-fill: #D34336;
 }
+
 /********************
 * Combo box         *
 *********************/
 
-.jfx-combo-box{
+.jfx-combo-box {
     -jfx-focus-color: def;
     -jfx-unfocus-color: #4d4d4d;
     -fx-prompt-text-fill: #4d4d4d;
@@ -247,14 +250,14 @@ Button
 .jfx-combo-box,
 .jfx-combo-box:focused,
 .jfx-combo-box:editable,
-.jfx-combo-box:editable:focused{
+.jfx-combo-box:editable:focused {
     -fx-background-color: TRANSPARENT, TRANSPARENT, TRANSPARENT, TRANSPARENT;
     -fx-background-radius: 3px;
     -fx-background-insets: 0px;
 }
 
-.jfx-combo-box .combo-box-button-container{
-    -fx-background-color:TRANSPARENT;
+.jfx-combo-box .combo-box-button-container {
+    -fx-background-color: TRANSPARENT;
 }
 
 .jfx-combo-box:error {
@@ -264,9 +267,10 @@ Button
 
 .jfx-combo-box > .arrow-button,
 .jfx-combo-box:editable > .arrow-button,
-.jfx-combo-box:editable:focused > .arrow-button{
+.jfx-combo-box:editable:focused > .arrow-button {
     -fx-background-color: TRANSPARENT;
 }
+
 /*********************
  * ScrollBar		 *
  ********************/

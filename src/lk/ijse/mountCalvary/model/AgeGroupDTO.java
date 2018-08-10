@@ -29,10 +29,10 @@ public class AgeGroupDTO {
         this.min = min;
     }
 
-    public AgeGroupDTO(AgeGroup ageGroup){
+    public AgeGroupDTO(AgeGroup ageGroup) {
         GID = ageGroup.getGID();
         groupName = ageGroup.getGroupName();
-        max = ageGroup.getMax();;
+        max = ageGroup.getMax();
         min = ageGroup.getMin();
     }
 
@@ -70,6 +70,6 @@ public class AgeGroupDTO {
 
     @Override
     public String toString() {
-        return  groupName;
+        return groupName;
     }
 }

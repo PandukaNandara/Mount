@@ -25,22 +25,28 @@
             </children>
         </HBox>
     </top>
-   <center>
-      <JFXTabPane BorderPane.alignment="CENTER">
-         <Tab closable="false" text="Personal Details">
-             <fx:include fx:id="personalDetail" source="PersonalDetail.fxml" />
-         </Tab>
-         <Tab closable="false" text="Attendance and activity">
-             <fx:include fx:id="attendanceAndActivityOfStudent" source="AttendanceAndActivityOfStudent.fxml" />
-         </Tab>
-         <Tab closable="false" text="Competition and achievement">
-             <fx:include fx:id="competitionForStudent" source="CompetitionForStudent.fxml" />
-         </Tab>
-          <Tab closable="false" text="Payment">
-             <fx:include fx:id="studentPayment" source="StudentPayment.fxml" />
-         </Tab>
-      </JFXTabPane>
-   </center>
+    <center>
+        <JFXTabPane BorderPane.alignment="CENTER">
+            <Tab closable="false" text="Personal Details">
+                <fx:include fx:id="personalDetail" source="PersonalDetail.fxml"/>
+            </Tab>
+            <Tab closable="false" text="Attendance and activity">
+                <fx:include fx:id="attendanceAndActivityOfStudent" source="AttendanceAndActivityOfStudent.fxml"/>
+            </Tab>
+            <Tab closable="false" text="Competition and achievement">
+                <fx:include fx:id="competitionForStudent" source="CompetitionForStudent.fxml"/>
+            </Tab>
+            <Tab closable="false" text="Payment">
+                <fx:include fx:id="studentPayment" source="StudentPayment.fxml"/>
+            </Tab>
+            <Tab closable="false" text="Competition Contribution">
+                <fx:include fx:id="studentContributionForCompetition" source="StudentContributionForCompetition.fxml"/>
+            </Tab>
+            <Tab closable="false" text="Physical Evaluation Test">
+                <fx:include fx:id="physicalEvaluationTestForStudent" source="PhysicalEvaluationTestForStudent.fxml"/>
+            </Tab>
+        </JFXTabPane>
+    </center>
     <stylesheets>
         <URL value="@../../../css/frame.css"/>
         <URL value="@../../../css/combo-box.css"/>

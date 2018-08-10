@@ -9,29 +9,29 @@
 <VBox xmlns:fx="http://javafx.com/fxml/1" fx:id="acSpecialReport" styleClass="sub-main-frame"
       xmlns="http://javafx.com/javafx/8.0.141"
       fx:controller="lk.ijse.mountCalvary.controller.basic.SpecialReportMenu_controller">
-   <children>
-       <Region prefHeight="10.0" prefWidth="1280.0"/>
-       <JFXButton fx:id="btBack" onAction="#btBack_onAction" prefHeight="45.0" prefWidth="69.0" styleClass="back"
-                  text="Back">
-         <graphic>
-            <FontAwesomeIconView glyphName="ARROW_LEFT" size="25" />
-         </graphic>
-           <VBox.margin>
-               <Insets left="10.0"/>
-           </VBox.margin>
-      </JFXButton>
-       <VBox alignment="CENTER" maxHeight="1.7976931348623157E308" styleClass="menu-button-pane" VBox.vgrow="ALWAYS">
-         <children>
-             <JFXButton fx:id="btStudentNotFollowActivity" onAction="#btStudentNotFollowActivity_onAction"
-                        prefHeight="65.0" prefWidth="554.0" styleClass="menu-button"
-                        text="Student who does't follow any activity" textFill="WHITE">
-               <font>
-                  <Font size="27.0" />
-               </font>
-            </JFXButton>
-         </children>
-      </VBox>
-   </children>
+    <children>
+        <Region prefHeight="10.0" prefWidth="1280.0"/>
+        <JFXButton fx:id="btBack" onAction="#btBack_onAction" prefHeight="45.0" prefWidth="69.0" styleClass="back"
+                   text="Back">
+            <graphic>
+                <FontAwesomeIconView glyphName="ARROW_LEFT" size="25"/>
+            </graphic>
+            <VBox.margin>
+                <Insets left="10.0"/>
+            </VBox.margin>
+        </JFXButton>
+        <VBox alignment="CENTER" maxHeight="1.7976931348623157E308" styleClass="menu-button-pane" VBox.vgrow="ALWAYS">
+            <children>
+                <JFXButton fx:id="btStudentNotFollowActivity" onAction="#btStudentNotFollowActivity_onAction"
+                           prefHeight="65.0" prefWidth="554.0" styleClass="menu-button"
+                           text="Student who does't follow any activity" textFill="WHITE">
+                    <font>
+                        <Font size="27.0"/>
+                    </font>
+                </JFXButton>
+            </children>
+        </VBox>
+    </children>
     <stylesheets>
         <URL value="@../../css/frame.css"/>
         <URL value="@../../css/button.css"/>

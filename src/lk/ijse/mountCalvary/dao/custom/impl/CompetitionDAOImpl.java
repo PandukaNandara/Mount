@@ -49,7 +49,7 @@ public class CompetitionDAOImpl implements CompetitionDAO {
     @Override
     public Competition search(Integer id) throws Exception {
         ResultSet rst = CrudUtil.executeQuery("SELECT * From Competition where CID = ?", id);
-        if(rst.next()) {
+        if (rst.next()) {
             return new Competition(
                     rst.getInt("CID"),
                     rst.getString("cName"),
@@ -57,7 +57,7 @@ public class CompetitionDAOImpl implements CompetitionDAO {
                     rst.getDate("Date"),
                     rst.getString("desc_")
             );
-        }else{
+        } else {
             return null;
         }
     }
@@ -65,7 +65,7 @@ public class CompetitionDAOImpl implements CompetitionDAO {
     @Override
     public Competition search(String name) throws Exception {
         ResultSet rst = CrudUtil.executeQuery("SELECT * From Competition where cName = ?", name);
-        if(rst.next()) {
+        if (rst.next()) {
             return new Competition(
                     rst.getInt("CID"),
                     rst.getString("cName"),
@@ -73,15 +73,16 @@ public class CompetitionDAOImpl implements CompetitionDAO {
                     rst.getDate("Date"),
                     rst.getString("desc_")
             );
-        }else{
+        } else {
             return null;
         }
     }
+
     @Override
     public ArrayList<Competition> getAll() throws Exception {
         ResultSet rst = CrudUtil.executeQuery("SELECT * From Competition order by CID DESC");
         ArrayList<Competition> comList = new ArrayList<>();
-        while(rst.next()){
+        while (rst.next()) {
             comList.add(new Competition(
                     rst.getInt("CID"),
                     rst.getString("cName"),
@@ -92,11 +93,12 @@ public class CompetitionDAOImpl implements CompetitionDAO {
         }
         return comList;
     }
+
     @Override
     public ArrayList<Competition> getCompetitionsNameAndNumber() throws Exception {
         ResultSet rst = CrudUtil.executeQuery("SELECT CID, cName From Competition order by CID DESC");
         ArrayList<Competition> comList = new ArrayList<>();
-        while(rst.next()){
+        while (rst.next()) {
             comList.add(new Competition(
                     rst.getInt("CID"),
                     rst.getString("cName")

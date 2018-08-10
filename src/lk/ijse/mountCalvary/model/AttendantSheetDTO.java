@@ -28,7 +28,7 @@ public class AttendantSheetDTO {
         this.TID = TID;
     }
 
-    public AttendantSheetDTO(int ATID, int RID, Date date,int SID, int TID, String studentName, String teacherName) {
+    public AttendantSheetDTO(int ATID, int RID, Date date, int SID, int TID, String studentName, String teacherName) {
         this.ATID = ATID;
         this.RID = RID;
         this.SID = SID;

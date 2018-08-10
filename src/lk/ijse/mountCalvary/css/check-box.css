@@ -33,6 +33,11 @@
     -fx-border-width: 2;
 }
 
+.normal-check-box.jfx-check-box {
+    -fx-pref-width: -1;
+
+}
+
 .jfx-check-box:selected .box {
     -fx-border-color: -jfx-checked-color;
 }

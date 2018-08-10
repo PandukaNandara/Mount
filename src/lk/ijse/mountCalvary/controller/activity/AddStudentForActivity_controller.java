@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -16,6 +17,7 @@ import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.ActivityBO;
 import lk.ijse.mountCalvary.business.custom.RegistrationBO;
 import lk.ijse.mountCalvary.business.custom.StudentBO;
+import lk.ijse.mountCalvary.controller.SuperController;
 import lk.ijse.mountCalvary.controller.tool.*;
 import lk.ijse.mountCalvary.model.ActivityDTO;
 import lk.ijse.mountCalvary.model.RegistrationDTO;
@@ -25,11 +27,9 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 
-public class AddStudentForActivity_controller implements Initializable {
+public final class AddStudentForActivity_controller extends SuperController implements Initializable {
     @FXML
     private JFXTextField txtStudentName;
 
@@ -75,14 +75,18 @@ public class AddStudentForActivity_controller implements Initializable {
     private ObservableList<StudentDTO> allStudent;
 
     private ScreenLoader screenLoader = ScreenLoader.getInstance();
+    private StudentDTO selectedStudent;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         GlobalBoolean.setLock(true);
         ButtonFireForEnterSetter.setGlobalEventHandler(acAddStudent);
+
         activityBOImpl = BOFactory.getInstance().getBO(BOFactory.BOType.ACTIVITY);
         registrationBOImpl = BOFactory.getInstance().getBO(BOFactory.BOType.REGISTRATION);
         studentBOImpl = BOFactory.getInstance().getBO(BOFactory.BOType.STUDENT);
 
+        colStudentName.setCellValueFactory(new PropertyValueFactory<>("SID"));
         colStudentName.setCellValueFactory(new PropertyValueFactory<>("studentName"));
         colJoinedDate.setCellValueFactory(new PropertyValueFactory<>("joinedDate"));
         autoComplete = new AutoComplete<>(txtStudentName);
@@ -90,8 +94,7 @@ public class AddStudentForActivity_controller implements Initializable {
         try {
             loadActivityWithStudent();
         } catch (Exception e) {
-            Logger.getLogger(AddStudentForActivity_controller.class.getName()).log(Level.SEVERE, null, e);
-
+            callLogger(e);
         }
 
     }
@@ -108,27 +111,19 @@ public class AddStudentForActivity_controller implements Initializable {
             if (firstTime) {
                 firstTime = false;
             } else {
-                OptionPane.showErrorAtSide("Please enter the joined date");
+                OptionPane.showErrorAtSide("Please enter the joined date.");
             }
-        } else if (txtStudentName.getText().length() < 1) {
-            OptionPane.showErrorAtSide("Please enter the student name");
+        } else if (selectedStudent == null) {
+            OptionPane.showErrorAtSide("Please select a student.");
         } else {
-
-            StudentDTO selectedStudent = autoComplete.getSelectedItemByName();
-
-            if (selectedStudent == null) {
-                OptionPane.showErrorAtSide("This student is already added to the activity or not a correct valid student.");
-                txtStudentName.selectAll();
-            } else {
-                allStudent.remove(selectedStudent);
-
-                autoComplete.changeSuggestion(allStudent);
-
-                int AID = cboxActivity.getSelectionModel().getSelectedItem().getAID();
-                tblStudentList.getItems().add(new RegistrationDTO(selectedStudent, AID, joinDate));
-                txtStudentName.setText("");
-                txtStudentID.setText("");
-            }
+            allStudent.remove(selectedStudent);
+            autoComplete.changeSuggestion(allStudent);
+            int AID = cboxActivity.getSelectionModel().getSelectedItem().getAID();
+            RegistrationDTO newReg = new RegistrationDTO(selectedStudent, AID, joinDate);
+            newReg.setNewOne(true);
+            tblStudentList.getItems().add(newReg);
+            txtStudentName.clear();
+            txtStudentID.clear();
         }
 
     }
@@ -136,28 +131,37 @@ public class AddStudentForActivity_controller implements Initializable {
     @FXML
     void btRemove_onAction(ActionEvent event) {
         try {
-            Object o = Common.removeItemFromTable(tblStudentList);
-            ObservableList allStudent = cboxActivity.getSelectionModel().getSelectedItem().getStudentDTOS();
+            RegistrationDTO selectedItem = tblStudentList.getSelectionModel().getSelectedItem();
+            if (selectedItem.isNewOne()) {
+                Object o = Common.removeItemFromTable(tblStudentList);
+                allStudent.add(((RegistrationDTO) o).getStudentDTO());
+                autoComplete.changeSuggestion(allStudent);
+            } else OptionPane.showWarningAtSide("This student has been already added.");
 
-            allStudent.add(((RegistrationDTO) o).getStudentDTO());
-            //autoComplete.changeSuggestion(allStudent);
-
-        } catch (Exception e) {
-            OptionPane.showErrorAtSide("Please select a row");
+        } catch (NullPointerException e) {
+            OptionPane.showErrorAtSide("Please select item.");
         }
     }
 
     @FXML
     void btSubmit_onAction(ActionEvent event) {
         try {
-            if (registrationBOImpl.addAllRegistration(tblStudentList.getItems())) {
-                OptionPane.showMessage("Registration successful");
-                screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/basic/ActivityMenu.fxml", this.acAddStudent, this);
+            ObservableList<RegistrationDTO> allRegistrationDTOS = tblStudentList.getItems();
+            ObservableList<RegistrationDTO> newRegs = FXCollections.observableArrayList();
+            for (RegistrationDTO one :
+                    allRegistrationDTOS) {
+                if (one.isNewOne())
+                    newRegs.add(one);
+            }
+            if (registrationBOImpl.addAllRegistration(newRegs)) {
+                OptionPane.showDoneAtSide("New Registration successfully added.");
+                screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/basic/ActivityMenu.fxml",
+                        this.acAddStudent, this);
             } else {
                 OptionPane.showWarning("Somethings wrong");
             }
         } catch (Exception e) {
-            Logger.getLogger(AddStudentForActivity_controller.class.getName()).log(Level.SEVERE, null, e);
+            callLogger(e);
             OptionPane.showWarning("Something's wrong we can't do your request");
 
         }
@@ -166,25 +170,28 @@ public class AddStudentForActivity_controller implements Initializable {
     @FXML
     void cboxActivity_onAction(ActionEvent event) {
         try {
-            System.out.println("Passsss");
-            allStudent = studentBOImpl.getStudentNotDoThisActivity(cboxActivity.getSelectionModel().getSelectedItem().getAID());
-            System.out.println(allStudent);
+            ActivityDTO selectActivity = cboxActivity.getSelectionModel().getSelectedItem();
+            allStudent = studentBOImpl.getStudentNotDoThisActivity(
+                    selectActivity.getAID());
+            ObservableList<RegistrationDTO> registrationOfThisActivity
+                    = activityBOImpl.getRegistrationOfThisActivity(selectActivity.getAID());
+            tblStudentList.getItems().setAll(registrationOfThisActivity);
             autoComplete.changeSuggestion(allStudent);
             autoComplete.setAutoCompletionsAction(event1 -> {
                 StudentDTO studentDTO = autoComplete.getSelectedItemByName();
-                txtStudentID.setText(studentDTO.getSID() + "");
+                txtStudentID.setText(String.valueOf(studentDTO.getSID()));
             });
             cboxActivity.setDisable(true);
         } catch (Exception e) {
-            Logger.getLogger(AddStudentForActivity_controller.class.getName()).log(Level.SEVERE, null, e);
+            callLogger(e);
         }
     }
 
     @FXML
     private void txtStudentName_onAction(ActionEvent actionEvent) {
-        StudentDTO selectedItemByName = autoComplete.getSelectedItemByName();
-        if(selectedItemByName == null){
-            OptionPane.showErrorAtSide("Please select a student");
+        selectedStudent = autoComplete.getSelectedItemByName();
+        if (selectedStudent == null) {
+            OptionPane.showErrorAtSide("The student name is not available or already added.");
         }
         btAdd.fire();
     }
@@ -193,18 +200,24 @@ public class AddStudentForActivity_controller implements Initializable {
     void btCancel_onAction(ActionEvent event) {
         boolean answer = OptionPane.askQuestion("Do you want to cancel?");
         if (answer) {
-            screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/basic/StudentMenu.fxml", this.acAddStudent, this);
+            screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/basic/StudentMenu.fxml",
+                    this.acAddStudent, this);
         }
     }
 
     @FXML
     void dtJoinedDate_onAction(ActionEvent event) {
-
     }
 
     @FXML
     void txtStudentID_onAction(ActionEvent event) {
-
+        if (Common.isInteger(txtStudentID.getText())) {
+            selectedStudent = autoComplete.searchByID(txtStudentID.getText());
+            if (selectedStudent == null)
+                OptionPane.showErrorAtSide("Student ID might be already added.");
+            else txtStudentName.requestFocus();
+        } else
+            OptionPane.showErrorAtSide("Student ID is invalid.");
     }
 
 }

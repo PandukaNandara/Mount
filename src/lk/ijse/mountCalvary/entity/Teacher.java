@@ -12,8 +12,8 @@ public class Teacher {
     }
 
     public Teacher(int TID, String tName) {
+        this(tName);
         this.TID = TID;
-        this.tName = tName;
     }
 
     public int getTID() {

@@ -12,7 +12,7 @@ import org.controlsfx.control.textfield.AutoCompletionBinding;
 import java.util.HashSet;
 import java.util.Set;
 
-public class AutoComplete<T extends SearchProvider> {
+public final class AutoComplete<T extends SearchProvider> {
     private final TextField textField;
     // T is the Class of the list.
 
@@ -62,7 +62,7 @@ public class AutoComplete<T extends SearchProvider> {
         return null;
     }
 
-    public T getSelecteedItemByID() {
+    public T getSelectedItemByID() {
         String id = textField.getText().trim();
         for (T oneItem : resultSet) {
             if (oneItem.getID() == Integer.parseInt(id))
@@ -82,7 +82,8 @@ public class AutoComplete<T extends SearchProvider> {
     public T searchByID(String id) {
         return searchByID(Integer.parseInt(id));
     }
-    public boolean isResultSetEmpty(){
+
+    public boolean isResultSetEmpty() {
         return resultSet == null;
     }
 }

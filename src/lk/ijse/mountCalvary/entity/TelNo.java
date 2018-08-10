@@ -2,28 +2,27 @@ package lk.ijse.mountCalvary.entity;
 
 public class TelNo {
     private int telID;
-    private int telNo;
+    private String telNo;
     private int SID;
 
     public TelNo() {
     }
 
-    public TelNo(int telNo, int SID) {
+    public TelNo(String telNo, int SID) {
         this.telNo = telNo;
         this.SID = SID;
     }
 
-    public TelNo(int telID, int telNo, int SID) {
+    public TelNo(int telID, String telNo, int SID) {
+        this(telNo, SID);
         this.telID = telID;
-        this.telNo = telNo;
-        this.SID = SID;
     }
 
-    public int getTelNo() {
+    public String getTelNo() {
         return telNo;
     }
 
-    public void setTelNo(int telNo) {
+    public void setTelNo(String telNo) {
         this.telNo = telNo;
     }
 

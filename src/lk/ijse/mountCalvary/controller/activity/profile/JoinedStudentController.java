@@ -12,6 +12,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.ActivityBO;
+import lk.ijse.mountCalvary.controller.SuperController;
 import lk.ijse.mountCalvary.controller.tool.*;
 import lk.ijse.mountCalvary.model.ActivityDTO;
 import lk.ijse.mountCalvary.model.RegistrationDTO;
@@ -24,10 +25,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-public class JoinedStudentController implements Initializable {
+public final class JoinedStudentController extends SuperController implements Initializable {
 
     private static JasperReport joinedStudentReport;
     ArrayList<RegistrationDTO> allJoinedStudent;
@@ -72,11 +71,11 @@ public class JoinedStudentController implements Initializable {
             registrationOfThisActivity = activityBOImpl.getRegistrationOfThisActivity(activityDTO.getAID());
             cboxTimeRange.getSelectionModel().select(DateRange.ALL);
             tblStudentList.getItems().setAll(registrationOfThisActivity);
+            Common.clearSortOrder(tblStudentList);
             cboxTimeRange.getItems().setAll(DateRange.getDateRanges());
             cboxTimeRange.getSelectionModel().select(0);
         } catch (Exception e) {
-            Logger.getLogger(JoinedStudentController.class.getName()).log(Level.SEVERE, null, e);
-
+            callLogger(e);
         }
     }
 
@@ -136,8 +135,7 @@ public class JoinedStudentController implements Initializable {
                 Reporter.showReport(attendancePrint, "Joined student");
 
             } catch (Exception e) {
-                Logger.getLogger(JoinedStudentController.class.getName()).log(Level.SEVERE, null, e);
-
+                callLogger(e);
             }
         } else {
             OptionPane.showErrorAtSide("Please select an activity to print.");

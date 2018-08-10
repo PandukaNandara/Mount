@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.*?>
+<?import java.net.*?>
+<VBox xmlns:fx="http://javafx.com/fxml/1" fx:id="acNewTerm" prefHeight="618.0" prefWidth="979.0"
+      styleClass="main-frame" xmlns="http://javafx.com/javafx/8.0.141"
+      fx:controller="lk.ijse.mountCalvary.controller.test.NewTerm_controller">
+
+    <children>
+        <Label styleClass="title" text="New Term"/>
+        <HBox styleClass="node-pane" VBox.vgrow="NEVER">
+            <children>
+                <JFXComboBox fx:id="cboxYear" labelFloat="true" onAction="#cboxYear_onAction" prefHeight="25.0"
+                             prefWidth="818.0" promptText="Year" HBox.hgrow="ALWAYS"/>
+                <JFXComboBox fx:id="cboxTerm" onAction="#cboxTerm_onAction" prefHeight="25.0" prefWidth="810.0"
+                             promptText="Term" HBox.hgrow="ALWAYS"/>
+            </children>
+        </HBox>
+        <JFXTextField fx:id="txtTernName" labelFloat="true" onAction="#txtTermName_onAction" promptText="Term name"
+                      VBox.vgrow="NEVER"/>
+        <Region maxHeight="1.7976931348623157E308" prefWidth="200.0" VBox.vgrow="ALWAYS"/>
+        <HBox prefWidth="1200.0" styleClass="button-pane">
+            <children>
+                <JFXButton fx:id="btCancel" onAction="#btCancel_onAction" styleClass="cancel" text="Cancel"
+                           textFill="WHITE"/>
+                <JFXButton fx:id="btSubmit" onAction="#btSubmit_onAction" text="Submit" textFill="WHITE"/>
+            </children>
+        </HBox>
+    </children>
+    <stylesheets>
+        <URL value="@../../css/frame.css"/>
+        <URL value="@../../css/combo-box.css"/>
+        <URL value="@../../css/table-view.css"/>
+        <URL value="@../../css/text-and-password-field.css"/>
+        <URL value="@../../css/date-picker.css"/>
+        <URL value="@../../css/radio-button.css"/>
+        <URL value="@../../css/text-area.css"/>
+        <URL value="@../../css/button.css"/>
+        <URL value="@../../css/label.css"/>
+        <URL value="@../../css/check-box.css"/>
+    </stylesheets>
+</VBox>

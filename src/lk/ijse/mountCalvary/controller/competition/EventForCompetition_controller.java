@@ -15,16 +15,15 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.*;
+import lk.ijse.mountCalvary.controller.SuperController;
 import lk.ijse.mountCalvary.controller.tool.*;
 import lk.ijse.mountCalvary.model.*;
 
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-public class EventForCompetition_controller implements Initializable {
+public final class EventForCompetition_controller extends SuperController implements Initializable {
     @FXML
     private Label lblHead;
 
@@ -110,8 +109,7 @@ public class EventForCompetition_controller implements Initializable {
             loadAgeGroup();
             loadActivity();
         } catch (Exception e) {
-            Logger.getLogger(EventForCompetition_controller.class.getName()).log(Level.SEVERE, null, e);
-
+            callLogger(e);
         }
     }
 
@@ -122,8 +120,7 @@ public class EventForCompetition_controller implements Initializable {
             eventListDTOS = eventListBOImpl.getEventListForThisCompetition(cboxCompetition.getSelectionModel().getSelectedItem().getCID());
             tblEventList.getItems().setAll(eventListDTOS);
         } catch (Exception e) {
-            Logger.getLogger(EventForCompetition_controller.class.getName()).log(Level.SEVERE, null, e);
-
+            callLogger(e);
         }
     }
 
@@ -203,8 +200,7 @@ public class EventForCompetition_controller implements Initializable {
             ObservableList<EventDTO> eventDTOS = eventBOImpl.getEventForThisActivity(cboxActivity.getSelectionModel().getSelectedItem().getAID());
             tblEventListOfActivity.getItems().setAll(eventDTOS);
         } catch (Exception e) {
-            Logger.getLogger(EventForCompetition_controller.class.getName()).log(Level.SEVERE, null, e);
-
+            callLogger(e);
         }
 
     }
@@ -253,7 +249,7 @@ public class EventForCompetition_controller implements Initializable {
                     }
 
                 } catch (Exception e) {
-                    Logger.getLogger(EventForCompetition_controller.class.getName()).log(Level.SEVERE, null, e);
+                    callLogger(e);
                     OptionPane.showErrorAtSide("Something's wrong we can't do your request now");
 
 
@@ -274,8 +270,7 @@ public class EventForCompetition_controller implements Initializable {
             fooController.setSelectedItem(cboxCompetition.getSelectionModel().getSelectedIndex());
 
         } catch (Exception e) {
-            Logger.getLogger(EventForCompetition_controller.class.getName()).log(Level.SEVERE, null, e);
-
+            callLogger(e);
         }
     }
 
@@ -304,8 +299,7 @@ public class EventForCompetition_controller implements Initializable {
 
             loadActivity();
         } catch (Exception e) {
-            Logger.getLogger(EventForCompetition_controller.class.getName()).log(Level.SEVERE, null, e);
-
+            callLogger(e);
         }
 
     }

@@ -5,12 +5,8 @@ public class LogIn {
     private String userName;
     private String password;
     private String salt;
-    public LogIn() {
-    }
 
-    public LogIn(String userName, String password) {
-        this.userName = userName;
-        this.password = password;
+    public LogIn() {
     }
 
     public LogIn(String userName, String password, String salt) {
@@ -20,16 +16,8 @@ public class LogIn {
     }
 
     public LogIn(int logInID, String userName, String password, String salt) {
+        this(userName, password, salt);
         this.logInID = logInID;
-        this.userName = userName;
-        this.password = password;
-        this.salt = salt;
-    }
-
-    public LogIn(int logInID, String userName, String password) {
-        this.logInID = logInID;
-        this.userName = userName;
-        this.password = password;
     }
 
     public int getLogInID() {

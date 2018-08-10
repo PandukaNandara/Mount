@@ -18,6 +18,7 @@ public class EventListDAOImpl implements EventListDAO {
                 evtlist.getGID()
         ) > 0;
     }
+
     @Override
     public boolean saveWithoutPKey(EventList evtlist) throws Exception {
         return CrudUtil.executeUpdate("INSERT INTO event_list(CID, EID, GID) VALUES (?, ?, ?)",
@@ -46,14 +47,14 @@ public class EventListDAOImpl implements EventListDAO {
     @Override
     public EventList search(Integer id) throws Exception {
         ResultSet rst = CrudUtil.executeQuery("SELECT * From event_list where ELID = ?", id);
-        if(rst.next()) {
+        if (rst.next()) {
             return new EventList(
                     rst.getInt("ELID"),
                     rst.getInt("CID"),
                     rst.getInt("EID"),
                     rst.getInt("GID")
             );
-        }else{
+        } else {
             return null;
         }
     }
@@ -62,7 +63,7 @@ public class EventListDAOImpl implements EventListDAO {
     public ArrayList<EventList> getAll() throws Exception {
         ResultSet rst = CrudUtil.executeQuery("SELECT * From event_list");
         ArrayList<EventList> allEvent_list = new ArrayList<>();
-        if(rst.next()) {
+        if (rst.next()) {
             allEvent_list.add(new EventList(
                     rst.getInt("ELID"),
                     rst.getInt("CID"),
@@ -72,10 +73,12 @@ public class EventListDAOImpl implements EventListDAO {
         }
         return allEvent_list;
     }
+
     @Override
     public Integer lastIndex() throws Exception {
         return CrudUtil.executeQuery("SELECT max(ELID) From event_list").getInt(1);
     }
+
     @Override
     public Integer getIncrementIndex() throws Exception {
         ResultSet rst = CrudUtil.executeQuery("SELECT AUTO_INCREMENT\n" +

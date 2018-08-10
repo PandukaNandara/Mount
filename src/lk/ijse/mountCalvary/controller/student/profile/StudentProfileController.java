@@ -10,15 +10,14 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.StudentBO;
+import lk.ijse.mountCalvary.controller.SuperController;
 import lk.ijse.mountCalvary.controller.tool.*;
 import lk.ijse.mountCalvary.model.StudentDTO;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-public class StudentProfileController implements Initializable {
+public final class StudentProfileController extends SuperController implements Initializable {
 
     @FXML
     private BorderPane bpStudentProfile;
@@ -37,6 +36,10 @@ public class StudentProfileController implements Initializable {
     private VBox competitionForStudent;
     @FXML
     private VBox studentPayment;
+    @FXML
+    private VBox physicalEvaluationTestForStudent;
+    @FXML
+    private VBox studentContributionForCompetition;
 
     @FXML
     private CompetitionForStudentController competitionForStudentController;
@@ -46,9 +49,12 @@ public class StudentProfileController implements Initializable {
     private PersonalDetailController personalDetailController;
     @FXML
     private StudentPaymentController studentPaymentController;
+    @FXML
+    private PhysicalEvaluationTestForStudentController physicalEvaluationTestForStudentController;
+    @FXML
+    private StudentContributionForCompetitionController studentContributionForCompetitionController;
 
     private AutoComplete<StudentDTO> autoCompleteStudent;
-
     private StudentBO studentBOImpl;
     private ObservableList<StudentDTO> allStudentDetail;
 
@@ -62,13 +68,14 @@ public class StudentProfileController implements Initializable {
             autoCompleteStudent = new AutoComplete<>(txtStudentName, allStudentDetail);
             autoCompleteStudent.setAutoCompletionsAction(event -> btSearch.fire());
         } catch (Exception e) {
-            Logger.getLogger(StudentProfileController.class.getName()).log(Level.SEVERE, null, e);
+            callLogger(e);
         }
         personalDetailController.init(this);
         attendanceAndActivityOfStudentController.init(this);
         competitionForStudentController.init(this);
         studentPaymentController.init(this);
-
+        physicalEvaluationTestForStudentController.init(this);
+        studentContributionForCompetitionController.init(this);
     }
 
     private void loadStudentDetail() throws Exception {
@@ -92,12 +99,12 @@ public class StudentProfileController implements Initializable {
     }
 
     private void showDataOnTabs(StudentDTO studentDTO) {
-
-        personalDetailController.insertStudentID(studentDTO);
-        attendanceAndActivityOfStudentController.insertStudentID(studentDTO);
-        competitionForStudentController.insertStudentID(studentDTO);
-        studentPaymentController.insertStudentID(studentDTO);
-
+        personalDetailController.insertStudent(studentDTO);
+        attendanceAndActivityOfStudentController.insertStudent(studentDTO);
+        competitionForStudentController.insertStudent(studentDTO);
+        studentPaymentController.insertStudent(studentDTO);
+        physicalEvaluationTestForStudentController.insertStudent(studentDTO);
+        studentContributionForCompetitionController.insertStudent(studentDTO);
     }
 
     @FXML
@@ -108,7 +115,7 @@ public class StudentProfileController implements Initializable {
             int SID = Integer.parseInt(studentID);
             StudentDTO studentDTO = autoCompleteStudent.searchByID(SID);
             if (studentDTO != null) {
-                txtStudentName.setText(studentDTO.getsName());
+                txtStudentName.setText(studentDTO.getSName());
                 showDataOnTabs(studentDTO);
             } else {
                 OptionPane.showErrorAtSide("the student ID is not existed.");
@@ -119,12 +126,5 @@ public class StudentProfileController implements Initializable {
         }
 
     }
-
-//
-//    @FXML
-//    private void btPrint_onAction(ActionEvent actionEvent) {}
-//
-//    @FXML
-//    private void btExcel_onAction(ActionEvent actionEvent) {}
 
 }

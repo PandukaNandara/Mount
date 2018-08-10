@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import de.jensd.fx.glyphs.materialicons.MaterialIconView?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+<?import java.net.*?>
+<VBox xmlns:fx="http://javafx.com/fxml/1" fx:id="acImportStudentDetails" prefHeight="400.0" styleClass="main-frame"
+      xmlns="http://javafx.com/javafx/8.0.141"
+      fx:controller="lk.ijse.mountCalvary.controller.student.ImportStudentAndPreview_controller">
+    <stylesheets>
+        <URL value="@../../css/frame.css"/>
+        <URL value="@../../css/combo-box.css"/>
+        <URL value="@../../css/table-view.css"/>
+        <URL value="@../../css/text-and-password-field.css"/>
+        <URL value="@../../css/date-picker.css"/>
+        <URL value="@../../css/radio-button.css"/>
+        <URL value="@../../css/text-area.css"/>
+        <URL value="@../../css/button.css"/>
+        <URL value="@../../css/label.css"/>
+        <URL value="@../../css/check-box.css"/>
+    </stylesheets>
+    <children>
+        <Label prefHeight="33.0" prefWidth="425.0" styleClass="title"
+               text="Import student details from external database">
+            <font>
+                <Font name="Arial" size="18.0"/>
+            </font>
+        </Label>
+        <Text strokeType="OUTSIDE" strokeWidth="0.0"
+              text="You can import student details from external Microsoft access database. If a student record has been already added, it will be updated. "
+              wrappingWidth="1188.13671875">
+            <font>
+                <Font size="13.0"/>
+            </font>
+        </Text>
+        <HBox styleClass="node-pane">
+            <children>
+                <JFXTextField fx:id="txtDatabasePath" labelFloat="true" prefWidth="607.0" promptText="Database path"/>
+                <JFXButton fx:id="btImport" alignment="CENTER" buttonType="RAISED" onAction="#btImport_onAction"
+                           prefHeight="36.0" prefWidth="128.0" ripplerFill="WHITE"
+                           style="-fx-background-color: #2196f3;" text="Browse" textAlignment="CENTER" textFill="WHITE">
+                    <graphic>
+                        <MaterialIconView fill="WHITE" glyphName="OPEN_IN_BROWSER" size="25"/>
+                    </graphic>
+                </JFXButton>
+            </children>
+        </HBox>
+        <JFXCheckBox fx:id="cbxDefault" maxWidth="1.7976931348623157E308" onAction="#cbxDefault_onAction"
+                     prefHeight="18.0" prefWidth="514.0" selected="true" styleClass="normal-check-box"
+                     text="Use default parameter's value" VBox.vgrow="ALWAYS"/>
+        <HBox styleClass="node-pane">
+            <children>
+                <JFXTextField fx:id="txtTableName" labelFloat="true" promptText="Table name" HBox.hgrow="ALWAYS"/>
+                <Region prefHeight="25.0" prefWidth="134.0" HBox.hgrow="ALWAYS"/>
+            </children>
+        </HBox>
+        <Label styleClass="sub-title" text="Column names"/>
+        <HBox styleClass="node-pane">
+            <children>
+                <JFXTextField fx:id="txtStudentID" labelFloat="true" promptText="Student ID" HBox.hgrow="ALWAYS"/>
+                <JFXTextField fx:id="txtStudentName" labelFloat="true" promptText="Student name" HBox.hgrow="ALWAYS"/>
+            </children>
+        </HBox>
+        <HBox styleClass="node-pane">
+            <children>
+                <JFXTextField fx:id="txtGender" labelFloat="true" promptText="Gender" HBox.hgrow="ALWAYS"/>
+                <JFXTextField fx:id="txtDOB" labelFloat="true" promptText="Date of birth" HBox.hgrow="ALWAYS"/>
+            </children>
+        </HBox>
+        <HBox styleClass="node-pane">
+            <children>
+                <JFXTextField fx:id="txtClass" labelFloat="true" promptText="Class" HBox.hgrow="ALWAYS"/>
+                <JFXTextField fx:id="txtFatherName" labelFloat="true" promptText="Father name" HBox.hgrow="ALWAYS"/>
+            </children>
+        </HBox>
+        <HBox styleClass="node-pane">
+            <children>
+                <JFXTextField fx:id="txtMotherName" labelFloat="true" promptText="Mother name" HBox.hgrow="ALWAYS"/>
+                <JFXTextField fx:id="txtAddress" labelFloat="true" promptText="Address" HBox.hgrow="ALWAYS"/>
+            </children>
+        </HBox>
+        <HBox styleClass="node-pane">
+            <children>
+                <JFXTextField fx:id="txtQuit" labelFloat="true" promptText="Student left" HBox.hgrow="ALWAYS"/>
+                <JFXTextField fx:id="txtBCID" labelFloat="true" promptText="birth certificate ID" HBox.hgrow="ALWAYS"/>
+            </children>
+        </HBox>
+        <HBox styleClass="node-pane">
+            <children>
+                <JFXTextField fx:id="txtDecs" labelFloat="true" promptText="About student" HBox.hgrow="ALWAYS"/>
+                <Region prefHeight="25.0" prefWidth="134.0" HBox.hgrow="ALWAYS"/>
+            </children>
+        </HBox>
+        <HBox styleClass="node-pane"/>
+        <Region prefHeight="0.0" prefWidth="1200.0" VBox.vgrow="ALWAYS"/>
+        <HBox styleClass="button-pane">
+            <children>
+                <JFXButton fx:id="btCancel" onAction="#btCancel_onAction" prefHeight="33.0" prefWidth="124.0"
+                           styleClass="cancel" text="Cancel" textFill="#2196f3">
+                    <font>
+                        <Font name="System Bold" size="12.0"/>
+                    </font>
+                </JFXButton>
+                <JFXButton fx:id="btPreview" onAction="#btPreview_onAction" prefHeight="33.0" prefWidth="124.0"
+                           style="-fx-background-color: #2196F3;" text="Preview" textFill="WHITE"/>
+            </children>
+        </HBox>
+    </children>
+</VBox>

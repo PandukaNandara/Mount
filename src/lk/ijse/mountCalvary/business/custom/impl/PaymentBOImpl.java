@@ -4,6 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import lk.ijse.mountCalvary.business.custom.PaymentBO;
 import lk.ijse.mountCalvary.controller.tool.Month;
+import lk.ijse.mountCalvary.controller.tool.Year;
 import lk.ijse.mountCalvary.dao.DAOFactory;
 import lk.ijse.mountCalvary.dao.custom.ActivityDAO;
 import lk.ijse.mountCalvary.dao.custom.PaymentDAO;
@@ -16,7 +17,7 @@ import lk.ijse.mountCalvary.model.PaymentDTO;
 import java.sql.Connection;
 import java.util.ArrayList;
 
-public class PaymentBOImpl implements PaymentBO {
+public final class PaymentBOImpl implements PaymentBO {
     private Connection conn;
 
     private PaymentDAO paymentDAOImpl;
@@ -144,5 +145,14 @@ public class PaymentBOImpl implements PaymentBO {
 
         }
         return FXCollections.observableArrayList(paymentDTOS);
+    }
+
+    @Override
+    public ObservableList<Year> getDistinctYears() throws Exception {
+        ObservableList<Year> years = FXCollections.observableArrayList();
+        years.add(Year.ALL);
+        for (Integer year : paymentDAOImpl.getDistinctYears())
+            years.add(new Year(year));
+        return years;
     }
 }

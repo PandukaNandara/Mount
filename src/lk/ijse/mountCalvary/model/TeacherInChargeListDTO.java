@@ -6,17 +6,19 @@ public class TeacherInChargeListDTO {
     private int TID;
     private String teacherName;
     private TeacherDTO teacherDTO;
+
     public TeacherInChargeListDTO(TeacherDTO teacherDTO) {
         this.teacherDTO = teacherDTO;
         this.teacherName = teacherDTO.getTName();
         this.TID = teacherDTO.getTID();
     }
+
     public TeacherInChargeListDTO(int TINCID, int CID, TeacherDTO teacherDTO) {
         this.TINCID = TINCID;
         this.CID = CID;
         this.teacherDTO = teacherDTO;
         this.TID = teacherDTO.getTID();
-        this.teacherName= teacherDTO.getTName();
+        this.teacherName = teacherDTO.getTName();
     }
 
     public TeacherInChargeListDTO() {

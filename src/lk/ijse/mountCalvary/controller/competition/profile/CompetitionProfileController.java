@@ -10,6 +10,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.CompetitionBO;
+import lk.ijse.mountCalvary.controller.SuperController;
 import lk.ijse.mountCalvary.controller.tool.ButtonFireForEnterSetter;
 import lk.ijse.mountCalvary.controller.tool.GlobalBoolean;
 import lk.ijse.mountCalvary.controller.tool.OptionPane;
@@ -18,30 +19,11 @@ import lk.ijse.mountCalvary.model.CompetitionDTO;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-public class CompetitionProfileController implements Initializable {
+public final class CompetitionProfileController extends SuperController implements Initializable {
 
     @FXML
     private BorderPane bpCompetitionProfile;
-
-    @FXML
-    private VBox vbxSideBar;
-
-    @FXML
-    private JFXButton btCompetitionDetails;
-
-    @FXML
-    private JFXButton btEventDetail;
-
-//
-//    @FXML
-//    private JFXButton btPrint;
-//
-//    @FXML
-//    private JFXButton btExcel;
-
     @FXML
     private JFXButton btSearch;
     @FXML
@@ -51,14 +33,19 @@ public class CompetitionProfileController implements Initializable {
     @FXML
     private VBox eventAndActivity;
     @FXML
+    private VBox competitionContributionViewer;
+    @FXML
     private CompetitionDetailController competitionDetailController;
     @FXML
     private VBox acCompetitionRoot;
     @FXML
     private EventAndActivityController eventAndActivityController;
+    @FXML
+    private CompetitionContributionViewerController competitionContributionViewerController;
 
     private CompetitionBO competitionBOImpl;
     private ScreenLoader screenLoader = ScreenLoader.getInstance();
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         GlobalBoolean.setLock(false);
@@ -67,12 +54,11 @@ public class CompetitionProfileController implements Initializable {
 
         competitionDetailController.init(this);
         eventAndActivityController.init(this);
-
+        competitionContributionViewerController.init(this);
         try {
             loadCompetition();
-        }catch (Exception e){
-            Logger.getLogger(CompetitionProfileController.class.getName()).log(Level.SEVERE, null, e);
-
+        } catch (Exception e) {
+            callLogger(e);
         }
     }
 
@@ -80,12 +66,13 @@ public class CompetitionProfileController implements Initializable {
         ObservableList<CompetitionDTO> allCompetition = competitionBOImpl.getAllCompetition();
         cboxCompetitionName.getItems().setAll(allCompetition);
     }
+
     @FXML
     void btSearch_onAction(ActionEvent event) {
         CompetitionDTO competitionDTO = cboxCompetitionName.getSelectionModel().getSelectedItem();
-        if(competitionDTO != null){
+        if (competitionDTO != null) {
             showOnTabs(competitionDTO);
-        }else {
+        } else {
             OptionPane.showErrorAtSide("Please select a competition.");
         }
     }
@@ -93,6 +80,7 @@ public class CompetitionProfileController implements Initializable {
     private void showOnTabs(CompetitionDTO competitionDTO) {
         competitionDetailController.insertCompetition(competitionDTO);
         eventAndActivityController.insertCompetition(competitionDTO);
+        competitionContributionViewerController.insertCompetition(competitionDTO);
     }
 
     @FXML
@@ -109,13 +97,5 @@ public class CompetitionProfileController implements Initializable {
     void btEventDetail_onAction(ActionEvent event) {
         screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/competition/profile/EventAndActivity.fxml", this.acCompetitionRoot, this);
     }
-//
-//    @FXML
-//    void btExcel_onAction(ActionEvent event) {
-//
-//    }
-
-
-
 
 }

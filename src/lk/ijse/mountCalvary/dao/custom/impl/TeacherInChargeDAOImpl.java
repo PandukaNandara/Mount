@@ -16,6 +16,7 @@ public class TeacherInChargeDAOImpl implements TeacherInChargeListDAO {
                 tinch.getCID()
         ) > 0;
     }
+
     @Override
     public boolean saveWithoutPKey(TeacherInChargeList tinch) throws Exception {
         return CrudUtil.executeUpdate("INSERT INTO TEACHER_IN_CHARGE_LIST(TID, CID) VALUES (?, ?)",
@@ -57,7 +58,7 @@ public class TeacherInChargeDAOImpl implements TeacherInChargeListDAO {
     public ArrayList<TeacherInChargeList> getAll() throws Exception {
         ResultSet rst = CrudUtil.executeQuery("SELECT * From TEACHER_IN_CHARGE_LIST");
         ArrayList<TeacherInChargeList> allTeacherInCharge = new ArrayList<>();
-        while(rst.next()) {
+        while (rst.next()) {
             new TeacherInChargeList(
                     rst.getInt("TINCID"),
                     rst.getInt("TID"),

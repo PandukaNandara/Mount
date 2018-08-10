@@ -17,6 +17,7 @@ public class AgeGroupDAOImpl implements AgeGroupDAO {
                 ag.getMax()
         ) > 0;
     }
+
     @Override
     public boolean saveWithoutPKey(AgeGroup ag) throws Exception {
         return CrudUtil.executeUpdate("INSERT into age_group(group_name, min, max) values(?, ?, ?)",
@@ -39,20 +40,20 @@ public class AgeGroupDAOImpl implements AgeGroupDAO {
 
     @Override
     public boolean delete(Integer id) throws Exception {
-        return CrudUtil.executeUpdate("DELETE from age_group where GID = ?)",id) > 0;
+        return CrudUtil.executeUpdate("DELETE from age_group where GID = ?)", id) > 0;
     }
 
     @Override
     public AgeGroup search(Integer id) throws Exception {
         ResultSet rst = CrudUtil.executeQuery("SELECT * From age_group where GID = ?", id);
-        if(rst.next()) {
+        if (rst.next()) {
             return new AgeGroup(
                     rst.getInt("GID"),
                     rst.getString("group_name"),
                     rst.getInt("min"),
                     rst.getInt("max")
             );
-        }else{
+        } else {
             return null;
         }
     }
@@ -61,7 +62,7 @@ public class AgeGroupDAOImpl implements AgeGroupDAO {
     public ArrayList<AgeGroup> getAll() throws Exception {
         ResultSet rst = CrudUtil.executeQuery("SELECT * From age_group");
         ArrayList<AgeGroup> ageGroupList = new ArrayList<>();
-        while(rst.next()) {
+        while (rst.next()) {
             ageGroupList.add(new AgeGroup(
                     rst.getInt("GID"),
                     rst.getString("group_name"),
@@ -73,7 +74,7 @@ public class AgeGroupDAOImpl implements AgeGroupDAO {
     }
 
     @Override
-    public Integer lastIndex() throws Exception {
+    public Integer lastIndex() {
         return null;
     }
 

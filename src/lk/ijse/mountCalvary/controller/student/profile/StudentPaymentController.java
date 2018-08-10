@@ -16,6 +16,7 @@ import javafx.scene.layout.VBox;
 import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.PaymentBO;
 import lk.ijse.mountCalvary.business.custom.RegistrationBO;
+import lk.ijse.mountCalvary.controller.SuperController;
 import lk.ijse.mountCalvary.controller.tool.*;
 import lk.ijse.mountCalvary.model.ActivityDTO;
 import lk.ijse.mountCalvary.model.PaymentDTO;
@@ -29,10 +30,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-public class StudentPaymentController implements Initializable {
+public final class StudentPaymentController extends SuperController implements Initializable {
 
     private static JasperReport paymentReport;
     private static JasperReport jasperReport;
@@ -53,7 +52,7 @@ public class StudentPaymentController implements Initializable {
     @FXML
     private JFXComboBox<Month> cboxMonth;
     @FXML
-    private JFXComboBox<Integer> cboxYear;
+    private JFXComboBox<Year> cboxYear;
     @FXML
     private JFXButton btPrint;
     @FXML
@@ -87,8 +86,12 @@ public class StudentPaymentController implements Initializable {
         cboxMonth.getItems().add(0, new Month(-1));
         cboxMonth.getSelectionModel().select(0);
 
-        cboxYear.getItems().setAll(Common.loadYear());
-        cboxYear.getSelectionModel().select(new Integer(LocalDate.now().getYear()));
+        try {
+            cboxYear.getItems().setAll(paymentBOImpl.getDistinctYears());
+        } catch (Exception e) {
+            callLogger(e);
+        }
+        cboxYear.getSelectionModel().select(LocalDate.now().getYear());
         cboxActivity.getSelectionModel().select(0);
 
     }
@@ -102,7 +105,7 @@ public class StudentPaymentController implements Initializable {
         filterPayment();
     }
 
-    protected void insertStudentID(StudentDTO studentDTO) {
+    protected void insertStudent(StudentDTO studentDTO) {
         try {
 
             selectedStudent = studentDTO;
@@ -117,10 +120,10 @@ public class StudentPaymentController implements Initializable {
 
             ////////////////////////////////////////////
             tblStudentPayment.getItems().setAll(paymentDetailOfThisStudent);
+            Common.clearSortOrder(tblStudentPayment);
             cboxActivity.getSelectionModel().select(0);
         } catch (Exception e) {
-            Logger.getLogger(StudentPaymentController.class.getName()).log(Level.SEVERE, null, e);
-
+            callLogger(e);
         }
     }
 
@@ -132,7 +135,7 @@ public class StudentPaymentController implements Initializable {
     private void filterPayment() {
         try {
             ArrayList<PaymentDTO> paymentDTOS = new ArrayList<>();
-            int year = cboxYear.getSelectionModel().getSelectedItem();
+            int year = cboxYear.getSelectionModel().getSelectedItem().getYear();
             int month = cboxMonth.getSelectionModel().getSelectedItem().getValue();
             int AID = cboxActivity.getSelectionModel().getSelectedItem().getAID();
 
@@ -148,7 +151,7 @@ public class StudentPaymentController implements Initializable {
             for (PaymentDTO onePayment : paymentDetailOfThisStudent) {
                 if ((AID == -1 || AID == onePayment.getAID()) &&
                         (month == -1 || month == onePayment.getMonth().getValue()) &&
-                        (year == onePayment.getYear())
+                        (year == -1 || year == onePayment.getYear())
                         )
                     paymentDTOS.add(onePayment);
             }
@@ -195,7 +198,7 @@ public class StudentPaymentController implements Initializable {
             }
 
         } catch (Exception e) {
-            Logger.getLogger(StudentPaymentController.class.getName()).log(Level.SEVERE, null, e);
+            callLogger(e);
         }
         else
             filterPayment();
@@ -218,7 +221,7 @@ public class StudentPaymentController implements Initializable {
                 JRBeanCollectionDataSource payment = new JRBeanCollectionDataSource(tblStudentPayment.getItems());
                 HashMap map = new HashMap();
                 map.put("StudentID", selectedStudent.getSID());
-                map.put("StudentName", selectedStudent.getsName());
+                map.put("StudentName", selectedStudent.getSName());
                 map.put("Payment", payment);
 
                 if (selectedActivity.getAID() == -1) {
@@ -244,8 +247,7 @@ public class StudentPaymentController implements Initializable {
                 Reporter.showReport(jasperPrint, "Student payment");
 //                progress.close();
             } catch (Exception e) {
-                Logger.getLogger(StudentPaymentController.class.getName()).log(Level.SEVERE, null, e);
-
+                callLogger(e);
             }
         } else {
             OptionPane.showErrorAtSide("Please select a student to print.");

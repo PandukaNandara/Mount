@@ -5,6 +5,7 @@ public class LogInDTO {
     private String userName;
     private String password;
     private String salt;
+
     public LogInDTO() {
     }
 

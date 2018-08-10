@@ -40,7 +40,7 @@ public class ParticipationDTO {
         this.performance = performance;
     }
 
-    public ParticipationDTO(int ELID, RegistrationDTO reg ,String result, String performance, String eventName) {
+    public ParticipationDTO(int ELID, RegistrationDTO reg, String result, String performance, String eventName) {
         this.ELID = ELID;
         this.result = result;
         this.performance = performance;
@@ -58,7 +58,7 @@ public class ParticipationDTO {
         this.performance = performance;
     }
 
-    public ParticipationDTO(int CID, String competitionName, Date date, int AID,  String activityName, String eventName, String result, String performance) {
+    public ParticipationDTO(int CID, String competitionName, Date date, int AID, String activityName, String eventName, String result, String performance) {
         this.result = result;
         this.performance = performance;
         this.AID = AID;
@@ -93,6 +93,7 @@ public class ParticipationDTO {
         setGroupName(group_name);
         setELID(elid);
     }
+
     public int getPID() {
         return PID;
     }

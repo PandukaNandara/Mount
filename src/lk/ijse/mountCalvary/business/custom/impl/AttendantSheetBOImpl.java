@@ -14,7 +14,7 @@ import lk.ijse.mountCalvary.model.AttendantSheetDTO;
 import java.sql.Connection;
 import java.util.ArrayList;
 
-public class AttendantSheetBOImpl implements AttendantSheetBO {
+public final class AttendantSheetBOImpl implements AttendantSheetBO {
     private AttendantSheetDAO attendantSheetDAOImpl;
     private QueryDAO queryDAOImpl;
 

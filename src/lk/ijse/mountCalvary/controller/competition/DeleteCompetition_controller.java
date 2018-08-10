@@ -15,6 +15,7 @@ import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.CompetitionBO;
 import lk.ijse.mountCalvary.business.custom.EventListBO;
 import lk.ijse.mountCalvary.business.custom.ParticipationBO;
+import lk.ijse.mountCalvary.controller.SuperController;
 import lk.ijse.mountCalvary.controller.tool.ButtonFireForEnterSetter;
 import lk.ijse.mountCalvary.controller.tool.GlobalBoolean;
 import lk.ijse.mountCalvary.controller.tool.OptionPane;
@@ -26,10 +27,8 @@ import lk.ijse.mountCalvary.model.ParticipationDTO;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-public class DeleteCompetition_controller implements Initializable {
+public final class DeleteCompetition_controller extends SuperController implements Initializable {
     @FXML
     private VBox acDeleteCompetition;
     @FXML
@@ -61,6 +60,7 @@ public class DeleteCompetition_controller implements Initializable {
     private EventListBO eventListBOImpl;
     private CompetitionBO competitionBOImpl;
     private ScreenLoader screenLoader = ScreenLoader.getInstance();
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         GlobalBoolean.setLock(true);
@@ -80,7 +80,7 @@ public class DeleteCompetition_controller implements Initializable {
         try {
             loadCompetition();
         } catch (Exception e) {
-            Logger.getLogger(DeleteCompetition_controller.class.getName()).log(Level.SEVERE, null, e);
+            callLogger(e);
 
         }
     }
@@ -124,8 +124,7 @@ public class DeleteCompetition_controller implements Initializable {
                 }
             }
         } catch (Exception e) {
-            Logger.getLogger(DeleteCompetition_controller.class.getName()).log(Level.SEVERE, null, e);
-
+            callLogger(e);
         }
 
     }
@@ -137,7 +136,7 @@ public class DeleteCompetition_controller implements Initializable {
             ObservableList<EventListDTO> eventListForThisCompetition = eventListBOImpl.getEventListForThisCompetition(selectedCompetition.getCID());
             tblEventInCompetition.getItems().setAll(eventListForThisCompetition);
         } catch (Exception e) {
-            Logger.getLogger(DeleteCompetition_controller.class.getName()).log(Level.SEVERE, null, e);
+            callLogger(e);
 
         }
     }
@@ -150,7 +149,7 @@ public class DeleteCompetition_controller implements Initializable {
             ObservableList<ParticipationDTO> participationForThisEventList = participationBOImpl.getParticipationForThisEventList(selectedEventList.getELID());
             tblStudentList.getItems().setAll(participationForThisEventList);
         } catch (Exception e) {
-            Logger.getLogger(DeleteCompetition_controller.class.getName()).log(Level.SEVERE, null, e);
+            callLogger(e);
 
         }
     }

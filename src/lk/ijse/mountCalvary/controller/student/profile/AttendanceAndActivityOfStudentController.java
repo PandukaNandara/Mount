@@ -14,6 +14,7 @@ import javafx.scene.layout.VBox;
 import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.AttendantSheetBO;
 import lk.ijse.mountCalvary.business.custom.RegistrationBO;
+import lk.ijse.mountCalvary.controller.SuperController;
 import lk.ijse.mountCalvary.controller.tool.*;
 import lk.ijse.mountCalvary.model.ActivityDTO;
 import lk.ijse.mountCalvary.model.AttendantSheetDTO;
@@ -25,10 +26,8 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-public class AttendanceAndActivityOfStudentController implements Initializable {
+public final class AttendanceAndActivityOfStudentController extends SuperController implements Initializable {
 
     private static JasperReport attendanceOfStudentReport;
     @FXML
@@ -131,13 +130,12 @@ public class AttendanceAndActivityOfStudentController implements Initializable {
         this.studentProfileController = studentProfileController;
     }
 
-    protected void insertStudentID(StudentDTO i) {
+    protected void insertStudent(StudentDTO i) {
         try {
             selectedStudent = i;
             loadIntoRegistration(i);
         } catch (Exception e) {
-            Logger.getLogger(AttendanceAndActivityOfStudentController.class.getName()).log(Level.SEVERE, null, e);
-
+            callLogger(e);
         }
     }
 
@@ -155,13 +153,16 @@ public class AttendanceAndActivityOfStudentController implements Initializable {
         tblRegistration.getItems().setAll(registrationForThisStudent);
         tblAttendantSheet.getItems().setAll(allAttendance);
 
+        Common.clearSortOrder(tblAttendantSheet, tblRegistration);
     }
 
     @FXML
     private void btPrint_onAction(ActionEvent actionEvent) {
-
         try {
             if (selectedStudent != null) {
+//                Progress p = new Progress(attendanceAndActivityOfStudent);
+//                p.showMessage(attendanceAndActivityOfStudent, "Loading", "Now loading");
+
                 if (activityOfStudentReport == null) {
                     InputStream activityOfStudentFile = getClass().getResourceAsStream("/lk/ijse/mountCalvary/report/student/ActivityOfStudentReport.jrxml");
                     activityOfStudentReport = JasperCompileManager.compileReport(activityOfStudentFile);
@@ -170,20 +171,21 @@ public class AttendanceAndActivityOfStudentController implements Initializable {
                 JRBeanCollectionDataSource activities = new JRBeanCollectionDataSource(tblRegistration.getItems());
                 activityMap.put("Activities", activities);
                 activityMap.put("StudentID", selectedStudent.getSID());
-                activityMap.put("StudentName", selectedStudent.getsName());
+                activityMap.put("StudentName", selectedStudent.getSName());
+
+
                 JasperPrint activityPrint = JasperFillManager.fillReport(activityOfStudentReport, activityMap, new JREmptyDataSource());
 
-                /////
                 ActivityDTO selectedActivity = cboxActivity.getSelectionModel().getSelectedItem();
                 if (attendanceOfStudentReport == null) {
                     InputStream attendanceOfStudentFile = getClass().getResourceAsStream("/lk/ijse/mountCalvary/report/student/AttendanceOfStudentReport.jrxml");
                     attendanceOfStudentReport = JasperCompileManager.compileReport(attendanceOfStudentFile);
-                }
 
+                }
                 JRBeanCollectionDataSource attendantSheet = new JRBeanCollectionDataSource(tblAttendantSheet.getItems());
                 HashMap attendanceMap = new HashMap();
                 attendanceMap.put("StudentID", selectedStudent.getSID());
-                attendanceMap.put("StudentName", selectedStudent.getsName());
+                attendanceMap.put("StudentName", selectedStudent.getSName());
                 attendanceMap.put("Attendance", attendantSheet);
                 if (selectedActivity.getAID() == -1) {
                     attendanceMap.put("seeActivity", true);
@@ -196,14 +198,14 @@ public class AttendanceAndActivityOfStudentController implements Initializable {
                     JRPrintPage object = (JRPrintPage) page;
                     activityPrint.addPage(object);
                 }
+//                p.hide();
                 Reporter.showReport(activityPrint, "Attendance and activity of student");
 
             } else {
                 OptionPane.showErrorAtSide("Please select a student to print.");
             }
         } catch (Exception e) {
-            Logger.getLogger(AttendanceAndActivityOfStudentController.class.getName()).log(Level.SEVERE, null, e);
-
+            callLogger(e);
         }
 
     }

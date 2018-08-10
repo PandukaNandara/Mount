@@ -19,17 +19,12 @@ public class Event implements EventInterface {
     }
 
     public Event(int EID, String eName, int gender, int AID) {
+        this(eName, gender, AID);
         this.EID = EID;
-        this.eName = eName;
-        this.gender = gender;
-        this.AID = AID;
     }
 
     public Event(int EID, String eName, int gender, int AID, String aName) {
-        this.EID = EID;
-        this.eName = eName;
-        this.gender = gender;
-        this.AID = AID;
+        this(EID, eName, gender, AID);
         this.aName = aName;
     }
 

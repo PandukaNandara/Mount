@@ -4,23 +4,19 @@ import lk.ijse.mountCalvary.dao.custom.impl.*;
 
 public class DAOFactory {
 
-    public enum DAOType {
-        ACTIVITY, AGE_GROUP, LOG_IN, ATTENDANT_SHEET, COMPETITION, EVENT, EVENT_LIST, PARTICIPATION, PAYMENT, REGISTRATION, STUDENT, TEACHER, TEACHER_IN_CHARGE_LIST, TELEPHONE_NO, CUSTOM
-    }
-    private static DAOFactory daoFactory;
+    private static DAOFactory daoFactory = new DAOFactory();
 
     private DAOFactory() {
     }
 
     public static DAOFactory getInstance() {
-        if (daoFactory == null) {
-            daoFactory = new DAOFactory();
-        }
         return daoFactory;
     }
 
-    public <T extends SuperDAO> T getDAO (DAOType daoType){
+    public <T extends SuperDAO> T getDAO(DAOType daoType) {
         switch (daoType) {
+            case CUSTOM:
+                return (T) new QueryDAOImpl();
             case ACTIVITY:
                 return (T) new ActivityDAOImpl();
             case AGE_GROUP:
@@ -47,13 +43,27 @@ public class DAOFactory {
                 return (T) new TeacherInChargeDAOImpl();
             case TELEPHONE_NO:
                 return (T) new TelNoDAOImpl();
+            case PHYSICAL_TEST:
+                return (T) new PhysicalTestDAOImpl();
+            case TERM:
+                return (T) new TermDAOImpl();
             case LOG_IN:
                 return (T) new LogInDAOImpl();
-            case CUSTOM:
-                return (T) new QueryDAOImpl();
+            case COMP_CONTRIBUTION:
+                return (T) new CompContributionDAOImpl();
+            case MS_STUDENT:
+                return (T) new MSStudentDAOImpl();
             default:
                 return null;
         }
+    }
+
+    public enum DAOType {
+        ACTIVITY, AGE_GROUP, LOG_IN, ATTENDANT_SHEET, COMPETITION, EVENT, EVENT_LIST, PARTICIPATION,
+        PAYMENT, REGISTRATION, STUDENT, TEACHER, TEACHER_IN_CHARGE_LIST, TELEPHONE_NO, CUSTOM,
+        TERM, PHYSICAL_TEST,
+        COMP_CONTRIBUTION,
+        MS_STUDENT
     }
 
 

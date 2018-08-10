@@ -67,7 +67,7 @@ public class TeacherDAOImpl implements TeacherDAO {
     public ArrayList<Teacher> getAll() throws Exception {
         ResultSet rst = CrudUtil.executeQuery("SELECT * From Teacher");
         ArrayList<Teacher> teacherList = new ArrayList<>();
-        while(rst.next()){
+        while (rst.next()) {
             teacherList.add(new Teacher(
                     rst.getInt("TID"),
                     rst.getString("tName")

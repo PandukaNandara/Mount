@@ -10,12 +10,10 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
-
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import lk.ijse.mountCalvary.controller.SuperController;
 
 
-public class ScreenLoader {
+public final class ScreenLoader extends SuperController {
 
     private static ScreenLoader ourInstance;
 
@@ -42,7 +40,7 @@ public class ScreenLoader {
             window.setScene(sc);
             window.show();
         } catch (Exception e) {
-            Logger.getLogger(ScreenLoader.class.getName()).log(Level.SEVERE, null, e);
+            callLogger(e);
         }
     }
 
@@ -58,7 +56,7 @@ public class ScreenLoader {
 
             return root;
         } catch (Exception e) {
-            Logger.getLogger(ScreenLoader.class.getName()).log(Level.SEVERE, null, e);
+            callLogger(e);
             return null;
         }
 //       System.out.println("Pass");
@@ -78,7 +76,7 @@ public class ScreenLoader {
             return fxmlLoader.getController();
 
         } catch (Exception e) {
-            Logger.getLogger(ScreenLoader.class.getName()).log(Level.SEVERE, null, e);
+            callLogger(e);
             return null;
         }
 //       System.out.println("Pass");
@@ -96,7 +94,7 @@ public class ScreenLoader {
             where.getChildren().setAll(root);
 
         } catch (Exception e) {
-            Logger.getLogger(ScreenLoader.class.getName()).log(Level.SEVERE, null, e);
+            callLogger(e);
         }
     }
 
@@ -111,7 +109,7 @@ public class ScreenLoader {
             t.setToValue(5.0);
             t.play();
         } catch (Exception e) {
-            Logger.getLogger(ScreenLoader.class.getName()).log(Level.SEVERE, null, e);
+            callLogger(e);
         }
     }
 
@@ -120,17 +118,39 @@ public class ScreenLoader {
             Pane root = FXMLLoader.load(controller.getClass().getResource(url));
             where.getChildren().add(root);
         } catch (Exception e) {
-            Logger.getLogger(ScreenLoader.class.getName()).log(Level.SEVERE, null, e);
+            callLogger(e);
         }
     }
 
-    public Object loadNewWindow(String url, Pane where, String title) {
+    public <T extends SuperController> T loadNewWindow(String url, String title) {
+        Stage window = null;
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(url));
             Pane p = fxmlLoader.load();
 
-            p.getStylesheets().setAll(where.getStylesheets());
-            Stage window = new Stage();
+            window = new Stage();
+            window.setScene(new Scene(p));
+            window.setTitle(title);
+
+            window.getIcons().add(ApplicationIcons.getDefaultIcon());
+            window.setMaximized(false);
+
+            return (T) fxmlLoader.getController();
+        } catch (Exception e) {
+            callLogger(e);
+            return null;
+        } finally {
+            window.show();
+        }
+    }
+
+    public <T extends SuperController> T loadNewWindowAndWait(String url, String title) {
+        Stage window = null;
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(url));
+            Pane p = fxmlLoader.load();
+
+            window = new Stage();
             window.setScene(new Scene(p));
             window.setTitle(title);
 
@@ -138,11 +158,13 @@ public class ScreenLoader {
 
             window.getIcons().add(ApplicationIcons.getDefaultIcon());
             window.setMaximized(false);
-            window.show();
-            return fxmlLoader.getController();
+
+            return (T) fxmlLoader.getController();
         } catch (Exception e) {
-            Logger.getLogger(ScreenLoader.class.getName()).log(Level.SEVERE, null, e);
+            callLogger(e);
             return null;
+        } finally {
+            window.showAndWait();
         }
     }
 

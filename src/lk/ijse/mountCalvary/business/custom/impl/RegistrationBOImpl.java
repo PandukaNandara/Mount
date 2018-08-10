@@ -15,7 +15,7 @@ import lk.ijse.mountCalvary.model.RegistrationDTO;
 import java.sql.Connection;
 import java.util.ArrayList;
 
-public class RegistrationBOImpl implements RegistrationBO {
+public final class RegistrationBOImpl implements RegistrationBO {
 
     RegistrationDAO registrationDAOImpl;
     QueryDAO queryDAOImpl;
@@ -27,36 +27,38 @@ public class RegistrationBOImpl implements RegistrationBO {
     }
 
     @Override
-    public boolean addAllRegistration(ObservableList<RegistrationDTO> rgList) throws Exception{
+    public boolean addAllRegistration(ObservableList<RegistrationDTO> rgList) throws Exception {
         conn = DBConnection.getInstance().getConnection();
         try {
             conn.setAutoCommit(false);
             for (RegistrationDTO oneReg : rgList) {
                 System.out.println(rgList.toString());
-                if(!registrationDAOImpl.saveWithoutPKey(new Registration(oneReg.getSID(), oneReg.getAID(), oneReg.getJoinedDate())))
+                if (!registrationDAOImpl.saveWithoutPKey(new Registration(oneReg.getSID(), oneReg.getAID(), oneReg.getJoinedDate())))
                     return false;
             }
             conn.commit();
             return true;
-        }finally {
+        } finally {
             conn.rollback();
             conn.setAutoCommit(true);
         }
     }
+
     @Override
     public ObservableList<RegistrationDTO> getRegistrationForThisStudent(int SID) throws Exception {
         ArrayList<CustomEntity> registrations = queryDAOImpl.getRegistrationForThisStudent(SID);
         ArrayList<RegistrationDTO> registrationDTOS = new ArrayList<>();
-        for(CustomEntity oneRegi : registrations){
-            registrationDTOS.add(new RegistrationDTO(oneRegi.getRID(), oneRegi.getSID(),oneRegi.getAID(), oneRegi.getJoinedDate(), oneRegi.getaName()));
+        for (CustomEntity oneRegi : registrations) {
+            registrationDTOS.add(new RegistrationDTO(oneRegi.getRID(), oneRegi.getSID(), oneRegi.getAID(), oneRegi.getJoinedDate(), oneRegi.getaName()));
         }
         return FXCollections.observableArrayList(registrationDTOS);
     }
+
     @Override
-    public ObservableList<ActivityDTO> getActivityListForThisStudent(int SID) throws Exception{
+    public ObservableList<ActivityDTO> getActivityListForThisStudent(int SID) throws Exception {
         ArrayList<CustomEntity> activityList = queryDAOImpl.getActivityListForThisStudent(SID);
         ArrayList<ActivityDTO> activityDTOS = new ArrayList<>();
-        for(CustomEntity oneActivity : activityList){
+        for (CustomEntity oneActivity : activityList) {
             activityDTOS.add(new ActivityDTO(oneActivity.getAID(), oneActivity.getaName()));
         }
         return FXCollections.observableArrayList(activityDTOS);

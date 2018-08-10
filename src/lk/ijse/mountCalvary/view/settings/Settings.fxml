@@ -2,10 +2,10 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
-<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.*?>
 <?import java.net.*?>
 <VBox xmlns:fx="http://javafx.com/fxml/1" fx:id="acSettings" styleClass="main-frame"
       xmlns="http://javafx.com/javafx/8.0.141"
@@ -51,6 +51,19 @@
                 </JFXButton>
             </children>
         </HBox>
+        <Label prefHeight="33.0" prefWidth="425.0" text="Update student details ">
+            <font>
+                <Font name="Arial" size="18.0"/>
+            </font>
+        </Label>
+        <Label prefHeight="18.0" prefWidth="1305.0" text="Import data from external database">
+            <font>
+                <Font size="13.0"/>
+            </font>
+        </Label>
+        <JFXButton fx:id="btImport" alignment="CENTER" buttonType="RAISED" onAction="#btImport_onAction"
+                   prefHeight="36.0" prefWidth="128.0" ripplerFill="WHITE" style="-fx-background-color: #2196f3;"
+                   text="Import" textAlignment="CENTER" textFill="WHITE"/>
     </children>
     <stylesheets>
         <URL value="@../../css/frame.css"/>

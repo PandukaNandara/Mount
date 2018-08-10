@@ -2,6 +2,7 @@ package lk.ijse.mountCalvary.business.custom;
 
 import javafx.collections.ObservableList;
 import lk.ijse.mountCalvary.business.SuperBO;
+import lk.ijse.mountCalvary.controller.tool.Year;
 import lk.ijse.mountCalvary.model.PaymentDTO;
 
 public interface PaymentBO extends SuperBO {
@@ -17,4 +18,6 @@ public interface PaymentBO extends SuperBO {
     ObservableList<PaymentDTO> getMaximumDistinctPaymentDataForThisActivity(int aid, Integer year, int month) throws Exception;
 
     ObservableList<PaymentDTO> getPaymentForThisActivityAndStudent(int RID) throws Exception;
+
+    ObservableList<Year> getDistinctYears() throws Exception;
 }

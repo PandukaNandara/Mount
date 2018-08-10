@@ -1,221 +1,231 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
-<jasperReport xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://jasperreports.sourceforge.net/jasperreports" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="StudentPersonalReport" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="871849e1-1e9c-47ef-968e-a560ae361704">
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
-	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<style name="Table_TH" mode="Opaque" backcolor="#F0F8FF">
-		<box>
-			<pen lineWidth="0.5" lineColor="#000000"/>
-			<topPen lineWidth="0.5" lineColor="#000000"/>
-			<leftPen lineWidth="0.5" lineColor="#000000"/>
-			<bottomPen lineWidth="0.5" lineColor="#000000"/>
-			<rightPen lineWidth="0.5" lineColor="#000000"/>
-		</box>
-	</style>
-	<style name="Table_CH" mode="Opaque" backcolor="#FCFCFC">
-		<box>
-			<pen lineWidth="0.5" lineColor="#FFFFFF"/>
-		</box>
-	</style>
-	<style name="Table_TD" mode="Opaque" backcolor="#FFFFFF">
-		<box>
-			<pen lineWidth="0.5" lineColor="#000000"/>
-			<topPen lineWidth="0.5" lineColor="#000000"/>
-			<leftPen lineWidth="0.5" lineColor="#000000"/>
-			<bottomPen lineWidth="0.5" lineColor="#000000"/>
-			<rightPen lineWidth="0.5" lineColor="#000000"/>
-		</box>
-	</style>
-	<subDataset name="TelNo" uuid="aab513e8-85cb-4e32-9db6-329197779762">
-		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="MC_activity_mgt_sys"/>
-		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-		<queryString>
+<jasperReport xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xmlns="http://jasperreports.sourceforge.net/jasperreports"
+              xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd"
+              name="StudentPersonalReport" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20"
+              rightMargin="20" topMargin="20" bottomMargin="20" uuid="871849e1-1e9c-47ef-968e-a560ae361704">
+    <property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+    <property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+    <style name="Table_TH" mode="Opaque" backcolor="#F0F8FF">
+        <box>
+            <pen lineWidth="0.5" lineColor="#000000"/>
+            <topPen lineWidth="0.5" lineColor="#000000"/>
+            <leftPen lineWidth="0.5" lineColor="#000000"/>
+            <bottomPen lineWidth="0.5" lineColor="#000000"/>
+            <rightPen lineWidth="0.5" lineColor="#000000"/>
+        </box>
+    </style>
+    <style name="Table_CH" mode="Opaque" backcolor="#FCFCFC">
+        <box>
+            <pen lineWidth="0.5" lineColor="#FFFFFF"/>
+        </box>
+    </style>
+    <style name="Table_TD" mode="Opaque" backcolor="#FFFFFF">
+        <box>
+            <pen lineWidth="0.5" lineColor="#000000"/>
+            <topPen lineWidth="0.5" lineColor="#000000"/>
+            <leftPen lineWidth="0.5" lineColor="#000000"/>
+            <bottomPen lineWidth="0.5" lineColor="#000000"/>
+            <rightPen lineWidth="0.5" lineColor="#000000"/>
+        </box>
+    </style>
+    <subDataset name="TelNo" uuid="aab513e8-85cb-4e32-9db6-329197779762">
+        <property name="com.jaspersoft.studio.data.defaultdataadapter" value="MC_activity_mgt_sys"/>
+        <property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+        <queryString>
 			<![CDATA[]]>
 		</queryString>
-		<field name="telNo" class="java.lang.Integer"/>
-	</subDataset>
-	<parameter name="StudentID" class="java.lang.Integer"/>
-	<parameter name="StudentName" class="java.lang.String"/>
-	<parameter name="Class" class="java.lang.String"/>
-	<parameter name="FatherName" class="java.lang.String"/>
-	<parameter name="MotherName" class="java.lang.String"/>
-	<parameter name="Gender" class="java.lang.String"/>
-	<parameter name="DOB" class="java.lang.String"/>
-	<parameter name="Note" class="java.lang.String"/>
-	<parameter name="Address" class="java.lang.String"/>
-	<parameter name="TelephoneNumbers" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource"/>
-	<queryString>
+        <field name="telNo" class="java.lang.Integer"/>
+    </subDataset>
+    <parameter name="StudentID" class="java.lang.Integer"/>
+    <parameter name="StudentName" class="java.lang.String"/>
+    <parameter name="Class" class="java.lang.String"/>
+    <parameter name="FatherName" class="java.lang.String"/>
+    <parameter name="MotherName" class="java.lang.String"/>
+    <parameter name="Gender" class="java.lang.String"/>
+    <parameter name="DOB" class="java.lang.String"/>
+    <parameter name="Note" class="java.lang.String"/>
+    <parameter name="Address" class="java.lang.String"/>
+    <parameter name="TelephoneNumbers" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource"/>
+    <queryString>
 		<![CDATA[]]>
 	</queryString>
-	<background>
-		<band splitType="Stretch"/>
-	</background>
-	<title>
-		<band height="121" splitType="Stretch">
-			<image>
-				<reportElement x="10" y="0" width="100" height="90" uuid="207b76dc-145d-41ca-8310-b74debd8c2e4"/>
-				<imageExpression><![CDATA["D:/Project Mount Calvery/mchs-logo-good_1_orig.png"]]></imageExpression>
-			</image>
-			<staticText>
-				<reportElement x="120" y="18" width="313" height="23" uuid="10778e01-c2c1-4fb0-b332-26b47c7dcbc8"/>
-				<textElement textAlignment="Left">
-					<font size="16" isBold="true" isItalic="false"/>
-				</textElement>
-				<text><![CDATA[Mount Calvary High School - Galle]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="120" y="41" width="280" height="20" uuid="ca1cea3a-8ce4-4c99-875f-cf302c1fdd95"/>
-				<textElement textAlignment="Left">
-					<font size="12"/>
-				</textElement>
-				<text><![CDATA[Extra Curriculum Activity Management System]]></text>
-			</staticText>
-			<staticText>
-				<reportElement stretchType="ElementGroupHeight" x="120" y="61" width="280" height="20" uuid="0e848eca-2d55-4998-ad2b-21b721ff1be7"/>
-				<textElement textAlignment="Left">
-					<font size="12" isItalic="true"/>
-				</textElement>
-				<text><![CDATA[Student personal detail]]></text>
-			</staticText>
-			<line>
-				<reportElement x="5" y="100" width="545" height="1" uuid="49bdd196-06a9-4870-85e2-d7e0e730cc3a"/>
-				<graphicElement>
-					<pen lineColor="#7D7D7D"/>
-				</graphicElement>
-			</line>
-		</band>
-	</title>
-	<pageHeader>
-		<band height="561" splitType="Stretch">
-			<textField>
-				<reportElement x="140" y="0" width="350" height="30" uuid="6033381f-18eb-49de-a311-a8e09ee68f08"/>
-				<textFieldExpression><![CDATA[$P{StudentID}]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement x="10" y="0" width="130" height="30" uuid="ccb6107f-7324-4199-b6d5-491a844be56d"/>
-				<textElement textAlignment="Left">
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[Student ID]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="10" y="30" width="130" height="30" uuid="747d01ff-4fed-4961-9bb1-454c61feb456"/>
-				<textElement>
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[Student Name]]></text>
-			</staticText>
-			<textField>
-				<reportElement x="140" y="30" width="350" height="30" uuid="3ff73de8-535f-4328-9da2-a40240a13b2c"/>
-				<textFieldExpression><![CDATA[$P{StudentName}]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement x="10" y="60" width="130" height="30" uuid="9fea7428-ccba-4ecf-a29a-00b242591615"/>
-				<textElement>
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[Birth day]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="10" y="90" width="130" height="31" uuid="bae30666-b0a0-47d0-ae5a-6f05f5cc7140"/>
-				<textElement>
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[Gender]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="10" y="121" width="130" height="31" uuid="1fed1163-eedc-4427-8d5c-ca57db782dc9"/>
-				<textElement>
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[Father's name]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="10" y="152" width="130" height="31" uuid="c4e949c8-b452-476d-acaf-5827deb29f29"/>
-				<textElement>
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[Mother's name]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="10" y="183" width="130" height="20" uuid="bb071a63-f804-4bba-9efc-c779656bd9d5"/>
-				<textElement verticalAlignment="Middle">
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[Address
+    <background>
+        <band splitType="Stretch"/>
+    </background>
+    <title>
+        <band height="121" splitType="Stretch">
+            <image>
+                <reportElement x="10" y="0" width="100" height="90" uuid="207b76dc-145d-41ca-8310-b74debd8c2e4"/>
+                <imageExpression><![CDATA["D:/Project Mount Calvery/mchs-logo-good_1_orig.png"]]></imageExpression>
+            </image>
+            <staticText>
+                <reportElement x="120" y="18" width="313" height="23" uuid="10778e01-c2c1-4fb0-b332-26b47c7dcbc8"/>
+                <textElement textAlignment="Left">
+                    <font size="16" isBold="true" isItalic="false"/>
+                </textElement>
+                <text><![CDATA[Mount Calvary High School - Galle]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="120" y="41" width="280" height="20" uuid="ca1cea3a-8ce4-4c99-875f-cf302c1fdd95"/>
+                <textElement textAlignment="Left">
+                    <font size="12"/>
+                </textElement>
+                <text><![CDATA[Extra Curriculum Activity Management System]]></text>
+            </staticText>
+            <staticText>
+                <reportElement stretchType="ElementGroupHeight" x="120" y="61" width="280" height="20"
+                               uuid="0e848eca-2d55-4998-ad2b-21b721ff1be7"/>
+                <textElement textAlignment="Left">
+                    <font size="12" isItalic="true"/>
+                </textElement>
+                <text><![CDATA[Student personal detail]]></text>
+            </staticText>
+            <line>
+                <reportElement x="5" y="100" width="545" height="1" uuid="49bdd196-06a9-4870-85e2-d7e0e730cc3a"/>
+                <graphicElement>
+                    <pen lineColor="#7D7D7D"/>
+                </graphicElement>
+            </line>
+        </band>
+    </title>
+    <pageHeader>
+        <band height="561" splitType="Stretch">
+            <textField>
+                <reportElement x="140" y="0" width="350" height="30" uuid="6033381f-18eb-49de-a311-a8e09ee68f08"/>
+                <textFieldExpression><![CDATA[$P{StudentID}]]></textFieldExpression>
+            </textField>
+            <staticText>
+                <reportElement x="10" y="0" width="130" height="30" uuid="ccb6107f-7324-4199-b6d5-491a844be56d"/>
+                <textElement textAlignment="Left">
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[Student ID]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="10" y="30" width="130" height="30" uuid="747d01ff-4fed-4961-9bb1-454c61feb456"/>
+                <textElement>
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[Student Name]]></text>
+            </staticText>
+            <textField>
+                <reportElement x="140" y="30" width="350" height="30" uuid="3ff73de8-535f-4328-9da2-a40240a13b2c"/>
+                <textFieldExpression><![CDATA[$P{StudentName}]]></textFieldExpression>
+            </textField>
+            <staticText>
+                <reportElement x="10" y="60" width="130" height="30" uuid="9fea7428-ccba-4ecf-a29a-00b242591615"/>
+                <textElement>
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[Birth day]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="10" y="90" width="130" height="31" uuid="bae30666-b0a0-47d0-ae5a-6f05f5cc7140"/>
+                <textElement>
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[Gender]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="10" y="121" width="130" height="31" uuid="1fed1163-eedc-4427-8d5c-ca57db782dc9"/>
+                <textElement>
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[Father's name]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="10" y="152" width="130" height="31" uuid="c4e949c8-b452-476d-acaf-5827deb29f29"/>
+                <textElement>
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[Mother's name]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="10" y="183" width="130" height="20" uuid="bb071a63-f804-4bba-9efc-c779656bd9d5"/>
+                <textElement verticalAlignment="Middle">
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[Address
 ]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="10" y="230" width="130" height="20" uuid="8a5a3995-0e3e-4be4-8b44-a83741bb7f5a"/>
-				<textElement verticalAlignment="Middle">
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[Note
+            </staticText>
+            <staticText>
+                <reportElement x="10" y="230" width="130" height="20" uuid="8a5a3995-0e3e-4be4-8b44-a83741bb7f5a"/>
+                <textElement verticalAlignment="Middle">
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[Note
 ]]></text>
-			</staticText>
-			<textField>
-				<reportElement x="10" y="203" width="540" height="26" uuid="31c34abd-c321-417c-936e-27927c69407b"/>
-				<textFieldExpression><![CDATA[$P{Address}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="10" y="250" width="540" height="56" uuid="2b873f1c-7ec0-4639-b8bd-7765b298f55e"/>
-				<textFieldExpression><![CDATA[$P{Note}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement stretchType="ElementGroupBottom" x="140" y="60" width="350" height="30" uuid="28aa944d-9492-4c4c-a3e1-84a3188c2c03"/>
-				<textFieldExpression><![CDATA[$P{DOB}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="140" y="90" width="350" height="30" uuid="97334dad-488b-40c6-9ce3-c571718c7d46"/>
-				<textFieldExpression><![CDATA[$P{Gender}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="140" y="121" width="350" height="30" uuid="9c857de2-ad3f-482f-9210-b07e168a80c2"/>
-				<textFieldExpression><![CDATA[$P{FatherName}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="140" y="152" width="350" height="30" uuid="a3d7a0dd-f17c-4068-a246-c3c562184ba2"/>
-				<textFieldExpression><![CDATA[$P{MotherName}]]></textFieldExpression>
-			</textField>
-			<componentElement>
-				<reportElement x="11" y="307" width="539" height="203" uuid="24b2b08d-a397-4f3e-8baa-3046728a73ac">
-					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
-					<property name="com.jaspersoft.studio.table.style.table_header" value="Table_TH"/>
-					<property name="com.jaspersoft.studio.table.style.column_header" value="Table_CH"/>
-					<property name="com.jaspersoft.studio.table.style.detail" value="Table_TD"/>
-				</reportElement>
-				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
-					<datasetRun subDataset="TelNo" uuid="35837d30-d7bf-435a-94d8-3d7575e68326">
-						<dataSourceExpression><![CDATA[$P{TelephoneNumbers}]]></dataSourceExpression>
-					</datasetRun>
-					<jr:column width="539" uuid="4f38a501-eecb-4e6b-8634-1c356e5c1d77">
-						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column1"/>
-						<jr:columnHeader style="Table_CH" height="30" rowSpan="1">
-							<staticText>
-								<reportElement x="0" y="0" width="539" height="30" uuid="46ecdfdb-6c5b-43b4-87ba-f3f2ceeecfb8"/>
-								<box>
-									<topPen lineWidth="0.0" lineStyle="Solid"/>
-									<rightPen lineStyle="Solid"/>
-								</box>
-								<textElement textAlignment="Left" verticalAlignment="Middle" markup="none">
-									<font size="10" isBold="true"/>
-								</textElement>
-								<text><![CDATA[Telephone number]]></text>
-							</staticText>
-						</jr:columnHeader>
-						<jr:detailCell style="Table_TD" height="30">
-							<box>
-								<pen lineColor="#F7F7F7"/>
-							</box>
-							<textField>
-								<reportElement x="0" y="0" width="539" height="30" uuid="1f0c483e-fc3b-42a2-8905-865dc3ef1379"/>
-								<textElement verticalAlignment="Middle"/>
-								<textFieldExpression><![CDATA[$F{telNo}]]></textFieldExpression>
-							</textField>
-						</jr:detailCell>
-					</jr:column>
-				</jr:table>
-			</componentElement>
-		</band>
-	</pageHeader>
+            </staticText>
+            <textField>
+                <reportElement x="10" y="203" width="540" height="26" uuid="31c34abd-c321-417c-936e-27927c69407b"/>
+                <textFieldExpression><![CDATA[$P{Address}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="10" y="250" width="540" height="56" uuid="2b873f1c-7ec0-4639-b8bd-7765b298f55e"/>
+                <textFieldExpression><![CDATA[$P{Note}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement stretchType="ElementGroupBottom" x="140" y="60" width="350" height="30"
+                               uuid="28aa944d-9492-4c4c-a3e1-84a3188c2c03"/>
+                <textFieldExpression><![CDATA[$P{DOB}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="140" y="90" width="350" height="30" uuid="97334dad-488b-40c6-9ce3-c571718c7d46"/>
+                <textFieldExpression><![CDATA[$P{Gender}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="140" y="121" width="350" height="30" uuid="9c857de2-ad3f-482f-9210-b07e168a80c2"/>
+                <textFieldExpression><![CDATA[$P{FatherName}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="140" y="152" width="350" height="30" uuid="a3d7a0dd-f17c-4068-a246-c3c562184ba2"/>
+                <textFieldExpression><![CDATA[$P{MotherName}]]></textFieldExpression>
+            </textField>
+            <componentElement>
+                <reportElement x="11" y="307" width="539" height="203" uuid="24b2b08d-a397-4f3e-8baa-3046728a73ac">
+                    <property name="com.jaspersoft.studio.layout"
+                              value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
+                    <property name="com.jaspersoft.studio.table.style.table_header" value="Table_TH"/>
+                    <property name="com.jaspersoft.studio.table.style.column_header" value="Table_CH"/>
+                    <property name="com.jaspersoft.studio.table.style.detail" value="Table_TD"/>
+                </reportElement>
+                <jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components"
+                          xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+                    <datasetRun subDataset="TelNo" uuid="35837d30-d7bf-435a-94d8-3d7575e68326">
+                        <dataSourceExpression><![CDATA[$P{TelephoneNumbers}]]></dataSourceExpression>
+                    </datasetRun>
+                    <jr:column width="539" uuid="4f38a501-eecb-4e6b-8634-1c356e5c1d77">
+                        <property name="com.jaspersoft.studio.components.table.model.column.name" value="Column1"/>
+                        <jr:columnHeader style="Table_CH" height="30" rowSpan="1">
+                            <staticText>
+                                <reportElement x="0" y="0" width="539" height="30"
+                                               uuid="46ecdfdb-6c5b-43b4-87ba-f3f2ceeecfb8"/>
+                                <box>
+                                    <topPen lineWidth="0.0" lineStyle="Solid"/>
+                                    <rightPen lineStyle="Solid"/>
+                                </box>
+                                <textElement textAlignment="Left" verticalAlignment="Middle" markup="none">
+                                    <font size="10" isBold="true"/>
+                                </textElement>
+                                <text><![CDATA[Telephone number]]></text>
+                            </staticText>
+                        </jr:columnHeader>
+                        <jr:detailCell style="Table_TD" height="30">
+                            <box>
+                                <pen lineColor="#F7F7F7"/>
+                            </box>
+                            <textField>
+                                <reportElement x="0" y="0" width="539" height="30"
+                                               uuid="1f0c483e-fc3b-42a2-8905-865dc3ef1379"/>
+                                <textElement verticalAlignment="Middle"/>
+                                <textFieldExpression><![CDATA[$F{telNo}]]></textFieldExpression>
+                            </textField>
+                        </jr:detailCell>
+                    </jr:column>
+                </jr:table>
+            </componentElement>
+        </band>
+    </pageHeader>
 </jasperReport>

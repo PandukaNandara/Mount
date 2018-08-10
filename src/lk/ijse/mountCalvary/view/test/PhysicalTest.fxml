@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import java.net.*?>
+<VBox xmlns:fx="http://javafx.com/fxml/1" fx:id="acPhysicalTest" maxHeight="1.7976931348623157E308"
+      maxWidth="1.7976931348623157E308"
+      minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0"
+      styleClass="main-frame" xmlns="http://javafx.com/javafx/8.0.141"
+      fx:controller="lk.ijse.mountCalvary.controller.test.PhysicalTest_controller">
+    <children>
+        <Label styleClass="title" text="Physical evaluation test"/>
+        <HBox styleClass="node-pane" VBox.vgrow="NEVER">
+            <children>
+                <JFXComboBox fx:id="cboxTerm" onAction="#cboxTerm_onAction" prefHeight="25.0" prefWidth="146.0"
+                             promptText="Term" HBox.hgrow="ALWAYS"/>
+                <JFXComboBox fx:id="cboxClass" onAction="#cboxClass_onAction" prefWidth="1.0" promptText="Class"
+                             HBox.hgrow="ALWAYS"/>
+            </children>
+        </HBox>
+        <VBox VBox.vgrow="ALWAYS">
+            <children>
+                <TableView fx:id="tblMarks" editable="true" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                    <columns>
+                        <TableColumn fx:id="colStudentID" minWidth="-1.0" prefWidth="100.0" text="Student ID"/>
+                        <TableColumn fx:id="colStudentName" minWidth="150.0" prefWidth="170.0" text="Student Name"/>
+                        <TableColumn fx:id="colAttendance" minWidth="7.0" onEditCancel="#onEditCancel"
+                                     onEditCommit="#colAttendance_onEditCommit" onEditStart="#onStartEdit"
+                                     prefWidth="79.0" text="Attendance"/>
+                        <TableColumn fx:id="colSkill" onEditCancel="#onEditCancel" onEditCommit="#colSkill_onEditCommit"
+                                     onEditStart="#onStartEdit" prefWidth="75.0" text="Skill"/>
+                        <TableColumn fx:id="colProgressEffort" onEditCancel="#onEditCancel"
+                                     onEditCommit="#colProgressEffort_onEditCommit" onEditStart="#onStartEdit"
+                                     prefWidth="75.0" text="Progress &amp; effort"/>
+                        <TableColumn fx:id="colAttitudes" onEditCancel="#onEditCancel"
+                                     onEditCommit="#colAttitudes_onEditCommit" onEditStart="#onStartEdit"
+                                     prefWidth="75.0" text="Attitude"/>
+                        <TableColumn fx:id="colPerformance" onEditCancel="#onEditCancel"
+                                     onEditCommit="#colPerformance_onEditCommit" onEditStart="#onStartEdit"
+                                     prefWidth="194.0" text="Performance"/>
+                        <TableColumn fx:id="colTotal" onEditCancel="#onEditCancel" onEditStart="#onStartEdit"
+                                     prefWidth="107.0" text="Total"/>
+                    </columns>
+                    <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                    </columnResizePolicy>
+                </TableView>
+
+            </children>
+        </VBox>
+    </children>
+    <stylesheets>
+        <URL value="@../../css/frame.css"/>
+        <URL value="@../../css/combo-box.css"/>
+        <URL value="@../../css/table-view.css"/>
+        <URL value="@../../css/text-and-password-field.css"/>
+        <URL value="@../../css/date-picker.css"/>
+        <URL value="@../../css/radio-button.css"/>
+        <URL value="@../../css/text-area.css"/>
+        <URL value="@../../css/button.css"/>
+        <URL value="@../../css/label.css"/>
+        <URL value="@../../css/check-box.css"/>
+    </stylesheets>
+</VBox>

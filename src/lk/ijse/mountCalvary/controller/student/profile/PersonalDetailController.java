@@ -1,20 +1,21 @@
 package lk.ijse.mountCalvary.controller.student.profile;
 
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXRadioButton;
+import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.StudentBO;
 import lk.ijse.mountCalvary.business.custom.TelNoBO;
+import lk.ijse.mountCalvary.controller.SuperController;
 import lk.ijse.mountCalvary.controller.tool.*;
 import lk.ijse.mountCalvary.entity.Gender;
 import lk.ijse.mountCalvary.model.StudentDTO;
@@ -28,20 +29,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-public class PersonalDetailController implements Initializable {
+public final class PersonalDetailController extends SuperController implements Initializable {
+
 
     private static JasperReport studentPersonalDetail;
     @FXML
     private VBox personalDetail;
     @FXML
     private JFXTextField txtStudentName;
-    @FXML
-    private JFXRadioButton rbMale;
-    @FXML
-    private JFXRadioButton rbFemale;
     @FXML
     private TableView<TelNoDTO> tblTelNo;
     @FXML
@@ -64,28 +60,27 @@ public class PersonalDetailController implements Initializable {
     private JFXTextField txtHouse;
     @FXML
     private JFXTextField txtClass;
-    private ArrayList<StudentDTO> allStudentDetail;
-
-    private StudentProfileController studentProfileController;
-    private StudentDTO selectedStudent;
-    //    @FXML
-//    private JFXButton btSaveAs;
     @FXML
-    private ToggleGroup gender;
+    private JFXCheckBox cbxQuit;
     @FXML
-    private JFXButton ptPdf;
+    private Label lblGender;
+    @FXML
+    private JFXTextField txtStudentBCID;
     @FXML
     private JFXButton btPrint;
     private TelNoBO telNoBOImpl;
     private StudentBO studentBOImpl;
+    private ArrayList<StudentDTO> allStudentDetail;
+    private StudentProfileController studentProfileController;
+    private StudentDTO selectedStudent;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         GlobalBoolean.setLock(false);
         ButtonFireForEnterSetter.setGlobalEventHandler(personalDetail);
+
         studentBOImpl = BOFactory.getInstance().getBO(BOFactory.BOType.STUDENT);
         colTelNo.setCellValueFactory(new PropertyValueFactory<>("telNo"));
-
         telNoBOImpl = BOFactory.getInstance().getBO(BOFactory.BOType.TEL_NO);
 
     }
@@ -94,7 +89,7 @@ public class PersonalDetailController implements Initializable {
         this.studentProfileController = studentProfileController;
     }
 
-    protected void insertStudentID(StudentDTO i) {
+    protected void insertStudent(StudentDTO i) {
         loadStudentData(i);
     }
 
@@ -102,34 +97,42 @@ public class PersonalDetailController implements Initializable {
         try {
             i = studentBOImpl.getStudent(i.getSID());
         } catch (Exception e) {
-            Logger.getLogger(PersonalDetailController.class.getName()).log(Level.SEVERE, null, e);
+            callLogger(e);
         }
         if (i != null) {
             selectedStudent = i;
-            txtStudentID.setText("" + i.getSID());
-            txtStudentName.setText(i.getsName());
+            txtStudentID.setText(String.valueOf(i.getSID()));
+            txtStudentName.setText(i.getSName());
             txtFatherName.setText(i.getFatherName());
             txtMotherName.setText(i.getMotherName());
-            String[] class_ = i.getsClass().split("-");
+            String[] class_ = i.getSClass().split("-");
+
             if (class_.length == 2) {
                 txtGrade.setText(class_[0]);
                 txtClass.setText(class_[1]);
             } else {
                 txtGrade.setText(class_[0]);
             }
-            txtHouse.setText(i.getHouse());
+            txtStudentBCID.setText(String.valueOf(i.getBCID()));
+            cbxQuit.setSelected(i.isQuit());
+            txtHouse.setText(new House(i.getHouse()).toString());
             if (i.isGender())
-                rbMale.fire();
+                lblGender.setText("Male");
             else
-                rbMale.fire();
-            txtBirthDay.setText(Objects.requireNonNull(Common.dateToLocalDate(i.getDOB())).toString());
+                lblGender.setText("Female");
+            try {
+                txtBirthDay.setText(Objects.requireNonNull(Common.dateToLocalDate(i.getDOB())).toString());
+            } catch (NullPointerException e) {
+                txtBirthDay.setText("N/A");
+            }
+            cbxQuit.setSelected(i.isQuit());
             txtAddress.setText(i.getAddress());
 
             try {
                 tblTelNo.setItems(telNoBOImpl.getTelNosForThisStudent(i.getSID()));
+                Common.clearSortOrder(tblTelNo);
             } catch (Exception e) {
-                Logger.getLogger(PersonalDetailController.class.getName()).log(Level.SEVERE, null, e);
-
+                callLogger(e);
             }
             txtaDescStudent.setText(i.getNote());
         } else {
@@ -148,7 +151,7 @@ public class PersonalDetailController implements Initializable {
                 JRBeanCollectionDataSource telNos = new JRBeanCollectionDataSource(tblTelNo.getItems());
                 HashMap map = new HashMap();
                 map.put("StudentID", selectedStudent.getSID());
-                map.put("StudentName", selectedStudent.getsName());
+                map.put("StudentName", selectedStudent.getSName());
                 map.put("DOB", selectedStudent.getDOB().toString());
                 map.put("Gender", selectedStudent.isGender() == Gender.MALE ? "Male" : "Female");
                 map.put("FatherName", selectedStudent.getFatherName());
@@ -162,8 +165,7 @@ public class PersonalDetailController implements Initializable {
                 Reporter.showReport(jasperPrint, "Personal details");
 
             } catch (Exception e) {
-                Logger.getLogger(PersonalDetailController.class.getName()).log(Level.SEVERE, null, e);
-
+                callLogger(e);
             }
         } else {
             OptionPane.showErrorAtSide("Please select a student to print.");

@@ -1,5 +1,6 @@
 package lk.ijse.mountCalvary.controller.student.profile;
 
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -11,10 +12,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.ParticipationBO;
-import lk.ijse.mountCalvary.controller.tool.ButtonFireForEnterSetter;
-import lk.ijse.mountCalvary.controller.tool.GlobalBoolean;
-import lk.ijse.mountCalvary.controller.tool.OptionPane;
-import lk.ijse.mountCalvary.controller.tool.Reporter;
+import lk.ijse.mountCalvary.controller.SuperController;
+import lk.ijse.mountCalvary.controller.tool.*;
 import lk.ijse.mountCalvary.model.ParticipationDTO;
 import lk.ijse.mountCalvary.model.StudentDTO;
 import net.sf.jasperreports.engine.*;
@@ -25,10 +24,8 @@ import java.net.URL;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-public class CompetitionForStudentController implements Initializable {
+public final class CompetitionForStudentController extends SuperController implements Initializable {
 
     private static JasperReport competitionReport;
     @FXML
@@ -52,14 +49,20 @@ public class CompetitionForStudentController implements Initializable {
     protected JFXComboBox<?> cboxActivity;
     @FXML
     protected TableColumn<ParticipationDTO, String> colPerformance;
+
+    @FXML
+    private JFXButton btPrint;
+
     private StudentProfileController studentProfileController;
     private ParticipationBO participationBOImpl;
     private StudentDTO selectedStudent;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
         GlobalBoolean.setLock(false);
         ButtonFireForEnterSetter.setGlobalEventHandler(competitionForStudent);
+
         colActivity.setCellValueFactory(new PropertyValueFactory<>("activityName"));
         colCompetition.setCellValueFactory(new PropertyValueFactory<>("competitionName"));
         colDate.setCellValueFactory(new PropertyValueFactory<>("date"));
@@ -84,7 +87,7 @@ public class CompetitionForStudentController implements Initializable {
 
                 HashMap map = new HashMap();
                 map.put("StudentID", selectedStudent.getSID());
-                map.put("StudentName", selectedStudent.getsName());
+                map.put("StudentName", selectedStudent.getSName());
                 map.put("Competition", competition);
 
                 JasperPrint jasperPrint = JasperFillManager.fillReport(competitionReport, map, new JREmptyDataSource());
@@ -93,8 +96,7 @@ public class CompetitionForStudentController implements Initializable {
 
 
             } catch (Exception e) {
-                Logger.getLogger(CompetitionForStudentController.class.getName()).log(Level.SEVERE, null, e);
-
+                callLogger(e);
             }
         } else {
             OptionPane.showErrorAtSide("Please select a student to print.");
@@ -122,14 +124,14 @@ public class CompetitionForStudentController implements Initializable {
         this.studentProfileController = studentProfileController;
     }
 
-    protected void insertStudentID(StudentDTO student) {
+    protected void insertStudent(StudentDTO student) {
         try {
             selectedStudent = student;
             ObservableList<ParticipationDTO> achievement = participationBOImpl.getCompetitionAndAchievementOfThisStudent(student.getSID());
             tblParticipation.getItems().setAll(achievement);
+            Common.clearSortOrder(tblParticipation);
         } catch (Exception e) {
-            Logger.getLogger(CompetitionForStudentController.class.getName()).log(Level.SEVERE, null, e);
-
+            callLogger(e);
         }
     }
 

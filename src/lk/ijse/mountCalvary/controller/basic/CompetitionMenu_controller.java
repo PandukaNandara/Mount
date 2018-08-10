@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.VBox;
+import lk.ijse.mountCalvary.controller.SuperController;
 import lk.ijse.mountCalvary.controller.tool.ButtonFireForEnterSetter;
 import lk.ijse.mountCalvary.controller.tool.GlobalBoolean;
 import lk.ijse.mountCalvary.controller.tool.ScreenLoader;
@@ -12,7 +13,7 @@ import lk.ijse.mountCalvary.controller.tool.ScreenLoader;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class CompetitionMenu_controller implements Initializable {
+public final class CompetitionMenu_controller extends SuperController implements Initializable {
     @FXML
     private JFXButton btAddStudentCompetition;
     @FXML
@@ -33,6 +34,8 @@ public class CompetitionMenu_controller implements Initializable {
     @FXML
     private JFXButton btCompetitionProfile;
     private ScreenLoader screenLoader = ScreenLoader.getInstance();
+    @FXML
+    private JFXButton btStudentContribution;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -68,5 +71,10 @@ public class CompetitionMenu_controller implements Initializable {
     @FXML
     private void btAddStudentCompetition_onAction(ActionEvent actionEvent) {
         screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/competition/StudentForCompetition.fxml", this.acCompetitionMenu, this);
+    }
+
+    @FXML
+    private void btStudentContribution_onAction(ActionEvent actionEvent) {
+        screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/competition/CompetitionContribution.fxml", this.acCompetitionMenu, this);
     }
 }

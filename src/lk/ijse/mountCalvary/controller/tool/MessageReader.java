@@ -14,7 +14,7 @@ import java.util.logging.Logger;
  * Date: 7/9/2018
  * Time: 1:43 PM
  */
-public class MessageReader {
+public final class MessageReader {
 
     private static MessageReader ourInstance;
 

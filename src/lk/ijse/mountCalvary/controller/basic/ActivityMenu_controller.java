@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.VBox;
+import lk.ijse.mountCalvary.controller.SuperController;
 import lk.ijse.mountCalvary.controller.tool.ButtonFireForEnterSetter;
 import lk.ijse.mountCalvary.controller.tool.GlobalBoolean;
 import lk.ijse.mountCalvary.controller.tool.ScreenLoader;
@@ -12,7 +13,7 @@ import lk.ijse.mountCalvary.controller.tool.ScreenLoader;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class ActivityMenu_controller implements Initializable {
+public final class ActivityMenu_controller extends SuperController implements Initializable {
 
     @FXML
     private VBox acActivityMenu;

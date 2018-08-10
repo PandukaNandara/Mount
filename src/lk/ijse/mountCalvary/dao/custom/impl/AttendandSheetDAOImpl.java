@@ -17,6 +17,7 @@ public class AttendandSheetDAOImpl implements AttendantSheetDAO {
                 atts.getTID()
         ) > 0;
     }
+
     @Override
     public boolean saveWithoutPKey(AttendantSheet atts) throws Exception {
         return CrudUtil.executeUpdate("INSERT into attendant_sheet(RID, date, TID) values(?,?,?)",
@@ -39,20 +40,20 @@ public class AttendandSheetDAOImpl implements AttendantSheetDAO {
 
     @Override
     public boolean delete(Integer id) throws Exception {
-        return CrudUtil.executeUpdate("DELETE from attendant_sheet where ATID = ?",id) > 0;
+        return CrudUtil.executeUpdate("DELETE from attendant_sheet where ATID = ?", id) > 0;
     }
 
     @Override
     public AttendantSheet search(Integer id) throws Exception {
         ResultSet rst = CrudUtil.executeQuery("SELECT * From attendant_sheet where ATID = ?", id);
-        if(rst.next()) {
+        if (rst.next()) {
             return new AttendantSheet(
                     rst.getInt("ATID"),
                     rst.getInt("RID"),
                     rst.getDate("date"),
                     rst.getInt("TID")
             );
-        }else{
+        } else {
             return null;
         }
     }
@@ -61,7 +62,7 @@ public class AttendandSheetDAOImpl implements AttendantSheetDAO {
     public ArrayList<AttendantSheet> getAll() throws Exception {
         ResultSet rst = CrudUtil.executeQuery("SELECT * From attendant_sheet ");
         ArrayList<AttendantSheet> atList = new ArrayList<>();
-        while(rst.next()) {
+        while (rst.next()) {
             atList.add(new AttendantSheet(
                     rst.getInt("ATID"),
                     rst.getInt("RID"),
@@ -73,7 +74,7 @@ public class AttendandSheetDAOImpl implements AttendantSheetDAO {
     }
 
     @Override
-    public Integer lastIndex() throws Exception {
+    public Integer lastIndex() {
         return null;
     }
 
@@ -85,5 +86,17 @@ public class AttendandSheetDAOImpl implements AttendantSheetDAO {
                 "AND table_schema = DATABASE( ) ;");
         rst.next();
         return rst.getInt(1) - 1;
+    }
+
+    @Override
+    public ArrayList<Integer> getDistinctYears() throws Exception {
+        ResultSet rst = CrudUtil.executeQuery(
+                "select distinct (year(date))\n" +
+                        "from attendant_sheet;");
+        ArrayList<Integer> years = new ArrayList<>();
+        while (rst.next()) {
+            years.add(rst.getInt(1));
+        }
+        return years;
     }
 }

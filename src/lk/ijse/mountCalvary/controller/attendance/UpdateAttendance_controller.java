@@ -16,6 +16,7 @@ import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.ActivityBO;
 import lk.ijse.mountCalvary.business.custom.AttendantSheetBO;
 import lk.ijse.mountCalvary.business.custom.TeacherBO;
+import lk.ijse.mountCalvary.controller.SuperController;
 import lk.ijse.mountCalvary.controller.tool.*;
 import lk.ijse.mountCalvary.model.ActivityDTO;
 import lk.ijse.mountCalvary.model.AttendantSheetDTO;
@@ -26,10 +27,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-public class UpdateAttendance_controller implements Initializable {
+public final class UpdateAttendance_controller extends SuperController implements Initializable {
 
     @FXML
     private VBox acUpdateAttendance;
@@ -109,7 +108,7 @@ public class UpdateAttendance_controller implements Initializable {
             loadActivity();
             loadTeacherInCharge();
         } catch (Exception e) {
-            Logger.getLogger(UpdateAttendance_controller.class.getName()).log(Level.SEVERE, null, e);
+            callLogger(e);
 
 
         }
@@ -128,6 +127,7 @@ public class UpdateAttendance_controller implements Initializable {
     void btAddAll_onAction(ActionEvent event) {
         Date day = Common.localDateToDate(dpDate.getValue());
         ObservableList<RegistrationDTO> selectedItems = tblStudentList.getSelectionModel().getSelectedItems();
+        System.out.println("@@@@@@@@@@@@@ selectedItems = " + selectedItems);
         TeacherDTO selectedTeacher = cboxTeacherInCharge.getSelectionModel().getSelectedItem();
         if (day == null) {
             OptionPane.showErrorAtSide("Please enter the date");
@@ -138,13 +138,18 @@ public class UpdateAttendance_controller implements Initializable {
             OptionPane.showErrorAtSide("Please select the teacher in charge");
         } else {
             for (RegistrationDTO oneReg : selectedItems) {
+                System.out.println("OneReg + = " + oneReg);
                 tblAttendance.getItems().add(new AttendantSheetDTO(
                         oneReg, selectedTeacher, day
                 ));
+
                 try {
+
                     tblStudentList.getItems().remove(oneReg);
-                    cboxActivity.getSelectionModel().getSelectedItem().getRegistrationDTOS().remove(oneReg);
-                } catch (NullPointerException ignored) {
+                    System.out.println("tblStudentList.getItems() = " + tblStudentList.getItems());
+//                    cboxActivity.getSelectionModel().getSelectedItem().getRegistrationDTOS().remove(oneReg);
+                } catch (NullPointerException e) {
+                    System.err.println(e);
                 }
             }
         }
@@ -183,7 +188,7 @@ public class UpdateAttendance_controller implements Initializable {
                         screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/basic/MainMenu.fxml", this.acUpdateAttendance, this);
                     }
                 } catch (Exception e) {
-                    Logger.getLogger(UpdateAttendance_controller.class.getName()).log(Level.SEVERE, null, e);
+                    callLogger(e);
 
 
                 }
@@ -196,8 +201,7 @@ public class UpdateAttendance_controller implements Initializable {
         try {
             tblStudentList.getItems().setAll(activityBOImpl.getRegistrationOfThisActivity(cboxActivity.getSelectionModel().getSelectedItem().getAID()));
         } catch (Exception e) {
-            Logger.getLogger(UpdateAttendance_controller.class.getName()).log(Level.SEVERE, null, e);
-
+            callLogger(e);
         }
     }
 

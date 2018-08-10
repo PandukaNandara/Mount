@@ -15,7 +15,7 @@ import lk.ijse.mountCalvary.model.EventListDTO;
 import java.sql.Connection;
 import java.util.ArrayList;
 
-public class EventListBOImpl implements EventListBO {
+public final class EventListBOImpl implements EventListBO {
     private EventListDAO eventListDAOImpl;
     private Connection conn;
     private QueryDAO queryDAOImpl;

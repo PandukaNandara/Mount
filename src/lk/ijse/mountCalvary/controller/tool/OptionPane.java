@@ -18,7 +18,7 @@ import java.util.Optional;
  * Time: 4:43 PM
  */
 
-public class OptionPane {
+public final class OptionPane {
 
     public static void showErrorAtSide(String message) {
         final Notifications notifications = Notifications.create()

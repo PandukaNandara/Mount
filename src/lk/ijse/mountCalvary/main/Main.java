@@ -18,12 +18,12 @@ import java.util.logging.SimpleFormatter;
 public class Main extends Application {
 
     public static void main(String[] args) {
-
         launch(args);
     }
 
     @Override
     public void start(Stage primaryStage) {
+
         try {
             try {
                 Logger errorLogger = Logger.getLogger("");
@@ -32,18 +32,20 @@ public class Main extends Application {
                 errorLogger.addHandler(fileHandler);
             } catch (IOException e) {
                 OptionPane.showErrorAtSide("The log file has been deleted.");
-                e.printStackTrace();
+                Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, e);
             }
-
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+//Test
+//            Parent root = FXMLLoader.load(getClass().getResource("/lk/ijse/mountCalvary/view/student/ImportStudentAndPreview.fxml"));
 
+//            Main
             Parent root = FXMLLoader.load(getClass().getResource("/lk/ijse/mountCalvary/view/logIn/LogIn.fxml"));
-//            Parent root = FXMLLoader.load(getClass().getResource("/lk/ijse/mountCalvary/view/activity/profile/ActivityProfile.fxml"));
+
             primaryStage.setTitle("Log in");
 
             primaryStage.setScene(new Scene(root));
             primaryStage.centerOnScreen();
-            primaryStage.setResizable(false);
+
 
             primaryStage.getIcons().add(ApplicationIcons.getDefaultIcon());
 //            primaryStage.setResizable(false);

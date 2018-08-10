@@ -13,10 +13,8 @@ import javafx.scene.layout.VBox;
 import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.CompetitionBO;
 import lk.ijse.mountCalvary.business.custom.TeacherInChargeListBO;
-import lk.ijse.mountCalvary.controller.tool.ButtonFireForEnterSetter;
-import lk.ijse.mountCalvary.controller.tool.GlobalBoolean;
-import lk.ijse.mountCalvary.controller.tool.OptionPane;
-import lk.ijse.mountCalvary.controller.tool.Reporter;
+import lk.ijse.mountCalvary.controller.SuperController;
+import lk.ijse.mountCalvary.controller.tool.*;
 import lk.ijse.mountCalvary.model.CompetitionDTO;
 import lk.ijse.mountCalvary.model.TeacherInChargeListDTO;
 import net.sf.jasperreports.engine.*;
@@ -26,10 +24,8 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-public class CompetitionDetailController implements Initializable {
+public final class CompetitionDetailController extends SuperController implements Initializable {
 
     private static JasperReport competitionDetailReport;
     @FXML
@@ -67,7 +63,7 @@ public class CompetitionDetailController implements Initializable {
         teacherInChargeListBOImpl = BOFactory.getInstance().getBO(BOFactory.BOType.TEACHER_IN_CHARGE_LIST);
     }
 
-    public void init(CompetitionProfileController competitionProfileController) {
+    protected void init(CompetitionProfileController competitionProfileController) {
         this.competitionProfileController = competitionProfileController;
     }
 
@@ -83,10 +79,9 @@ public class CompetitionDetailController implements Initializable {
             txtaDesc.setText(comp.getDesc());
             txtDate.setText(comp.getDate().toString());
             tblTeacherInCharge.getItems().setAll(teacherInChargeListBOImpl.getTeacherInChargeListForThisCompetition(CID));
-
+            Common.clearSortOrder(tblTeacherInCharge);
         } catch (Exception e) {
-            Logger.getLogger(CompetitionDetailController.class.getName()).log(Level.SEVERE, null, e);
-
+            callLogger(e);
         }
     }
 
@@ -116,7 +111,7 @@ public class CompetitionDetailController implements Initializable {
                 JasperPrint competitionPrint = JasperFillManager.fillReport(competitionDetailReport, competitionMap, new JREmptyDataSource());
                 Reporter.showReport(competitionPrint, "Competition details");
             } catch (Exception e) {
-                Logger.getLogger(CompetitionDetailController.class.getName()).log(Level.SEVERE, null, e);
+                callLogger(e);
 
             }
         } else {

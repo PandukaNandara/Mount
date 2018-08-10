@@ -20,11 +20,8 @@ public class Competition {
     }
 
     public Competition(int CID, String comName, String location, Date date, String desc) {
-        this.setCID(CID);
-        this.setComName(comName);
-        this.setLocation(location);
-        this.setDate(date);
-        this.setDesc(desc);
+        this(comName, location, date, desc);
+        this.CID = CID;
     }
 
     public Competition(int cid, String cName) {

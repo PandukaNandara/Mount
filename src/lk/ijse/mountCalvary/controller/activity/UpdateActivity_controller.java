@@ -10,6 +10,7 @@ import javafx.scene.layout.VBox;
 import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.ActivityBO;
 import lk.ijse.mountCalvary.business.custom.TeacherBO;
+import lk.ijse.mountCalvary.controller.SuperController;
 import lk.ijse.mountCalvary.controller.tool.ButtonFireForEnterSetter;
 import lk.ijse.mountCalvary.controller.tool.GlobalBoolean;
 import lk.ijse.mountCalvary.controller.tool.OptionPane;
@@ -20,10 +21,8 @@ import lk.ijse.mountCalvary.model.TeacherDTO;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-public class UpdateActivity_controller implements Initializable {
+public final class UpdateActivity_controller extends SuperController implements Initializable {
 
     @FXML
     private VBox acUpdateActivity;
@@ -60,8 +59,7 @@ public class UpdateActivity_controller implements Initializable {
             loadTeacher();
             loadActivity();
         } catch (Exception e) {
-            Logger.getLogger(UpdateActivity_controller.class.getName()).log(Level.SEVERE, null, e);
-
+            callLogger(e);
         }
     }
 
@@ -77,7 +75,8 @@ public class UpdateActivity_controller implements Initializable {
 
     @FXML
     void btCancel_onAction(ActionEvent event) {
-        screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/basic/ActivityMenu.fxml", this.acUpdateActivity, this);
+        screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/basic/ActivityMenu.fxml",
+                this.acUpdateActivity, this);
     }
 
     @FXML
@@ -94,10 +93,10 @@ public class UpdateActivity_controller implements Initializable {
                 OptionPane.showDoneAtSide("Activity has Successfully updated");
             }
         } catch (Exception e) {
-            Logger.getLogger(UpdateActivity_controller.class.getName()).log(Level.SEVERE, null, e);
-
+            callLogger(e);
         }
-        screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/basic/ActivityMenu.fxml", this.acUpdateActivity, this);
+        screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/basic/ActivityMenu.fxml",
+                this.acUpdateActivity, this);
     }
 
     @FXML

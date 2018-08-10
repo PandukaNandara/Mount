@@ -1,6 +1,6 @@
 package lk.ijse.mountCalvary.controller.tool;
 
-public class GlobalBoolean {
+public final class GlobalBoolean {
 
     private static boolean lock;
 

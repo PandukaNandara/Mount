@@ -1,11 +1,12 @@
 package lk.ijse.mountCalvary.model;
 
 import javafx.collections.ObservableList;
+import lk.ijse.mountCalvary.controller.tool.House;
 import lk.ijse.mountCalvary.entity.Gender;
 
 import java.util.Date;
 
-public class StudentDTO implements Gender, SearchProvider{
+public class StudentDTO implements Gender, SearchProvider {
 
     private int SID;
     private String sName;
@@ -15,9 +16,14 @@ public class StudentDTO implements Gender, SearchProvider{
     private String fatherName;
     private String motherName;
     private String note;
-    private String house;
+    private int house;
     private String address;
     private ObservableList<TelNoDTO> telNoList;
+
+    private boolean quit;
+    private int BCID;
+    private String genderType;
+    private House houseName;
 
     private ObservableList<RegistrationDTO> allInitialActivity;
 
@@ -29,7 +35,8 @@ public class StudentDTO implements Gender, SearchProvider{
         this.sName = sName;
     }
 
-    public StudentDTO(String sName, Date DOB, boolean gender, String sClass, String fatherName, String motherName, String note, String house, String address, ObservableList<TelNoDTO> telNoList) {
+    public StudentDTO(String sName, Date DOB, boolean gender, String sClass, String fatherName, String motherName,
+                      String note, int house, String address, ObservableList<TelNoDTO> telNoList) {
         this.sName = sName;
         this.DOB = DOB;
         this.gender = gender;
@@ -42,37 +49,37 @@ public class StudentDTO implements Gender, SearchProvider{
         this.telNoList = telNoList;
     }
 
-    public StudentDTO(int SID, String sName, boolean gender, Date DOB, String sClass, String fatherName, String motherName, String note, String house, String address, ObservableList<TelNoDTO> telNoList) {
-        this.house = house;
-        this.gender = gender;
-        this.address = address;
-        this.telNoList = telNoList;
+    public StudentDTO(int SID, String sName, boolean gender, Date DOB, String sClass, String fatherName,
+                      String motherName, String note, int house, String address, ObservableList<TelNoDTO> telNoList) {
+        this(sName, DOB, gender, sClass, fatherName, motherName, note, house, address, telNoList);
         this.setSID(SID);
-        this.setsName(sName);
-        this.setDOB(DOB);
-        this.setsClass(sClass);
-        this.setFatherName(fatherName);
-        this.setMotherName(motherName);
-        this.setNote(note);
     }
 
-    public StudentDTO(int SID, String sName, boolean gender, Date DOB, String sClass, String fatherName, String motherName, String note, String house, String address, ObservableList<TelNoDTO> allTelNum, ObservableList<RegistrationDTO> allInitialActivity) {
-        this.house = house;
-        this.gender = gender;
-        this.address = address;
+    public StudentDTO(int SID, String sName, boolean gender, Date DOB, String sClass, String fatherName,
+                      String motherName, String note, int house, String address, ObservableList<TelNoDTO> telNoList,
+                      boolean quit, int BCID) {
+        this(sName, DOB, gender, sClass, fatherName, motherName, note, house, address, telNoList, quit, BCID);
         this.setSID(SID);
-        this.setsName(sName);
-        this.setDOB(DOB);
-        this.setsClass(sClass);
-        this.setFatherName(fatherName);
-        this.setMotherName(motherName);
-        this.setNote(note);
+    }
+
+
+    public StudentDTO(int SID, String sName, boolean gender, Date DOB, String sClass, String fatherName,
+                      String motherName, String note, int house, String address, ObservableList<TelNoDTO> allTelNum,
+                      ObservableList<RegistrationDTO> allInitialActivity) {
+        this(SID, sName, gender, DOB, sClass, fatherName, motherName, note, house, address, allTelNum);
         this.allInitialActivity = allInitialActivity;
-        this.telNoList = allTelNum;
-        System.out.println(toString());
     }
 
-    public StudentDTO(int SID, String sName, boolean gender, Date DOB, String sClass, String fatherName, String motherName, String note, String house, String address) {
+    public StudentDTO(int SID, String sName, boolean gender, Date DOB, String sClass, String fatherName,
+                      String motherName, String note, int house, String address, ObservableList<TelNoDTO> allTelNum,
+                      ObservableList<RegistrationDTO> allInitialActivity, boolean quit, int BCID) {
+        this(SID, sName, gender, DOB, sClass, fatherName, motherName, note, house, address, allTelNum, allInitialActivity);
+        this.BCID = BCID;
+        this.quit = quit;
+    }
+
+    public StudentDTO(int SID, String sName, boolean gender, Date DOB, String sClass, String fatherName,
+                      String motherName, String note, int house, String address) {
         this.house = house;
         this.gender = gender;
         this.address = address;
@@ -83,12 +90,52 @@ public class StudentDTO implements Gender, SearchProvider{
         this.setFatherName(fatherName);
         this.setMotherName(motherName);
         this.setNote(note);
-        System.out.println(toString());
+    }
+
+    public StudentDTO(String sName, Date DOB, boolean gender, String sClass, String fatherName, String motherName,
+                      String note, int house, String address, ObservableList<TelNoDTO> telNoList,
+                      boolean quit, int BCID) {
+        this(sName, DOB, gender, sClass, fatherName, motherName, note, house, address, telNoList);
+        this.quit = quit;
+        this.BCID = BCID;
+    }
+
+    public StudentDTO(int SID, String sName, Date DOB, boolean gender, String sClass, String fatherName,
+                      String motherName, String note, int house, String address, ObservableList<TelNoDTO> telNoList,
+                      boolean quit, int BCID) {
+        this(sName, DOB, gender, sClass, fatherName, motherName, note, house, address, telNoList, quit, BCID);
+        this.SID = SID;
+    }
+
+    public StudentDTO(int SID, String sName, boolean gender, Date DOB, String sClass, String fatherName,
+                      String motherName, String note, int house, String address, boolean quit, int BCID) {
+        this(SID, sName, gender, DOB, sClass, fatherName, motherName, note, house, address);
+        this.quit = quit;
+        this.BCID = BCID;
     }
 
     @Override
     public String toString() {
         return sName;
+    }
+
+    public String toStringAndGetAll() {
+        return "StudentDTO{" +
+                "SID=" + SID +
+                ", sName='" + sName + '\'' +
+                ", DOB=" + DOB +
+                ", gender=" + gender +
+                ", sClass='" + sClass + '\'' +
+                ", fatherName='" + fatherName + '\'' +
+                ", motherName='" + motherName + '\'' +
+                ", note='" + note + '\'' +
+                ", house=" + house +
+                ", address='" + address + '\'' +
+                ", telNoList=" + telNoList +
+                ", quit=" + quit +
+                ", BCID=" + BCID +
+                ", allInitialActivity=" + allInitialActivity +
+                '}';
     }
 
     public int getSID() {
@@ -99,7 +146,7 @@ public class StudentDTO implements Gender, SearchProvider{
         this.SID = SID;
     }
 
-    public String getsName() {
+    public String getSName() {
         return sName;
     }
 
@@ -115,7 +162,7 @@ public class StudentDTO implements Gender, SearchProvider{
         this.DOB = DOB;
     }
 
-    public String getsClass() {
+    public String getSClass() {
         return sClass;
     }
 
@@ -147,11 +194,11 @@ public class StudentDTO implements Gender, SearchProvider{
         this.note = note;
     }
 
-    public String getHouse() {
+    public int getHouse() {
         return house;
     }
 
-    public void setHouse(String house) {
+    public void setHouse(int house) {
         this.house = house;
     }
 
@@ -195,5 +242,31 @@ public class StudentDTO implements Gender, SearchProvider{
     @Override
     public String getName() {
         return sName;
+    }
+
+    public boolean isQuit() {
+        return quit;
+    }
+
+    public void setQuit(boolean quit) {
+        this.quit = quit;
+    }
+
+    public int getBCID() {
+        return BCID;
+    }
+
+    public void setBCID(int BCID) {
+        this.BCID = BCID;
+    }
+
+    public String getGenderType() {
+        return gender == Gender.MALE ?
+                (genderType = "Male") :
+                (genderType = "Female");
+    }
+
+    public House getHouseName() {
+        return new House(house);
     }
 }

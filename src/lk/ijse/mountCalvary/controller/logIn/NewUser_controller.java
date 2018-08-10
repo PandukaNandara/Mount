@@ -9,6 +9,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.layout.VBox;
 import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.LogInBO;
+import lk.ijse.mountCalvary.controller.SuperController;
 import lk.ijse.mountCalvary.controller.tool.ButtonFireForEnterSetter;
 import lk.ijse.mountCalvary.controller.tool.GlobalBoolean;
 import lk.ijse.mountCalvary.controller.tool.OptionPane;
@@ -17,10 +18,9 @@ import lk.ijse.mountCalvary.model.LogInDTO;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-public class NewUser_controller implements Initializable {
+
+public final class NewUser_controller extends SuperController implements Initializable {
 
     @FXML
     private VBox acNewUser;
@@ -74,7 +74,7 @@ public class NewUser_controller implements Initializable {
             }
             screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/logIn/LogIn.fxml", acNewUser, this);
         } catch (Exception e) {
-            Logger.getLogger(NewUser_controller.class.getName()).log(Level.SEVERE, null, e);
+            callLogger(e);
         }
 
     }
@@ -103,8 +103,7 @@ public class NewUser_controller implements Initializable {
                 OptionPane.showErrorAtSide("This user name is already existed.");
             }
         } catch (Exception e) {
-            Logger.getLogger(NewUser_controller.class.getName()).log(Level.SEVERE, null, e);
-
+            callLogger(e);
         }
     }
 

@@ -9,7 +9,7 @@ import javax.swing.*;
 import java.io.File;
 import java.util.ArrayList;
 
-public class Reporter {
+public final class Reporter {
     private static ArrayList<FileChooser.ExtensionFilter> getAllExtensionForSaveAs() {
         ArrayList<FileChooser.ExtensionFilter> a = new ArrayList<>();
         a.add(new FileChooser.ExtensionFilter("PDF file (.pdf)", "pdf"));
@@ -17,6 +17,7 @@ public class Reporter {
         a.add(new FileChooser.ExtensionFilter("Hypertext Markup Language (.html)", "html"));
         return a;
     }
+
     public static File getSaveLocationAndType(String text, Stage stage) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setInitialFileName(text);
@@ -33,7 +34,6 @@ public class Reporter {
 
         jv.setAlwaysOnTop(true);
         jv.setTitle(title);
-
 
 
         jv.setVisible(true);

@@ -73,10 +73,12 @@ public class PaymentDTO {
         setMonth(month);
         setYear(year);
     }
+
     public PaymentDTO(int payid, int rid, int sid, String sName, BigDecimal fee, Month month, int year, String activityName) {
         this(payid, rid, sid, sName, fee, month, year);
         setActivityName(activityName);
     }
+
     public String getActivityName() {
         return activityName;
     }
@@ -117,7 +119,7 @@ public class PaymentDTO {
         this.fee = fee;
     }
 
-    public Month getMonth(){
+    public Month getMonth() {
         return month;
     }
 

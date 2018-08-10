@@ -18,12 +18,13 @@ public class QueryDAOImpl implements QueryDAO {
     public ArrayList<CustomEntity> getAllStudentNotDoThisActivity(int AID) throws Exception {
         ArrayList<CustomEntity> allStudent = new ArrayList<>();
         ResultSet rst = CrudUtil.executeQuery("select SID, sName\n" +
-                "from student\n" +
+                "from student s\n" +
                 "where SID not in(select distinct s.SID\n" +
                 "from student s, registration r\n" +
-                "where s.SID = r.SID and AID = ?)", AID);
+                "where s.SID = r.SID and AID = ?)" +
+                "and s.quit = false", AID);
         while (rst.next()) {
-            System.out.println(rst.getInt("SID") +"  "+
+            System.out.println(rst.getInt("SID") + "  " +
                     rst.getString("sName"));
             allStudent.add(new CustomEntity(new Student(
                             rst.getInt("SID"),
@@ -651,4 +652,234 @@ public class QueryDAOImpl implements QueryDAO {
         return distinctPayment;
     }
 
+    @Override
+    public ArrayList<CustomEntity> getPhysicalTestForThisClassAndTermWithClassStudent(int term_id, String class_) throws Exception {
+        ArrayList<CustomEntity> allStudentWithMarks = new ArrayList<>();
+        //Get student whom does't enter into the PhysicalTest table.
+        ResultSet firstRst = CrudUtil.executeQuery(
+                "select\n" +
+                        "  s.SID,\n" +
+                        "  s.sName,\n" +
+                        "  s.class\n" +
+                        "from student s\n" +
+                        "where s.class = ? and SID not in (select distinct SID\n" +
+                        "                                      from physical_test\n" +
+                        "                                      where TERM_ID = ?)",
+                class_, term_id
+        );
+        while (firstRst.next()) {
+            allStudentWithMarks.add(new CustomEntity(
+                    firstRst.getInt("SID"),
+                    firstRst.getString("sName"),
+                    firstRst.getString("class"),
+                    new PhysicalTest(true, term_id))); // Because this is not in the Physical Test
+        }
+        ResultSet secondRst = CrudUtil.executeQuery(
+                "select\n" +
+                        "  pt.PTID,\n" +
+                        "  s.SID,\n" +
+                        "  s.sName,\n" +
+                        "  TERM_ID,\n" +
+                        "  s.class,\n" +
+                        "  attendance,\n" +
+                        "  skill,\n" +
+                        "  progress_effort,\n" +
+                        "  attitudes,\n" +
+                        "  performance,\n" +
+                        "  total\n" +
+                        "\n" +
+                        "from student s, physical_test pt\n" +
+                        "where (s.SID = pt.SID)\n" +
+                        "      and s.class = ?\n" +
+                        "      and TERM_ID = ?;",
+                class_, term_id
+        );
+        while (secondRst.next()) {
+            allStudentWithMarks.add(new CustomEntity(
+                    secondRst.getInt("SID"),
+                    secondRst.getString("sName"),
+                    secondRst.getString("class"),
+                    new PhysicalTest(
+                            secondRst.getInt("PTID"),
+                            secondRst.getInt("SID"),
+                            secondRst.getInt("TERM_ID"),
+                            secondRst.getString("class"),
+                            secondRst.getInt("attendance"),
+                            secondRst.getInt("skill"),
+                            secondRst.getInt("progress_effort"),
+                            secondRst.getInt("attitudes"),
+                            secondRst.getInt("performance"),
+                            secondRst.getInt("total")
+                    ))); // Because this in the Physical Test
+        }
+        return allStudentWithMarks;
+    }
+
+    @Override
+    public ArrayList<CustomEntity> getPhysicalTestForThisTerm(int term_id) throws Exception {
+        ArrayList<CustomEntity> allStudentWithMarks = new ArrayList<>();
+        //Get student whom does't enter into the PhysicalTest table.
+        ResultSet rst = CrudUtil.executeQuery(
+                "select\n" +
+                        "  pt.PTID,\n" +
+                        "  s.SID,\n" +
+                        "  s.sName,\n" +
+                        "  TERM_ID,\n" +
+                        "  pt.class,\n" +
+                        "  attendance,\n" +
+                        "  skill,\n" +
+                        "  progress_effort,\n" +
+                        "  attitudes,\n" +
+                        "  performance,\n" +
+                        "  total\n" +
+                        "from student s, physical_test pt\n" +
+                        "where (s.SID = pt.SID)\n" +
+                        "      and TERM_ID = ? \n" +
+                        "order by s.class asc",
+                term_id
+        );
+        while (rst.next()) {
+            allStudentWithMarks.add(new CustomEntity(
+                    rst.getInt("SID"),
+                    rst.getString("sName"),
+                    rst.getString("class"),
+                    new PhysicalTest(
+                            rst.getInt("PTID"),
+                            rst.getInt("SID"),
+                            rst.getInt("TERM_ID"),
+                            rst.getString("class"),
+                            rst.getInt("attendance"),
+                            rst.getInt("skill"),
+                            rst.getInt("progress_effort"),
+                            rst.getInt("attitudes"),
+                            rst.getInt("performance"),
+                            rst.getInt("total")
+                    )));
+        }
+        return allStudentWithMarks;
+    }
+
+    @Override
+    public ArrayList<CustomEntity> getPhysicalTestForThisStudent(int sid) throws Exception {
+        ArrayList<CustomEntity> studentMarks = new ArrayList<>();
+        ResultSet rst = CrudUtil.executeQuery(
+                "select\n" +
+                        "  pt.PTID,\n" +
+                        "  SID,\n" +
+                        "  t.TERM_ID,\n" +
+                        "  t.term_name,\n" +
+                        "  t.term_no,\n" +
+                        "  t.year,\n" +
+                        "  class,\n" +
+                        "  attendance,\n" +
+                        "  skill,\n" +
+                        "  progress_effort,\n" +
+                        "  attitudes,\n" +
+                        "  performance,\n" +
+                        "  total\n" +
+                        "from term t, physical_test pt\n" +
+                        "where (t.TERM_ID = pt.TERM_ID)\n" +
+                        "      and SID = ? \n" +
+                        "order by class asc",
+                sid
+        );
+        while (rst.next()) {
+            studentMarks.add(new CustomEntity(
+                    new Term(rst.getInt("TERM_ID"),
+                            rst.getString("term_name"),
+                            rst.getInt("year"),
+                            rst.getInt("term_no")),
+
+                    rst.getString("class"),
+
+                    new PhysicalTest(
+                            rst.getInt("PTID"),
+                            rst.getInt("SID"),
+                            rst.getInt("TERM_ID"),
+                            rst.getString("class"),
+                            rst.getInt("attendance"),
+                            rst.getInt("skill"),
+                            rst.getInt("progress_effort"),
+                            rst.getInt("attitudes"),
+                            rst.getInt("performance"),
+                            rst.getInt("total")
+                    )));
+        }
+        return studentMarks;
+    }
+
+    @Override
+    public ArrayList<Student> getStudentWhoIsNotInContributionListOfThisCompetition(int CID) throws Exception {
+        ArrayList<Student> studentList = new ArrayList<>();
+        ResultSet rst = CrudUtil.executeQuery(
+                "select\n" +
+                        "  SID,\n" +
+                        "  sName\n" +
+                        "from student s\n" +
+                        "where SID not in (select distinct (SID)\n" +
+                        "                  from comp_contribution\n" +
+                        "                  where CID = ?)",
+                CID
+        );
+        while (rst.next()) {
+            studentList.add(new Student(
+                    rst.getInt("SID"),
+                    rst.getString("sName")
+            ));
+        }
+        return studentList;
+    }
+
+    @Override
+    public ArrayList<CustomEntity> getContributionForThisCompetition(int cid) throws Exception {
+        ArrayList<CustomEntity> studentList = new ArrayList<>();
+        ResultSet rst = CrudUtil.executeQuery(
+                "select\n" +
+                        "  CCID,\n" +
+                        "  s.SID,\n" +
+                        "  CID,\n" +
+                        "  s.sName,\n" +
+                        "  cc.contribution\n" +
+                        "from student s, comp_contribution cc\n" +
+                        "where s.SID = cc.SID and CID = ?",
+                cid
+        );
+        while (rst.next()) {
+            studentList.add(new CustomEntity(
+                    rst.getInt("CCID"),
+                    rst.getInt("SID"),
+                    rst.getString("sName"),
+                    rst.getInt("CCID"),
+                    rst.getString("contribution")
+            ));
+        }
+        return studentList;
+    }
+
+    @Override
+    public ArrayList<CustomEntity> getContributionForThisStudent(int sid) throws Exception {
+        ArrayList<CustomEntity> studentList = new ArrayList<>();
+        ResultSet rst = CrudUtil.executeQuery(
+                "select\n" +
+                        "  CCID,\n" +
+                        "  SID,\n" +
+                        "  c.CID,\n" +
+                        "  c.cName,\n" +
+                        "  cc.contribution\n" +
+                        "from comp_contribution cc, competition c\n" +
+                        "where c.CID = cc.CID and SID = ?",
+                sid
+        );
+        while (rst.next()) {
+            studentList.add(new CustomEntity(
+                    rst.getInt("CCID"),
+                    rst.getInt("SID"),
+                    rst.getInt("CID"),
+                    rst.getString("cName"),
+                    rst.getString("contribution")
+            ));
+        }
+        return studentList;
+
+    }
 }

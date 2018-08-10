@@ -11,8 +11,11 @@ public class Student implements Gender {
     private String fatherName;
     private String motherName;
     private String note;
-    private String house;
+    private int house;
     private String address;
+    private boolean quit;
+    private int BCID;
+
     public Student() {
     }
 
@@ -21,7 +24,7 @@ public class Student implements Gender {
         this.sName = sName;
     }
 
-    public Student(String sName, boolean gender, Date DOB, String sClass, String fatherName, String motherName, String note, String house, String address) {
+    public Student(String sName, boolean gender, Date DOB, String sClass, String fatherName, String motherName, String note, int house, String address) {
         this.sName = sName;
         this.DOB = DOB;
         this.gender = gender;
@@ -33,17 +36,36 @@ public class Student implements Gender {
         this.address = address;
     }
 
-    public Student(int SID, String sName, boolean gender, Date DOB, String sClass, String fatherName, String motherName, String note, String house, String address) {
-        this.house = house;
-        this.gender = gender;
-        this.address = address;
-        this.setSID(SID);
-        this.setsName(sName);
-        this.setDOB(DOB);
-        this.setsClass(sClass);
-        this.setFatherName(fatherName);
-        this.setMotherName(motherName);
-        this.setNote(note);
+    public Student(int SID, String sName, boolean gender, Date DOB, String sClass, String fatherName, String motherName, String note, int house, String address) {
+        this(sName, gender, DOB, sClass, fatherName, motherName, note, house, address);
+        this.SID = SID;
+    }
+
+    public Student(int SID, String sName, boolean gender, Date DOB, String sClass, String fatherName, String motherName, String note, int house, String address, boolean quit, int BCID) {
+        this(sName, DOB, gender, sClass, fatherName, motherName, note, house, address, quit, BCID);
+        this.SID = SID;
+    }
+
+    public Student(String sName, Date DOB, boolean gender, String sClass, String fatherName, String motherName, String note, int house, String address, boolean quit, int BCID) {
+        this(sName, gender, DOB, sClass, fatherName, motherName, note, house, address);
+        this.quit = quit;
+        this.BCID = BCID;
+    }
+
+    public boolean isQuit() {
+        return quit;
+    }
+
+    public void setQuit(boolean quit) {
+        this.quit = quit;
+    }
+
+    public int getBCID() {
+        return BCID;
+    }
+
+    public void setBCID(int BCID) {
+        this.BCID = BCID;
     }
 
     public int getSID() {
@@ -102,11 +124,11 @@ public class Student implements Gender {
         this.note = note;
     }
 
-    public String getHouse() {
+    public int getHouse() {
         return house;
     }
 
-    public void setHouse(String house) {
+    public void setHouse(int house) {
         this.house = house;
     }
 

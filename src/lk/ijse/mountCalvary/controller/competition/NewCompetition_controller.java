@@ -5,17 +5,17 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextFormatter;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.CompetitionBO;
 import lk.ijse.mountCalvary.business.custom.TeacherBO;
+import lk.ijse.mountCalvary.controller.SuperController;
 import lk.ijse.mountCalvary.controller.tool.*;
 import lk.ijse.mountCalvary.model.CompetitionDTO;
 import lk.ijse.mountCalvary.model.TeacherDTO;
@@ -25,11 +25,10 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-public class NewCompetition_controller implements Initializable {
+public final class NewCompetition_controller extends SuperController implements Initializable {
 
+    private final int MAX_CHARS = 1000;
     TeacherBO teacherBOImpl;
     @FXML
     private VBox acNewCompetition;
@@ -59,6 +58,7 @@ public class NewCompetition_controller implements Initializable {
     private JFXComboBox cboxTeacherInCharge;
     private CompetitionBO competitionBOImpl;
     private ScreenLoader screenLoader = ScreenLoader.getInstance();
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         GlobalBoolean.setLock(true);
@@ -66,11 +66,12 @@ public class NewCompetition_controller implements Initializable {
         colTeacherInCharge.setCellValueFactory(new PropertyValueFactory<>("tName"));
         teacherBOImpl = BOFactory.getInstance().getBO(BOFactory.BOType.TEACHER);
         competitionBOImpl = BOFactory.getInstance().getBO(BOFactory.BOType.COMPETITION);
+        txtaDesc.setTextFormatter(new TextFormatter<String>(change ->
+                change.getControlNewText().length() <= MAX_CHARS ? change : null));
         try {
             loadTeacher();
         } catch (Exception e) {
-            Logger.getLogger(NewCompetition_controller.class.getName()).log(Level.SEVERE, null, e);
-
+            callLogger(e);
         }
     }
 
@@ -109,13 +110,6 @@ public class NewCompetition_controller implements Initializable {
             OptionPane.showErrorAtSide("Please add teacher for the competition");
         } else if (date == null) {
             OptionPane.showErrorAtSide("Please select the date that the competition was held.");
-        } else if (txtaDesc.getText().length() > 700) {
-            OptionPane.showErrorAtSide("Competition description can contain only 700 characters. You have entered " + txtaDesc.getText().length() + " characters (with spaces).");
-            try {
-                txtaDesc.selectRange(700, txtaDesc.getText().length());
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
         } else if (desc.length() < 1) {
             boolean ask = OptionPane.askWarning("Are you sure want to continue without adding description for the competition?");
             if (!ask) {
@@ -151,13 +145,14 @@ public class NewCompetition_controller implements Initializable {
                 boolean next = OptionPane.askQuestion("Competition has successfully created. Do you want add Event for the competition? You can add them later.");
                 if (next) {
                     try {
-                        FXMLLoader fxmlLoader = new FXMLLoader();
-                        Pane p = fxmlLoader.load(getClass().getResource("/lk/ijse/mountCalvary/view/competition/EventForCompetition.fxml").openStream());
-                        EventForCompetition_controller fooController = fxmlLoader.getController();
-                        this.acNewCompetition.getChildren().setAll(p);
+                        EventForCompetition_controller fooController =
+                                (EventForCompetition_controller)
+                                        screenLoader.loadOnCenterOfBorderPaneAndCallController(
+                                                "/lk/ijse/mountCalvary/view/competition/EventForCompetition.fxml",
+                                                acNewCompetition, this);
                         fooController.setSelectedItem(0);
                     } catch (Exception e) {
-                        Logger.getLogger(NewCompetition_controller.class.getName()).log(Level.SEVERE, null, e);
+                        callLogger(e);
                         screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/competition/StudentForCompetition.fxml", this.acNewCompetition, this);
 
                     }
@@ -168,7 +163,7 @@ public class NewCompetition_controller implements Initializable {
                 OptionPane.showErrorAtSide("Something's wrong we can't do your request now");
             }
         } catch (Exception e) {
-            Logger.getLogger(NewCompetition_controller.class.getName()).log(Level.SEVERE, null, e);
+            callLogger(e);
             OptionPane.showErrorAtSide("Something's wrong we can't do your request now");
 
         }

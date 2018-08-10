@@ -10,13 +10,14 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.EventListBO;
 import lk.ijse.mountCalvary.business.custom.ParticipationBO;
-import lk.ijse.mountCalvary.controller.tool.ButtonFireForEnterSetter;
-import lk.ijse.mountCalvary.controller.tool.GlobalBoolean;
-import lk.ijse.mountCalvary.controller.tool.OptionPane;
-import lk.ijse.mountCalvary.controller.tool.Reporter;
+import lk.ijse.mountCalvary.controller.SuperController;
+import lk.ijse.mountCalvary.controller.report.CertificateMakerController;
+import lk.ijse.mountCalvary.controller.tool.*;
+import lk.ijse.mountCalvary.db.DBConnection;
 import lk.ijse.mountCalvary.model.AgeGroupDTO;
 import lk.ijse.mountCalvary.model.CompetitionDTO;
 import lk.ijse.mountCalvary.model.EventListDTO;
@@ -24,16 +25,32 @@ import lk.ijse.mountCalvary.model.ParticipationDTO;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
+import java.io.FileInputStream;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-public class EventAndActivityController implements Initializable {
+public final class EventAndActivityController extends SuperController implements Initializable {
 
     private static JasperReport competitionDetailReport;
+    private final String[] keys = new String[]{
+            "Student_ID",
+            "Student_Name",
+            "Student_House",
+            "Student_Class",
+            "Result",
+            "Age_group",
+            "Performance",
+            "Activity_Name",
+            "Event_Name",
+            "Event_Gender",
+            "Competition_Name",
+            "Competition_Location",
+            "Competition_Date",
+            "Year"
+    };
     @FXML
     private VBox acEventForActivity;
     @FXML
@@ -54,13 +71,17 @@ public class EventAndActivityController implements Initializable {
     private TableColumn<ParticipationDTO, String> colResult_tblStudentLIst;
     @FXML
     private TableColumn<ParticipationDTO, String> colPerformance_tblStudentList;
-    private CompetitionProfileController competitionProfileController;
-
-    private ParticipationBO participationBOImpl;
-    private EventListBO eventListBOImpl;
+    @FXML
+    private TableColumn<ParticipationDTO, Integer> colStudentID_tblStudentLIst;
     @FXML
     private JFXButton btPrint;
+    @FXML
+    private JFXButton btCertificate;
+    private CompetitionProfileController competitionProfileController;
+    private ParticipationBO participationBOImpl;
+    private EventListBO eventListBOImpl;
     private CompetitionDTO selectedCompetition;
+    private ScreenLoader screenLoader = ScreenLoader.getInstance();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -75,13 +96,14 @@ public class EventAndActivityController implements Initializable {
         colPerformance_tblStudentList.setCellValueFactory(new PropertyValueFactory<>("performance"));
         colResult_tblStudentLIst.setCellValueFactory(new PropertyValueFactory<>("result"));
         colStudent_tblStudentLIst.setCellValueFactory(new PropertyValueFactory<>("studentName"));
+        colStudentID_tblStudentLIst.setCellValueFactory(new PropertyValueFactory<>("SID"));
 
         eventListBOImpl = BOFactory.getInstance().getBO(BOFactory.BOType.EVENT_LIST);
         participationBOImpl = BOFactory.getInstance().getBO(BOFactory.BOType.PARTICIPATION);
 
     }
 
-    public void init(CompetitionProfileController competitionProfileController) {
+    protected void init(CompetitionProfileController competitionProfileController) {
         this.competitionProfileController = competitionProfileController;
     }
 
@@ -92,9 +114,9 @@ public class EventAndActivityController implements Initializable {
             int cid = competitionDTO.getCID();
             ObservableList<EventListDTO> eventListForThisCompetition = eventListBOImpl.getEventListForThisCompetition(cid);
             tblEventInCompetition.getItems().setAll(eventListForThisCompetition);
+            Common.clearSortOrder(tblEventInCompetition, tblStudentList);
         } catch (Exception e) {
-            Logger.getLogger(EventAndActivityController.class.getName()).log(Level.SEVERE, null, e);
-
+            callLogger(e);
         }
 
     }
@@ -108,8 +130,7 @@ public class EventAndActivityController implements Initializable {
 
         } catch (NullPointerException ignored) {
         } catch (Exception e) {
-            Logger.getLogger(EventAndActivityController.class.getName()).log(Level.SEVERE, null, e);
-
+            callLogger(e);
         }
     }
 
@@ -128,6 +149,7 @@ public class EventAndActivityController implements Initializable {
                     String eventName = selectedEventList.getEventName();
                     String ageGroup = selectedEventList.getAgeGroupDTO().toString();
                     String gender_string = selectedEventList.getGenderType();
+
                     if (tblStudentList.getItems().size() == 0 &&
                             (!OptionPane.askWarning("There's no participation for this event. Do you want to continue?")))
                         return;
@@ -146,17 +168,81 @@ public class EventAndActivityController implements Initializable {
                     competitionMap.put("Gender", gender_string);
 
                     JasperPrint competitionPrint = JasperFillManager.fillReport(competitionDetailReport, competitionMap, new JREmptyDataSource());
+
                     //Reporter.showReport(competitionPrint, false);
                     Reporter.showReport(competitionPrint, "Event and participation");
                 } catch (Exception e) {
-                    Logger.getLogger(EventAndActivityController.class.getName()).log(Level.SEVERE, null, e);
-
+                    callLogger(e);
                 }
             } else {
                 OptionPane.showErrorAtSide("Please select an event from the Event list.");
             }
         } else {
             OptionPane.showErrorAtSide("Please select a competition to print.");
+        }
+    }
+
+    @FXML
+    private void btCertificate_onAction(ActionEvent actionEvent) {
+        EventListDTO selectedItem = tblEventInCompetition.getSelectionModel().getSelectedItem();
+        if (selectedItem == null) {
+            OptionPane.showErrorAtSide("Please select an event.");
+            return;
+        }
+        CertificateMakerController certificateMakerController = screenLoader.loadNewWindowAndWait(
+                "/lk/ijse/mountCalvary/view/report/CertificateMaker.fxml",
+                "Certificate Designer");
+        Map<String, Text> parameterMap = certificateMakerController.getParameterMap();
+        if (parameterMap.size() == 0) {
+            OptionPane.showWarningAtSide("You didn't put any parameter into the certificate.");
+            return;
+        }
+
+        System.out.println(parameterMap);
+        HashMap map = new HashMap();
+
+        try {
+
+            TemporaryFileCreator fileCreator = new TemporaryFileCreator(
+                    "/lk/ijse/mountCalvary/report/report/Landscape_certificate.jrxml",
+                    "Certificate",
+                    ".jrxml");
+            for (String key : keys) {
+                Text text = parameterMap.get(String.format("{%s}", key));
+                double x;
+                double y;
+                boolean shouldSee;
+                if (text == null) {
+                    x = 0;
+                    y = 0;
+                    shouldSee = false;
+                } else {
+                    x = text.getX();
+                    y = text.getY();
+                    shouldSee = true;
+                }
+
+                final int X = (int) Math.round(x);
+                final int Y = (int) Math.round(y);
+
+                fileCreator.putParameter(String.format("%s_X", key), String.valueOf(X));
+                fileCreator.putParameter(String.format("%s_Y", key), String.valueOf(Y));
+                map.put(String.format("see_%s", key), shouldSee);
+            }
+
+            fileCreator.readFile(fileCreator.getTempFile());
+
+            map.put("ELID", selectedItem.getELID());
+            InputStream certificateFile = new FileInputStream(fileCreator.getTempFile());
+
+            JasperReport certificate = JasperCompileManager.compileReport(certificateFile);
+            JasperPrint competitionPrint = JasperFillManager.fillReport(certificate, map, DBConnection.getInstance().getConnection());
+
+            Reporter.showReport(competitionPrint, "Certificate");
+            System.out.println(fileCreator.getTempFile().getAbsolutePath());
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }
