@@ -1,0 +1,634 @@
+* {
+    -fx-def-color: #2196F3;
+    /*-fx-def-color: red;*/
+    /*#2196F3*/
+}
+
+.parent {
+    -fx-pref-width: 1600px;
+    -fx-pref-height: 900px;
+    -fx-max-width: 1600px;
+    -fx-max-height: 900px;
+    -fx-min-width: 1600px;
+    -fx-min-height: 900px;
+    -fx-background-color: white;
+}
+
+.radio-button {
+    -jfx-selected-color: -fx-def-color;
+    -jfx-unselected-color: -fx-def-color;
+}
+
+.main-frame {
+    -fx-pref-width: 1450px;
+    -fx-pref-height: 910px;
+    -fx-max-width: 1450px;
+    -fx-max-height: 910px;
+    -fx-min-width: 1450px;
+    -fx-min-height: 910px;
+    -fx-background-color: white;
+    /*-fx-background-color: transparent;*/
+}
+
+.main-frame-for-scroll-pane {
+    -fx-pref-width: 1425px;
+    -fx-max-width: 1425px;
+    -fx-min-width: 1425px;
+    -fx-background-color: white;
+}
+
+.profile-frame {
+    /*-fx-pref-width: 1440px;*/
+    /*-fx-pref-height: 790px;*/
+    /*-fx-max-width: 1440px;*/
+    /*-fx-max-height: 790px;*/
+    /*-fx-min-width: 1440px;*/
+    /*-fx-min-height: 790px;*/
+    /*-fx-background-color: white;*/
+}
+
+/*
+Button
+ */
+
+.jfx-button:armed,
+.jfx-button:hover,
+.jfx-button:focused,
+.jfx-button {
+    -fx-background-color: TRANSPARENT, TRANSPARENT, TRANSPARENT, TRANSPARENT;
+    -fx-background-radius: 3px;
+    -fx-background-insets: 0px;
+}
+
+/**************
+* Date Picker *
+**************/
+
+.jfx-date-picker {
+    -jfx-default-color: -fx-def-color;
+}
+
+.jfx-date-picker,
+.jfx-date-picker:focused,
+.jfx-date-picker:focused:editable {
+    -fx-background-color: TRANSPARENT, TRANSPARENT, TRANSPARENT, TRANSPARENT;
+}
+
+.jfx-date-picker > .arrow-button,
+.jfx-date-picker:editable > .arrow-button,
+.jfx-date-picker:focused > .arrow-button,
+.jfx-date-picker:editable:focused > .arrow-button {
+    -fx-background-color: TRANSPARENT;
+    -fx-padding: 1 8 1 8;
+}
+
+.jfx-date-picker > .arrow-button > .jfx-svg-glyph {
+    -fx-background-color: -jfx-default-color;
+}
+
+.date-picker-popup > * > .spinner {
+    -fx-spacing: 0.25em; /* 3 */
+    -fx-alignment: CENTER;
+    -fx-fill-height: false;
+    -fx-background-color: transparent;
+}
+
+.date-picker-popup > * > .spinner > .label {
+    -fx-alignment: CENTER;
+}
+
+/*******************************
+* Tab Pane                     *
+*******************************/
+.jfx-tab-pane .tab-header-background {
+    -fx-background-color: -fx-def-color;
+}
+
+.jfx-tab-pane .tab-header-area .tab-down-button {
+    -fx-background-color: WHITE;
+    -fx-min-width: 0.8em;
+    -fx-max-width: 0.8em;
+    -fx-min-height: 1.3em;
+    -fx-max-height: 1.3em;
+}
+
+.jfx-tab-pane .tab-header-area .control-buttons-tab .jfx-rippler {
+    -jfx-rippler-fill: WHITE;
+}
+
+.jfx-tab-pane .tab-header-area .tab-down-button:left {
+    -fx-shape: "M 742,-37 90,614 Q 53,651 53,704.5 53,758 90,795 l 652,651 q 37,37 90.5,37 53.5,0 90.5,-37 l 75,-75 q 37,-37 37,-90.5 0,-53.5 -37,-90.5 L 512,704 998,219 q 37,-38 37,-91 0,-53 -37,-90 L 923,-37 Q 886,-74 832.5,-74 779,-74 742,-37 z";
+
+}
+
+.jfx-tab-pane .tab-header-area .tab-down-button:right {
+    -fx-shape: "m 1099,704 q 0,-52 -37,-91 L 410,-38 q -37,-37 -90,-37 -53,0 -90,37 l -76,75 q -37,39 -37,91 0,53 37,90 l 486,486 -486,485 q -37,39 -37,91 0,53 37,90 l 76,75 q 36,38 90,38 54,0 90,-38 l 652,-651 q 37,-37 37,-90 z"
+}
+
+.jfx-tab-pane .headers-region > .tab-selected-line {
+    -fx-pref-width: 1px !important;
+    -fx-pref-height: 2px;
+}
+
+.jfx-tab-pane .headers-region > .tab > .jfx-rippler {
+    -jfx-rippler-fill: #FFFF8D;
+}
+
+.jfx-tab-pane .headers-region .tab-selected-line {
+    -fx-background-color: #FFFF8D;;
+}
+
+.jfx-tab-pane .headers-region .tab:closable {
+    -fx-border-color: rgba(255, 255, 255, .87);
+    -fx-border-width: 0 2 0 0;
+    -fx-border-style: dotted;
+    -fx-border-insets: 8 0 8 0;
+    -fx-padding: 0 8 0 8;
+}
+
+.jfx-tab-pane .headers-region .tab .tab-container .tab-label {
+    -fx-text-fill: rgba(255, 255, 255, .87);
+    -fx-font-weight: BOLD;
+    -fx-padding: 6 10 6 10;
+    -fx-font-size: 16;
+}
+
+.jfx-tab-pane .headers-region .tab:closable .tab-container .tab-label {
+    -fx-padding: 0 8 0 6;
+}
+
+.jfx-tab-pane .headers-region .tab:selected .tab-container .tab-label {
+    -fx-text-fill: WHITE;
+}
+
+/************************
+* TextField             *
+************************/
+.jfx-text-field {
+    -jfx-focus-color: -fx-def-color;
+    -jfx-unfocus-color: #4d4d4d;
+    -fx-font-size: 13px;
+    -fx-padding: 0.333333em 0 0.333333em 0;
+}
+
+.jfx-text-field,
+.jfx-text-field:focused {
+    -fx-background-color: TRANSPARENT, TRANSPARENT, TRANSPARENT;
+    -fx-prompt-text-fill: #4D4D4D;
+}
+
+.jfx-text-field:error {
+    -jfx-focus-color: #D34336;
+    -jfx-unfocus-color: #D34336;
+}
+
+.jfx-text-field .error-label {
+    -fx-text-fill: #D34336;
+}
+
+.jfx-text-field .error-icon {
+    -fx-fill: #D34336;
+}
+
+/* -------------- STYLES FOR THE DEFAULT JFXTEXTFIELD-BASED COMBOBOX ------------- */
+
+.combo-box-base:editable > .jfx-text-field,
+.date-picker > .jfx-text-field,
+.jfx-date-picker > .jfx-text-field,
+.combo-box-base:editable:focused > .text-field,
+.combo-box-base:editable > .text-field:focused,
+.date-picker:focused > .text-field,
+.date-picker > .text-field:focused {
+    -fx-background-color: TRANSPARENT, TRANSPARENT, TRANSPARENT;
+}
+
+.jfx-date-picker > .jfx-text-field,
+.jfx-time-picker > .jfx-text-field {
+    -jfx-focus-color: -jfx-default-color;
+}
+
+/************************
+* PasswordField         *
+************************/
+.jfx-password-field {
+    -jfx-focus-color: -fx-def-color;
+    -jfx-unfocus-color: #4d4d4d;
+    -fx-padding: 0.333333em 0 0.333333em 0;
+}
+
+.jfx-password-field,
+.jfx-password-field:focused {
+    -fx-prompt-text-fill: #4D4D4D;
+    -fx-background-color: TRANSPARENT, TRANSPARENT, TRANSPARENT;
+}
+
+.jfx-password-field:error {
+    -jfx-focus-color: #D34336;
+    -jfx-unfocus-color: #D34336;
+}
+
+.jfx-password-field .error-label {
+    -fx-text-fill: #D34336;
+}
+
+.jfx-password-field .error-icon {
+    -fx-fill: #D34336;
+}
+
+/********************
+* Combo box         *
+*********************/
+
+.jfx-combo-box {
+    -jfx-focus-color: def;
+    -jfx-unfocus-color: #4d4d4d;
+    -fx-prompt-text-fill: #4d4d4d;
+    -fx-font-size: 13px;
+    -fx-font-size: 13px;
+}
+
+.jfx-combo-box,
+.jfx-combo-box:focused,
+.jfx-combo-box:editable,
+.jfx-combo-box:editable:focused {
+    -fx-background-color: TRANSPARENT, TRANSPARENT, TRANSPARENT, TRANSPARENT;
+    -fx-background-radius: 3px;
+    -fx-background-insets: 0px;
+}
+
+.jfx-combo-box .combo-box-button-container {
+    -fx-background-color: TRANSPARENT;
+}
+
+.jfx-combo-box:error {
+    -jfx-focus-color: #D34336;
+    -jfx-unfocus-color: #D34336;
+}
+
+.jfx-combo-box > .arrow-button,
+.jfx-combo-box:editable > .arrow-button,
+.jfx-combo-box:editable:focused > .arrow-button {
+    -fx-background-color: TRANSPARENT;
+}
+
+/*********************
+ * ScrollBar		 *
+ ********************/
+.scroll-bar {
+    -fx-background-color: white;
+}
+
+.scroll-bar:horizontal .track,
+.scroll-bar:vertical .track {
+    -fx-background-color: white;
+    -fx-border-color: transparent;
+    -fx-background-radius: 0em;
+}
+
+.scroll-bar:vertical .track-background,
+.scroll-bar:horizontal .track-background {
+    -fx-background-color: white;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0em;
+}
+
+.scroll-bar:horizontal .thumb {
+    -fx-background-color: rgb(205, 205, 205);
+    -fx-background-insets: 2 0 2 0;
+    -fx-background-radius: 0em;
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: rgb(205, 205, 205);
+    -fx-background-insets: 0 2 0 2;
+    -fx-background-radius: 0em;
+}
+
+.scroll-bar:horizontal .thumb:hover,
+.scroll-bar:vertical .thumb:hover {
+    -fx-background-color: rgb(215, 215, 215);
+}
+
+.scroll-bar:horizontal .thumb:pressed,
+.scroll-bar:vertical .thumb:pressed {
+    -fx-background-color: rgb(96, 96, 96);
+}
+
+.scroll-bar:vertical .increment-button, .scroll-bar:vertical .decrement-button {
+    -fx-background-color: transparent;
+    -fx-background-radius: 0em;
+    -fx-padding: 5 5 5 5;
+}
+
+.scroll-bar:horizontal .increment-button, .scroll-bar:horizontal .decrement-button {
+    -fx-background-color: transparent;
+    -fx-background-radius: 0em;
+    -fx-padding: 5 5 5 5;
+}
+
+.scroll-bar:horizontal .increment-arrow {
+    -fx-shape: "M4,17v-2.889l4.124-3.86l4.125,3.86V17l-4.125-3.375L4,17z";
+    -fx-padding: 0.25em;
+    -fx-rotate: 90;
+}
+
+.scroll-bar:vertical .increment-arrow {
+    -fx-shape: "M4,17v-2.889l4.124-3.86l4.125,3.86V17l-4.125-3.375L4,17z";
+    -fx-padding: 0.25em;
+    -fx-rotate: 180;
+}
+
+.scroll-bar:horizontal .decrement-arrow {
+    -fx-shape: "M4,17v-2.889l4.124-3.86l4.125,3.86V17l-4.125-3.375L4,17z";
+    -fx-padding: 0.25em;
+    -fx-rotate: -90;
+}
+
+.scroll-bar:vertical .decrement-arrow {
+    -fx-shape: "M4,17v-2.889l4.124-3.86l4.125,3.86V17l-4.125-3.375L4,17z";
+    -fx-padding: 0.25em;
+}
+
+.scroll-bar:vertical:focused,
+.scroll-bar:horizontal:focused {
+    -fx-background-color: -fx-box-border, -fx-box-border, white;
+}
+
+/*******************************************************************************
+ *                                                                             *
+ * List View                                                                   *
+ *                                                                             *
+ ******************************************************************************/
+/*
+.list-cell:empty {
+    -fx-background-color: white;
+}
+
+.list-cell {
+    -fx-padding: 0.8em 0em 0.8em 0.3em;
+    -fx-text-fill: #212121;
+    -fx-font: 12px "Segoe UI";
+}
+
+.list-cell:odd {
+    -fx-background-color: white;
+}
+
+.list-cell:even {
+    -fx-background-color: #959595;
+}
+
+.list-view:focused {
+    -fx-background-color: -fx-box-border, -fx-box-border, white;
+}
+
+.list-view:focused .list-cell:filled:selected,
+.list-view:focused .list-cell:filled:selected:hover,
+.list-view:focused .list-cell:filled:focused:selected,
+.list-view:focused .list-cell:odd:filled:selected:focused:hover {
+    -fx-background-color: -fx-box-border, rgb(205, 205, 205);
+}
+
+.list-view:focused .list-cell:focused {
+    -fx-background-color: -fx-box-border, white;
+}
+
+.list-view .list-cell:hover:empty,
+.list-view .list-cell:odd:hover:empty {
+    -fx-background-color: white;
+}
+
+.list-view .list-cell:hover,
+.list-view .list-cell:odd:hover,
+.list-view:focused .list-cell:odd:focused:hover,
+.list-view:focused .list-cell:focused:hover {
+    -fx-background-color: -fx-box-border, rgb(231, 231, 231);
+}
+
+.list-view .list-cell:odd:focused:hover {
+    -fx-background-color: -fx-box-border, rgb(205, 205, 205);
+}
+
+.list-view .list-cell:selected {
+    -fx-background-color: rgb(205, 205, 205);
+}
+*/
+/*******************************************************************************
+ *                                                                             *
+ * TreeView and TreeCell                                                       *
+ *                                                                             *
+ ******************************************************************************/
+/*
+.tree-cell {
+    -fx-padding: 0.8em 0em 0.8em 0.3em;
+    -fx-text-fill: #212121;
+    -fx-font: 12px "Segoe UI";
+}
+
+.tree-view:focused {
+    -fx-background-color: -fx-box-border, -fx-box-border, white;
+}
+
+.tree-view .tree-cell:empty:hover {
+    -fx-background-color: white;
+}
+
+.tree-view .tree-cell:hover {
+    -fx-background-color: -fx-box-border, rgb(231, 231, 231);
+}
+
+.tree-view .tree-cell:filled:selected:hover {
+    -fx-background-color: -fx-box-border, rgb(205, 205, 205);
+}
+
+.tree-view:focused .tree-cell:focused {
+    -fx-background-color: -fx-box-border, white;
+}
+
+.tree-view:focused .tree-cell:focused:hover {
+    -fx-background-color: -fx-box-border, rgb(231, 231, 231);
+}
+
+.tree-view:focused .tree-cell:filled:focused:selected,
+.tree-view:focused .tree-cell:filled:focused:selected:hover {
+    -fx-background-color: -fx-box-border, rgb(205, 205, 205);
+}
+
+.tree-cell:filled:selected:focused, .tree-cell:filled:selected {
+    -fx-background-color: -fx-box-border, rgb(205, 205, 205);
+}
+
+.tree-cell .tree-disclosure-node .arrow {
+    -fx-background-color: -fx-mark-highlight-color, -fx-mark-color;
+    -fx-padding: 0.27em;
+    -fx-shape: "M4,17v-2.889l4.124-3.86l4.125,3.86V17l-4.125-3.375L4,17z";
+    -fx-rotate: 90;
+}
+
+.tree-cell:expanded .tree-disclosure-node .arrow {
+    -fx-rotate: 180;
+}
+
+.tree-cell:filled:hover .tree-disclosure-node .arrow {
+    -fx-background-color: -fx-mark-highlight-color, -fx-mark-color;
+}
+
+.tree-cell .tree-disclosure-node {
+    -fx-padding: 4;
+}
+*/
+/*******************************************************************************
+ *                                                                             *
+ * TableView                                                                   *
+ *                                                                             *
+ ******************************************************************************/
+.table-cell {
+    -fx-padding: 0.8em 0em 0.5em 0.3em;
+    -fx-border-color: transparent -fx-box-border transparent transparent;
+    -fx-font: 12px "Segoe UI";
+    -fx-text-fill: #212121;
+}
+
+.table-view {
+    -fx-table-header-border-color: #959595;
+    -fx-table-cell-border-color: -fx-box-border;
+}
+
+.table-view:focused {
+    -fx-background-color: -fx-box-border, -fx-box-border, white;
+}
+
+.table-row-cell {
+    -fx-background-color: white;
+}
+
+.table-row-cell:odd {
+    -fx-background-color: white;
+    -fx-background-insets: 0, 0 0 1 0;
+}
+
+.table-view:focused .table-row-cell:focused, .table-view:focused .table-row-cell:focused:odd {
+    -fx-background-color: -fx-box-border, white;
+    -fx-background-insets: 0, 1, 2;
+}
+
+.table-view:focused .table-row-cell:filled:focused:selected {
+    -fx-background-color: -fx-box-border, rgb(205, 205, 205);
+}
+
+.table-view:focused .table-row-cell:filled:selected, .table-view:row-selection .table-row-cell:filled:hover:selected {
+    -fx-background-color: rgb(205, 205, 205);
+    -fx-background-insets: 0, 1 1 1 1 0;
+}
+
+.table-view:focused .table-row-cell:filled:focused:selected:hover {
+    -fx-background-color: -fx-box-border, rgb(205, 205, 205);
+    -fx-background-insets: 0, 1 1 1 1 0;
+}
+
+.table-row-cell:filled:selected:focused, .table-row-cell:filled:selected {
+    -fx-background-color: rgb(205, 205, 205);
+}
+
+.table-view:row-selection .table-row-cell:filled:hover {
+    -fx-background-color: rgb(231, 231, 231);
+}
+
+.table-view:row-selection .table-row-cell:filled:focused:hover {
+    -fx-background-color: rgb(205, 205, 205);
+}
+
+.table-view:focused .table-row-cell:filled:focused:hover {
+    -fx-background-color: -fx-box-border, rgb(231, 231, 231);
+}
+
+.table-view .column-header-background {
+    -fx-background-color: white;
+}
+
+/* table header label color
+.table-view .column-header .label{
+	 -fx-text-fill: white;
+}
+*/
+
+.table-view .column-header, .table-view .filler {
+    -fx-background-color: white;
+    -fx-size: 35;
+    -fx-border-color: -fx-box-border;
+    -fx-border-insets: -1 0 0 -1;
+    -fx-padding: 0 5 0 0;
+}
+
+.table-view .show-hide-columns-button {
+    -fx-background-color: white;
+    -fx-border-color: -fx-box-border;
+    -fx-border-insets: -1 -1 0 0;
+}
+
+.table-view .column-drag-header {
+    -fx-background-color: rgb(45, 137, 239);
+    -fx-opacity: 0.6;
+}
+
+.table-view .column-resize-line {
+    -fx-background-color: rgb(45, 137, 239);
+}
+
+.table-view .column-overlay {
+    -fx-background-color: darkgray;
+    -fx-opacity: 0.2;
+}
+
+.table-view .arrow {
+    -fx-padding: 0.2em;
+    -fx-shape: "M4,17v-2.889l4.124-3.86l4.125,3.86V17l-4.125-3.375L4,17z";
+}
+
+/*******************************************************************************
+ *                                                                             *
+ * ProgressBar                                                                 *
+ *                                                                             *
+ ******************************************************************************/
+.progress-bar .bar {
+    -fx-background-color: rgb(45, 137, 239);
+    -fx-background-insets: 3;
+    -fx-padding: 1em;
+}
+
+.progress-bar:indeterminate .bar {
+    -fx-background-color: rgb(45, 137, 239);
+    -fx-border-style: none;
+}
+
+.progress-bar .track {
+    -fx-background-color: -fx-box-border, rgb(231, 231, 231);
+}
+
+/*******************************************************************************
+ *                                                                             *
+ * ProgressIndicator                                                           *
+ *                                                                             *
+ ******************************************************************************/
+.progress-indicator {
+    -fx-progress-color: rgb(45, 137, 239);
+}
+
+.progress-indicator .indicator {
+    -fx-background-color: rgb(231, 231, 231);
+    -fx-border-color: -fx-box-border;
+}
+
+.progress-indicator .progress {
+    -fx-background-color: transparent;
+    -fx-padding: 2em;
+}
+
+.progress-indicator:indeterminate .spinner {
+    -fx-padding: 1.5em;
+}
+
+.progress-indicator .percentage {
+    -fx-font: 11px "Segoe UI";
+    -fx-text-fill: #212121;
+}

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXTabPane?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.layout.*?>
+<?import java.net.*?>
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="bpTestProfile" prefHeight="200.0" prefWidth="200.0"
+            styleClass="profile-main-frame" xmlns="http://javafx.com/javafx/8.0.141"
+            fx:controller="lk.ijse.mountCalvary.controller.test.profile.TestProfileController">
+
+    <top>
+        <HBox styleClass="top-profile-frame">
+            <children>
+                <Label maxWidth="-Infinity" minWidth="-Infinity" prefHeight="27.0" styleClass="super-title"
+                       text="Test Profile" HBox.hgrow="ALWAYS"/>
+                <Region prefHeight="20.0" prefWidth="0.0" HBox.hgrow="ALWAYS"/>
+                <JFXComboBox fx:id="cboxTerm" labelFloat="true" onAction="#cboxTerm_onAction" prefHeight="25.0"
+                             prefWidth="353.0" promptText="Term "/>
+                <JFXButton fx:id="btSearch" onAction="#btSearch_onAction" prefHeight="34.0" prefWidth="116.0"
+                           style="-fx-background-color: #2196F3;" text="Search" textFill="WHITE"/>
+            </children>
+        </HBox>
+    </top>
+    <center>
+        <JFXTabPane BorderPane.alignment="CENTER">
+            <tabs>
+                <Tab closable="false" text="Physical Evaluation Test">
+                    <fx:include fx:id="physicalEvaluationTest" source="PhysicalEvaluationTest.fxml"/>
+                </Tab>
+            </tabs>
+        </JFXTabPane>
+    </center>
+    <stylesheets>
+        <URL value="@../../../css/frame.css"/>
+        <URL value="@../../../css/combo-box.css"/>
+        <URL value="@../../../css/table-view.css"/>
+        <URL value="@../../../css/text-and-password-field.css"/>
+        <URL value="@../../../css/date-picker.css"/>
+        <URL value="@../../../css/radio-button.css"/>
+        <URL value="@../../../css/text-area.css"/>
+        <URL value="@../../../css/button.css"/>
+        <URL value="@../../../css/tab-pane.css"/>
+        <URL value="@../../../css/label.css"/>
+    </stylesheets>
+</BorderPane>

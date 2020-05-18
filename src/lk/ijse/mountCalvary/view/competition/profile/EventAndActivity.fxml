@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import de.jensd.fx.glyphs.icons525.Icons525View?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<?import java.net.*?>
+<VBox xmlns:fx="http://javafx.com/fxml/1" fx:id="acEventForActivity" styleClass="profile-frame"
+      xmlns="http://javafx.com/javafx/8.0.141"
+      fx:controller="lk.ijse.mountCalvary.controller.competition.profile.EventAndActivityController">
+    <children>
+        <HBox styleClass="node-pane">
+            <children>
+                <Label maxWidth="1.7976931348623157E308" prefHeight="32.0" prefWidth="597.0" text="Event and activity"
+                       HBox.hgrow="ALWAYS">
+                    <font>
+                        <Font name="Arial Bold" size="18.0"/>
+                    </font>
+                </Label>
+                <JFXButton fx:id="btCertificate" alignment="CENTER" buttonType="RAISED" maxWidth="287.0"
+                           onAction="#btCertificate_onAction" prefHeight="32.0" prefWidth="287.0" ripplerFill="WHITE"
+                           style="-fx-background-color: #2196f3;" styleClass="normal-button" text="Generate Certificate"
+                           textAlignment="CENTER" textFill="WHITE">
+                    <font>
+                        <Font name="System Bold" size="12.0"/>
+                    </font>
+                    <graphic>
+                        <FontAwesomeIconView fill="WHITE" glyphName="FILE_TEXT" size="25" wrappingWidth="37.0"/>
+                    </graphic>
+                </JFXButton>
+                <JFXButton fx:id="btPrint" alignment="CENTER" buttonType="RAISED" onAction="#btPrint_onAction"
+                           prefHeight="45.0" prefWidth="108.0" ripplerFill="WHITE"
+                           style="-fx-background-color: #2196f3;" text="Print" textAlignment="CENTER" textFill="WHITE">
+                    <graphic>
+                        <Icons525View fill="WHITE" glyphName="PRINTER" size="25" wrappingWidth="37.0"/>
+                    </graphic>
+                    <font>
+                        <Font name="System Bold" size="12.0"/>
+                    </font>
+                </JFXButton>
+            </children>
+        </HBox>
+        <TableView fx:id="tblEventInCompetition" onMouseClicked="#tblEventInCompetition_mouseClick" prefHeight="158.0"
+                   prefWidth="1327.0" tableMenuButtonVisible="true" VBox.vgrow="ALWAYS">
+            <columns>
+                <TableColumn fx:id="colActivity_tblEventInCompetition" prefWidth="75.0" text="Activity"/>
+                <TableColumn fx:id="colEvent_tblEventInCompetition" prefWidth="75.0" text="Event"/>
+                <TableColumn fx:id="colGender_tblEventInCompetition" prefWidth="75.0" text="Gender"/>
+                <TableColumn fx:id="colAgeGroup_tblEventInCompetition" prefWidth="75.0" text="Age group"/>
+            </columns>
+            <columnResizePolicy>
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+            </columnResizePolicy>
+        </TableView>
+        <Label prefHeight="42.0" prefWidth="409.0" text="Participation for event">
+            <font>
+                <Font name="Arial Bold" size="18.0"/>
+            </font>
+        </Label>
+        <TableView fx:id="tblStudentList" onMouseClicked="#tblStudentList_mouseClick" prefHeight="369.0"
+                   prefWidth="1327.0" tableMenuButtonVisible="true" VBox.vgrow="ALWAYS">
+            <columns>
+                <TableColumn fx:id="colStudentID_tblStudentLIst" prefWidth="150.0" text="Student ID"/>
+                <TableColumn fx:id="colStudent_tblStudentLIst" prefWidth="285.0" text="Student"/>
+                <TableColumn fx:id="colResult_tblStudentLIst" prefWidth="354.0" text="Result"/>
+                <TableColumn fx:id="colPerformance_tblStudentList" prefWidth="409.0" text="Performance"/>
+            </columns>
+            <columnResizePolicy>
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+            </columnResizePolicy>
+        </TableView>
+    </children>
+    <stylesheets>
+        <URL value="@../../../css/frame.css"/>
+        <URL value="@../../../css/combo-box.css"/>
+        <URL value="@../../../css/table-view.css"/>
+        <URL value="@../../../css/text-and-password-field.css"/>
+        <URL value="@../../../css/date-picker.css"/>
+        <URL value="@../../../css/radio-button.css"/>
+        <URL value="@../../../css/text-area.css"/>
+        <URL value="@../../../css/button.css"/>
+        <URL value="@../../../css/label.css"/>
+    </stylesheets>
+
+</VBox>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import java.net.*?>
+<VBox xmlns:fx="http://javafx.com/fxml/1" fx:id="acUpdateActivity" styleClass="main-frame"
+      xmlns="http://javafx.com/javafx/8.0.141"
+      fx:controller="lk.ijse.mountCalvary.controller.activity.UpdateActivity_controller">
+    <children>
+        <Label prefHeight="42.0" prefWidth="209.0" styleClass="title" text="Update Activity">
+            <font>
+                <Font name="Arial Bold" size="18.0"/>
+            </font>
+        </Label>
+        <JFXComboBox fx:id="cboxActivity" onAction="#cboxActivity_onAction" prefHeight="25.0" prefWidth="583.0"
+                     promptText="Activity Name"/>
+        <JFXComboBox fx:id="cboxTeacherInCharge" labelFloat="true" onAction="#cboxTeacherInCharge_onAction"
+                     prefHeight="6.0" prefWidth="583.0" promptText="Teacher in charge"/>
+        <Region prefHeight="0.0" prefWidth="1200.0" VBox.vgrow="ALWAYS"/>
+        <HBox styleClass="button-pane">
+            <children>
+                <JFXButton fx:id="btCancel" onAction="#btCancel_onAction" prefHeight="33.0" prefWidth="124.0"
+                           styleClass="cancel" text="Cancel" textFill="#2196f3">
+                    <font>
+                        <Font name="System Bold" size="12.0"/>
+                    </font>
+                </JFXButton>
+                <JFXButton fx:id="btUpdate" onAction="#btUpdate_onAction" prefHeight="33.0" prefWidth="124.0"
+                           style="-fx-background-color: #2196F3;" text="Update" textFill="WHITE"/>
+            </children>
+        </HBox>
+    </children>
+    <stylesheets>
+        <URL value="@../../css/frame.css"/>
+        <URL value="@../../css/button.css"/>
+        <URL value="@../../css/combo-box.css"/>
+        <URL value="@../../css/table-view.css"/>
+        <URL value="@../../css/text-and-password-field.css"/>
+        <URL value="@../../css/date-picker.css"/>
+        <URL value="@../../css/radio-button.css"/>
+        <URL value="@../../css/text-area.css"/>
+        <URL value="@../../css/label.css"/>
+    </stylesheets>
+</VBox>

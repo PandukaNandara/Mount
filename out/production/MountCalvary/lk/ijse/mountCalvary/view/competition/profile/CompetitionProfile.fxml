@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXTabPane?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.layout.*?>
+<?import java.net.*?>
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="bpCompetitionProfile" styleClass="profile-main-frame"
+            xmlns="http://javafx.com/javafx/8.0.141"
+            fx:controller="lk.ijse.mountCalvary.controller.competition.profile.CompetitionProfileController">
+    <top>
+        <VBox>
+            <children>
+                <HBox styleClass="top-profile-frame">
+                    <children>
+                        <Label maxWidth="1.7976931348623157E308" prefHeight="34.0" prefWidth="282.0"
+                               styleClass="super-title"
+                               text="Competition Profile" HBox.hgrow="ALWAYS">
+                        </Label>
+                        <Region prefHeight="20.0" prefWidth="0.0" HBox.hgrow="ALWAYS"/>
+                        <JFXComboBox fx:id="cboxCompetitionName" labelFloat="true"
+                                     onAction="#cboxCompetitionName_onAction"
+                                     prefHeight="25.0" prefWidth="335.0" promptText="Competition Name"
+                                     unFocusColor="BLACK"/>
+                        <JFXButton fx:id="btSearch" onAction="#btSearch_onAction" prefHeight="34.0" prefWidth="116.0"
+                                   style="-fx-background-color: #2196F3;" text="Search" textFill="WHITE"/>
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+    </top>
+    <center>
+        <JFXTabPane rotateGraphic="true" tabClosingPolicy="ALL_TABS" BorderPane.alignment="CENTER">
+            <tabs>
+                <Tab text="Competition Detail">
+                    <fx:include fx:id="competitionDetail" source="CompetitionDetail.fxml"/>
+                </Tab>
+                <Tab text="Event and Participation">
+                    <fx:include fx:id="eventAndActivity" source="EventAndActivity.fxml"/>
+                </Tab>
+                <Tab text="Competition contributions">
+                    <fx:include fx:id="competitionContributionViewer" source="CompetitionContributionViewer.fxml"/>
+                </Tab>
+            </tabs>
+        </JFXTabPane>
+    </center>
+    <stylesheets>
+        <URL value="@../../../css/frame.css"/>
+        <URL value="@../../../css/combo-box.css"/>
+        <URL value="@../../../css/table-view.css"/>
+        <URL value="@../../../css/text-and-password-field.css"/>
+        <URL value="@../../../css/date-picker.css"/>
+        <URL value="@../../../css/tab-pane.css"/>
+        <URL value="@../../../css/radio-button.css"/>
+        <URL value="@../../../css/text-area.css"/>
+        <URL value="@../../../css/button.css"/>
+        <URL value="@../../../css/label.css"/>
+    </stylesheets>
+</BorderPane>

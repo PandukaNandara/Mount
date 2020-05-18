@@ -1,0 +1,144 @@
+* {
+
+    -fx-main-frame-pref-width: 1280px;
+    -fx-main-frame-pref-height: 800px;
+
+    -fx-main-frame-min-width: 640px;
+    -fx-main-frame-min-height: 480px;
+
+    -fx-parent-pref-width: 1440px;
+    -fx-parent-frame-pref-height: 800px;
+
+    -fx-profile-frame-pref-width: 1280px;
+    -fx-profile-frame-pref-height: 720px;
+
+    -fx-log-in-pref-width: 416px;
+    -fx-log-in-pref-height: 592px;
+
+}
+
+.root {
+    -fx-pref-width: -fx-main-frame-pref-width;
+    -fx-pref-height: -fx-main-frame-pref-height;
+    -fx-padding: 0;
+    -fx-spacing: 0;
+    -fx-background-color: transparent;
+    /*-fx-background-color: transparent;*/
+}
+
+.normal-pane {
+    -fx-pref-width: -fx-main-frame-pref-width;
+    -fx-pref-height: -fx-main-frame-pref-height;
+    -fx-padding: 40;
+    -fx-spacing: 0;
+    -fx-background-color: transparent;
+    /*-fx-background-color: transparent;*/
+}
+
+.parent {
+    -fx-pref-width: -fx-parent-pref-width;
+    -fx-pref-height: -fx-parent-frame-pref-height;
+
+    -fx-padding: 0;
+    -fx-spacing: 0;
+
+    -fx-background-color: white;
+}
+
+.profile-frame {
+    -fx-pref-width: -fx-profile-frame-pref-width;
+    -fx-pref-height: -fx-profile-frame-pref-height;
+
+    -fx-padding: 40;
+    -fx-spacing: 20;
+
+    -fx-background-color: white;
+}
+
+.top-profile-frame {
+    -fx-pref-width: -fx-profile-frame-pref-width;
+    -fx-pref-height: 80px;
+
+    -fx-min-height: 80px;
+
+    -fx-max-height: 80px;
+
+    -fx-padding: 40;
+    -fx-spacing: 20;
+    -fx-alignment: center-left;
+    -fx-background-color: #F4F4F4;
+}
+
+.main-frame {
+    -fx-pref-width: -fx-main-frame-pref-width;
+    -fx-pref-height: -fx-main-frame-pref-height;
+
+    -fx-padding: 40;
+    -fx-spacing: 20;
+    -fx-background-color: white;
+}
+
+/*sub-main-frame is used for sub menu*/
+
+.sub-main-frame {
+    -fx-pref-width: -fx-main-frame-pref-width;
+    -fx-pref-height: -fx-main-frame-pref-height;
+
+    -fx-spacing: 20;
+
+    -fx-background-color: white;
+}
+
+.profile-main-frame {
+    -fx-pref-width: -fx-main-frame-pref-width;
+    -fx-pref-height: -fx-main-frame-pref-height;
+
+    -fx-padding: 0;
+    -fx-spacing: 0;
+
+    -fx-background-color: white;
+
+}
+
+.side-pane {
+    -fx-pref-width: 160px;
+    -fx-pref-height: -fx-main-frame-pref-height;
+
+    -fx-min-width: 160px;
+    -fx-min-height: -fx-main-frame-min-height;
+
+    -fx-max-width: 160px;
+
+    -fx-padding: 0;
+    -fx-spacing: 0;
+
+    -fx-background-color: #3C3F41;
+}
+
+.node-pane {
+    -fx-alignment: center-left;
+    -fx-spacing: 20;
+}
+
+.button-pane {
+    -fx-spacing: 20;
+    -fx-alignment: center-right;
+}
+
+.table-pane {
+    -fx-alignment: center-right;
+}
+
+.menu-button-pane {
+    -fx-spacing: 40;
+
+}
+
+.log-in {
+    -fx-pref-width: -fx-log-in-pref-width;
+    -fx-pref-height: -fx-log-in-pref-height;
+}
+
+.region {
+    -fx-pref-width: 0px;
+}

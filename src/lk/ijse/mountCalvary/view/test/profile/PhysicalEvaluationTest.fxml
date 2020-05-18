@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import de.jensd.fx.glyphs.icons525.Icons525View?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<?import java.net.*?>
+<VBox xmlns:fx="http://javafx.com/fxml/1" fx:id="physicalEvaluation" prefHeight="400.0" prefWidth="600.0"
+      styleClass="profile-frame" xmlns="http://javafx.com/javafx/8.0.141"
+      fx:controller="lk.ijse.mountCalvary.controller.test.profile.PhysicalEvaluationTestController">
+    <stylesheets>
+        <URL value="@../../../css/frame.css"/>
+        <URL value="@../../../css/combo-box.css"/>
+        <URL value="@../../../css/table-view.css"/>
+        <URL value="@../../../css/text-and-password-field.css"/>
+        <URL value="@../../../css/date-picker.css"/>
+        <URL value="@../../../css/radio-button.css"/>
+        <URL value="@../../../css/text-area.css"/>
+        <URL value="@../../../css/button.css"/>
+        <URL value="@../../../css/label.css"/>
+    </stylesheets>
+    <children>
+        <HBox alignment="CENTER_LEFT">
+            <children>
+                <Label styleClass="title" text="Physical evaluation test"/>
+                <Region maxWidth="1.7976931348623157E308" prefHeight="32.0" prefWidth="0.0" HBox.hgrow="ALWAYS"/>
+                <JFXButton fx:id="btPrint" alignment="CENTER" buttonType="RAISED" onAction="#btPrint_onAction"
+                           prefHeight="45.0" prefWidth="108.0" ripplerFill="WHITE"
+                           style="-fx-background-color: #2196f3;" text="Print" textAlignment="CENTER" textFill="WHITE">
+                    <graphic>
+                        <Icons525View fill="WHITE" glyphName="PRINTER" size="25" wrappingWidth="37.0"/>
+                    </graphic>
+                    <font>
+                        <Font name="System Bold" size="12.0"/>
+                    </font>
+                </JFXButton>
+            </children>
+        </HBox>
+        <HBox>
+            <children>
+                <JFXComboBox fx:id="cboxGrade" labelFloat="true" onAction="#cboxGrade_onAction" prefHeight="25.0"
+                             prefWidth="395.0" promptText="Grade"/>
+                <Region maxWidth="1.7976931348623157E308" prefHeight="25.0" prefWidth="0.0" HBox.hgrow="ALWAYS"/>
+                <JFXComboBox fx:id="cboxClass" labelFloat="true" onAction="#cboxClass_onAction" prefHeight="25.0"
+                             prefWidth="395.0" promptText="Class"/>
+            </children>
+        </HBox>
+        <TableView fx:id="tblMarks" editable="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                   prefHeight="572.0" prefWidth="1200.0" VBox.vgrow="ALWAYS">
+            <columns>
+                <TableColumn fx:id="colStudentID" minWidth="-1.0" prefWidth="100.0" text="Student ID"/>
+                <TableColumn fx:id="colStudentName" minWidth="150.0" prefWidth="170.0" text="Student Name"/>
+                <TableColumn fx:id="colClass" minWidth="7.0" prefWidth="85.0" text="Class"/>
+                <TableColumn fx:id="colAttendance" minWidth="7.0" prefWidth="149.0" text="Attendance"/>
+                <TableColumn fx:id="colSkill" prefWidth="75.0" text="Skill"/>
+                <TableColumn fx:id="colProgressEffort" prefWidth="75.0" text="Progress &amp; effort"/>
+                <TableColumn fx:id="colAttitudes" prefWidth="75.0" text="Attitude"/>
+                <TableColumn fx:id="colPerformance" prefWidth="194.0" text="Performance"/>
+                <TableColumn fx:id="colTotal" prefWidth="107.0" text="Total"/>
+            </columns>
+            <columnResizePolicy>
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+            </columnResizePolicy>
+        </TableView>
+    </children>
+</VBox>
