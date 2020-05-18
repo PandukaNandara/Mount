@@ -6,9 +6,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.VBox;
 import lk.ijse.mountCalvary.controller.SuperController;
-import lk.ijse.mountCalvary.controller.tool.ButtonFireForEnterSetter;
-import lk.ijse.mountCalvary.controller.tool.GlobalBoolean;
-import lk.ijse.mountCalvary.controller.tool.ScreenLoader;
+import lk.ijse.mountCalvary.tool.ButtonFireForEnterSetter;
+import lk.ijse.mountCalvary.tool.GlobalBoolean;
+import lk.ijse.mountCalvary.tool.ScreenLoader;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -46,35 +46,43 @@ public final class CompetitionMenu_controller extends SuperController implements
     @FXML
     void btBack_onAction(ActionEvent event) {
         screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/basic/MainMenu.fxml", this.acCompetitionMenu, this);
+        System.out.println("Pass");
+        MainMenuFrame_controller.getMainMenuFrame().hideSideBar();
     }
 
     @FXML
     void btCreateCompetition_onAction(ActionEvent event) {
         screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/competition/NewCompetition.fxml", this.acCompetitionMenu, this);
+        MainMenuFrame_controller.getMainMenuFrame().showSideBar();
     }
 
     @FXML
     void btDeleteCompetition_onAction(ActionEvent event) {
         screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/competition/DeleteCompetition.fxml", this.acCompetitionMenu, this);
+        MainMenuFrame_controller.getMainMenuFrame().showSideBar();
     }
 
     @FXML
     private void btCompetitionProfile_onAction(ActionEvent actionEvent) {
         screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/competition/profile/CompetitionProfile.fxml", this.acCompetitionMenu, this);
+        MainMenuFrame_controller.getMainMenuFrame().showSideBar();
     }
 
     @FXML
     private void btAddEventCompetition_onAction(ActionEvent actionEvent) {
         screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/competition/EventForCompetition.fxml", this.acCompetitionMenu, this);
+        MainMenuFrame_controller.getMainMenuFrame().showSideBar();
     }
 
     @FXML
     private void btAddStudentCompetition_onAction(ActionEvent actionEvent) {
         screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/competition/StudentForCompetition.fxml", this.acCompetitionMenu, this);
+        MainMenuFrame_controller.getMainMenuFrame().showSideBar();
     }
 
     @FXML
     private void btStudentContribution_onAction(ActionEvent actionEvent) {
         screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/competition/CompetitionContribution.fxml", this.acCompetitionMenu, this);
+        MainMenuFrame_controller.getMainMenuFrame().showSideBar();
     }
 }

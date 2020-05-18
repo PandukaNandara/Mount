@@ -6,9 +6,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.AnchorPane;
 import lk.ijse.mountCalvary.controller.SuperController;
-import lk.ijse.mountCalvary.controller.tool.ButtonFireForEnterSetter;
-import lk.ijse.mountCalvary.controller.tool.GlobalBoolean;
-import lk.ijse.mountCalvary.controller.tool.ScreenLoader;
+import lk.ijse.mountCalvary.tool.ButtonFireForEnterSetter;
+import lk.ijse.mountCalvary.tool.GlobalBoolean;
+import lk.ijse.mountCalvary.tool.ScreenLoader;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -36,21 +36,25 @@ public final class PaymentMenu_controller extends SuperController implements Ini
         GlobalBoolean.setLock(false);
         ButtonFireForEnterSetter.setGlobalEventHandler(acPaymentMenu);
         screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/activity/profile/ActivityPayment.fxml", this.acPaymentMenu, this);
+        MainMenuFrame_controller.getMainMenuFrame().showSideBar();
     }
 
     @FXML
     void btBack_onAction(ActionEvent event) {
         screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/basic/MainMenu.fxml", this.acPaymentMenu, this);
+        MainMenuFrame_controller.getMainMenuFrame().showSideBar();
     }
 
     @FXML
     void btStudentPayment_onAction(ActionEvent event) {
         screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/student/profile/StudentPayment.fxml", this.acPaymentMenu, this);
+        MainMenuFrame_controller.getMainMenuFrame().showSideBar();
     }
 
     @FXML
     void btUpdatePayment_onAction(ActionEvent event) {
         screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/payment/MakePayment.fxml", this.acPaymentMenu, this);
+        MainMenuFrame_controller.getMainMenuFrame().showSideBar();
     }
 
     @Override

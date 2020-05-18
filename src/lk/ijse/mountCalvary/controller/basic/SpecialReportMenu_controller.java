@@ -6,9 +6,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.VBox;
 import lk.ijse.mountCalvary.controller.SuperController;
-import lk.ijse.mountCalvary.controller.tool.ButtonFireForEnterSetter;
-import lk.ijse.mountCalvary.controller.tool.GlobalBoolean;
-import lk.ijse.mountCalvary.controller.tool.ScreenLoader;
+import lk.ijse.mountCalvary.tool.ButtonFireForEnterSetter;
+import lk.ijse.mountCalvary.tool.GlobalBoolean;
+import lk.ijse.mountCalvary.tool.ScreenLoader;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -39,10 +39,10 @@ public final class SpecialReportMenu_controller extends SuperController implemen
 //        String jdbcURL = String.format("jdbc:mysql://%s:%s/%s", "localhost", "3306", "Thogakade");
 //        Connection connection = DriverManager.getConnection(jdbcURL, "root", "1998");
 //
-//        InputStream ras = getClass().getResourceAsStream("/sample/report/Chart.jasper");
+//        InputStream ras = getClass().getResourceAsStream("/sample/certificate/Chart.jasper");
 //        HashMap map = new HashMap();
 //        JasperPrint jasperPrint = JasperFillManager.fillReport(ras, map, connection);
-//        Reporter.showReport(jasperPrint, "Special report");
+//        Reporter.showReport(jasperPrint, "Special certificate");
     }
 
 }

@@ -1,7 +1,7 @@
 package lk.ijse.mountCalvary.model;
 
 import javafx.collections.ObservableList;
-import lk.ijse.mountCalvary.controller.tool.House;
+import lk.ijse.mountCalvary.tool.House;
 import lk.ijse.mountCalvary.entity.Gender;
 
 import java.util.Date;
@@ -269,4 +269,5 @@ public class StudentDTO implements Gender, SearchProvider {
     public House getHouseName() {
         return new House(house);
     }
+
 }

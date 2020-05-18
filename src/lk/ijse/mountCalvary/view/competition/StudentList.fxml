@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox fx:id="acStudentList" prefHeight="400.0" prefWidth="600.0" styleClass="normal-pane" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.mountCalvary.controller.competition.StudentListController">
+    <stylesheets>
+        <URL value="@../../css/frame.css" />
+        <URL value="@../../css/combo-box.css" />
+        <URL value="@../../css/table-view.css" />
+        <URL value="@../../css/text-and-password-field.css" />
+        <URL value="@../../css/date-picker.css" />
+        <URL value="@../../css/radio-button.css" />
+        <URL value="@../../css/text-area.css" />
+        <URL value="@../../css/button.css" />
+        <URL value="@../../css/label.css" />
+    </stylesheets>
+    <children>
+        <Label prefHeight="55.0" styleClass="title" text="Proper student list" />
+        <TableView fx:id="tblRegistration" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+            <columns>
+                <TableColumn fx:id="colStudentID" prefWidth="75.0" text="Student ID" />
+                <TableColumn fx:id="colStudentName" prefWidth="75.0" text="Student " />
+                <TableColumn fx:id="colGender" prefWidth="75.0" text="Gender" />
+                <TableColumn fx:id="colDOB" prefWidth="75.0" text="Birthday" />
+            </columns>
+            <columnResizePolicy>
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+            </columnResizePolicy>
+        </TableView>
+    </children>
+</VBox>

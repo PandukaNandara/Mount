@@ -18,10 +18,10 @@ import lk.ijse.mountCalvary.business.custom.ActivityBO;
 import lk.ijse.mountCalvary.business.custom.RegistrationBO;
 import lk.ijse.mountCalvary.business.custom.StudentBO;
 import lk.ijse.mountCalvary.controller.SuperController;
-import lk.ijse.mountCalvary.controller.tool.*;
 import lk.ijse.mountCalvary.model.ActivityDTO;
 import lk.ijse.mountCalvary.model.RegistrationDTO;
 import lk.ijse.mountCalvary.model.StudentDTO;
+import lk.ijse.mountCalvary.tool.*;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -38,7 +38,8 @@ public final class AddStudentForActivity_controller extends SuperController impl
 
     @FXML
     private TableView<RegistrationDTO> tblStudentList;
-
+    @FXML
+    private TableColumn colStudentID;
     @FXML
     private TableColumn<RegistrationDTO, String> colStudentName;
 
@@ -77,6 +78,7 @@ public final class AddStudentForActivity_controller extends SuperController impl
     private ScreenLoader screenLoader = ScreenLoader.getInstance();
     private StudentDTO selectedStudent;
 
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         GlobalBoolean.setLock(true);
@@ -86,7 +88,7 @@ public final class AddStudentForActivity_controller extends SuperController impl
         registrationBOImpl = BOFactory.getInstance().getBO(BOFactory.BOType.REGISTRATION);
         studentBOImpl = BOFactory.getInstance().getBO(BOFactory.BOType.STUDENT);
 
-        colStudentName.setCellValueFactory(new PropertyValueFactory<>("SID"));
+        colStudentID.setCellValueFactory(new PropertyValueFactory<>("SID"));
         colStudentName.setCellValueFactory(new PropertyValueFactory<>("studentName"));
         colJoinedDate.setCellValueFactory(new PropertyValueFactory<>("joinedDate"));
         autoComplete = new AutoComplete<>(txtStudentName);
@@ -153,13 +155,14 @@ public final class AddStudentForActivity_controller extends SuperController impl
                 if (one.isNewOne())
                     newRegs.add(one);
             }
-            if (registrationBOImpl.addAllRegistration(newRegs)) {
-                OptionPane.showDoneAtSide("New Registration successfully added.");
-                screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/basic/ActivityMenu.fxml",
-                        this.acAddStudent, this);
-            } else {
-                OptionPane.showWarning("Somethings wrong");
-            }
+            if (OptionPane.askQuestion("Do you want to add new students?"))
+                if (registrationBOImpl.addAllRegistration(newRegs)) {
+                    OptionPane.showDoneAtSide("New Registration successfully added.");
+                    screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/basic/ActivityMenu.fxml",
+                            this.acAddStudent, this);
+                } else {
+                    OptionPane.showWarning("Somethings wrong");
+                }
         } catch (Exception e) {
             callLogger(e);
             OptionPane.showWarning("Something's wrong we can't do your request");
@@ -215,7 +218,11 @@ public final class AddStudentForActivity_controller extends SuperController impl
             selectedStudent = autoComplete.searchByID(txtStudentID.getText());
             if (selectedStudent == null)
                 OptionPane.showErrorAtSide("Student ID might be already added.");
-            else txtStudentName.requestFocus();
+            else {
+                txtStudentName.setText(selectedStudent.getSName());
+                txtStudentName.selectAll();
+                txtStudentName.requestFocus();
+            }
         } else
             OptionPane.showErrorAtSide("Student ID is invalid.");
     }

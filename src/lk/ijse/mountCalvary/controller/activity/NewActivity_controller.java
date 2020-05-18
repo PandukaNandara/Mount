@@ -14,7 +14,7 @@ import lk.ijse.mountCalvary.business.custom.ActivityBO;
 import lk.ijse.mountCalvary.business.custom.StudentBO;
 import lk.ijse.mountCalvary.business.custom.TeacherBO;
 import lk.ijse.mountCalvary.controller.SuperController;
-import lk.ijse.mountCalvary.controller.tool.*;
+import lk.ijse.mountCalvary.tool.*;
 import lk.ijse.mountCalvary.entity.EventInterface;
 import lk.ijse.mountCalvary.model.*;
 
@@ -119,7 +119,6 @@ public final class NewActivity_controller extends SuperController implements Ini
             loadTeachers();
             studentAuto = new AutoComplete<>(txtStudentName, allStudent);
             studentAuto.setAutoCompletionsAction(event -> searchStudentByName());
-            throw new Exception("This is test version");
         } catch (Exception e) {
             callLogger(e);
         }

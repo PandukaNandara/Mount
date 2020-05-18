@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Landscape_certicate" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="944d8520-ec2e-4b7a-9006-e8d0d0a90716">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="MC_activity_mgt_sys"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<parameter name="ELID" class="java.lang.Integer"/>
+	<parameter name="see_Student_ID" class="java.lang.Boolean"/>
+	<parameter name="see_Student_Name" class="java.lang.Boolean"/>
+	<parameter name="see_Student_House" class="java.lang.Boolean"/>
+	<parameter name="see_Student_Class" class="java.lang.Boolean"/>
+	<parameter name="see_Result" class="java.lang.Boolean"/>
+	<parameter name="see_Performance" class="java.lang.Boolean"/>
+	<parameter name="see_Activity_Name" class="java.lang.Boolean"/>
+	<parameter name="see_Event_Gender" class="java.lang.Boolean"/>
+	<parameter name="see_Age_group" class="java.lang.Boolean"/>
+	<parameter name="see_Competition_Name" class="java.lang.Boolean"/>
+	<parameter name="see_Competition_Location" class="java.lang.Boolean"/>
+	<parameter name="see_Competition_Date" class="java.lang.Boolean"/>
+	<parameter name="see_Year" class="java.lang.Boolean"/>
+	<queryString>
+		<![CDATA[select
+  s.SID as Student_ID,
+  sName as Student_Name,
+  s.house as Student_House,
+  s.class as Student_Class,
+  Result,
+  Performance,
+  a.aName as Activity_Name,
+  e.eName as Event_Name,
+  (select if(e.gender = 1,
+             'Male', if(e.gender = 2,
+                        'Female', 'Mix')
+                        )
+               ) as Event_Gender,
+  (select if(ag.max = 99, 'Open', ag.max)) as Age_group,
+  c.cName as Competition_Name,
+  c.location as Competition_Location,
+  c.date as Competition_Date,
+  year(c.date) as Year
+from participation p, event_list el ,student s, registration r, Event e, activity a, age_group ag, competition c
+where (p.RID = r.RID and
+       s.SID = r.SID and
+       r.AID = e.AID and
+       e.AID = a.AID and
+       e.EID = el.EID and
+       p.ELID = el.ELID and
+      ag.GID = el.GID and
+      el.CID = c.CID
+      )   and el.ELID = $P{ELID};]]>
+	</queryString>
+	<field name="Student_ID" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="Student_ID"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="student"/>
+	</field>
+	<field name="Student_Name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Student_Name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="student"/>
+	</field>
+	<field name="Student_House" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Student_House"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="student"/>
+	</field>
+	<field name="Student_Class" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Student_Class"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="student"/>
+	</field>
+	<field name="Result" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Result"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="participation"/>
+	</field>
+	<field name="Performance" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Performance"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="participation"/>
+	</field>
+	<field name="Activity_Name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Activity_Name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="activity"/>
+	</field>
+	<field name="Event_Name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Event_Name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="event"/>
+	</field>
+	<field name="Event_Gender" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Event_Gender"/>
+	</field>
+	<field name="Age_group" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Age_group"/>
+	</field>
+	<field name="Competition_Name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Competition_Name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="competition"/>
+	</field>
+	<field name="Competition_Location" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Competition_Location"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="competition"/>
+	</field>
+	<field name="Competition_Date" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Competition_Date"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="competition"/>
+	</field>
+	<field name="Year" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="Year"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="554" splitType="Stretch">
+			<textField>
+				<reportElement x="90" y="10" width="100" height="20" uuid="7f21909e-5f5c-4334-aae4-9ea498154acf">
+					<printWhenExpression><![CDATA[$P{see_Student_ID}]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Bottom">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Student_ID}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="90" y="38" width="382" height="22" uuid="a7dbe691-f09d-43c7-8df3-e19588b1a53b">
+					<printWhenExpression><![CDATA[$P{see_Student_Name}]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Bottom">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Student_Name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="90" y="190" width="260" height="20" uuid="ffb458b6-18bb-4721-86b6-8fc891cb9a72">
+					<printWhenExpression><![CDATA[$P{see_Student_House}]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Bottom">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Student_House}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="90" y="170" width="350" height="20" uuid="85566183-6ed9-4cc5-8747-6c14624a4ce8">
+					<printWhenExpression><![CDATA[$P{see_Student_Class}]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Bottom">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Student_Class}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="95" y="290" width="320" height="30" uuid="b7b90093-7154-41e9-952f-85fb5ca13f87">
+					<printWhenExpression><![CDATA[$P{see_Result}]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Bottom">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Result}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="90" y="210" width="330" height="30" uuid="bb1f99b5-c42f-46e7-a39f-c14ebade8e01">
+					<printWhenExpression><![CDATA[$P{see_Performance}]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Bottom">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Performance}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="90" y="103" width="302" height="20" uuid="e0778b80-f0e7-439b-89c1-f6af1578e7e6">
+					<printWhenExpression><![CDATA[$P{see_Activity_Name}]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Bottom">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Activity_Name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="90" y="130" width="450" height="20" uuid="887bc8be-df31-4c02-b1b3-93464d90f535">
+					<printWhenExpression><![CDATA[$P{see_Event_Gender}]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Bottom">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Event_Name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="90" y="270" width="320" height="20" uuid="d94f65a9-1888-44a0-9c19-f3a9e0ae4bec">
+					<printWhenExpression><![CDATA[$P{see_Event_Gender}]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Bottom">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Event_Gender}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="90" y="80" width="282" height="23" uuid="492fa144-87e9-48ea-b00c-076d625aa94e">
+					<printWhenExpression><![CDATA[$P{see_Age_group}]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Bottom">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Age_group}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="90" y="60" width="430" height="20" uuid="01050d2d-cb01-4a41-869c-55bbb3543dfb">
+					<printWhenExpression><![CDATA[$P{see_Competition_Name}]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Bottom">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Competition_Name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="90" y="150" width="452" height="20" uuid="8e311c56-16c7-4e92-92a2-3087d3c1d7af">
+					<printWhenExpression><![CDATA[$P{see_Competition_Location}]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Bottom">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Competition_Location}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="90" y="240" width="340" height="30" uuid="8c25a01c-6f2f-4f45-bbea-6be6d81a858d">
+					<printWhenExpression><![CDATA[$P{see_Competition_Date}]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Bottom">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Competition_Date}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="95" y="320" width="320" height="20" uuid="09bcae81-6ee5-4741-a53c-c4b87265bdfb">
+					<printWhenExpression><![CDATA[$P{see_Year}]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Bottom">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Year}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

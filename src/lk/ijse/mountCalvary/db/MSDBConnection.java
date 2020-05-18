@@ -34,7 +34,6 @@ public class MSDBConnection {
 
         // Opening database connection
         String dbURL = "jdbc:ucanaccess://" + absolutePath;
-        System.out.println(dbURL);
         // Create and get connection using DriverManager class
         conn = DriverManager.getConnection(dbURL);
 

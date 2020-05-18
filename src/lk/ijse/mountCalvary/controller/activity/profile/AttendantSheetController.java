@@ -16,7 +16,7 @@ import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.ActivityBO;
 import lk.ijse.mountCalvary.business.custom.AttendantSheetBO;
 import lk.ijse.mountCalvary.controller.SuperController;
-import lk.ijse.mountCalvary.controller.tool.*;
+import lk.ijse.mountCalvary.tool.*;
 import lk.ijse.mountCalvary.model.ActivityDTO;
 import lk.ijse.mountCalvary.model.AttendantSheetDTO;
 import lk.ijse.mountCalvary.model.RegistrationDTO;
@@ -161,7 +161,7 @@ public final class AttendantSheetController extends SuperController implements I
     private void btPrint_onAction(ActionEvent actionEvent) {
         if (selectedActivity != null) {
             try {
-//                Progress.showMessage(attendantSheet, "Loading report", "Now loading");
+//                Progress.showMessage(attendantSheet, "Loading certificate", "Now loading");
 
                 String studentName = txtStudent.getText();
                 if (attendanceOfStudentReport == null) {

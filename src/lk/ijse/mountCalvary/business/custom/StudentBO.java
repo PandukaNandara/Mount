@@ -46,4 +46,10 @@ public interface StudentBO extends SuperBO {
     boolean isLeftStudent(int SID) throws Exception;
 
     boolean isLeftStudent(String name) throws Exception;
+
+    ArrayList<String> showTablesAndDescTables(String filePath, String tableName) throws Exception;
+
+    boolean checkTableName(String filePath, String tableName) throws Exception;
+
+    boolean checkColumnName(String filePath, String tableName, String columnName) throws Exception;
 }

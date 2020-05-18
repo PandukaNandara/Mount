@@ -6,9 +6,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.VBox;
 import lk.ijse.mountCalvary.controller.SuperController;
-import lk.ijse.mountCalvary.controller.tool.ButtonFireForEnterSetter;
-import lk.ijse.mountCalvary.controller.tool.GlobalBoolean;
-import lk.ijse.mountCalvary.controller.tool.ScreenLoader;
+import lk.ijse.mountCalvary.tool.ButtonFireForEnterSetter;
+import lk.ijse.mountCalvary.tool.GlobalBoolean;
+import lk.ijse.mountCalvary.tool.ScreenLoader;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -46,32 +46,38 @@ public final class ActivityMenu_controller extends SuperController implements In
     @FXML
     void btBack_onAction(ActionEvent event) {
         screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/basic/MainMenu.fxml", acActivityMenu, this);
+        MainMenuFrame_controller.getMainMenuFrame().hideSideBar();
     }
 
     @FXML
     void btUpdateActivity_onAction(ActionEvent event) {
         screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/activity/UpdateActivity.fxml", acActivityMenu, this);
+        MainMenuFrame_controller.getMainMenuFrame().showSideBar();
     }
 
     @FXML
     private void btAddStudent_onAction(ActionEvent actionEvent) {
         screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/activity/AddStudentForActivity.fxml", acActivityMenu, this);
+        MainMenuFrame_controller.getMainMenuFrame().showSideBar();
     }
 
     @FXML
     private void btNewEvent_onAction(ActionEvent actionEvent) {
         screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/activity/NewEventForActivity.fxml", acActivityMenu, this);
+        MainMenuFrame_controller.getMainMenuFrame().showSideBar();
     }
 
     @FXML
     private void btNewActivity_onAction(ActionEvent actionEvent) {
         screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/activity/NewActivity.fxml", acActivityMenu, this);
+        MainMenuFrame_controller.getMainMenuFrame().showSideBar();
 
     }
 
     @FXML
     private void btActivityProfile_onAction(ActionEvent actionEvent) {
         screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/activity/profile/ActivityProfile.fxml", acActivityMenu, this);
+        MainMenuFrame_controller.getMainMenuFrame().showSideBar();
     }
 }
 

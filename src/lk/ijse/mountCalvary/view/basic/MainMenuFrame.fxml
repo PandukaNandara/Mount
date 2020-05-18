@@ -13,7 +13,7 @@
             styleClass="parent" xmlns="http://javafx.com/javafx/8.0.141"
             fx:controller="lk.ijse.mountCalvary.controller.basic.MainMenuFrame_controller">
     <left>
-        <VBox maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="800.0" prefWidth="160.0"
+        <VBox fx:id="sideBar" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="800.0" prefWidth="160.0"
               styleClass="side-pane" BorderPane.alignment="CENTER">
             <children>
                 <JFXButton fx:id="btMainMenu" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP"
@@ -130,6 +130,7 @@
                 </JFXButton>
             </children>
         </VBox>
+        <!--<fx:include fx:id="physicalEvaluationTestForStudent" source="SideBar.fxml"/>-->
     </left>
     <stylesheets>
         <URL value="@../../css/frame.css"/>

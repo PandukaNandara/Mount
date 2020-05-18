@@ -4,9 +4,11 @@ import lk.ijse.mountCalvary.dao.MSCrudUtil;
 import lk.ijse.mountCalvary.dao.custom.MSStudentDAO;
 import lk.ijse.mountCalvary.db.MSDBConnection;
 import lk.ijse.mountCalvary.entity.Student;
+import net.ucanaccess.jdbc.UcanaccessSQLException;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.util.ArrayList;
 
 /**
@@ -17,6 +19,7 @@ import java.util.ArrayList;
  * Time: 9:09 PM
  */
 public class MSStudentDAOImpl implements MSStudentDAO {
+
 
     @Override
     public ArrayList<Student> getAllStudentFromExternalDB(final String dbPath,
@@ -29,6 +32,7 @@ public class MSStudentDAOImpl implements MSStudentDAO {
             throws Exception {
 
         ArrayList<Student> allStudents = new ArrayList<>();
+
         Connection conn = MSDBConnection.getInstance().getConnection(dbPath);
 
         ResultSet rst = MSCrudUtil.executeQuery(conn,
@@ -91,5 +95,50 @@ public class MSStudentDAOImpl implements MSStudentDAO {
                     bcid));
         }
         return allStudents;
+    }
+
+    @Override
+    public ArrayList<String> descTables(String filePath, String tableName) throws Exception {
+        try {
+            Connection conn = MSDBConnection.getInstance().getConnection(filePath);
+
+            ArrayList<String> column = new ArrayList<>();
+
+            ResultSet rst = MSCrudUtil.executeQuery(conn, "select * from " + tableName + " where false");
+
+            ResultSetMetaData rsmd = rst.getMetaData();
+            for (int i = 1; i <= rsmd.getColumnCount(); i++) {
+                column.add(rsmd.getColumnName(i));
+            }
+
+            return column;
+
+        } catch (NullPointerException e) {
+            return null;
+        }
+    }
+
+    @Override
+    public boolean checkTableName(String filePath, String tableName) throws Exception {
+        try {
+            Connection conn = MSDBConnection.getInstance().getConnection(filePath);
+            MSCrudUtil.executeQuery(conn, "select * from " + tableName + " limit 1");
+            return true;
+        } catch (UcanaccessSQLException e) {
+            return false;
+        }
+    }
+
+    @Override
+    public boolean checkColumnName(String filePath, String tableName, String columnName) throws Exception{
+        try {
+            Connection conn = MSDBConnection.getInstance().getConnection(filePath);
+            ResultSet rst = MSCrudUtil.executeQuery(conn, "select * from " + tableName + " limit 1");
+            rst.next();
+            rst.getString(columnName);
+            return true;
+        } catch (UcanaccessSQLException e) {
+            return false;
+        }
     }
 }

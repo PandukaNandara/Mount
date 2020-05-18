@@ -15,7 +15,7 @@ import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.StudentBO;
 import lk.ijse.mountCalvary.business.custom.TelNoBO;
 import lk.ijse.mountCalvary.controller.SuperController;
-import lk.ijse.mountCalvary.controller.tool.*;
+import lk.ijse.mountCalvary.tool.*;
 import lk.ijse.mountCalvary.model.StudentDTO;
 import lk.ijse.mountCalvary.model.TelNoDTO;
 
@@ -23,8 +23,8 @@ import java.net.URL;
 import java.util.Date;
 import java.util.ResourceBundle;
 
-import static lk.ijse.mountCalvary.controller.tool.Common.isInteger;
-import static lk.ijse.mountCalvary.controller.tool.OptionPane.showErrorAtSide;
+import static lk.ijse.mountCalvary.tool.Common.isInteger;
+import static lk.ijse.mountCalvary.tool.OptionPane.showErrorAtSide;
 
 public final class UpdateStudent_controller extends SuperController implements Initializable {
 

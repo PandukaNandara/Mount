@@ -6,9 +6,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.VBox;
 import lk.ijse.mountCalvary.controller.SuperController;
-import lk.ijse.mountCalvary.controller.tool.ButtonFireForEnterSetter;
-import lk.ijse.mountCalvary.controller.tool.GlobalBoolean;
-import lk.ijse.mountCalvary.controller.tool.ScreenLoader;
+import lk.ijse.mountCalvary.tool.ButtonFireForEnterSetter;
+import lk.ijse.mountCalvary.tool.GlobalBoolean;
+import lk.ijse.mountCalvary.tool.ScreenLoader;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -31,11 +31,13 @@ public final class TeacherMenu_controller extends SuperController implements Ini
     @FXML
     void btBack_onAction(ActionEvent event) {
         screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/basic/MainMenu.fxml", this.acTeacherMenu, this);
+        MainMenuFrame_controller.getMainMenuFrame().hideSideBar();
     }
 
     @FXML
     void btNewTeacher_onAction(ActionEvent event) {
         screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/teacher/NewTeacher.fxml", this.acTeacherMenu, this);
+        MainMenuFrame_controller.getMainMenuFrame().showSideBar();
     }
 
 }

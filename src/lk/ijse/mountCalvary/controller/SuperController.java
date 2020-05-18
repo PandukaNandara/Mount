@@ -11,7 +11,7 @@ import java.util.logging.Logger;
  * Time: 9:15 PM
  */
 public abstract class SuperController {
-    protected void callLogger(Throwable t) {
+    protected final void callLogger(Throwable t) {
         Logger.getLogger(SuperController.class.getName()).log(Level.SEVERE, null, t);
     }
 }

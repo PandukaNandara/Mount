@@ -16,8 +16,8 @@ import javafx.scene.layout.VBox;
 import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.*;
 import lk.ijse.mountCalvary.controller.SuperController;
-import lk.ijse.mountCalvary.controller.tool.*;
 import lk.ijse.mountCalvary.model.*;
+import lk.ijse.mountCalvary.tool.*;
 
 import java.net.URL;
 import java.time.LocalDate;
@@ -26,6 +26,7 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 
 public final class StudentForCompetition_controller extends SuperController implements Initializable {
+
     ObservableList<RegistrationDTO> filteredRegistration;
     @FXML
     private VBox acStudentForCompetition;
@@ -77,17 +78,16 @@ public final class StudentForCompetition_controller extends SuperController impl
     private JFXComboBox<CompetitionDTO> cboxCompetition;
     @FXML
     private JFXTextField txtAge;
-
     private CompetitionBO competitionBOImpl;
     private ActivityBO activityBOImpl;
     private AgeGroupBO ageGroupBOImpl;
     private EventListBO eventListBOImpl;
-
     private ObservableList<AgeGroupDTO> ageGroupDTOS;
     private AutoComplete<RegistrationDTO> autoCompleteStudentName;
     private ParticipationBO participationBOImpl;
-
     private ScreenLoader screenLoader = ScreenLoader.getInstance();
+    @FXML
+    private JFXButton btStudentList;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -115,6 +115,7 @@ public final class StudentForCompetition_controller extends SuperController impl
 
         participationBOImpl = BOFactory.getInstance().getBO(BOFactory.BOType.PARTICIPATION);
 
+        filteredRegistration = FXCollections.observableArrayList();
         try {
             cboxResult.getItems().setAll(Common.getResultSet());
             loadCompetition();
@@ -131,6 +132,7 @@ public final class StudentForCompetition_controller extends SuperController impl
 //                System.out.println("No");
 //            }
 //        });
+
         autoCompleteStudentName = new AutoComplete<>(txtStudentName);
         autoCompleteStudentName.setAutoCompletionsAction(event -> hit_txtStudentName());
     }
@@ -138,17 +140,7 @@ public final class StudentForCompetition_controller extends SuperController impl
     private void loadCompetition() throws Exception {
         cboxCompetition.getItems().setAll(competitionBOImpl.getAllCompetition());
     }
-//
-//    private void loadActivityWithStudent() throws Exception {
-//
-//        activityDTOS = activityBOImpl.getActivityWithStudent();
-//
-//    }
 
-//    private void loadCompetitionWithParticipation() throws Exception {
-//
-//        cboxCompetition.getItems().setAll(competitionBOImpl.getAllCompetitionWithParticipation());
-//    }
 
     @FXML
     void cboxCompetition_onAction(ActionEvent event) {
@@ -210,7 +202,7 @@ public final class StudentForCompetition_controller extends SuperController impl
 
             tblStudentList.getItems().add(newParticipation);
 
-            filteredRegistration = filterRegistration(selectedItem);
+            filterRegistration(selectedItem, filteredRegistration);
             autoCompleteStudentName.changeSuggestion(filteredRegistration);
             clearAll();
         }
@@ -227,7 +219,7 @@ public final class StudentForCompetition_controller extends SuperController impl
             EventListDTO selectedItem = tblEventInCompetition.getSelectionModel().getSelectedItem();
             showResultInTextField(selectedItem);
 
-            filteredRegistration = filterRegistration(selectedItem);
+            filterRegistration(selectedItem, filteredRegistration);
 
             autoCompleteStudentName.changeSuggestion(filteredRegistration);
         } catch (Exception e) {
@@ -235,8 +227,9 @@ public final class StudentForCompetition_controller extends SuperController impl
         }
     }
 
-    private ObservableList<RegistrationDTO> filterRegistration(EventListDTO eventList) {
+    private void filterRegistration(EventListDTO eventList, ObservableList<RegistrationDTO> list) {
         try {
+
             ObservableList<ParticipationDTO> participationDTOS = tblStudentList.getItems();
             AgeGroupDTO ageGroup = ageGroupDTOS.get(eventList.getGID() - 1);
             ObservableList<RegistrationDTO> registrationDTOS = activityBOImpl.getRegistrationOfThisActivity(eventList.getAID());
@@ -249,7 +242,14 @@ public final class StudentForCompetition_controller extends SuperController impl
                         continue L1;
                     }
                 }
-                int age = LocalDate.now().getYear() - Objects.requireNonNull(Common.dateToLocalDate(oneRegi.getDOB())).getYear();
+
+                int age;
+                try {
+                    age = LocalDate.now().getYear() - Objects.requireNonNull(Common.dateToLocalDate(oneRegi.getDOB())).getYear();
+                } catch (NullPointerException e) {
+                    age = -1;
+                }
+
 //                int age = LocalDate.now().getYear() - Common.dateToLocalDate(oneRegi.getDOB()).getYear();
                 //Later
 
@@ -259,10 +259,10 @@ public final class StudentForCompetition_controller extends SuperController impl
                     filter.add(oneRegi);
                 }
             }
-            return FXCollections.observableArrayList(filter);
+            list.clear();
+            list.setAll(filter);
         } catch (Exception e) {
             callLogger(e);
-            return null;
         }
     }
 
@@ -326,12 +326,16 @@ public final class StudentForCompetition_controller extends SuperController impl
                 newParticipation.add(oneParticipation);
         }
         try {
-            if (participationBOImpl.addAllParticipation(FXCollections.observableArrayList(newParticipation))) {
-                OptionPane.showDoneAtSide("All participation are successfully processed");
-                screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/basic/CompetitionMenu.fxml", this.acStudentForCompetition, this);
-            } else {
-                OptionPane.showWarning("Something's wrong we can't do your request");
-            }
+            if (OptionPane.askQuestion("Do you want to add new values?"))
+                if (participationBOImpl.addAllParticipation(FXCollections.observableArrayList(newParticipation))) {
+                    OptionPane.showDoneAtSide("All participation are successfully processed");
+                    screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/basic/CompetitionMenu.fxml",
+                            this.acStudentForCompetition, this);
+                    if(studentListController != null) studentListController.close();
+                } else {
+                    OptionPane.showWarning("Something's wrong we can't do your request");
+                }
+
         } catch (Exception e) {
             callLogger(e);
             OptionPane.showErrorAtSide("Something's wrong we can't do your request \n Error code  \n" + e.getMessage());
@@ -346,12 +350,9 @@ public final class StudentForCompetition_controller extends SuperController impl
             OptionPane.showErrorAtSide("Please select some participation");
         } else if (selectedItem.isNewOne()) {
             Common.removeItemFromTable(tblStudentList);
-
             EventListDTO selectedEvent = tblEventInCompetition.getSelectionModel().getSelectedItem();
-
-            filteredRegistration = filterRegistration(selectedEvent);
+            filterRegistration(selectedEvent, filteredRegistration);
             autoCompleteStudentName.changeSuggestion(filteredRegistration);
-
         } else {
             OptionPane.showErrorAtSide("This participation is already added. You cannot remove it.");
         }
@@ -377,12 +378,6 @@ public final class StudentForCompetition_controller extends SuperController impl
     }
 
     @FXML
-    void btViewStudentList_onAction(ActionEvent event) {
-
-    }
-
-
-    @FXML
     void cboxResult_onAction(ActionEvent event) {
     }
 
@@ -406,5 +401,12 @@ public final class StudentForCompetition_controller extends SuperController impl
     @FXML
     private void txtAge_onAction(ActionEvent actionEvent) {
     }
+    private StudentListController studentListController;
+    @FXML
+    private void btStudentList_onAction(ActionEvent actionEvent) {
+        studentListController = screenLoader.loadNewWindow(
+                "/lk/ijse/mountCalvary/view/competition/StudentList.fxml", "Compatible student list");
+        studentListController.setStudentList(filteredRegistration);
 
+    }
 }

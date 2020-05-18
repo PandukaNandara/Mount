@@ -19,7 +19,7 @@ import lk.ijse.mountCalvary.business.custom.CompContributionBO;
 import lk.ijse.mountCalvary.business.custom.CompetitionBO;
 import lk.ijse.mountCalvary.business.custom.StudentBO;
 import lk.ijse.mountCalvary.controller.SuperController;
-import lk.ijse.mountCalvary.controller.tool.*;
+import lk.ijse.mountCalvary.tool.*;
 import lk.ijse.mountCalvary.model.CompContributionDTO;
 import lk.ijse.mountCalvary.model.CompetitionDTO;
 import lk.ijse.mountCalvary.model.StudentDTO;

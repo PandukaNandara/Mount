@@ -17,10 +17,10 @@ import javafx.util.Duration;
 import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.LogInBO;
 import lk.ijse.mountCalvary.controller.SuperController;
-import lk.ijse.mountCalvary.controller.tool.ButtonFireForEnterSetter;
-import lk.ijse.mountCalvary.controller.tool.GlobalBoolean;
-import lk.ijse.mountCalvary.controller.tool.OptionPane;
-import lk.ijse.mountCalvary.controller.tool.ScreenLoader;
+import lk.ijse.mountCalvary.tool.ButtonFireForEnterSetter;
+import lk.ijse.mountCalvary.tool.GlobalBoolean;
+import lk.ijse.mountCalvary.tool.OptionPane;
+import lk.ijse.mountCalvary.tool.ScreenLoader;
 import lk.ijse.mountCalvary.model.LogInDTO;
 
 import java.io.IOException;
@@ -51,6 +51,7 @@ public final class LogIn_controller extends SuperController implements Initializ
         logInBOImpl = BOFactory.getInstance().getBO(BOFactory.BOType.LOG_IN);
 
         FadeTransition fade = new FadeTransition(Duration.seconds(2), acLogIn);
+
         fade.setFromValue(0);
         fade.setToValue(2);
         fade.play();
@@ -61,7 +62,8 @@ public final class LogIn_controller extends SuperController implements Initializ
         try {
             if (logInBOImpl.isValidPassword(new LogInDTO(txtUserName.getText(), txtPassword.getText()))) {
                 try {
-                    Parent root = FXMLLoader.load(this.getClass().getResource("/lk/ijse/mountCalvary/view/basic/MainMenuFrame.fxml"));
+                    Parent root = FXMLLoader.load(this.getClass().getResource(
+                            "/lk/ijse/mountCalvary/view/basic/MainMenuFrame.fxml"));
                     Scene sc = new Scene(root);
                     Stage window = (Stage) this.acLogIn.getScene().getWindow();
                     window.setTitle("Mount Calvary Extra curriculum activity management system");
@@ -74,7 +76,8 @@ public final class LogIn_controller extends SuperController implements Initializ
                     callLogger(e);
                 }
             } else {
-                OptionPane.showErrorWherever("Invalid user name or password.", Pos.TOP_CENTER, (Stage) acLogIn.getScene().getWindow());
+                OptionPane.showErrorWherever("Invalid user name or password.",
+                        Pos.TOP_CENTER, (Stage) acLogIn.getScene().getWindow());
             }
         } catch (NullPointerException e) {
             OptionPane.showErrorAtSide("This user is no longer available.");

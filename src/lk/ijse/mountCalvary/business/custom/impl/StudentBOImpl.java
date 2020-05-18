@@ -15,6 +15,7 @@ import lk.ijse.mountCalvary.model.StudentDTO;
 import lk.ijse.mountCalvary.model.TelNoDTO;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 
 public final class StudentBOImpl implements StudentBO {
@@ -49,7 +50,6 @@ public final class StudentBOImpl implements StudentBO {
                     }
                 }
                 for (RegistrationDTO reg : st.getAllInitialActivity()) {
-                    System.out.println(reg.toString());
                     result = registrationDAOImpl.saveWithoutPKey(new Registration(reg.getSID(),
                             reg.getActivity().getAID(), reg.getJoinedDate()));
                     if (!result) {
@@ -160,7 +160,6 @@ public final class StudentBOImpl implements StudentBO {
         for (CustomEntity oneStudent : nonRegistrations) {
             registrationDTOS.add(new StudentDTO(oneStudent.getStudent().getSID(), oneStudent.getStudent().getsName()));
         }
-        System.out.println(registrationDTOS);
         return FXCollections.observableArrayList(registrationDTOS);
     }
 
@@ -250,6 +249,21 @@ public final class StudentBOImpl implements StudentBO {
         return studentDAOImpl.isLeftStudent(name);
     }
 
+    @Override
+    public ArrayList<String> showTablesAndDescTables(String filePath, String tableName) throws Exception {
+        return msStudentDAOImpl.descTables(filePath, tableName);
+    }
+
+    @Override
+    public boolean checkTableName(String filePath, String tableName) throws Exception {
+        return msStudentDAOImpl.checkTableName(filePath, tableName);
+    }
+
+    @Override
+    public boolean checkColumnName(String filePath, String tableName, String columnName) throws Exception{
+        return msStudentDAOImpl.checkColumnName(filePath, tableName, columnName);
+    }
+
     private StudentDTO entityToDTO(Student student) {
         return new StudentDTO(
                 student.getSID(),
@@ -266,7 +280,6 @@ public final class StudentBOImpl implements StudentBO {
                 student.getBCID()
         );
     }
-
     private Student dtoToEntity(StudentDTO student) {
         return new Student(
                 student.getSID(),
@@ -283,7 +296,6 @@ public final class StudentBOImpl implements StudentBO {
                 student.getBCID()
         );
     }
-
     private StudentDTO entityToDTO(Student student, ObservableList<TelNoDTO> telNoDTOS) {
         StudentDTO studentDTO = entityToDTO(student);
         studentDTO.setTelNoList(telNoDTOS);

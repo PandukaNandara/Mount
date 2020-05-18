@@ -21,4 +21,10 @@ public interface MSStudentDAO extends SuperDAO {
                                                    String note,
                                                    String[] sAddress, String quit, String BCID)
             throws Exception;
+
+    ArrayList<String> descTables(String filePath, String tableName) throws Exception;
+
+    boolean checkTableName(String filePath, String tableName) throws Exception;
+
+    boolean checkColumnName(String filePath, String tableName, String columnName) throws Exception;
 }

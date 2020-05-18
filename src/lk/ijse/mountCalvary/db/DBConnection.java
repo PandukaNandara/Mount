@@ -12,30 +12,20 @@ public final class DBConnection {
     private static DBConnection dbConnection;
     private static Map<String, String> dbDetails;
     private Connection connection;
+    private String ip;
+    private String port;
+    private String db;
+    private String user;
+    private String password;
 
     private DBConnection() throws Exception {
+
         dbDetails = new HashMap<>();
         Class.forName("com.mysql.jdbc.Driver");
-        File file = new File("resources/application.properties");
-        FileReader fileReader = new FileReader(file);
-        Properties properties = new Properties();
-        properties.load(fileReader);
+        readProperties();
 
-        String ip = properties.getProperty("ip");
-        dbDetails.put("ip", ip);
-        String port = properties.getProperty("port");
-        dbDetails.put("port", port);
-        String db = properties.getProperty("db");
-        dbDetails.put("db", db);
-        String user = properties.getProperty("user");
-        dbDetails.put("user", user);
-        String password = properties.getProperty("password");
-        dbDetails.put("password", password);
-
-        String jdbcURL = String.format("jdbc:mysql://%s:%s/%s", ip, port, db);
+        String jdbcURL = String.format("jdbc:mysql://%s:%s/%s?createDatabaseIfNotExist=true", ip, port, db);
         connection = DriverManager.getConnection(jdbcURL, user, password);
-
-
     }
 
     protected static void reloadServer() throws Exception {
@@ -51,7 +41,24 @@ public final class DBConnection {
         }
     }
 
-    public static Map<String, String> getDbDetails() {
+    private void readProperties() throws Exception {
+        File file = new File("resources/application.properties");
+        FileReader fileReader = new FileReader(file);
+        Properties properties = new Properties();
+        properties.load(fileReader);
+        ip = properties.getProperty("ip");
+        dbDetails.put("ip", ip);
+        port = properties.getProperty("port");
+        dbDetails.put("port", port);
+        db = properties.getProperty("db");
+        dbDetails.put("db", db);
+        user = properties.getProperty("user");
+        dbDetails.put("user", user);
+        password = properties.getProperty("password");
+        dbDetails.put("password", password);
+    }
+
+    public Map<String, String> getDbDetails() {
         return dbDetails;
     }
 

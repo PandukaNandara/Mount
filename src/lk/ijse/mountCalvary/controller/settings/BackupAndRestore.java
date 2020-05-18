@@ -1,83 +1,83 @@
 package lk.ijse.mountCalvary.controller.settings;
 
 import lk.ijse.mountCalvary.db.DBConnection;
+import org.apache.commons.io.FileUtils;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.Collections;
 import java.util.Map;
 
-public final class BackupAndRestore {
-    protected static Map<String, String> dbDetails = DBConnection.getDbDetails();
+/**
+ * Created by IntelliJ IDEA.
+ *
+ * @author pandu
+ * Date: 8/10/2018
+ * Time: 9:15 PM
+ */
 
-    protected static boolean writeBackup(String path) throws Exception {
+public final class BackupAndRestore {
+    protected static Map<String, String> dbDetails;
+    private static int BUFFER = Short.MAX_VALUE;
+    private static String ip;
+    private static String port;
+    private static String user;
+    private static String password;
+    private static String db;
+
+    /**
+     * The following method is required {@link FileUtils}.
+     * Download the jar file @see
+     * <a href="http://www-us.apache.org/dist//commons/io/binaries/commons-io-2.6-bin.zip">commons-io</a>
+     */
+    protected static boolean writeBackup(File file) throws Exception {
+        readProperties();
         Runtime runtime = Runtime.getRuntime();
         Process runPro = runtime.exec(
-                String.format("mysqldump -u%s -p%s --database %s -r %s", dbDetails.get("user"), dbDetails.get("password"), dbDetails.get("db"), path));
-//                String.format("mysqldump %s -h %s -u %s -p %s -r%s",
-//                        dbDetails.get("db"),
-//                        dbDetails.get("ip"),
-//                        dbDetails.get("user"),
-//                        dbDetails.get("password"),
-//                        path));
-        System.out.println("A3 :: " + path);
+                "mysqldump --host=" + ip +
+                        " --port=" + port +
+                        " --user=" + user +
+                        " --password=" + password +
+                        " " + db
+        );
+        InputStream in = runPro.getInputStream();
+        BufferedReader br = new BufferedReader(new InputStreamReader(in));
+        StringBuffer query = new StringBuffer();
+
+        int count;
+        char[] cbuf = new char[BUFFER];
+        while ((count = br.read(cbuf, 0, BUFFER)) != -1)
+            query.append(cbuf, 0, count);
+        br.close();
+        in.close();
+
+        FileUtils.writeLines(file, Collections.singleton(query));
         return runPro.waitFor() == 0;
     }
 
     protected static boolean restoreBackup(String path) throws Exception {
-        Runtime runtime = Runtime.getRuntime();
-        String[] exCmd = new String[]{
+        readProperties();
+        String[] executeCmd = new String[]{
                 "mysql",
-                "--user=" + dbDetails.get("user"),
-                "--password=" + dbDetails.get("password"),
-                dbDetails.get("db"),
+                "--user=" + user,
+                "--password=" + password,
+                db,
                 "-e",
-                " source " + path
-        };
-        Process runTimeProcess = Runtime.getRuntime().exec(exCmd);
-        return runTimeProcess.waitFor() == 0;
+                " source " + path};
+        Process runtimeProcess = Runtime.getRuntime().exec(executeCmd);
+        return runtimeProcess.waitFor() == 0;
     }
-//    protected static void booleanbackUp2() throws Exception{
-//        try {
-//
-//            /*NOTE: Getting path to the Jar file being executed*/
-//            /*NOTE: YourImplementingClass-> replace with the class executing the code*/
-//
-//            CodeSource codeSource = BackupAndRestore.class.getProtectionDomain().getCodeSource();
-//            File jarFile = new File(codeSource.getLocation().toURI().getPath());
-//            String jarDir = jarFile.getParentFile().getPath();
-//
-//
-//            /*NOTE: Creating Database Constraints*/
-//            String dbName = "YourDBName";
-//            String dbUser = "YourUserName";
-//            String dbPass = "YourUserPassword";
-//
-//            /*NOTE: Creating Path Constraints for folder saving*/
-//            /*NOTE: Here the backup folder is created for saving inside it*/
-//            String folderPath = jarDir + "\\backup";
-//
-//            /*NOTE: Creating Folder if it does not exist*/
-//            File f1 = new File(folderPath);
-//            f1.mkdir();
-//
-//            /*NOTE: Creating Path Constraints for backup saving*/
-//            /*NOTE: Here the backup is saved in a folder called backup with the name backup.sql*/
-//            String savePath = "\"" + jarDir + "\\backup\\" + "backup.sql\"";
-//
-//            /*NOTE: Used to create a cmd command*/
-//            String executeCmd = "mysqldump -u" + dbUser + " -p" + dbPass + " --database " + dbName + " -r " + savePath;
-//
-//            /*NOTE: Executing the command here*/
-//            Process runtimeProcess = Runtime.getRuntime().exec(executeCmd);
-//            int processComplete = runtimeProcess.waitFor();
-//
-//            /*NOTE: processComplete=0 if correctly executed, will contain other values if not*/
-//            if (processComplete == 0) {
-//                System.out.println("Backup Complete");
-//            } else {
-//                System.out.println("Backup Failure");
-//            }
-//
-//        } catch (URISyntaxException | IOException | InterruptedException ex) {
-//            JOptionPane.showMessageDialog(null, "Error at Backuprestore" + ex.getMessage());
-//        }
-//    }
+
+    private static void readProperties() throws Exception {
+        if (dbDetails != null) return;
+
+        dbDetails = DBConnection.getInstance().getDbDetails();
+        ip = dbDetails.get("ip");
+        port = dbDetails.get("port");
+        user = dbDetails.get("user");
+        password = dbDetails.get("password");
+        db = dbDetails.get("db");
+    }
 }

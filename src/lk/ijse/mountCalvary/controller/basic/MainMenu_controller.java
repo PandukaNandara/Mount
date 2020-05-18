@@ -4,11 +4,12 @@ import com.jfoenix.controls.JFXButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import lk.ijse.mountCalvary.controller.SuperController;
-import lk.ijse.mountCalvary.controller.tool.ButtonFireForEnterSetter;
-import lk.ijse.mountCalvary.controller.tool.GlobalBoolean;
-import lk.ijse.mountCalvary.controller.tool.ScreenLoader;
+import lk.ijse.mountCalvary.tool.ButtonFireForEnterSetter;
+import lk.ijse.mountCalvary.tool.GlobalBoolean;
+import lk.ijse.mountCalvary.tool.ScreenLoader;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -40,27 +41,34 @@ public final class MainMenu_controller extends SuperController implements Initia
     private JFXButton btPayment;
     @FXML
     private JFXButton btTest;
+    @FXML
+    private Label lblTitle;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        btActivity.requestFocus();
         GlobalBoolean.setLock(false);
         ButtonFireForEnterSetter.setGlobalEventHandler(acMenu);
+        MainMenuFrame_controller.getMainMenuFrame().hideSideBar();
     }
 
 
     @FXML
     void btActivity_onAction(ActionEvent event) {
         screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/basic/ActivityMenu.fxml", this.acMenu, this);
+
     }
 
     @FXML
     void btCompetition_onAction(ActionEvent event) {
         screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/basic/CompetitionMenu.fxml", this.acMenu, this);
+
     }
 
     @FXML
     void btStudent_onAction(ActionEvent event) {
         screenLoader.loadOnCenterOfBorderPane("/lk/ijse/mountCalvary/view/basic/StudentMenu.fxml", this.acMenu, this);
+
     }
 
     @FXML

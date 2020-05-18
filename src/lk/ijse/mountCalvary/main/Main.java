@@ -5,8 +5,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import lk.ijse.mountCalvary.controller.tool.ApplicationIcons;
-import lk.ijse.mountCalvary.controller.tool.OptionPane;
+import lk.ijse.mountCalvary.tool.ApplicationIcons;
+import lk.ijse.mountCalvary.tool.OptionPane;
 
 import javax.swing.*;
 import java.io.IOException;
@@ -15,10 +15,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
-public class Main extends Application {
+public final class Main extends Application {
 
     public static void main(String[] args) {
         launch(args);
+
     }
 
     @Override
@@ -36,13 +37,12 @@ public class Main extends Application {
             }
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 //Test
-//            Parent root = FXMLLoader.load(getClass().getResource("/lk/ijse/mountCalvary/view/student/ImportStudentAndPreview.fxml"));
-
-//            Main
             Parent root = FXMLLoader.load(getClass().getResource("/lk/ijse/mountCalvary/view/logIn/LogIn.fxml"));
 
-            primaryStage.setTitle("Log in");
+//            Main
+//            Parent root = FXMLLoader.load(getClass().getResource("/lk/ijse/mountCalvary/view/logIn/LogIn.fxml"));
 
+            primaryStage.setTitle("Log in");
             primaryStage.setScene(new Scene(root));
             primaryStage.centerOnScreen();
 

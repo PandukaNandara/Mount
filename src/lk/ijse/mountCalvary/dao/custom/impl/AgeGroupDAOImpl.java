@@ -30,7 +30,7 @@ public class AgeGroupDAOImpl implements AgeGroupDAO {
 
     @Override
     public boolean update(AgeGroup ag) throws Exception {
-        return CrudUtil.executeUpdate("UPDATE age_group set GID = ?, group_name = ? , min = ?, max = ?)",
+        return CrudUtil.executeUpdate("UPDATE age_group set GID = ?, group_name = ? , min = ?, max = ?",
                 ag.getGID(),
                 ag.getGroupName(),
                 ag.getMin(),
@@ -40,7 +40,7 @@ public class AgeGroupDAOImpl implements AgeGroupDAO {
 
     @Override
     public boolean delete(Integer id) throws Exception {
-        return CrudUtil.executeUpdate("DELETE from age_group where GID = ?)", id) > 0;
+        return CrudUtil.executeUpdate("DELETE from age_group where GID = ?", id) > 0;
     }
 
     @Override

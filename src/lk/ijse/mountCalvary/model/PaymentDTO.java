@@ -1,6 +1,6 @@
 package lk.ijse.mountCalvary.model;
 
-import lk.ijse.mountCalvary.controller.tool.Month;
+import lk.ijse.mountCalvary.tool.Month;
 
 import java.math.BigDecimal;
 

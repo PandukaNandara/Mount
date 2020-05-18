@@ -10,17 +10,17 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 <?import java.net.*?>
-<VBox xmlns:fx="http://javafx.com/fxml/1" fx:id="acMenu" prefHeight="709.0" xmlns="http://javafx.com/javafx/8.0.141"
+<VBox fx:id="acMenu" prefHeight="709.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="lk.ijse.mountCalvary.controller.basic.MainMenu_controller">
     <children>
-        <Label alignment="BOTTOM_CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity"
+        <Label fx:id="lblTitle" alignment="BOTTOM_CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity"
                minWidth="-Infinity" prefHeight="94.0" prefWidth="0.0" text="U  N  I  T  Y" VBox.vgrow="ALWAYS">
             <font>
                 <Font name="Arial" size="48.0"/>
             </font>
         </Label>
-        <Separator maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefHeight="23.0" prefWidth="0.0"
-                   VBox.vgrow="ALWAYS">
+        <Separator maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="23.0"
+                   prefWidth="0.0" VBox.vgrow="ALWAYS">
             <VBox.margin>
                 <Insets left="20.0" right="20.0"/>
             </VBox.margin>
@@ -116,7 +116,7 @@
                 </JFXButton>
             </children>
             <VBox.margin>
-                <Insets bottom="40.0" left="40.0" right="40.0" top="40.0"/>
+                <Insets top="40.0"/>
             </VBox.margin>
         </TilePane>
     </children>

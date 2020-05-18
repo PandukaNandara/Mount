@@ -17,7 +17,8 @@ import lk.ijse.mountCalvary.business.custom.ActivityBO;
 import lk.ijse.mountCalvary.business.custom.PaymentBO;
 import lk.ijse.mountCalvary.controller.SuperController;
 import lk.ijse.mountCalvary.controller.activity.profile.ActivityPaymentController;
-import lk.ijse.mountCalvary.controller.tool.*;
+import lk.ijse.mountCalvary.controller.basic.MainMenuFrame_controller;
+import lk.ijse.mountCalvary.tool.*;
 import lk.ijse.mountCalvary.model.ActivityDTO;
 import lk.ijse.mountCalvary.model.PaymentDTO;
 import lk.ijse.mountCalvary.model.RegistrationDTO;
@@ -105,6 +106,7 @@ public final class MakePayment_controller extends SuperController implements Ini
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         GlobalBoolean.setLock(true);
+        MainMenuFrame_controller.getMainMenuFrame().showSideBar();
         ButtonFireForEnterSetter.setGlobalEventHandler(acUpdatePayment);
 
         colActivity_tblStudentPayment.setCellValueFactory(new PropertyValueFactory<>("activityName"));

@@ -16,7 +16,7 @@ import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.StudentBO;
 import lk.ijse.mountCalvary.business.custom.TelNoBO;
 import lk.ijse.mountCalvary.controller.SuperController;
-import lk.ijse.mountCalvary.controller.tool.*;
+import lk.ijse.mountCalvary.tool.*;
 import lk.ijse.mountCalvary.entity.Gender;
 import lk.ijse.mountCalvary.model.StudentDTO;
 import lk.ijse.mountCalvary.model.TelNoDTO;
@@ -179,7 +179,7 @@ public final class PersonalDetailController extends SuperController implements I
 //
 //                //InputStream resourceAsStream = getClass().getResourceAsStream("");
 //
-//                JasperReport jasperReport = JasperCompileManager.compileReport("/lk/ijse/mountCalvary/report/StudentPersonalDetailReport.jasper");
+//                JasperReport jasperReport = JasperCompileManager.compileReport("/lk/ijse/mountCalvary/certificate/StudentPersonalDetailReport.jasper");
 //
 //                HashMap map = new HashMap();
 //                map.put("StudentID", Integer.parseInt(txtStudentID.getText()));

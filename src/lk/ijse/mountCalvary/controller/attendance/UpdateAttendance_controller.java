@@ -17,7 +17,8 @@ import lk.ijse.mountCalvary.business.custom.ActivityBO;
 import lk.ijse.mountCalvary.business.custom.AttendantSheetBO;
 import lk.ijse.mountCalvary.business.custom.TeacherBO;
 import lk.ijse.mountCalvary.controller.SuperController;
-import lk.ijse.mountCalvary.controller.tool.*;
+import lk.ijse.mountCalvary.controller.basic.MainMenuFrame_controller;
+import lk.ijse.mountCalvary.tool.*;
 import lk.ijse.mountCalvary.model.ActivityDTO;
 import lk.ijse.mountCalvary.model.AttendantSheetDTO;
 import lk.ijse.mountCalvary.model.RegistrationDTO;
@@ -88,6 +89,7 @@ public final class UpdateAttendance_controller extends SuperController implement
     public void initialize(URL location, ResourceBundle resources) {
         GlobalBoolean.setLock(true);
         ButtonFireForEnterSetter.setGlobalEventHandler(acUpdateAttendance);
+        MainMenuFrame_controller.getMainMenuFrame().showSideBar();
 
         activityBOImpl = BOFactory.getInstance().getBO(BOFactory.BOType.ACTIVITY);
         teacherBOImpl = BOFactory.getInstance().getBO(BOFactory.BOType.TEACHER);

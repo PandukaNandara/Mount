@@ -16,7 +16,7 @@ import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import lk.ijse.mountCalvary.controller.SuperController;
-import lk.ijse.mountCalvary.controller.tool.OptionPane;
+import lk.ijse.mountCalvary.tool.OptionPane;
 
 import java.io.File;
 import java.net.URL;

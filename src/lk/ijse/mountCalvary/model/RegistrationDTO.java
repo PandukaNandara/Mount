@@ -21,7 +21,7 @@ public class RegistrationDTO implements Gender, SearchProvider {
     private String studentClass;
     private String activityName;
     private boolean gender;
-
+    private String genderType;
     private boolean newOne;
 
     public RegistrationDTO() {
@@ -99,6 +99,12 @@ public class RegistrationDTO implements Gender, SearchProvider {
         this.SID = SID;
         this.AID = AID;
         setJoinedDate(joinedDate);
+    }
+
+    public String getGenderType() {
+        return gender ?
+                (genderType = "Male") :
+                (genderType = "Female");
     }
 
     public boolean isDeserveForEvent(int eventType) {

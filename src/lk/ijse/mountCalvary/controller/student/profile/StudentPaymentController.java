@@ -17,7 +17,7 @@ import lk.ijse.mountCalvary.business.BOFactory;
 import lk.ijse.mountCalvary.business.custom.PaymentBO;
 import lk.ijse.mountCalvary.business.custom.RegistrationBO;
 import lk.ijse.mountCalvary.controller.SuperController;
-import lk.ijse.mountCalvary.controller.tool.*;
+import lk.ijse.mountCalvary.tool.*;
 import lk.ijse.mountCalvary.model.ActivityDTO;
 import lk.ijse.mountCalvary.model.PaymentDTO;
 import lk.ijse.mountCalvary.model.StudentDTO;
@@ -209,7 +209,7 @@ public final class StudentPaymentController extends SuperController implements I
     private void btPrint_onAction(ActionEvent actionEvent) {
         if (selectedStudent != null) {
             try {
-//                Progress progress = new Progress(acStudentPayment,"Loading report", "Now loading");
+//                Progress progress = new Progress(acStudentPayment,"Loading certificate", "Now loading");
 //                progress.show();
                 if (paymentReport == null) {
                     InputStream resourceAsStream = getClass().getResourceAsStream("/lk/ijse/mountCalvary/report/student/StudentPaymentReport.jrxml");
